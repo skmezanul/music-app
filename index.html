@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>music-app</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:700|Roboto:300,400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+  <div id="app" :class="{scrolled: scrollPosition > 5}">
+
+    <!-- App Bar -->
+    <div class="app-bar">
+      <div class="top left mobile-hidden">
+        <i class="toggle material-icons" v-on:click="sidenav = !sidenav">menu</i>
+        <div class="branding">Music App</div>
+      </div>
+      <div class="top center">
+        <i class="material-icons search-icon">search</i>
+        <input type="text" placeholder="Search" />
+      </div>
+      <div class="top right mobile-hidden">
+        <img class="user-image" src="/static/images/avatar.jpg" />
+        <div class="user-name">Leon Seipp</div>
+        <i class="toggle material-icons" v-on:click="dropdown = !dropdown">keyboard_arrow_down</i>
+        <transition name="fade">
+          <div class="dropdown user" v-if="dropdown" v-on-clickaway="closeDropdown">
+            <div class="dropdown-item"><i class="material-icons">account_circle</i> My Account</div>
+            <div class="dropdown-item"><i class="material-icons">power_settings_new</i> Logout</div>
+          </div>
+        </transition>
+      </div>
+    </div>
+    <!-- End App Bar -->
+
+    <!-- Sidenav -->
+    <transition name="fade">
+      <nav class="sidenav mobile-hidden" v-if="sidenav">
+        <div class="nav-item"><i class="material-icons">home</i>Home</div>
+        <div class="nav-item active"><i class="material-icons">book</i>Browse</div>
+        <div class="nav-item"><i class="material-icons">settings_input_antenna</i>Radio</div>
+        <div class="nav-item"><i class="material-icons">library_music</i>My Music</div>
+        <div class="nav-item"><i class="material-icons">playlist_play</i>My Playlists</div>
+        <div class="nav-item"><i class="material-icons">settings</i>Settings</div>
+      </nav>
+    </transition>
+    <!-- End Sidenav -->
+
+    <!-- Router View -->
+    <router-view></router-view>
+    <!-- End Router View -->
+
+    <!-- Playback Controls -->
+    <div class="playback-controls">
+      <div class="controls left mobile-hidden">
+        <img class="album-cover" src="/static/images/cover4.png" />
+        <div class="currently-playing">
+          <div class="title">First Time</div>
+          <div class="artist">Kygo, Ellie Goulding</div>
+        </div>
+      </div>
+      <div class="controls center">
+        <i class="shuffle material-icons">shuffle</i>
+        <i class="skip material-icons">skip_previous</i>
+        <i class="play material-icons">play_circle_filled</i>
+        <i class="skip material-icons">skip_next</i>
+        <i class="repeat material-icons">repeat</i>
+      </div>
+      <div class="controls right mobile-hidden">
+        <i class="volume material-icons">volume_up</i>
+        <i class="cast material-icons">cast</i>
+        <i class="queue material-icons">queue_music</i>
+      </div>
+    </div>
+    <!-- End Playback Controls -->
+
+    <div class="tooltip-container">
+    </div>
+
+  </div>
+  <script src="/dist/build.js"></script>
+</body>
+
+</html>
