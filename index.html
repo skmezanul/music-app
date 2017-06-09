@@ -10,7 +10,7 @@
 <body>
   <div id="app" :class="{scrolled: scrollPosition > 5}">
 
-    <!-- App Bar -->
+    <!-- Top Bar -->
     <div class="top-bar">
       <div class="top left mobile-hidden">
         <i class="toggle material-icons" v-on:click="sidenav = !sidenav">menu</i>
@@ -32,7 +32,7 @@
         </transition>
       </div>
     </div>
-    <!-- End App Bar -->
+    <!-- End Top Bar -->
 
     <!-- Sidenav -->
     <transition name="fade">
@@ -51,7 +51,7 @@
     <router-view></router-view>
     <!-- End Router View -->
 
-    <!-- Playback Controls -->
+    <!-- Bottom Bar -->
     <div class="bottom-bar">
       <div class="bottom left mobile-hidden">
         <img class="album-cover" src="/static/images/cover4.png" />
@@ -73,7 +73,7 @@
         <i class="queue material-icons">queue_music</i>
       </div>
     </div>
-    <!-- End Playback Controls -->
+    <!-- End Bottom Bar -->
 
     <div class="tooltip-container">
     </div>
