@@ -1,6 +1,6 @@
 <template>
 <parallax>
-  <gmap-map id="map" :center="center" v-bind:options="mapStyle" :zoom="14"></gmap-map>
+  <gmap-map id="map" :center="center" v-bind:options="style" :zoom="14"></gmap-map>
 </parallax>
 </template>
 
@@ -13,7 +13,7 @@
   right: 0;
 }
 </style>
-<script>
+<script scoped>
 import Vue from 'vue'
 import * as VueGoogleMaps from 'vue2-google-maps'
 Vue.use(VueGoogleMaps, {
@@ -28,7 +28,7 @@ export default {
         lat: 50.1109221,
         lng: 8.6821267
       },
-      mapStyle: {
+      style: {
         backgroundColor: 'none',
         disableDefaultUI: 'true',
         styles: [{

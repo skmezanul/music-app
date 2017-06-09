@@ -4,15 +4,14 @@
 <head>
   <meta charset="utf-8">
   <title>music-app</title>
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:700|Roboto:300,400,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:700|Roboto:300,400,700|Material+Icons" rel="stylesheet">
 </head>
 
 <body>
   <div id="app" :class="{scrolled: scrollPosition > 5}">
 
     <!-- App Bar -->
-    <div class="app-bar">
+    <div class="top-bar">
       <div class="top left mobile-hidden">
         <i class="toggle material-icons" v-on:click="sidenav = !sidenav">menu</i>
         <div class="branding">Music App</div>
@@ -53,22 +52,22 @@
     <!-- End Router View -->
 
     <!-- Playback Controls -->
-    <div class="playback-controls">
-      <div class="controls left mobile-hidden">
+    <div class="bottom-bar">
+      <div class="bottom left mobile-hidden">
         <img class="album-cover" src="/static/images/cover4.png" />
         <div class="currently-playing">
           <div class="title">First Time</div>
           <div class="artist">Kygo, Ellie Goulding</div>
         </div>
       </div>
-      <div class="controls center">
+      <div class="bottom center">
         <i class="shuffle material-icons">shuffle</i>
         <i class="skip material-icons">skip_previous</i>
         <i class="play material-icons">play_circle_filled</i>
         <i class="skip material-icons">skip_next</i>
         <i class="repeat material-icons">repeat</i>
       </div>
-      <div class="controls right mobile-hidden">
+      <div class="bottom right mobile-hidden">
         <i class="volume material-icons">volume_up</i>
         <i class="cast material-icons">cast</i>
         <i class="queue material-icons">queue_music</i>

@@ -66,12 +66,12 @@ body {
 }
 
 .scrolled {
-    .app-bar {
+    .top-bar {
         background-color: var(--dark-blue);
         border-color: var(--border-color);
     }
 }
-.app-bar {
+.top-bar {
     width: 100%;
     display: flex;
     align-items: center;
@@ -92,8 +92,8 @@ body {
     .top {
         display: flex;
         align-items: center;
+        width: 33.33%;
         &.left {
-            width: 30%;
             justify-content: flex-start;
             .branding {
                 font-size: 1.4em;
@@ -102,11 +102,9 @@ body {
         }
         &.center {
             position: relative;
-            margin: 0 15px;
-            width: 40%;
             input {
                 border: none;
-                padding: 12px 15px 12px 50px;
+                padding: 12px 12px 12px 50px;
                 width: 100%;
                 background-color: rgba(255,255,255,0.1);
                 z-index: 1;
@@ -138,7 +136,6 @@ body {
         }
         &.right {
             position: relative;
-            width: 30%;
             justify-content: flex-end;
             .user-image {
                 border-radius: 100%;
@@ -162,7 +159,7 @@ body {
 .main-container {
     margin-left: 230px;
     box-sizing: border-box;
-    padding-bottom: 83px;
+    padding-bottom: 81px;
     animation: fadein 0.3s 0.2s both;
 }
 .header {
@@ -379,7 +376,7 @@ nav {
         flex-flow: row wrap;
     }
 }
-.playback-controls {
+.bottom-bar {
     display: flex;
     position: fixed;
     right: 0;
@@ -391,7 +388,7 @@ nav {
     background-color: var(--dark-blue);
     z-index: 998;
     border-top: 1px solid var(--border-color);
-    .controls {
+    .bottom {
         display: flex;
         align-items: center;
         height: 50px;
@@ -555,7 +552,7 @@ nav {
     .mobile-hidden {
         display: none !important;
     }
-    .app-bar {
+    .top-bar {
         .top {
             &.center {
                 width: 100%;
@@ -569,8 +566,8 @@ nav {
     .section-item {
         flex: 1;
     }
-    .playback-controls {
-        .controls {
+    .bottom-bar {
+        .bottom {
             &.center {
                 width: 100%;
             }
@@ -607,8 +604,8 @@ nav {
     opacity: 0;
 }
 @supports (backdrop-filter: blur(5px)) or (-webkit-backdrop-filter: blur(5px)) {
-    .playback-controls,
-    .scrolled .app-bar {
+    .bottom-bar,
+    .scrolled .top-bar {
         background-color: var(--dark-blue-transparent);
         backdrop-filter: saturate(200%) blur(20px);
         -webkit-backdrop-filter: saturate(200%) blur(20px);
