@@ -31,7 +31,7 @@
     --dark-blue-transparent: rgba(12, 16, 27, 0.7);
     --border-color: rgba(255, 255, 255, 0.1);
     --top-bg-color: rgba(12, 16, 27, 0.2);
-    --inner-width: 60%;
+    --inner-width: 52%;
     --main-bg-color: #1A1D2C;
     --font-color: #fff;
     --shadow-color: rgba(0, 0, 0, 0.2);
@@ -145,19 +145,18 @@ body {
             .user-name {
                 padding: 0 10px;
             }
-            .toggle {
-                opacity: 0.8;
-                transition: all 0.3s ease;
-                &:hover {
-                    cursor: pointer;
-                    opacity: 1;
-                }
+        }
+        i {
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            &:hover {
+                cursor: pointer;
+                opacity: 1;
             }
         }
     }
 }
 .main-container {
-    margin-left: 230px;
     box-sizing: border-box;
     padding-bottom: 81px;
     animation: fadein 0.3s 0.2s both;
@@ -241,6 +240,7 @@ body {
                     font-family: 'Open Sans', sans-serif;
                     font-size: 3.75em;
                     font-weight: 700;
+                    letter-spacing: 0;
                 }
                 .subline {
                     font-size: 1.05em;
@@ -510,14 +510,12 @@ nav {
         }
     }
 }
-@media screen and (max-width: 1700px) {
-    :root {
-        --inner-width: 80%;
-    }
-}
 @media screen and (max-width: 1400px) {
     :root {
         --inner-width: 95%;
+    }
+    .main-container {
+        margin-left: 230px;
     }
     .sidenav {
         background-color: var(--dark-blue);
