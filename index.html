@@ -8,7 +8,7 @@
 </head>
 
 <body>
-  <div id="app" :class="{scrolled: scrollPosition > 5}">
+  <div id="app" :class="{scrolled: scrollPosition > 5, sidenavactive: sidenav == true }">
 
     <!-- Top Bar -->
     <div class="top-bar">
@@ -35,16 +35,14 @@
     <!-- End Top Bar -->
 
     <!-- Sidenav -->
-    <transition name="fade">
-      <nav class="sidenav mobile-hidden" v-if="sidenav">
-        <div class="nav-item"><i class="material-icons">home</i>Home</div>
-        <div class="nav-item active"><i class="material-icons">book</i>Browse</div>
-        <div class="nav-item"><i class="material-icons">settings_input_antenna</i>Radio</div>
-        <div class="nav-item"><i class="material-icons">library_music</i>My Music</div>
-        <div class="nav-item"><i class="material-icons">playlist_play</i>My Playlists</div>
-        <div class="nav-item"><i class="material-icons">settings</i>Settings</div>
-      </nav>
-    </transition>
+    <nav class="sidenav mobile-hidden" v-if="sidenav">
+      <div class="nav-item"><i class="material-icons">home</i>Home</div>
+      <div class="nav-item active"><i class="material-icons">book</i>Browse</div>
+      <div class="nav-item"><i class="material-icons">settings_input_antenna</i>Radio</div>
+      <div class="nav-item"><i class="material-icons">library_music</i>My Music</div>
+      <div class="nav-item"><i class="material-icons">playlist_play</i>My Playlists</div>
+      <div class="nav-item"><i class="material-icons">settings</i>Settings</div>
+    </nav>
     <!-- End Sidenav -->
 
     <!-- Router View -->

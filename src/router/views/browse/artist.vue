@@ -31,7 +31,7 @@
     --dark-blue-transparent: rgba(12, 16, 27, 0.7);
     --border-color: rgba(255, 255, 255, 0.1);
     --top-bg-color: rgba(12, 16, 27, 0.2);
-    --inner-width: 52%;
+    --inner-width: 60%;
     --main-bg-color: #1A1D2C;
     --font-color: #fff;
     --shadow-color: rgba(0, 0, 0, 0.2);
@@ -72,7 +72,6 @@ body {
     }
 }
 .top-bar {
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -87,14 +86,14 @@ body {
     box-sizing: border-box;
     height: 65px;
     z-index: 999;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
     position: fixed;
     .top {
         display: flex;
         align-items: center;
-        width: 33.33%;
         &.left {
             justify-content: flex-start;
+            width: 30%;
             .branding {
                 font-size: 1.4em;
                 padding-left: 20px;
@@ -102,6 +101,7 @@ body {
         }
         &.center {
             position: relative;
+            width: 40%;
             input {
                 border: none;
                 padding: 12px 12px 12px 50px;
@@ -137,6 +137,7 @@ body {
         &.right {
             position: relative;
             justify-content: flex-end;
+            width: 30%;
             .user-image {
                 border-radius: 100%;
                 height: 42px;
@@ -306,8 +307,9 @@ nav {
         z-index: 997;
         width: 230px;
         height: 100%;
-        padding-top: 65px;
         position: fixed;
+        background-color: var(--dark-blue);
+        border-right: 1px solid var(--border-color);
         .nav-item {
             display: flex;
             align-items: center;
@@ -514,13 +516,6 @@ nav {
     :root {
         --inner-width: 95%;
     }
-    .main-container {
-        margin-left: 230px;
-    }
-    .sidenav {
-        background-color: var(--dark-blue);
-        border-right: 1px solid var(--border-color);
-    }
 }
 .tooltip {
     display: block !important;
@@ -546,6 +541,17 @@ nav {
         transition: opacity 0.15s;
     }
 }
+@media screen and (min-width: 955px) {
+    .sidenavactive {
+        .bottom-bar,
+        .top-bar {
+            margin-left: 231px;
+        }
+        .main-container {
+            margin-left: 230px;
+        }
+    }
+}
 @media screen and (max-width: 955px) {
     .mobile-hidden {
         display: none !important;
@@ -557,9 +563,6 @@ nav {
                 margin: 0;
             }
         }
-    }
-    .main-container {
-        margin-left: 0;
     }
     .section-item {
         flex: 1;
