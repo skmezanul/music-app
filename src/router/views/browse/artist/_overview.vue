@@ -16,6 +16,7 @@
       <sectionitem title="Still Falling For You" subtitle="Ellie Goulding"></sectionitem>
       <sectionitem title="Love Me Like You Do" subtitle="Ellie Goulding"></sectionitem>
       <sectionitem title="Burn" subtitle="Ellie Goulding"></sectionitem>
+      <sectionitem title="Burn" subtitle="Ellie Goulding"></sectionitem>
     </div>
   </section>
 </div>

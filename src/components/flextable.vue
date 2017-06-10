@@ -51,7 +51,6 @@
 .flex-table {
     display: flex;
     flex-direction: column;
-    margin: 5px;
     .table-row {
         display: flex;
         align-items: center;
@@ -99,12 +98,12 @@
             padding: 0 5px;
         }
         .title {
-            width: 32%;
+            width: 40%;
             padding: 0 10px;
         }
         .artist {
             opacity: 0.7;
-            width: 32%;
+            width: 30%;
             font-weight: 300;
             padding: 0 10px;
             span {
@@ -115,7 +114,7 @@
             }
         }
         .time {
-            width: 11%;
+            width: 5%;
             padding: 0 5px;
         }
         .actions {

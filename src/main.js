@@ -13,7 +13,7 @@ const app = new Vue({
   router,
   data: {
     scrollPosition: null,
-    sidenav: true,
+    sidenav: false,
     dropdown: false
   },
   directives: {
