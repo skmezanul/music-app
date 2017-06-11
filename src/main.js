@@ -25,7 +25,7 @@ const app = new Vue({
     },
     closeDropdown: function() {
       this.dropdown = false
-    },
+    }
   },
 
   mounted() {

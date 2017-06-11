@@ -85,10 +85,6 @@ export default {
         &:hover {
             .item-overlay {
                 opacity: 1;
-                @supports (backdrop-filter: blur(5px)) or (-webkit-backdrop-filter: blur(5px)) {
-                    backdrop-filter: saturate(200%) blur(5px);
-                    -webkit-backdrop-filter: saturate(200%) blur(5px);
-                }
             }
         }
         .item-description {
