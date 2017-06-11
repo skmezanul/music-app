@@ -461,7 +461,7 @@ nav {
                 width: 100%;
             }
             justify-content: space-between;
-            .play {
+            .toggle {
                 font-size: 3.3em;
                 opacity: 1;
                 &:hover {

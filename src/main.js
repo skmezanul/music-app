@@ -12,7 +12,9 @@ const app = new Vue({
   data: {
     scrollPosition: null,
     sidenav: false,
-    dropdown: false
+    dropdown: false,
+    volume: 50,
+    playing: false
   },
   directives: {
     onClickaway: onClickaway,
