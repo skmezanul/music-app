@@ -8,8 +8,8 @@
         <i class="more material-icons">more_horiz</i>
       </div>
     </div>
-    <div class="item-image-container">
-      <img src="/static/images/cover4.png" class="item-image">
+    <div class="item-image">
+      <img src="/static/images/cover4.png">
     </div>
     <div class="item-description">
       <div class="item-title">{{title}}</div>
@@ -80,18 +80,18 @@ export default {
                 }
             }
         }
-        .item-image-container {
+        .item-image {
             overflow: hidden;
-            width: 230px;
-            height: 230px;
-            .item-image {
+            width: 100%;
+            height: auto;
+            img {
                 width: 100%;
                 height: auto;
                 transition: all 0.7s ease;
             }
         }
         &:hover {
-            .item-image {
+            img {
                 transform: scale(1.1);
             }
             .item-overlay {
