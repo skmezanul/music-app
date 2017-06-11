@@ -4,8 +4,6 @@ import {
   directive as onClickaway
 } from 'vue-clickaway'
 import router from './router'
-import VTooltip from 'v-tooltip'
-Vue.use(VTooltip)
 import components from './components'
 
 const app = new Vue({

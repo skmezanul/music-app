@@ -8,7 +8,7 @@
     <div class="index mobile-hidden">01</div>
     <i class="addtoplaylist mobile-hidden material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
     <div class="title">First Time</div>
-    <div class="artist"><span>Kygo</span>, <span>Ellie Goulding</span></div>
+    <div class="artist"><span>Kygo</span><span>Ellie Goulding</span></div>
     <div class="time">3:14</div>
     <div class="actions mobile-hidden">
       <i class="share material-icons" v-tooltip="{ content: 'Share', container: '.tooltip-container' }">share</i>
@@ -69,6 +69,7 @@
             position: relative;
             i {
                 opacity: 0;
+                background-color: rgba(0,0,0,0.7);
                 transition: all 0.3s ease;
                 position: absolute;
                 top: 0;
@@ -78,10 +79,6 @@
                 z-index: 1;
                 font-size: 3em;
             }
-        }
-        .addtoplaylist {
-            width: 5%;
-            padding: 0 5px;
         }
         i {
             transition: all 0.3s ease;
@@ -98,18 +95,25 @@
             padding: 0 5px;
         }
         .title {
-            width: 40%;
-            padding: 0 10px;
+            width: 45%;
+            padding: 0 15px;
         }
         .artist {
-            opacity: 0.7;
             width: 30%;
             font-weight: 300;
             padding: 0 10px;
             span {
+                opacity: 0.7;
+                transition: all 0.3s ease;
                 &:hover {
-                    text-decoration: underline;
+                    opacity: 1;
                     cursor: pointer;
+                }
+                &:after {
+                    content: ", ";
+                }
+                &:last-child:after {
+                    content: "";
                 }
             }
         }

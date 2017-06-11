@@ -166,6 +166,7 @@ body {
     box-sizing: border-box;
     padding-bottom: 81px;
     animation: fadein 0.3s 0.2s both;
+    transition: all 0.3s ease;
 }
 .header {
     display: flex;
@@ -254,6 +255,14 @@ body {
                     text-transform: uppercase;
                     &.transparent {
                         opacity: 0.7;
+                    }
+                    span {
+                        &:after {
+                            content: ", ";
+                        }
+                        &:last-child:after {
+                            content: "";
+                        }
                     }
                 }
                 .description {
@@ -420,9 +429,22 @@ nav {
                     font-size: 1.2em;
                 }
                 .artist {
-                    opacity: 0.7;
                     font-size: 0.9em;
                     font-weight: 300;
+                    span {
+                        opacity: 0.7;
+                        transition: all 0.3s ease;
+                        &:hover {
+                            opacity: 1;
+                            cursor: pointer;
+                        }
+                        &:after {
+                            content: ", ";
+                        }
+                        &:last-child:after {
+                            content: "";
+                        }
+                    }
                 }
             }
         }

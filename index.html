@@ -56,20 +56,21 @@
         <img class="album-cover" src="/static/images/cover4.png" />
         <div class="currently-playing">
           <div class="title">First Time</div>
-          <div class="artist">Kygo, Ellie Goulding</div>
+          <div class="artist"><span>Kygo</span><span>Ellie Goulding</span></div>
         </div>
       </div>
       <div class="bottom center">
-        <i class="shuffle material-icons">shuffle</i>
+        <i class="shuffle material-icons" v-tooltip="{ content: 'Shuffle', container: '.tooltip-container' }">shuffle</i>
         <i class="skip material-icons">skip_previous</i>
         <i class="play material-icons">play_circle_filled</i>
         <i class="skip material-icons">skip_next</i>
-        <i class="repeat material-icons">repeat</i>
+        <i class="repeat material-icons" v-tooltip="{ content: 'Repeat', container: '.tooltip-container' }">repeat</i>
       </div>
       <div class="bottom right mobile-hidden">
         <i class="volume material-icons">volume_up</i>
-        <i class="cast material-icons">cast</i>
-        <i class="queue material-icons">queue_music</i>
+        <vue-slider ref="slider" v-model="value"></vue-slider>
+        <i class="cast material-icons" v-tooltip="{ content: 'Cast', container: '.tooltip-container' }">cast</i>
+        <i class="queue material-icons" v-tooltip="{ content: 'Queue', container: '.tooltip-container' }">queue_music</i>
       </div>
     </div>
     <!-- End Bottom Bar -->
