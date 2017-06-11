@@ -623,7 +623,7 @@ nav {
         transform: scale(1);
     }
 }
-@supports (backdrop-filter: blur(5px)) or (-webkit-backdrop-filter: blur(5px)) {
+@supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
     .bottom-bar,
     .scrolled .top-bar {
         background-color: var(--dark-blue-transparent);
