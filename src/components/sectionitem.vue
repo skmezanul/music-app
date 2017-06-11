@@ -8,9 +8,7 @@
         <i class="more material-icons">more_horiz</i>
       </div>
     </div>
-    <div class="item-image">
-      <img src="/static/images/cover4.png">
-    </div>
+    <img src="/static/images/cover4.png" class="item-image">
     <div class="item-description">
       <div class="item-title">{{title}}</div>
       <div class="item-subtitle">{{subtitle}}</div>
@@ -59,7 +57,7 @@ export default {
             bottom: 0;
             left: 0;
             justify-content: center;
-            background: linear-gradient(to top, var(--accent-color) 30%, rgba(45, 54, 76, 0.5));
+            background: linear-gradient(to top, var(--accent-color) 25%, rgba(45, 54, 76, 0.5));
             content: "";
             opacity: 0;
             transition: all 0.3s ease;
@@ -81,19 +79,10 @@ export default {
             }
         }
         .item-image {
-            overflow: hidden;
             width: 100%;
             height: auto;
-            img {
-                width: 100%;
-                height: auto;
-                transition: all 0.7s ease;
-            }
         }
         &:hover {
-            img {
-                transform: scale(1.1);
-            }
             .item-overlay {
                 opacity: 1;
                 @supports (backdrop-filter: blur(5px)) or (-webkit-backdrop-filter: blur(5px)) {
