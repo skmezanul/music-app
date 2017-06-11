@@ -12,7 +12,6 @@
     "normalize.css": "^7.0.0",
     "v-tooltip": "^2.0.0-beta.5",
     "vue": "^2.3.4",
-    "vue-clickaway": "^2.1.0",
     "vue-parallaxy": "^1.0.3",
     "vue-slider-component": "^2.3.1",
     "vue2-google-maps": "^0.7.9"

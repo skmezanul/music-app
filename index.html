@@ -26,7 +26,7 @@
         <div class="user-name mobile-hidden">Leon Seipp</div>
         <i class="toggle material-icons" v-on:click="dropdown = !dropdown">keyboard_arrow_down</i>
         <transition name="fade">
-          <div class="dropdown user" v-if="dropdown" v-on-clickaway="closeDropdown">
+          <div class="dropdown user" v-if="dropdown">
             <div class="dropdown-item"><i class="material-icons">account_circle</i> My Account</div>
             <div class="dropdown-item"><i class="material-icons">power_settings_new</i> Logout</div>
           </div>

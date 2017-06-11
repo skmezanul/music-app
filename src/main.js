@@ -1,8 +1,5 @@
 import normalize from 'normalize.css'
 import Vue from 'vue'
-import {
-  directive as onClickaway
-} from 'vue-clickaway'
 import router from './router'
 import components from './components'
 
@@ -15,9 +12,6 @@ const app = new Vue({
     dropdown: false,
     volume: 50,
     playing: false
-  },
-  directives: {
-    onClickaway: onClickaway,
   },
   methods: {
     updateScroll() {
