@@ -2,8 +2,8 @@
 <div class="header-container">
   <div class="header-image mobile-hidden"><img src="/static/images/header.jpg"></div>
   <div class="header-content">
-    <div class="headline">Ellie Goulding</div>
-    <div class="subline transparent">Concerts near Frankfurt am Main</div>
+    <h1 class="headline">Ellie Goulding</h1>
+    <h2 class="subline transparent">Concerts near Frankfurt am Main</h2>
     <div class="header-buttons">
       <a class="btn btn-accent"><i class="material-icons">event_available</i>Buy Tickets</a>
       <a class="btn btn-icon"><i class="material-icons">favorite</i></a>

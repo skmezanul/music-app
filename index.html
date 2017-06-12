@@ -11,11 +11,11 @@
   <div id="app" :class="{scrolled: scrollPosition > 5, sidenavexpanded: sidenav == true }">
 
     <!-- Top Bar -->
-    <div class="top-bar">
+    <header class="top-bar">
       <div class="top left">
         <i class="toggle material-icons" v-on:click="sidenav = !sidenav">menu</i>
-        <div v-if="scrollPosition < 300" class="branding mobile-hidden">Music App</div>
-        <div v-else class="branding mobile-hidden">Ellie Goulding</div>
+        <h3 v-if="scrollPosition < 300" class="branding mobile-hidden">Music App</h3>
+        <h3 v-else class="branding mobile-hidden">Ellie Goulding</h3>
       </div>
       <div class="top center">
         <i class="material-icons search-icon">search</i>
@@ -32,17 +32,19 @@
           </div>
         </transition>
       </div>
-    </div>
+    </header>
     <!-- End Top Bar -->
 
     <!-- Sidenav -->
     <nav class="sidenav">
-      <div class="nav-item"><i class="material-icons">home</i><a>Home</a></div>
-      <div class="nav-item active"><i class="material-icons">book</i><a>Browse</a></div>
-      <div class="nav-item"><i class="material-icons">settings_input_antenna</i><a>Radio</a></div>
-      <div class="nav-item"><i class="material-icons">library_music</i><a>My Music</a></div>
-      <div class="nav-item"><i class="material-icons">playlist_play</i><a>My Playlists</a></div>
-      <div class="nav-item"><i class="material-icons">settings</i><a>Settings</a></div>
+      <ul>
+      <li class="nav-item"><i class="material-icons">home</i><a>Home</a></li>
+      <li class="nav-item active"><i class="material-icons">book</i><a>Browse</a></li>
+      <li class="nav-item"><i class="material-icons">settings_input_antenna</i><a>Radio</a></li>
+      <li class="nav-item"><i class="material-icons">library_music</i><a>My Music</a></li>
+      <li class="nav-item"><i class="material-icons">playlist_play</i><a>My Playlists</a></li>
+      <li class="nav-item"><i class="material-icons">settings</i><a>Settings</a></li>
+    </ul>
     </nav>
     <!-- End Sidenav -->
 
@@ -51,12 +53,12 @@
     <!-- End Router View -->
 
     <!-- Bottom Bar -->
-    <div class="bottom-bar">
+    <footer class="bottom-bar">
       <div class="bottom left mobile-hidden">
         <img class="album-cover" src="/static/images/cover4.png" />
         <div class="currently-playing">
-          <div class="title">First Time</div>
-          <div class="artist"><span>Kygo</span><span>Ellie Goulding</span></div>
+          <div class="title"><a>First Time</a></div>
+          <div class="artist"><a>Kygo</a><a>Ellie Goulding</a></div>
         </div>
       </div>
       <div class="bottom center">
@@ -75,7 +77,7 @@
         <i class="cast material-icons" v-tooltip="{ content: 'Cast', container: '.tooltip-container' }">cast</i>
         <i class="queue material-icons" v-tooltip="{ content: 'Queue', container: '.tooltip-container' }">queue_music</i>
       </div>
-    </div>
+    </footer>
     <!-- End Bottom Bar -->
 
     <div class="tooltip-container">

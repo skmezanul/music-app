@@ -2,13 +2,13 @@
 <div class="page-container">
   <section class="page-section tracks">
     <div class="section-header">
-      <div class="section-title">Top Tracks</div>
+      <h4 class="section-title">Top Tracks</h4>
     </div>
     <flextable></flextable>
   </section>
   <section class="page-section singles">
     <div class="section-header">
-      <div class="section-title">Top Singles</div>
+      <h4 class="section-title">Top Singles</h4>
       <div class="section-actions">more</div>
     </div>
     <div class="section-items-container">

@@ -1,5 +1,5 @@
 <template>
-<div class="main-container">
+<main class="main-container">
   <header class="header" :class="{ 'compact': $route.meta.compactHeader === true }">
     <div class="background-container">
       <router-view name="headerbackground"></router-view>
@@ -17,7 +17,7 @@
     </div>
   </header>
   <router-view></router-view>
-</div>
+</main>
 </template>
 <style lang="scss">
 :root {
@@ -66,6 +66,15 @@ body {
             text-decoration: none;
         }
     }
+}
+ul, ol {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+h1, h2, h3, h4 {
+  margin: 0;
+  font-weight: 400;
 }
 .top-bar {
     display: flex;
@@ -266,7 +275,6 @@ body {
                     }
                 }
                 .description {
-                    margin-top: 20px;
                     font-weight: 300;
                     line-height: 1.35em;
                     opacity: 0.8;
@@ -431,7 +439,7 @@ nav {
                 .artist {
                     font-size: 0.9em;
                     font-weight: 300;
-                    span {
+                    a {
                         opacity: 0.7;
                         transition: all 0.3s ease;
                         &:hover {

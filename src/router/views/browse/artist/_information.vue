@@ -2,7 +2,7 @@
 <div class="page-container">
   <section class="page-section">
     <div class="section-header">
-      <div class="section-title">About Ellie Goulding</div>
+      <h4 class="section-title">About Ellie Goulding</h4>
     </div>
     <div class="biography">
       <p>Having caught the public's attention in 2010 with her singles "Starry Eyed" and "Guns and Horses," British vocalist Ellie Goulding quickly rose to the top of the charts with her infectious electronic pop sound. Although she started out writing songs
