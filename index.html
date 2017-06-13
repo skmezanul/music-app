@@ -25,12 +25,10 @@
         <img class="user-image mobile-hidden" src="/static/images/avatar.jpg" />
         <div class="user-name mobile-hidden">Leon Seipp</div>
         <i class="toggle material-icons" v-on:click="dropdown = !dropdown">keyboard_arrow_down</i>
-        <transition name="fade">
-          <div class="dropdown user" v-if="dropdown">
-            <div class="dropdown-item"><i class="material-icons">account_circle</i> My Account</div>
-            <div class="dropdown-item"><i class="material-icons">power_settings_new</i> Logout</div>
-          </div>
-        </transition>
+        <div class="dropdown user" v-if="dropdown">
+          <div class="dropdown-item"><i class="material-icons">account_circle</i> My Account</div>
+          <div class="dropdown-item"><i class="material-icons">power_settings_new</i> Logout</div>
+        </div>
       </div>
     </header>
     <!-- End Top Bar -->
@@ -38,13 +36,13 @@
     <!-- Sidenav -->
     <nav class="sidenav">
       <ul>
-      <li class="nav-item"><i class="material-icons">home</i><a>Home</a></li>
-      <li class="nav-item active"><i class="material-icons">book</i><a>Browse</a></li>
-      <li class="nav-item"><i class="material-icons">settings_input_antenna</i><a>Radio</a></li>
-      <li class="nav-item"><i class="material-icons">library_music</i><a>My Music</a></li>
-      <li class="nav-item"><i class="material-icons">playlist_play</i><a>My Playlists</a></li>
-      <li class="nav-item"><i class="material-icons">settings</i><a>Settings</a></li>
-    </ul>
+        <li class="nav-item"><i class="material-icons">home</i><a>Home</a></li>
+        <li class="nav-item active"><i class="material-icons">book</i><a>Browse</a></li>
+        <li class="nav-item"><i class="material-icons">settings_input_antenna</i><a>Radio</a></li>
+        <li class="nav-item"><i class="material-icons">library_music</i><a>My Music</a></li>
+        <li class="nav-item"><i class="material-icons">playlist_play</i><a>My Playlists</a></li>
+        <li class="nav-item"><i class="material-icons">settings</i><a>Settings</a></li>
+      </ul>
     </nav>
     <!-- End Sidenav -->
 

@@ -5,11 +5,11 @@
       <i class="material-icons">play_arrow</i>
       <img class="image" height="100%" src="/static/images/cover4.png" />
     </div>
-    <span class="index mobile-hidden">01</span>
+    <div class="index mobile-hidden">01</div>
     <i class="addtoplaylist mobile-hidden material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
-    <span class="title"><a>First Time</a></span>
-    <span class="artist"><a>Kygo</a><a>Ellie Goulding</a></span>
-    <span class="time">3:14</span>
+    <div class="title">First Time</div>
+    <div class="artist"><a>Kygo</a><a>Ellie Goulding</a></div>
+    <div class="time">3:14</div>
     <div class="actions mobile-hidden">
       <i class="share material-icons" v-tooltip="{ content: 'Share', container: '.tooltip-container' }">share</i>
       <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
@@ -20,11 +20,11 @@
       <i class="material-icons">play_arrow</i>
       <img class="image" height="100%" src="/static/images/cover2.png" />
     </div>
-    <span class="index mobile-hidden">02</span>
+    <div class="index mobile-hidden">02</div>
     <i class="addtoplaylist mobile-hidden material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
-    <span class="title"><a>Love Me Like You Do</a></span>
-    <span class="artist"><a>Ellie Goulding</a></span>
-    <span class="time">4:13</span>
+    <div class="title">Love Me Like You Do</div>
+    <div class="artist"><a>Ellie Goulding</a></div>
+    <div class="time">4:13</div>
     <div class="actions mobile-hidden">
       <i class="share material-icons" v-tooltip="{ content: 'Share', container: '.tooltip-container' }">share</i>
       <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
@@ -35,11 +35,11 @@
       <i class="material-icons">play_arrow</i>
       <img class="image" height="100%" src="/static/images/cover1.png" />
     </div>
-    <span class="index mobile-hidden">03</span>
+    <div class="index mobile-hidden">03</div>
     <i class="addtoplaylist mobile-hidden material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
-    <span class="title"><a>Burn</a></span>
-    <span class="artist"><a>Ellie Goulding</a></span>
-    <span class="time">3:51</span>
+    <div class="title">Burn</div>
+    <div class="artist"><a>Ellie Goulding</a></div>
+    <div class="time">3:51</div>
     <div class="actions mobile-hidden">
       <i class="share material-icons" v-tooltip="{ content: 'Share', container: '.tooltip-container' }">share</i>
       <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>

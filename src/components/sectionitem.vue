@@ -10,8 +10,8 @@
     </div>
     <img src="/static/images/cover4.png" class="item-image">
     <div class="item-description">
-      <div class="item-title">{{title}}</div>
-      <div class="item-subtitle">{{subtitle}}</div>
+      <h4 class="item-title">{{title}}</h4>
+      <div class="item-subtitle"><a>{{subtitle}}</a></div>
     </div>
   </div>
 </div>
