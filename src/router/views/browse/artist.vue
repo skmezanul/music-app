@@ -7,12 +7,26 @@
     <div class="header-inner">
       <router-view name="header"></router-view>
       <nav class="subnav mobile-hidden">
-        <router-link to="/artist/" class="nav-item">Overview</router-link>
-        <router-link to="/artist/information" class="nav-item">Information</router-link>
-        <router-link to="/artist/concerts" class="nav-item">Concerts</router-link>
-        <router-link to="/artist/playlists" class="nav-item">Playlists</router-link>
-        <router-link to="/artist/feed" class="nav-item">Artist Feed</router-link>
-        <router-link to="/artist/similar" class="nav-item">Similar Artists</router-link>
+        <ul>
+          <li class="nav-item">
+            <router-link to="/artist/">Overview</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/artist/information">Information</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/artist/concerts">Concerts</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/artist/playlists">Playlists</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/artist/feed">Artist Feed</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/artist/similar">Similar Artists</router-link>
+          </li>
+        </ul>
       </nav>
     </div>
   </header>
@@ -58,23 +72,28 @@ body {
     letter-spacing: 1px;
     background-color: var(--main-bg-color);
     color: var(--font-color);
-    a {
-        &:active,
-        &:link,
-        &:visited {
-            color: var(--font-color);
-            text-decoration: none;
-        }
-    }
 }
-ul, ol {
+ol,
+ul {
     padding: 0;
     margin: 0;
     width: 100%;
+    list-style: none;
 }
-h1, h2, h3, h4 {
-  margin: 0;
-  font-weight: 400;
+h1,
+h2,
+h3,
+h4 {
+    margin: 0;
+    font-weight: 400;
+}
+a {
+    &:active,
+    &:link,
+    &:visited {
+        color: var(--font-color);
+        text-decoration: none;
+    }
 }
 .top-bar {
     display: flex;
@@ -193,7 +212,7 @@ h1, h2, h3, h4 {
         min-height: 250px;
         height: 250px;
         .header-inner {
-            .subnav {
+            .subnav ul {
                 margin-top: 25px;
             }
             .header-container {
@@ -201,7 +220,6 @@ h1, h2, h3, h4 {
                 .header-image {
                     min-width: 130px;
                     width: 130px;
-                    height: 130px;
                 }
             }
         }
@@ -239,7 +257,6 @@ h1, h2, h3, h4 {
             .header-image {
                 min-width: 230px;
                 width: 230px;
-                height: 230px;
                 margin-right: 25px;
                 border-radius: 50%;
                 overflow: hidden;
@@ -290,43 +307,45 @@ h1, h2, h3, h4 {
 }
 
 nav {
-    display: flex;
     &.subnav {
-        justify-content: space-between;
-        margin-top: 35px;
-        .nav-item {
-            padding-top: 20px;
-            padding-bottom: 18px;
-            font-size: 0.9em;
-            letter-spacing: 1.7px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            &.router-link-exact-active:after {
-                display: block;
-                position: relative;
-                top: 1em;
-                width: 35px;
-                height: 3px;
-                margin: 0 auto;
-                background-color: var(--accent-color);
-                content: "";
-            }
-            &:not(.router-link-exact-active):hover {
-                cursor: pointer;
-                opacity: 0.7;
-            }
-            &:not(.router-link-exact-active) {
-                opacity: 0.5;
+        ul {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 35px;
+            .nav-item {
+                padding: 18px 0;
+                font-size: 0.9em;
+                letter-spacing: 1.7px;
+                text-transform: uppercase;
+                a {
+                    &:not(.router-link-exact-active) {
+                        opacity: 0.5;
+                    }
+                    &.router-link-exact-active:after {
+                        display: block;
+                        position: relative;
+                        top: 1em;
+                        width: 35px;
+                        height: 3px;
+                        margin: 0 auto;
+                        background-color: var(--accent-color);
+                        content: "";
+                    }
+                    &:not(.router-link-exact-active):hover {
+                        cursor: pointer;
+                        opacity: 0.7;
+                    }
+                }
             }
         }
     }
     &.sidenav {
-        display: flex;
-        flex-direction: column;
-        z-index: 999;
         width: 65px;
-        height: 100%;
         position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 999;
         background-color: var(--dark-blue);
         border-right: 1px solid var(--border-color);
         transition: width 0.3s ease;
@@ -342,9 +361,8 @@ nav {
                 opacity: 0;
                 white-space: nowrap;
             }
-            &.bottom {
-                border-top: 1px solid var(--border-color);
-                margin-top: auto;
+            i {
+                margin-right: 10px;
             }
             &:hover {
                 cursor: pointer;
@@ -352,9 +370,6 @@ nav {
             }
             &.active {
                 background-color: var(--accent-color);
-            }
-            i {
-                margin-right: 10px;
             }
         }
     }
