@@ -35,8 +35,6 @@
 </template>
 <style lang="scss">
 :root {
-    --black: #000;
-    --white: #fff;
     --accent-color: #ca2a59;
     --accent-color-dark: #a72c50;
     --blue: #282a3c;
@@ -50,9 +48,7 @@
         --inner-width: 95%;
     }
     --main-bg-color: #1A1D2C;
-    --font-color: #fff;
     --shadow-color: rgba(0, 0, 0, 0.2);
-    --scrollbar: #fff;
 }
 ::selection {
     background-color: transparent;
@@ -64,14 +60,14 @@
         background-color: var(--dark-blue);
     }
     &-thumb {
-        background-color: var(--scrollbar);
+        background-color: #fff;
     }
 }
 body {
     font-family: 'Roboto', sans-serif;
     letter-spacing: 1px;
     background-color: var(--main-bg-color);
-    color: var(--font-color);
+    color: #fff;
 }
 ol,
 ul {
@@ -91,7 +87,7 @@ a {
     &:active,
     &:link,
     &:visited {
-        color: var(--font-color);
+        color: #fff;
         text-decoration: none;
     }
 }
@@ -139,7 +135,7 @@ a {
                 width: 100%;
                 background-color: rgba(255,255,255,0.1);
                 z-index: 1;
-                color: var(--white);
+                color: #fff;
                 border-radius: 3px;
                 transition: all 0.3s ease;
                 letter-spacing: 1px;
@@ -241,7 +237,7 @@ a {
         right: 0;
         bottom: 0;
         left: 0;
-        background: radial-gradient(circle, transparent 0%, var(--main-bg-color) 90%), linear-gradient(transparent -30%, var(--main-bg-color));
+        background: radial-gradient(circle, rgba(26,29,44,0) 0%, var(--main-bg-color) 90%), linear-gradient(rgba(26,29,44,0) -30%, var(--main-bg-color));
         content: "";
     }
     .header-inner {
@@ -545,10 +541,10 @@ nav {
         cursor: pointer;
     }
     &:not(.btn-transparent) {
-        color: var(--white);
+        color: #fff;
         &:hover {
-            background-color: var(--white);
-            color: var(--black);
+            background-color: #fff;
+            color: #000;
             box-shadow: 0 5px 20px var(--shadow-color);
         }
     }
