@@ -1,13 +1,30 @@
 {
   "name": "music-app",
-  "description": "A Vue.js project",
-  "version": "1.0.0",
-  "author": "micro100",
+  "description": "Frontend for Music-Streaming app built with Webpack and Vue.js.",
+  "version": "1.1.0",
+  "author": "microeinhundert",
   "private": true,
+  "license": "Apache License 2.0",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microeinhundert/music-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/microeinhundert/music-app/issues"
+  },
+  "keywords": [
+    "music",
+    "streaming",
+    "app",
+    "frontend",
+    "vue.js",
+    "webpack",
+    "web"
+  ],
   "dependencies": {
     "normalize.css": "^7.0.0",
     "v-tooltip": "^2.0.0-beta.5",
