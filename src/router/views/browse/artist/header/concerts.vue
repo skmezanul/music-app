@@ -5,8 +5,10 @@
     <h1 class="headline">Ellie Goulding</h1>
     <h2 class="subline transparent">Concerts near Frankfurt am Main</h2>
     <div class="header-buttons">
-      <a class="btn btn-accent"><i class="material-icons">event_available</i>Buy Tickets</a>
-      <a class="btn btn-icon"><i class="material-icons">favorite</i></a>
+      <div class="btn-combined">
+        <a class="btn btn-accent"><i class="material-icons">event_available</i>Buy Tickets</a>
+        <a class="btn btn-icon"><i class="material-icons">favorite</i></a>
+      </div>
       <a class="btn btn-transparent"><i class="material-icons">share</i>Share</a>
     </div>
   </div>

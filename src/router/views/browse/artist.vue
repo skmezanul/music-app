@@ -296,6 +296,28 @@ a {
                 }
                 .header-buttons {
                     margin-top: 20px;
+                    display: flex;
+                    align-items: center;
+                    .btn-combined {
+                        display: flex;
+                        box-shadow: 0 5px 10px var(--shadow-color);
+                        margin: 0 5px 10px 0;
+                        a {
+                            border-radius: 0;
+                            margin: 0;
+                            &:first-of-type {
+                                border-top-left-radius: 5px;
+                                border-bottom-left-radius: 5px;
+                            }
+                            &:nth-of-type(3) {
+                                border-left: 1px solid var(--blue);
+                            }
+                            &:last-of-type {
+                                border-top-right-radius: 5px;
+                                border-bottom-right-radius: 5px;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -527,34 +549,28 @@ nav {
     }
 }
 .btn {
+    font-family: 'Open Sans', sans-serif;
     display: inline-flex;
-    margin-right: 5px;
-    margin-bottom: 10px;
+    margin: 0 5px 10px 0;
     padding: 13px;
     border-radius: 3px;
     background-color: var(--light-blue);
     font-size: 0.9em !important;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
     transition: all 0.3s ease;
     &:hover {
         cursor: pointer;
     }
-    &:not(.btn-transparent) {
-        color: #fff;
-        &:hover {
-            background-color: #fff;
-            color: #000;
-            box-shadow: 0 5px 20px var(--shadow-color);
-        }
+    &:not(.btn-transparent):hover {
+        background-color: #fff;
+        color: #000;
+        box-shadow: 0 5px 20px var(--shadow-color);
     }
     i {
         margin-right: 5px;
         font-size: 1em;
         line-height: inherit;
-    }
-    &.btn-icon i {
-        margin-right: 0;
     }
     &.btn-accent {
         background-color: var(--accent-color);
