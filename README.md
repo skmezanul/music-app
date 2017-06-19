@@ -1,7 +1,9 @@
 # music-app
 
 > Frontend for Music-Streaming app built with Webpack and Vue.js.
+
 ![Showcase](static/images/showcase.jpg)
+
 ## Build Setup
 
 ``` bash
