@@ -567,8 +567,12 @@ nav {
         color: #000;
         box-shadow: 0 5px 20px var(--shadow-color);
     }
+    &:not(.btn-icon) {
+        i {
+            margin-right: 5px;
+        }
+    }
     i {
-        margin-right: 5px;
         font-size: 1em;
         line-height: inherit;
     }
