@@ -4,7 +4,7 @@
 
 ![Showcase](static/images/showcase.jpg)
 
-## Build Setup
+## How to install
 
 ``` bash
 # install dependencies
