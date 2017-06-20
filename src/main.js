@@ -1,5 +1,3 @@
-import normalize from 'normalize.css'
-import material from 'material-design-lite'
 import Vue from 'vue'
 import router from './router'
 import components from './components'

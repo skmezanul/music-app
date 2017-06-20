@@ -110,6 +110,7 @@ a {
     .top {
         display: flex;
         align-items: center;
+        height: 42px;
         &.left {
             @media screen and (min-width: 955px) {
                 justify-content: flex-start;
@@ -169,8 +170,8 @@ a {
             }
             .user-image {
                 border-radius: 100%;
-                height: 42px;
-                width: 42px;
+                height: 34px;
+                width: 34px;
             }
             .user-name {
                 padding: 0 10px;
