@@ -168,7 +168,7 @@ a {
                 justify-content: flex-end;
                 width: 30%;
             }
-            .user-image {
+            .user-avatar {
                 border-radius: 100%;
                 height: 34px;
                 width: 34px;
