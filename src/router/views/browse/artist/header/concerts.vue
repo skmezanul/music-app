@@ -1,11 +1,24 @@
 <template>
 <div class="header-container">
+<<<<<<< HEAD
   <h1 class="headline">Ellie Goulding</h1>
   <h2 class="subline">Concerts near Frankfurt am Main</h2>
   <div class="header-buttons">
     <div class="btn-combined">
       <a class="btn btn-accent"><i class="material-icons">event_available</i>Buy Tickets</a>
       <a class="btn btn-icon"><i class="material-icons">favorite</i></a>
+=======
+  <div class="header-image mobile-hidden"><img src="/static/images/header.jpg" alt="Ellie Goulding" /></div>
+  <div class="header-content">
+    <h1 class="headline">Ellie Goulding</h1>
+    <h2 class="subline transparent">Concerts near Frankfurt am Main</h2>
+    <div class="header-buttons">
+      <div class="btn-combined">
+        <a class="btn btn-accent"><i class="material-icons">event_available</i>Buy Tickets</a>
+        <a class="btn btn-icon"><i class="material-icons">favorite</i></a>
+      </div>
+      <a class="btn btn-transparent"><i class="material-icons">share</i>Share</a>
+>>>>>>> 7bbec5d8750e111b950a04a410e833ba7b24b26d
     </div>
     <a class="btn btn-transparent"><i class="material-icons">share</i>Share</a>
   </div>

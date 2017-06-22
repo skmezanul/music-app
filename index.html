@@ -22,7 +22,7 @@
         <input type="text" placeholder="Search" />
       </div>
       <div class="top right">
-        <img class="user-image mobile-hidden" src="/static/images/avatar.jpg" />
+        <img src="/static/images/avatar.jpg" alt="Avatar" class="user-avatar mobile-hidden" />
         <div class="user-name mobile-hidden">Leon S.</div>
         <i class="toggle material-icons" v-on:click="dropdown = !dropdown">keyboard_arrow_down</i>
         <div class="dropdown user" v-if="dropdown">
@@ -53,7 +53,7 @@
     <!-- Bottom Bar -->
     <footer class="bottom-bar">
       <div class="bottom left mobile-hidden">
-        <img class="album-cover" src="/static/images/cover4.png" />
+        <img src="/static/images/cover4.png" alt="First Time" class="album-cover" />
         <div class="currently-playing">
           <div class="title"><a>First Time</a></div>
           <div class="artist"><a>Kygo</a><a>Ellie Goulding</a></div>

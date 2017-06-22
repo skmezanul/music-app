@@ -3,7 +3,7 @@
   <li class="table-row">
     <div class="image">
       <i class="material-icons">play_arrow</i>
-      <img class="image" height="100%" src="/static/images/cover4.png" />
+      <img src="/static/images/cover4.png" alt="First Time" height="100%" />
     </div>
     <div class="index mobile-hidden">01</div>
     <i class="addtoplaylist mobile-hidden material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
@@ -18,7 +18,7 @@
   <li class="table-row">
     <div class="image">
       <i class="material-icons">play_arrow</i>
-      <img class="image" height="100%" src="/static/images/cover2.png" />
+      <img src="/static/images/cover2.png" alt="Love Me Like You Do" height="100%" />
     </div>
     <div class="index mobile-hidden">02</div>
     <i class="addtoplaylist mobile-hidden material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
@@ -33,7 +33,7 @@
   <li class="table-row">
     <div class="image">
       <i class="material-icons">play_arrow</i>
-      <img class="image" height="100%" src="/static/images/cover1.png" />
+      <img src="/static/images/cover1.png" alt="Burn" height="100%" />
     </div>
     <div class="index mobile-hidden">03</div>
     <i class="addtoplaylist mobile-hidden material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>

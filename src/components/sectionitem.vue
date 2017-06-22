@@ -9,7 +9,7 @@
         <i class="more material-icons">more_horiz</i>
       </div>
     </div>
-    <img src="/static/images/cover4.png" class="item-image">
+    <img src="/static/images/cover4.png" alt="First Time" class="item-image" />
     <div class="item-description">
       <h4 class="item-title">{{title}}</h4>
       <div class="item-subtitle"><a>{{subtitle}}</a></div>

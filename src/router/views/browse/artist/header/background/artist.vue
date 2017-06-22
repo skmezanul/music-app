@@ -1,5 +1,5 @@
 <template>
 <parallax>
-  <img src="/static/images/header.jpg">
+  <img src="/static/images/header.jpg" alt="Ellie Goulding" />
 </parallax>
 </template>
