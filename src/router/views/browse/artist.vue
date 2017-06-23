@@ -8,23 +8,23 @@
       <router-view name="header"></router-view>
       <nav class="subnav mobile-hidden">
         <ul>
-          <li class="nav-item">
+          <li>
             <router-link to="/artist/">Overview</router-link>
           </li>
-          <li class="nav-item">
-            <router-link to="/artist/information">Information</router-link>
-          </li>
-          <li class="nav-item">
+          <li>
             <router-link to="/artist/concerts">Concerts</router-link>
           </li>
-          <li class="nav-item">
+          <li>
             <router-link to="/artist/playlists">Playlists</router-link>
           </li>
-          <li class="nav-item">
+          <li>
             <router-link to="/artist/feed">Artist Feed</router-link>
           </li>
-          <li class="nav-item">
+          <li>
             <router-link to="/artist/similar">Similar Artists</router-link>
+          </li>
+          <li>
+            <router-link to="/artist/information">Information</router-link>
           </li>
         </ul>
       </nav>
@@ -190,7 +190,7 @@ a {
 .main-container {
     box-sizing: border-box;
     padding-bottom: 81px;
-    animation: fadein 0.3s 0.2s both;
+    animation: fadeIn 0.3s 0.2s both;
     transition: all 0.3s ease;
 }
 .header {
@@ -206,12 +206,12 @@ a {
     overflow: hidden;
     transition: all 0.3s ease;
     &.compact {
-        min-height: 250px;
-        height: 250px;
+        min-height: 300px;
+        height: 300px;
         .header-inner {
             .header-container {
                 .headline {
-                    font-size: 4.5em;
+                    font-size: 4.4em;
                 }
             }
         }
@@ -224,7 +224,7 @@ a {
         bottom: 0;
         .Masthead {
             min-height: 100% !important;
-            animation: zoomout 0.3s 0.2s both;
+            animation: zoomOut 0.3s 0.2s both;
         }
     }
     &:after {
@@ -244,13 +244,14 @@ a {
         .header-container {
             display: flex;
             flex-direction: column;
-            animation: zoomout 0.3s 0.2s both;
+            animation: zoomOut 0.3s 0.2s both;
             .headline {
                 margin-left: -7px;
                 font-family: 'Open Sans', sans-serif;
                 font-size: 5.5em;
                 font-weight: 700;
                 letter-spacing: 0;
+                transition: all 0.3s ease;
             }
             .subline {
                 font-size: 1.1em;
@@ -301,7 +302,7 @@ nav {
             display: flex;
             justify-content: space-between;
             margin-top: 35px;
-            .nav-item {
+            li {
                 padding: 18px 0;
                 font-size: 0.9em;
                 letter-spacing: 1.7px;
@@ -329,36 +330,38 @@ nav {
         }
     }
     &.sidenav {
-        width: 65px;
-        position: fixed;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        z-index: 999;
-        background-color: var(--dark-blue);
-        border-right: 1px solid var(--border-color);
-        transition: width 0.3s ease;
-        overflow: hidden;
-        .nav-item {
-            display: flex;
-            align-items: center;
-            padding: 20px;
-            border-bottom: 1px solid var(--border-color);
-            transition: all 0.5s ease;
-            a {
-                transition: all 0.3s ease;
-                opacity: 0;
-                white-space: nowrap;
-            }
-            i {
-                margin-right: 10px;
-            }
-            &:hover {
-                cursor: pointer;
-                background-color: rgba(255,255,255,0.1);
-            }
-            &.active {
-                background-color: var(--accent-color);
+        ul {
+            width: 65px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 999;
+            background-color: var(--dark-blue);
+            border-right: 1px solid var(--border-color);
+            transition: width 0.3s ease;
+            overflow: hidden;
+            li {
+                display: flex;
+                align-items: center;
+                padding: 20px;
+                border-bottom: 1px solid var(--border-color);
+                transition: all 0.5s ease;
+                a {
+                    transition: all 0.3s ease;
+                    opacity: 0;
+                    white-space: nowrap;
+                }
+                i {
+                    margin-right: 10px;
+                }
+                &:hover {
+                    cursor: pointer;
+                    background-color: rgba(255,255,255,0.1);
+                }
+                &.active {
+                    background-color: var(--accent-color);
+                }
             }
         }
     }
@@ -369,7 +372,7 @@ nav {
     align-items: center;
     justify-content: center;
     width: 100%;
-    animation: fadein 0.3s 0.2s both;
+    animation: fadeIn 0.3s 0.2s both;
 }
 
 .page-section {
@@ -421,6 +424,7 @@ nav {
     background-color: var(--dark-blue);
     z-index: 998;
     border-top: 1px solid var(--border-color);
+    animation: slideInBottom 0.3s 0.2s both;
     transition: all 0.3s ease;
     .bottom {
         display: flex;
@@ -588,9 +592,13 @@ nav {
 }
 .sidenavexpanded {
     .sidenav {
-        width: 230px;
-        .nav-item a {
-            opacity: 1;
+        ul {
+            width: 230px;
+            li {
+                a {
+                    opacity: 1;
+                }
+            }
         }
     }
     .bottom-bar,
@@ -609,7 +617,7 @@ nav {
         display: none !important;
     }
 }
-@keyframes fadein {
+@keyframes fadeIn {
     from {
         opacity: 0;
     }
@@ -617,7 +625,7 @@ nav {
         opacity: 1;
     }
 }
-@keyframes zoomout {
+@keyframes zoomOut {
     0% {
         opacity: 0;
         transform: scale(1.05);
@@ -627,6 +635,14 @@ nav {
     }
     100% {
         transform: scale(1);
+    }
+}
+@keyframes slideInBottom {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
     }
 }
 @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
