@@ -22,7 +22,7 @@ export default [{
       components: {
         default: require('./views/browse/artist/_concerts.vue'),
         header: require('./views/browse/artist/header/header.vue'),
-        headerbackground: require('./views/browse/artist/header/background/concerts.vue'),
+        headerbackground: require('./views/browse/artist/header/background/artist.vue'),
       }
     },
     {

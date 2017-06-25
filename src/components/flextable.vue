@@ -1,5 +1,5 @@
 <template>
-<ol class="tracks-table">
+<ol class="flex-table">
   <li class="table-row">
     <div class="image">
       <i class="material-icons">play_arrow</i>
@@ -48,7 +48,7 @@
 </ol>
 </template>
 <style lang="scss">
-.tracks-table {
+.flex-table {
     .table-row {
         display: flex;
         align-items: center;

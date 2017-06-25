@@ -9,7 +9,7 @@
         <i class="more material-icons">more_horiz</i>
       </div>
     </div>
-    <img src="/static/images/cover4.png" alt="First Time" class="item-image" />
+    <img :src="image" :alt="title" />
     <div class="item-description">
       <h4 class="item-title">{{title}}</h4>
       <div class="item-subtitle"><a>{{subtitle}}</a></div>
@@ -55,6 +55,10 @@ export default {
                 box-shadow: 0 10px 20px var(--shadow-color);
             }
         }
+        img {
+            width: 100%;
+            height: auto;
+        }
         .item-overlay {
             display: flex;
             position: absolute;
@@ -83,10 +87,6 @@ export default {
                     }
                 }
             }
-        }
-        .item-image {
-            width: 100%;
-            height: auto;
         }
         &:hover {
             .item-overlay {

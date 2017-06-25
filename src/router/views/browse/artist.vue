@@ -83,6 +83,24 @@ h4 {
     margin: 0;
     font-weight: 400;
 }
+h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+}
+h2 {
+  font-size: 1.1em;
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+  opacity: 0.7;
+  span {
+      &:after {
+          content: ", ";
+      }
+      &:last-child:after {
+          content: "";
+      }
+  }
+}
 a {
     &:active,
     &:link,
@@ -210,7 +228,7 @@ a {
         height: 300px;
         .header-inner {
             .header-container {
-                .headline {
+                h1 {
                     font-size: 4.4em;
                 }
             }
@@ -245,29 +263,12 @@ a {
             display: flex;
             flex-direction: column;
             animation: zoomOut 0.3s 0.2s both;
-            .headline {
+            h1 {
                 margin-left: -7px;
-                font-family: 'Open Sans', sans-serif;
-                font-size: 5.5em;
-                font-weight: 700;
-                letter-spacing: 0;
                 transition: all 0.3s ease;
+                font-size: 5.5em;
             }
-            .subline {
-                font-size: 1.1em;
-                letter-spacing: 1.7px;
-                text-transform: uppercase;
-                opacity: 0.7;
-                span {
-                    &:after {
-                        content: ", ";
-                    }
-                    &:last-child:after {
-                        content: "";
-                    }
-                }
-            }
-            .header-buttons {
+            .button-container {
                 margin-top: 20px;
                 display: flex;
                 align-items: center;
@@ -424,7 +425,6 @@ nav {
     background-color: var(--dark-blue);
     z-index: 998;
     border-top: 1px solid var(--border-color);
-    animation: slideInBottom 0.3s 0.2s both;
     transition: all 0.3s ease;
     .bottom {
         display: flex;
@@ -525,6 +525,7 @@ nav {
 }
 .btn {
     font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
     display: inline-flex;
     margin: 0 5px 10px 0;
     padding: 13px;
@@ -637,13 +638,21 @@ nav {
         transform: scale(1);
     }
 }
-@keyframes slideInBottom {
+@keyframes fadeInBottom {
     from {
-        transform: translateY(100%);
+        transform: translateY(25px);
+        opacity: 0;
     }
     to {
         transform: translateY(0);
+        opacity: 1;
     }
+}
+.below-viewport {
+  opacity: 0;
+}
+.in-viewport {
+  animation: fadeInBottom 0.3s both;
 }
 @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
     .bottom-bar,
