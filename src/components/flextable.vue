@@ -86,18 +86,18 @@
             }
         }
         .index {
+            flex: 0.3;
             opacity: 0.7;
-            width: 5%;
             font-weight: 300;
             text-align: center;
             padding: 0 5px;
         }
         .title {
-            width: 45%;
+            flex: 2;
             padding: 0 15px;
         }
         .artist {
-            width: 30%;
+            flex: 1.5;
             font-weight: 300;
             padding: 0 10px;
             a {
@@ -116,11 +116,11 @@
             }
         }
         .time {
-            width: 5%;
+            flex: 0.5;
             padding: 0 5px;
         }
         .actions {
-            width: 15%;
+            flex: 0.7;
             display: flex;
             justify-content: space-around;
             padding: 0 5px;

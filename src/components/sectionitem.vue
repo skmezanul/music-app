@@ -37,9 +37,20 @@ export default {
 .section-item {
     padding: 5px;
     box-sizing: border-box;
-    width: 20%;
+    flex: 1;
+    flex-basis: 20%;
+    max-width: 20%;
+    @media screen and (min-width: 955px) {
+      flex-basis: 20%;
+      max-width: 20%;
+      &:nth-child(-n+4) {
+        flex-basis: 25%;
+        max-width: 25%;
+      }
+    }
     @media screen and (max-width: 955px) {
-        width: 100%;
+      flex-basis: 50%;
+      max-width: 50%;
     }
     .section-item-inner {
         display: flex;
@@ -76,7 +87,7 @@ export default {
                 display: flex;
                 align-items: center;
                 justify-content: space-around;
-                width: 90%;
+                flex: 0.9;
                 i {
                     &:hover {
                         cursor: pointer;
@@ -96,7 +107,6 @@ export default {
         .item-description {
             display: flex;
             flex-direction: column;
-            align-items: center;
             padding: 10px;
             line-height: 1.4em;
             text-align: center;

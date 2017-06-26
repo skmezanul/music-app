@@ -10,21 +10,16 @@
       <h2><span>{{city}}</span><span>{{country}}</span></h2>
       <h1>{{venue}}</h1>
       <div class="button-container">
-      <a class="btn"><i class="material-icons">event_available</i>Buy Tickets</a>
-      <a class="btn btn-transparent"><i class="material-icons">share</i>Share</a>
-    </div>
-    </div>
+        <a class="btn"><i class="material-icons">event_available</i>Buy Tickets</a>
+        <a class="btn btn-transparent"><i class="material-icons">share</i>Share</a>
+      </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      playing: false
-    }
-  },
   props: [
     'month',
     'day',
@@ -39,13 +34,13 @@ export default {
 <style lang="scss">
 .card {
     position: relative;
+    margin-bottom: 10px;
     overflow: hidden;
-    margin: 10px 0;
     &.date {
         height: 250px;
         width: 100%;
         img {
-          filter: contrast(150%);
+            filter: contrast(150%);
         }
         .card-overlay {
             position: absolute;
@@ -72,28 +67,29 @@ export default {
                 &.left {
                     align-items: center;
                     justify-content: center;
-                    width: 22%;
+                    flex: 1;
                     text-align: center;
                     text-transform: uppercase;
-                    background: var(--light-blue);
+                    background: var(--blue);
                     h1 {
-                      font-size: 2.5em;
-                      line-height: 1em;
-                      &:last-of-type {
-                        font-size: 5em;
-                      }
+                        font-size: 2.5em;
+                        line-height: 1em;
+                        &:last-of-type {
+                            font-size: 5em;
+                        }
                     }
                 }
                 &.right {
-                    width: 78%;
+                    flex: 4;
                     h1 {
-                      font-size: 3.5em;
+                        font-size: 3.5em;
+                        margin-left: -4px;
                     }
                     .button-container {
-                      margin-top: auto;
-                      a {
-                        margin: 0;
-                      }
+                        margin-top: auto;
+                        a {
+                            margin: 0;
+                        }
                     }
                 }
             }

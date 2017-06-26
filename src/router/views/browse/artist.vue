@@ -73,7 +73,6 @@ ol,
 ul {
     padding: 0;
     margin: 0;
-    width: 100%;
     list-style: none;
 }
 h1,
@@ -132,7 +131,7 @@ a {
         &.left {
             @media screen and (min-width: 955px) {
                 justify-content: flex-start;
-                width: 30%;
+                flex: 1;
             }
             .branding {
                 font-size: 1.4em;
@@ -146,7 +145,7 @@ a {
                 margin: 0 15px;
             }
             @media screen and (min-width: 955px) {
-                width: 40%;
+                flex: 1.5;
             }
             input {
                 border: none;
@@ -184,7 +183,7 @@ a {
             position: relative;
             @media screen and (min-width: 955px) {
                 justify-content: flex-end;
-                width: 30%;
+                flex: 1;
             }
             .user-avatar {
                 border-radius: 100%;
@@ -431,7 +430,7 @@ nav {
         align-items: center;
         height: 50px;
         &.left {
-            width: 40%;
+            flex: 1;
             justify-content: flex-start;
             .album-cover {
                 height: 50px;
@@ -465,16 +464,16 @@ nav {
             }
         }
         &.right {
-            width: 40%;
+            flex: 1;
             justify-content: flex-end;
             i {
                 padding-left: 20px;
             }
         }
         &.center {
-            width: 20%;
+            flex: 0.7;
             @media screen and (max-width: 955px) {
-                width: 100%;
+                flex: 1;
             }
             justify-content: space-between;
             .toggle {

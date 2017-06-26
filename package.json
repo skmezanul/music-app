@@ -32,8 +32,7 @@
     "vue-in-viewport-directive": "^1.1.4",
     "vue-parallaxy": "^1.0.3",
     "vue-router": "^2.5.3",
-    "vue-slider-component": "^2.3.1",
-    "vue2-google-maps": "^0.7.9"
+    "vue-slider-component": "^2.3.1"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
