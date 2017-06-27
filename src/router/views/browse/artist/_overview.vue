@@ -12,7 +12,7 @@
       <div class="section-actions" @click=" collapsed = !collapsed">more</div>
     </div>
     <div class="section-items-container" :class="{'is-collapsed' : collapsed }">
-      <sectionitem v-for="single in singles" :key="single.title" :image="single.image" :title="single.title" :subtitle="single.subtitle"></sectionitem>
+      <sectionitem v-for="item of singles" type="card" :key="item.title" :image="item.image" :title="item.title" :subtitle="item.subtitle"></sectionitem>
     </div>
   </section>
 </div>
@@ -101,7 +101,7 @@ export default {
           title: "Under The Sheets",
           subtitle: "Ellie Goulding",
           image: "https://i.scdn.co/image/a103bf5472a719d4a47ef18c7b197a426622e555"
-        },
+        }
       ]
     }
   }

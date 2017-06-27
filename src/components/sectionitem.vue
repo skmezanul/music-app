@@ -1,5 +1,5 @@
 <template>
-<div class="section-item">
+<div class="section-item" :class="type">
   <div class="section-item-inner">
     <div class="item-overlay">
       <div class="overlay-actions">
@@ -28,6 +28,7 @@ export default {
     }
   },
   props: [
+    'type',
     'title',
     'subtitle',
     'image'
@@ -42,6 +43,28 @@ export default {
     flex: 1;
     flex-basis: 25%;
     max-width: 25%;
+    &.stage {
+        .section-item-inner {
+            .item-description {
+                position: absolute;
+                bottom: 0;
+                top: 0;
+                left: 0;
+                right: 0;
+                box-sizing: border-box;
+                justify-content: flex-end;
+                background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(45, 54, 76, 0));
+                padding-bottom: 25px;
+                .item-description-inner {
+                    font-size: 1.3em;
+                    line-height: 1.2em;
+                }
+            }
+            img {
+                filter: brightness(70%) contrast(105%);
+            }
+        }
+    }
     @media screen and (max-width: 955px) {
         flex-basis: 50%;
         max-width: 50%;
@@ -73,7 +96,6 @@ export default {
             left: 0;
             justify-content: center;
             background: linear-gradient(to top, var(--accent-color) 25%, rgba(45, 54, 76, 0.5));
-            content: "";
             opacity: 0;
             transition: all 0.3s ease;
             z-index: 1;
@@ -81,7 +103,7 @@ export default {
                 display: flex;
                 align-items: center;
                 justify-content: space-around;
-                flex: 0.9;
+                flex: 0.8;
                 i {
                     &:hover {
                         cursor: pointer;
@@ -93,21 +115,16 @@ export default {
                 }
             }
         }
-        &:hover {
-            .item-overlay {
-                opacity: 1;
-            }
-        }
         .item-description {
             display: flex;
             flex-direction: column;
             justify-content: center;
             padding: 10px;
             line-height: 1.4em;
-            height: 100%;
             text-align: center;
+            height: 100%;
             .item-description-inner {
-              z-index: 2;
+                z-index: 2;
                 .item-subtitle {
                     font-size: 0.85em;
                     opacity: 0.7;
@@ -119,6 +136,11 @@ export default {
                 }
 
             }
+        }
+    }
+    &:hover {
+        .item-overlay {
+            opacity: 1;
         }
     }
 }
