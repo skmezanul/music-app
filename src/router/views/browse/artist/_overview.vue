@@ -12,7 +12,7 @@
       <div class="section-actions" @click=" collapsed = !collapsed">more</div>
     </div>
     <div class="section-items-container" :class="{'is-collapsed' : collapsed }">
-      <sectionitem v-for="item of singles" type="card" :key="item.title" :image="item.image" :title="item.title" :subtitle="item.subtitle"></sectionitem>
+      <sectionitem v-for="item of singles" :key="item.title" :image="item.image" :title="item.title" :subtitle="item.subtitle"></sectionitem>
     </div>
   </section>
 </div>

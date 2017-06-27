@@ -34,6 +34,16 @@ export default {
           title: "Jess Glynne",
           subtitle: "Pop",
           image: "https://i.scdn.co/image/ebf29d2f98abdedb754d32372da2dec7f0f1c49b"
+        },
+        {
+          title: "Olly Murs",
+          subtitle: "Pop",
+          image: "https://i.scdn.co/image/48f16a4c5913005dbea716cce43fde74cfc35301"
+        },
+        {
+          title: "Kesha",
+          subtitle: "Pop",
+          image: "https://i.scdn.co/image/bedf829597cae2d1b6732b505532bff0310c267b"
         }
       ]
     }
