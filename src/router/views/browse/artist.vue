@@ -410,15 +410,13 @@ nav {
         flex-flow: row wrap;
         margin: 0 -5px;
         &.is-collapsed {
-            .sectionitem {
-                @media screen and (max-width: 955px) {
-                    &:nth-child(n+3) {
-                        display: none;
-                    }
-                }
-                &:nth-child(n+5) {
+            @media screen and (max-width: 955px) {
+                .section-item:nth-child(n+3) {
                     display: none;
                 }
+            }
+            .section-item:nth-child(n+5) {
+                display: none;
             }
         }
     }
