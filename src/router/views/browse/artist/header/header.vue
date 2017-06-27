@@ -4,7 +4,7 @@
   <h1>Ellie Goulding</h1>
   <h2><span>Electro</span><span>Pop</span><span>Folk</span></h2>
   <div class="button-container">
-    <div class="btn-combined">
+    <div class="button-group">
       <a class="btn btn-accent"><i class="material-icons">play_circle_filled</i>Play All</a>
       <a class="btn"><i class="material-icons">add_circle</i>Follow</a>
       <a class="btn btn-icon"><i class="material-icons">favorite</i></a>

@@ -83,22 +83,22 @@ h4 {
     font-weight: 400;
 }
 h1 {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 700;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
 }
 h2 {
-  font-size: 1.1em;
-  letter-spacing: 1.7px;
-  text-transform: uppercase;
-  opacity: 0.7;
-  span {
-      &:after {
-          content: ", ";
-      }
-      &:last-child:after {
-          content: "";
-      }
-  }
+    font-size: 1.1em;
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    span {
+        &:after {
+            content: ", ";
+        }
+        &:last-child:after {
+            content: "";
+        }
+    }
 }
 a {
     &:active,
@@ -142,7 +142,7 @@ a {
             position: relative;
             @media screen and (max-width: 955px) {
                 width: 100%;
-                margin: 0 15px;
+                margin-right: 10px;
             }
             @media screen and (min-width: 955px) {
                 flex: 1.5;
@@ -271,7 +271,7 @@ a {
                 margin-top: 20px;
                 display: flex;
                 align-items: center;
-                .btn-combined {
+                .button-group {
                     display: flex;
                     box-shadow: 0 5px 10px var(--shadow-color);
                     margin: 0 5px 10px 0;
@@ -370,8 +370,6 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    width: 100%;
     animation: fadeIn 0.3s 0.2s both;
 }
 
@@ -382,8 +380,9 @@ nav {
     margin: 30px 0;
     .biography {
         font-weight: 300;
-        line-height: 1.4em;
+        line-height: 1.5em;
         opacity: 0.9;
+        font-size: 1.1em;
         & p:nth-of-type(1) {
             margin-top: 0;
         }
@@ -410,6 +409,11 @@ nav {
         display: flex;
         flex-flow: row wrap;
         margin: 0 -5px;
+        &.is-collapsed {
+            .section-item:nth-child(n+5) {
+                display: none;
+            }
+        }
     }
 }
 .bottom-bar {
@@ -432,7 +436,7 @@ nav {
         &.left {
             flex: 1;
             justify-content: flex-start;
-            .album-cover {
+            img {
                 height: 50px;
                 width: 50px;
                 margin-right: 10px;
@@ -648,10 +652,10 @@ nav {
     }
 }
 .below-viewport {
-  opacity: 0;
+    opacity: 0;
 }
 .in-viewport {
-  animation: fadeInBottom 0.3s both;
+    animation: fadeInBottom 0.5s both;
 }
 @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
     .bottom-bar,

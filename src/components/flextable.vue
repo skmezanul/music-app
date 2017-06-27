@@ -3,17 +3,16 @@
   <li class="table-row">
     <div class="image">
       <i class="material-icons">play_arrow</i>
-      <img src="/static/images/cover4.png" alt="First Time" height="100%" />
+      <img src="/static/images/cover4.png" alt="First duration" height="100%" />
     </div>
     <div class="index mobile-hidden">01</div>
-    <i class="addtoplaylist mobile-hidden material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
-    <div class="title">First Time</div>
-    <div class="artist"><a>Kygo</a><a>Ellie Goulding</a></div>
-    <div class="time">3:14</div>
-    <div class="actions mobile-hidden">
-      <i class="share material-icons" v-tooltip="{ content: 'Share', container: '.tooltip-container' }">share</i>
-      <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
+    <div class="meta-container">
+      <div class="title">First Time</div>
+      <div class="artist"><a>Kygo</a><a>Ellie Goulding</a></div>
     </div>
+    <div class="duration">3:14</div>
+    <i class="addtoplaylist mobile-hidden material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
+    <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
   </li>
   <li class="table-row">
     <div class="image">
@@ -21,14 +20,13 @@
       <img src="/static/images/cover2.png" alt="Love Me Like You Do" height="100%" />
     </div>
     <div class="index mobile-hidden">02</div>
-    <i class="addtoplaylist mobile-hidden material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
-    <div class="title">Love Me Like You Do</div>
-    <div class="artist"><a>Ellie Goulding</a></div>
-    <div class="time">4:13</div>
-    <div class="actions mobile-hidden">
-      <i class="share material-icons" v-tooltip="{ content: 'Share', container: '.tooltip-container' }">share</i>
-      <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
+    <div class="meta-container">
+      <div class="title">Love Me Like You Do</div>
+      <div class="artist"><a>Ellie Goulding</a></div>
     </div>
+    <div class="duration">4:13</div>
+    <i class="addtoplaylist mobile-hidden material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
+    <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
   </li>
   <li class="table-row">
     <div class="image">
@@ -36,14 +34,13 @@
       <img src="/static/images/cover1.png" alt="Burn" height="100%" />
     </div>
     <div class="index mobile-hidden">03</div>
-    <i class="addtoplaylist mobile-hidden material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
-    <div class="title">Burn</div>
-    <div class="artist"><a>Ellie Goulding</a></div>
-    <div class="time">3:51</div>
-    <div class="actions mobile-hidden">
-      <i class="share material-icons" v-tooltip="{ content: 'Share', container: '.tooltip-container' }">share</i>
-      <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
+    <div class="meta-container">
+      <div class="title">Burn</div>
+      <div class="artist"><a>Ellie Goulding</a></div>
     </div>
+    <div class="duration">3:51</div>
+    <i class="addtoplaylist mobile-hidden material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
+    <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
   </li>
 </ol>
 </template>
@@ -58,12 +55,12 @@
         &:hover {
             background-color: rgba(255,255,255,0.1);
             .image i {
-                opacity: 1;
+                opacity: 0.7;
             }
         }
         .image {
-            height: 50px;
-            width: 50px;
+            height: 60px;
+            width: 60px;
             position: relative;
             i {
                 opacity: 0;
@@ -75,55 +72,53 @@
                 left: 0;
                 right: 0;
                 z-index: 1;
-                font-size: 3em;
+                font-size: 3.8em;
             }
         }
         i {
             transition: all 0.3s ease;
+            flex: 0.15;
+            @media screen and (max-width: 955px) {
+                padding: 0 15px;
+            }
             &:hover {
                 opacity: 0.7;
                 cursor: pointer;
             }
         }
         .index {
-            flex: 0.3;
-            opacity: 0.7;
+            flex: 0.2;
             font-weight: 300;
             text-align: center;
-            padding: 0 5px;
+            font-size: 1.3em;
         }
-        .title {
+        .meta-container {
             flex: 2;
-            padding: 0 15px;
-        }
-        .artist {
-            flex: 1.5;
-            font-weight: 300;
-            padding: 0 10px;
-            a {
-                opacity: 0.7;
-                transition: all 0.3s ease;
-                &:hover {
-                    opacity: 1;
-                    cursor: pointer;
-                }
-                &:after {
-                    content: ", ";
-                }
-                &:last-child:after {
-                    content: "";
+            line-height: 1.3em;
+            @media screen and (max-width: 955px) {
+                padding: 0 15px;
+            }
+            .artist {
+                font-weight: 300;
+                a {
+                    opacity: 0.7;
+                    transition: all 0.3s ease;
+                    &:hover {
+                        opacity: 1;
+                        cursor: pointer;
+                    }
+                    &:after {
+                        content: ", ";
+                    }
+                    &:last-child:after {
+                        content: "";
+                    }
                 }
             }
         }
-        .time {
+        .duration {
             flex: 0.5;
-            padding: 0 5px;
-        }
-        .actions {
-            flex: 0.7;
-            display: flex;
-            justify-content: space-around;
-            padding: 0 5px;
+            text-align: center;
         }
     }
 }

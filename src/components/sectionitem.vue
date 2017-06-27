@@ -11,8 +11,10 @@
     </div>
     <img :src="image" :alt="title" />
     <div class="item-description">
-      <h4 class="item-title">{{title}}</h4>
-      <div class="item-subtitle"><a>{{subtitle}}</a></div>
+      <div class="item-description-inner">
+        <h4 class="item-title">{{title}}</h4>
+        <div class="item-subtitle"><a>{{subtitle}}</a></div>
+      </div>
     </div>
   </div>
 </div>
@@ -38,19 +40,11 @@ export default {
     padding: 5px;
     box-sizing: border-box;
     flex: 1;
-    flex-basis: 20%;
-    max-width: 20%;
-    @media screen and (min-width: 955px) {
-      flex-basis: 20%;
-      max-width: 20%;
-      &:nth-child(-n+4) {
-        flex-basis: 25%;
-        max-width: 25%;
-      }
-    }
+    flex-basis: 25%;
+    max-width: 25%;
     @media screen and (max-width: 955px) {
-      flex-basis: 50%;
-      max-width: 50%;
+        flex-basis: 50%;
+        max-width: 50%;
     }
     .section-item-inner {
         display: flex;
@@ -107,21 +101,23 @@ export default {
         .item-description {
             display: flex;
             flex-direction: column;
+            justify-content: center;
             padding: 10px;
             line-height: 1.4em;
+            height: 100%;
             text-align: center;
-            .item-title {
-                z-index: 2;
-            }
-            .item-subtitle {
-                font-size: 0.85em;
-                opacity: 0.7;
-                z-index: 2;
-                font-weight: 300;
-                &:hover {
-                    cursor: pointer;
-                    text-decoration: underline;
+            .item-description-inner {
+              z-index: 2;
+                .item-subtitle {
+                    font-size: 0.85em;
+                    opacity: 0.7;
+                    font-weight: 300;
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
                 }
+
             }
         }
     }

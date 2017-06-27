@@ -10,19 +10,19 @@ export default [{
       components: {
         default: require('./views/browse/artist/_overview.vue'),
         header: require('./views/browse/artist/header/header.vue'),
-        headerbackground: require('./views/browse/artist/header/background/artist.vue'),
+        headerbackground: require('./views/browse/artist/header/background/artist.vue')
       }
     },
     {
       path: 'concerts',
       name: 'concerts',
       meta: {
+        compactHeader: true,
         concerts: true
       },
       components: {
         default: require('./views/browse/artist/_concerts.vue'),
-        header: require('./views/browse/artist/header/header.vue'),
-        headerbackground: require('./views/browse/artist/header/background/artist.vue'),
+        header: require('./views/browse/artist/header/header.vue')
       }
     },
     {
@@ -34,7 +34,7 @@ export default [{
       },
       components: {
         default: require('./views/browse/artist/_playlists.vue'),
-        header: require('./views/browse/artist/header/header.vue'),
+        header: require('./views/browse/artist/header/header.vue')
       }
     },
     {
@@ -46,7 +46,7 @@ export default [{
       },
       components: {
         default: require('./views/browse/artist/_feed.vue'),
-        header: require('./views/browse/artist/header/header.vue'),
+        header: require('./views/browse/artist/header/header.vue')
       }
     },
     {
@@ -58,7 +58,7 @@ export default [{
       },
       components: {
         default: require('./views/browse/artist/_similar.vue'),
-        header: require('./views/browse/artist/header/header.vue'),
+        header: require('./views/browse/artist/header/header.vue')
       }
     },
     {
@@ -69,7 +69,7 @@ export default [{
       },
       components: {
         default: require('./views/browse/artist/_information.vue'),
-        headerbackground: require('./views/browse/artist/header/background/information.vue'),
+        headerbackground: require('./views/browse/artist/header/background/information.vue')
       }
     }
   ]
