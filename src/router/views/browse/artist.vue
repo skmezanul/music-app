@@ -149,10 +149,10 @@ a {
                 color: #fff;
                 border-radius: 3px;
                 transition: all 0.3s ease;
-                letter-spacing: 1px;
-                 &::-webkit-input-placeholder,
-                -webkit-user-select:text {
-                    color: rgba(255,255,255,0.5);
+                letter-spacing: 1.3px;
+                -webkit-user-select:text;
+                 &::-webkit-input-placeholder {
+                    color: rgba(255,255,255,0.4);
                 }
                 &:focus {
                     outline: 0;
