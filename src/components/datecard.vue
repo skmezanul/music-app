@@ -80,7 +80,7 @@ export default {
                     }
                 }
                 &.right {
-                    flex: 4;
+                    flex: 5;
                     h1 {
                         font-size: 3.5em;
                         margin-left: -4px;

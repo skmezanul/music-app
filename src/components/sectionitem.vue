@@ -1,7 +1,7 @@
 <template>
 <div class="section-item" :class="type">
   <div class="section-item-inner">
-    <div class="item-overlay">
+    <div class="item-overlay" v-if="type == null">
       <div class="overlay-actions">
         <i class="favorite material-icons">favorite</i>
         <i v-if="playing == false" @click="playing = true" class="play material-icons">play_circle_outline</i>
@@ -43,6 +43,10 @@ export default {
     flex: 1;
     flex-basis: 25%;
     max-width: 25%;
+    @media screen and (max-width: 955px) {
+        flex-basis: 50%;
+        max-width: 50%;
+    }
     &.stage {
         .section-item-inner {
             .item-description {
@@ -64,10 +68,6 @@ export default {
                 filter: brightness(70%) contrast(105%);
             }
         }
-    }
-    @media screen and (max-width: 955px) {
-        flex-basis: 50%;
-        max-width: 50%;
     }
     .section-item-inner {
         display: flex;

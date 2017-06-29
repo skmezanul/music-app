@@ -9,7 +9,7 @@
   <section class="page-section" v-in-viewport.once>
     <div class="section-header">
       <h4 class="section-title">Singles</h4>
-      <div class="section-actions" @click=" collapsed = !collapsed">more</div>
+      <div class="section-actions" @click=" collapsed = !collapsed">show more</div>
     </div>
     <div class="section-items-container" :class="{'is-collapsed' : collapsed }">
       <sectionitem v-for="item of singles" :key="item.title" :image="item.image" :title="item.title" :subtitle="item.subtitle"></sectionitem>
@@ -18,6 +18,41 @@
 </div>
 </template>
 <script>
+var request = require('request'); // "Request" library
+
+var client_id = '98ef0a911fb04e9a980707d7687949c9'; // Your client id
+var client_secret = '334d634c367048a490527a0414349021'; // Your secret
+
+// your application requests authorization
+var authOptions = {
+  url: 'https://accounts.spotify.com/api/token',
+  headers: {
+    'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
+  },
+  form: {
+    grant_type: 'client_credentials'
+  },
+  json: true
+};
+
+request.post(authOptions, function(error, response, body) {
+  if (!error && response.statusCode === 200) {
+
+    // use the access token to access the Spotify Web API
+    var token = body.access_token;
+    var options = {
+      url: 'https://api.spotify.com/v1/users/jmperezperez',
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
+      json: true
+    };
+    request.get(options, function(error, response, body) {
+      console.log(body);
+    });
+  }
+});
+
 export default {
   data() {
     return {
