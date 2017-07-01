@@ -66,6 +66,13 @@ export default {
             }
             img {
                 filter: brightness(70%) contrast(105%);
+                transition: transform 0.3s;
+            }
+            &:hover {
+                cursor: pointer;
+                img {
+                    transform: scale(1.1);
+                }
             }
         }
     }
@@ -74,15 +81,11 @@ export default {
         position: relative;
         flex-direction: column;
         background-color: var(--blue);
-        transition: all 0.3s ease;
         height: 100%;
         overflow: hidden;
-        @media screen and (min-width: 955px) {
-            &:hover {
-                transform: scale(1.05);
-                box-shadow: 0 10px 20px var(--shadow-color);
-            }
-        }
+        transition: box-shadow 0.3s;
+        box-shadow: 0 0 15px var(--shadow-color);
+
         img {
             width: 100%;
             height: auto;
@@ -97,7 +100,7 @@ export default {
             justify-content: center;
             background: linear-gradient(to top, var(--accent-color) 25%, rgba(45, 54, 76, 0.5));
             opacity: 0;
-            transition: all 0.3s ease;
+            transition: opacity 0.3s;
             z-index: 1;
             .overlay-actions {
                 display: flex;
@@ -105,6 +108,7 @@ export default {
                 justify-content: space-around;
                 flex: 0.8;
                 i {
+                    transition: opacity 0.3s;
                     &:hover {
                         cursor: pointer;
                         opacity: 0.7;

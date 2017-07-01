@@ -46,16 +46,17 @@
 </template>
 <style lang="scss">
 .flex-table {
+  box-shadow: 0 0 15px var(--shadow-color);
     .table-row {
         display: flex;
         align-items: center;
-        transition: all 0.3s ease;
+        transition: background-color 0.3s;
         margin: 2px 0;
         background-color: var(--blue);
         &:hover {
             background-color: rgba(255,255,255,0.1);
             .image i {
-                opacity: 0.7;
+                opacity: 1;
             }
         }
         .image {
@@ -64,8 +65,6 @@
             position: relative;
             i {
                 opacity: 0;
-                background-color: rgba(0,0,0,0.7);
-                transition: all 0.3s ease;
                 position: absolute;
                 top: 0;
                 bottom: 0;
@@ -76,7 +75,7 @@
             }
         }
         i {
-            transition: all 0.3s ease;
+            transition: opacity 0.3s;
             flex: 0.15;
             @media screen and (max-width: 955px) {
                 padding: 0 15px;
@@ -102,7 +101,7 @@
                 font-weight: 300;
                 a {
                     opacity: 0.7;
-                    transition: all 0.3s ease;
+                    transition: opacity 0.3s;
                     &:hover {
                         opacity: 1;
                         cursor: pointer;

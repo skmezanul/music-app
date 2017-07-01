@@ -9,26 +9,27 @@
 </head>
 
 <body>
-  <div id="app" :class="{scrolled: scrollPosition > 5, sidenavexpanded: sidenav == true }">
+  <div id="app" :class="{scrolled: scrollPosition > 5}">
 
     <!-- Top Bar -->
     <header class="top-bar">
-      <div class="top left mobile-hidden">
-        <i class="toggle material-icons" v-on:click="sidenav = !sidenav">menu</i>
-        <h3 v-if="scrollPosition < 340" class="branding">Music App</h3>
-        <h3 v-else class="branding">Ellie Goulding</h3>
-      </div>
-      <div class="top center">
-        <i class="material-icons search-icon">search</i>
-        <input type="text" placeholder="Search" />
-      </div>
-      <div class="top right">
-        <img src="/static/images/avatar.jpg" alt="Avatar" class="user-avatar mobile-hidden" />
-        <div class="user-name mobile-hidden">Leon S.</div>
-        <i class="toggle material-icons" v-on:click="dropdown = !dropdown">keyboard_arrow_down</i>
-        <div class="dropdown user" v-if="dropdown">
-          <div class="dropdown-item"><i class="material-icons">account_circle</i> My Account</div>
-          <div class="dropdown-item"><i class="material-icons">power_settings_new</i> Logout</div>
+      <div class="top-bar-inner">
+        <div class="top left mobile-hidden">
+          <h3 class="branding">Music App</h3>
+        </div>
+        <div class="top center">
+          <i class="material-icons search-icon">search</i>
+          <input type="text" placeholder="Search" />
+        </div>
+        <div class="top right">
+          <img src="/static/images/avatar.jpg" alt="Avatar" class="user-avatar mobile-hidden" />
+          <div class="user-name mobile-hidden">Leon S.</div>
+          <i class="toggle material-icons" v-on:click="dropdown = !dropdown">keyboard_arrow_down</i>
+          <div class="dropdown user" v-if="dropdown">
+            <div class="dropdown-item">My Account</div>
+            <div class="dropdown-item">Settings</div>
+            <div class="dropdown-item">Logout</div>
+          </div>
         </div>
       </div>
     </header>
@@ -37,12 +38,33 @@
     <!-- Sidenav -->
     <nav class="sidenav">
       <ul>
-        <li><i class="material-icons">home</i><a>Home</a></li>
-        <li class="active"><i class="material-icons">book</i><a>Browse</a></li>
-        <li><i class="material-icons">settings_input_antenna</i><a>Radio</a></li>
-        <li><i class="material-icons">library_music</i><a>My Music</a></li>
-        <li><i class="material-icons">playlist_play</i><a>My Playlists</a></li>
-        <li><i class="material-icons">settings</i><a>Settings</a></li>
+        <div class="sidenav-section">
+          <li>
+            <router-link to="/artist">Browse</router-link>
+          </li>
+          <li>
+            <router-link to="/artist">Radio</router-link>
+          </li>
+        </div>
+        <div class="sidenav-section">
+          <li>
+            <h4>Your Music</h4></li>
+          <li><a>Last heard</a></li>
+          <li><a>Songs</a></li>
+          <li><a>Albums</a></li>
+          <li><a>Artists</a></li>
+        </div>
+        <div class="sidenav-section">
+          <li>
+            <h4>Playlists</h4></li>
+          <li><a>Mix of the week</a></li>
+          <li><a>Good music</a></li>
+          <li><a>My favorites</a></li>
+          <li><a>Hits Remixed</a></li>
+        </div>
+        <div class="sidenav-section">
+          <li><a>New Playlist</a></li>
+        </div>
       </ul>
     </nav>
     <!-- End Sidenav -->

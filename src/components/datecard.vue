@@ -36,11 +36,12 @@ export default {
     position: relative;
     margin-bottom: 10px;
     overflow: hidden;
+    box-shadow: 0 0 15px var(--shadow-color);
     &.date {
         height: 250px;
         width: 100%;
         img {
-            filter: contrast(150%);
+            filter: brightness(40%);
         }
         .card-overlay {
             position: absolute;
@@ -49,20 +50,10 @@ export default {
             bottom: 0;
             right: 0;
             display: flex;
-            &:before {
-                content: "";
-                background: var(--dark-blue-transparent);
-                position: absolute;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                right: 0;
-            }
             .container {
                 display: flex;
                 flex-direction: column;
                 padding: 30px;
-                box-sizing: border-box;
                 z-index: 1;
                 &.left {
                     align-items: center;
