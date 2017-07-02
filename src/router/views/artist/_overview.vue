@@ -15,7 +15,7 @@
       <sectionitem
       v-for="item of singles"
       :key="item.title"
-      :image="item.image" 
+      :image="item.image"
       :title="item.title"
       :subtitle="item.subtitle">
     </sectionitem>
