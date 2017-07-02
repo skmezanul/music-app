@@ -7,7 +7,6 @@ const app = new Vue({
   router,
   data: {
     scrollPosition: null,
-    sidenav: false,
     dropdown: false,
     volume: 50,
     playing: false
@@ -18,6 +17,12 @@ const app = new Vue({
     },
     closeDropdown: function() {
       this.dropdown = false
+    },
+    goBack: function () {
+      router.go(-1)
+    },
+    goForward: function () {
+      router.go(1)
     }
   },
 

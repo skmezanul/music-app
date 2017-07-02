@@ -36,7 +36,7 @@ export default {
     position: relative;
     margin-bottom: 10px;
     overflow: hidden;
-    box-shadow: 0 0 15px var(--shadow-color);
+    box-shadow: $shadow;
     &.date {
         height: 250px;
         width: 100%;
@@ -61,7 +61,7 @@ export default {
                     flex: 1;
                     text-align: center;
                     text-transform: uppercase;
-                    background: var(--blue);
+                    background: $blue;
                     h1 {
                         font-size: 2.5em;
                         line-height: 1em;

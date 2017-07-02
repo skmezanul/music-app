@@ -46,15 +46,15 @@
 </template>
 <style lang="scss">
 .flex-table {
-  box-shadow: 0 0 15px var(--shadow-color);
+  box-shadow: $shadow;
     .table-row {
         display: flex;
         align-items: center;
         transition: background-color 0.3s;
         margin: 2px 0;
-        background-color: var(--blue);
+        background-color: $blue;
         &:hover {
-            background-color: rgba(255,255,255,0.1);
+            background-color: rgba($white,0.1);
             .image i {
                 opacity: 1;
             }

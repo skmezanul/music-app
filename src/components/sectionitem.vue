@@ -41,13 +41,15 @@ export default {
     padding: 5px;
     box-sizing: border-box;
     flex: 1;
-    flex-basis: 25%;
-    max-width: 25%;
+    flex-basis: 20%;
+    max-width: 20%;
     @media screen and (max-width: 955px) {
         flex-basis: 50%;
         max-width: 50%;
     }
     &.stage {
+        flex-basis: 25%;
+        max-width: 25%;
         .section-item-inner {
             .item-description {
                 position: absolute;
@@ -56,9 +58,11 @@ export default {
                 left: 0;
                 right: 0;
                 box-sizing: border-box;
-                justify-content: flex-end;
-                background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(45, 54, 76, 0));
+                justify-content: center;
+                align-items: flex-end;
+                background: linear-gradient(to top, rgba($black,0.7), rgba($black,0));
                 padding-bottom: 25px;
+                height: 100%;
                 .item-description-inner {
                     font-size: 1.3em;
                     line-height: 1.2em;
@@ -80,11 +84,11 @@ export default {
         display: flex;
         position: relative;
         flex-direction: column;
-        background-color: var(--blue);
+        background-color: $blue;
         height: 100%;
         overflow: hidden;
         transition: box-shadow 0.3s;
-        box-shadow: 0 0 15px var(--shadow-color);
+        box-shadow: $shadow;
 
         img {
             width: 100%;
@@ -98,7 +102,7 @@ export default {
             bottom: 0;
             left: 0;
             justify-content: center;
-            background: linear-gradient(to top, var(--accent-color) 25%, rgba(45, 54, 76, 0.5));
+            background: linear-gradient(to top, $accent-color 25%, rgba($blue,0.5));
             opacity: 0;
             transition: opacity 0.3s;
             z-index: 1;
@@ -121,14 +125,14 @@ export default {
         }
         .item-description {
             display: flex;
-            flex-direction: column;
             justify-content: center;
-            padding: 10px;
-            line-height: 1.4em;
-            text-align: center;
-            height: 100%;
+            padding: 15px;
             .item-description-inner {
                 z-index: 2;
+                overflow: hidden;
+                white-space: nowrap;
+                text-align: center;
+                line-height: 1.4em;
                 .item-subtitle {
                     font-size: 0.85em;
                     opacity: 0.7;

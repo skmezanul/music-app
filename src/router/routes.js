@@ -1,6 +1,7 @@
-export default [{
+export default [
+  {
   path: '/artist',
-  component: require('./views/browse/artist.vue'),
+  component: require('./views/artist/index.vue'),
   children: [{
       path: '',
       name: 'overview',
@@ -8,9 +9,9 @@ export default [{
         overview: true
       },
       components: {
-        default: require('./views/browse/artist/_overview.vue'),
-        header: require('./views/browse/artist/header/header.vue'),
-        headerbackground: require('./views/browse/artist/header/background/artist.vue')
+        default: require('./views/artist/_overview.vue'),
+        header: require('./views/artist/header/header.vue'),
+        headerbackground: require('./views/artist/header/background/artist.vue')
       }
     },
     {
@@ -21,8 +22,8 @@ export default [{
         concerts: true
       },
       components: {
-        default: require('./views/browse/artist/_concerts.vue'),
-        header: require('./views/browse/artist/header/header.vue')
+        default: require('./views/artist/_concerts.vue'),
+        header: require('./views/artist/header/header.vue')
       }
     },
     {
@@ -33,8 +34,8 @@ export default [{
         playlists: true
       },
       components: {
-        default: require('./views/browse/artist/_playlists.vue'),
-        header: require('./views/browse/artist/header/header.vue')
+        default: require('./views/artist/_playlists.vue'),
+        header: require('./views/artist/header/header.vue')
       }
     },
     {
@@ -45,8 +46,8 @@ export default [{
         feed: true
       },
       components: {
-        default: require('./views/browse/artist/_feed.vue'),
-        header: require('./views/browse/artist/header/header.vue')
+        default: require('./views/artist/_feed.vue'),
+        header: require('./views/artist/header/header.vue')
       }
     },
     {
@@ -57,8 +58,8 @@ export default [{
         similar: true
       },
       components: {
-        default: require('./views/browse/artist/_similar.vue'),
-        header: require('./views/browse/artist/header/header.vue')
+        default: require('./views/artist/_similar.vue'),
+        header: require('./views/artist/header/header.vue')
       }
     },
     {
@@ -68,9 +69,10 @@ export default [{
         information: true
       },
       components: {
-        default: require('./views/browse/artist/_information.vue'),
-        headerbackground: require('./views/browse/artist/header/background/information.vue')
+        default: require('./views/artist/_information.vue'),
+        headerbackground: require('./views/artist/header/background/information.vue')
       }
     }
   ]
-}];
+}
+];
