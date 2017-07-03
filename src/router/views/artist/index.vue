@@ -47,6 +47,10 @@ body {
     background-color: $main-bg-color;
     color: $white;
     min-width: 611px;
+    user-select: none;
+}
+input {
+    user-select: text;
 }
 ol,
 ul {
@@ -140,7 +144,6 @@ a {
                     border-radius: 3px;
                     transition: background-color 0.3s, box-shadow 0.3s;
                     letter-spacing: 1.3px;
-                    -webkit-user-select: text;
                     margin: 0 10px;
                     &::-webkit-input-placeholder {
                         color: rgba($white,0.4);
@@ -331,8 +334,7 @@ nav {
                 margin: 15px;
                 &:last-of-type {
                     border-top: 1px solid $border-color;
-                    margin: 0;
-                    margin-top: auto;
+                    margin: auto 0 0;
                     li {
                         padding: 15px;
                     }
@@ -362,8 +364,8 @@ nav {
                         display: flex;
                         align-items: center;
                         i {
-                          font-size: 1.3em;
-                          margin-right: 7px;
+                            font-size: 1.3em;
+                            margin-right: 7px;
                         }
                         &.router-link-active {
                             background-color: $accent-color;
@@ -665,10 +667,12 @@ nav {
         -webkit-backdrop-filter: saturate(200%) blur(20px);
     }
 }
-.top-bar-inner, .header-inner, .page-section {
-  width: $large-width;
-  @media screen and (max-width: 1500px) {
-      width: $small-width;
-  }
+.header-inner,
+.page-section,
+.top-bar-inner {
+    width: $large-width;
+    @media screen and (max-width: 1500px) {
+        width: $small-width;
+    }
 }
 </style>

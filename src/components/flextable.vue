@@ -11,7 +11,8 @@
       <div class="artist"><a>Kygo</a><a>Ellie Goulding</a></div>
     </div>
     <div class="duration">3:14</div>
-    <i class="addtoplaylist mobile-hidden material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
+    <i class="material-icons" v-tooltip="{ content: 'Add to favorites', container: '.tooltip-container' }">favorite</i>
+    <i class="material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
     <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
   </li>
   <li class="table-row">
@@ -25,7 +26,8 @@
       <div class="artist"><a>Ellie Goulding</a></div>
     </div>
     <div class="duration">4:13</div>
-    <i class="addtoplaylist mobile-hidden material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
+    <i class="material-icons" v-tooltip="{ content: 'Add to favorites', container: '.tooltip-container' }">favorite</i>
+    <i class="material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
     <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
   </li>
   <li class="table-row">
@@ -39,7 +41,8 @@
       <div class="artist"><a>Ellie Goulding</a></div>
     </div>
     <div class="duration">3:51</div>
-    <i class="addtoplaylist mobile-hidden material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
+    <i class="material-icons" v-tooltip="{ content: 'Add to favorites', container: '.tooltip-container' }">favorite</i>
+    <i class="material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
     <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
   </li>
 </ol>
@@ -76,7 +79,7 @@
         }
         i {
             transition: opacity 0.3s;
-            flex: 0.15;
+            flex: 0.13;
             @media screen and (max-width: 955px) {
                 padding: 0 15px;
             }
