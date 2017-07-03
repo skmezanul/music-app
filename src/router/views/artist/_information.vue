@@ -1,6 +1,6 @@
 <template>
 <div class="page-container">
-  <section class="page-section">
+  <section class="page-section information">
     <div class="section-header">
       <h4 class="section-title">About Ellie Goulding</h4>
     </div>

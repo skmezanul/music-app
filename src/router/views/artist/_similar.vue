@@ -1,5 +1,5 @@
 <template>
-<div class="page-container">
+<div class="page-container similar">
   <section class="page-section">
     <div class="section-header">
       <h4 class="section-title">Similar to Ellie Goulding</h4>

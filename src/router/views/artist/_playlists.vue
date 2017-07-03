@@ -1,6 +1,6 @@
 <template>
 <div class="page-container">
-  <section class="page-section">
+  <section class="page-section playlists">
     <div class="section-header">
       <h4 class="section-title">Playlists</h4>
     </div>

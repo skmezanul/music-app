@@ -1,5 +1,5 @@
 <template>
-<main class="main-container" :class="{ 'compact': $route.meta.compactHeader === true }">
+<main class="main-container" :class="{ 'compact-header': $route.meta.compactHeader === true }">
   <header class="header">
     <div class="background-container">
       <router-view name="headerbackground"></router-view>
@@ -195,7 +195,7 @@ a {
     margin-top: 0;
     will-change: margin-top;
     transition: margin-top 0.3s;
-    &.compact {
+    &.compact-header {
         margin-top: -250px;
         .header {
             .header-inner {

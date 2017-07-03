@@ -5,13 +5,12 @@
       <i class="material-icons">play_arrow</i>
       <img src="/static/images/cover4.png" alt="First duration" height="100%" />
     </div>
-    <div class="index mobile-hidden">01</div>
+    <span class="index mobile-hidden">01</span>
     <div class="meta-container">
-      <div class="title">First Time</div>
+      <span class="title">First Time</span>
       <div class="artist"><a>Kygo</a><a>Ellie Goulding</a></div>
     </div>
-    <div class="duration">3:14</div>
-    <i class="material-icons" v-tooltip="{ content: 'Add to favorites', container: '.tooltip-container' }">favorite</i>
+    <span class="duration">3:14</span>
     <i class="material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
     <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
   </li>
@@ -20,13 +19,12 @@
       <i class="material-icons">play_arrow</i>
       <img src="/static/images/cover2.png" alt="Love Me Like You Do" height="100%" />
     </div>
-    <div class="index mobile-hidden">02</div>
+    <span class="index mobile-hidden">02</span>
     <div class="meta-container">
-      <div class="title">Love Me Like You Do</div>
+      <span class="title">Love Me Like You Do</span>
       <div class="artist"><a>Ellie Goulding</a></div>
     </div>
-    <div class="duration">4:13</div>
-    <i class="material-icons" v-tooltip="{ content: 'Add to favorites', container: '.tooltip-container' }">favorite</i>
+    <span class="duration">4:13</span>
     <i class="material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
     <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
   </li>
@@ -35,13 +33,12 @@
       <i class="material-icons">play_arrow</i>
       <img src="/static/images/cover1.png" alt="Burn" height="100%" />
     </div>
-    <div class="index mobile-hidden">03</div>
+    <span class="index mobile-hidden">03</span>
     <div class="meta-container">
-      <div class="title">Burn</div>
+      <span class="title">Burn</span>
       <div class="artist"><a>Ellie Goulding</a></div>
     </div>
-    <div class="duration">3:51</div>
-    <i class="material-icons" v-tooltip="{ content: 'Add to favorites', container: '.tooltip-container' }">favorite</i>
+    <span class="duration">3:51</span>
     <i class="material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
     <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
   </li>

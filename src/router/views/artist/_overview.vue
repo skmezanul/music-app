@@ -1,12 +1,12 @@
 <template>
 <div class="page-container">
-  <section class="page-section">
+  <section class="page-section tracks">
     <div class="section-header">
       <h4 class="section-title">Top Tracks</h4>
     </div>
     <flextable></flextable>
   </section>
-  <section class="page-section">
+  <section class="page-section singles">
     <div class="section-header">
       <h4 class="section-title">Singles</h4>
       <div class="section-actions" @click=" collapsed = !collapsed">show more</div>

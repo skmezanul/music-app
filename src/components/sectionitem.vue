@@ -9,7 +9,9 @@
         <i class="more material-icons">more_horiz</i>
       </div>
     </div>
-    <img :src="image" :alt="title" />
+    <div class="image-container">
+      <img :src="image" :alt="title" />
+    </div>
     <div class="item-description">
       <div class="item-description-inner">
         <h4 class="item-title">{{title}}</h4>
@@ -68,9 +70,14 @@ export default {
                     line-height: 1.2em;
                 }
             }
-            img {
-                filter: brightness(70%) contrast(105%);
-                transition: transform 0.3s;
+            .image-container {
+              height: 350px;
+              img {
+                  filter: brightness(70%) contrast(105%);
+                  transition: transform 0.3s;
+                  height: 100%;
+                  width: auto;
+              }
             }
             &:hover {
                 cursor: pointer;
@@ -89,10 +96,16 @@ export default {
         overflow: hidden;
         transition: box-shadow 0.3s;
         box-shadow: $shadow;
-
-        img {
-            width: 100%;
-            height: auto;
+        .image-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: auto;
+          img {
+              width: 100%;
+              height: auto;
+          }
         }
         .item-overlay {
             display: flex;
