@@ -67,13 +67,12 @@ export default {
                 height: 100%;
                 .item-description-inner {
                     font-size: 1.3em;
-                    line-height: 1.2em;
                 }
             }
             .image-container {
               height: 350px;
               img {
-                  filter: brightness(70%) contrast(105%);
+                  filter: brightness(80%) contrast(110%);
                   transition: transform 0.3s;
                   height: 100%;
                   width: auto;

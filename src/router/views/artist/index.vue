@@ -332,7 +332,7 @@ nav {
             box-sizing: border-box;
             .sidenav-section {
                 margin: 15px;
-                &:last-of-type {
+                &.bottom{
                     border-top: 1px solid $border-color;
                     margin: auto 0 0;
                     li {
@@ -345,7 +345,6 @@ nav {
                     transition: background-color 0.5s;
                     white-space: nowrap;
                     overflow: hidden;
-                    margin: 3px 0;
                     h4 {
                         text-transform: uppercase;
                         opacity: 0.7;
