@@ -37,8 +37,7 @@
 </template>
 <style lang="scss">
 ::-webkit-scrollbar {
-    width: 0;
-    height: 0;
+    display: none;
 }
 body {
     font-family: 'Roboto', sans-serif;
@@ -177,6 +176,10 @@ a {
                 }
                 .user-name {
                     padding: 0 10px;
+                    transition: opacity 0.3s;
+                    &:hover {
+                      opacity: 0.7;
+                    }
                 }
             }
             i {
@@ -516,22 +519,17 @@ nav {
 }
 .dropdown {
     position: absolute;
-    width: 170px;
+    width: 150px;
     top: 58px;
     right: 0;
     z-index: 999;
-    box-shadow: $shadow;
-    .dropdown-item {
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: $dark-blue;
+    li {
         padding: 15px;
         transition: background-color 0.3s;
-        background-color: $dark-blue;
         font-size: 0.9em;
-        &:nth-of-type(1) {
-            border-radius: 5px 5px 0 0;
-        }
-        &:nth-last-of-type(1) {
-            border-radius: 0 0 5px 5px;
-        }
         &:hover {
             background-color: $blue;
             cursor: pointer;

@@ -24,13 +24,13 @@
         </div>
         <div class="top right">
           <img src="/static/images/avatar.jpg" alt="Avatar" class="user-avatar mobile-hidden" />
-          <div class="user-name mobile-hidden">Leon S.</div>
+          <a href="" class="user-name mobile-hidden">Leon S.</a>
           <i class="toggle material-icons" v-on:click="dropdown = !dropdown">keyboard_arrow_down</i>
-          <div class="dropdown user" v-if="dropdown">
-            <div class="dropdown-item">My Account</div>
-            <div class="dropdown-item">Settings</div>
-            <div class="dropdown-item">Logout</div>
-          </div>
+          <ul class="dropdown" v-if="dropdown">
+            <li>My Account</li>
+            <li>Settings</li>
+            <li>Logout</li>
+          </ul>
         </div>
       </div>
     </header>
