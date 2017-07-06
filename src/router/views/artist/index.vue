@@ -253,7 +253,7 @@ a {
             h1 {
                 margin-left: -7px;
                 transition: font-size 0.3s;
-                font-size: 5.5em;
+                font-size: 5em;
             }
             .button-container {
                 margin-top: 20px;
