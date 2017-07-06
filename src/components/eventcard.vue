@@ -35,7 +35,6 @@ export default {
 
 <style lang="scss">
 .event-card {
-    position: relative;
     margin-bottom: 10px;
     box-shadow: $shadow;
     display: flex;
