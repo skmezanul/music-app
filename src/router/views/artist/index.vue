@@ -72,7 +72,7 @@ h2 {
     font-size: 1.1em;
     letter-spacing: 1.7px;
     text-transform: uppercase;
-    opacity: 0.7;
+    color: rgba($white, 0.7);
     span {
         &:after {
             content: ", ";
@@ -176,18 +176,18 @@ a {
                 }
                 .user-name {
                     padding: 0 10px;
-                    transition: opacity 0.3s;
+                    transition: color 0.3s;
                     &:hover {
-                      opacity: 0.7;
+                        color: rgba($white, 0.7);
                     }
                 }
             }
             i {
-                opacity: 0.7;
-                transition: opacity 0.3s;
+                color: rgba($white, 0.7);
+                transition: color 0.3s;
                 &:hover {
                     cursor: pointer;
-                    opacity: 1;
+                    color: $white;
                 }
             }
         }
@@ -270,12 +270,10 @@ a {
                             border-top-left-radius: 5px;
                             border-bottom-left-radius: 5px;
                         }
-                        &:nth-of-type(3) {
-                            border-left: 1px solid $blue;
-                        }
                         &:last-of-type {
                             border-top-right-radius: 5px;
                             border-bottom-right-radius: 5px;
+                            border-left: 1px solid $blue;
                         }
                     }
                 }
@@ -296,22 +294,24 @@ nav {
                 letter-spacing: 1.7px;
                 text-transform: uppercase;
                 a {
-                    &:not(.router-link-exact-active) {
-                        opacity: 0.5;
-                    }
-                    &.router-link-exact-active:after {
-                        display: block;
-                        position: relative;
-                        top: 1em;
-                        width: 35px;
-                        height: 3px;
-                        margin: 0 auto;
-                        background-color: $accent-color;
-                        content: "";
+                    transition: color 0.3s;
+                    color: rgba($white, 0.5);
+                    &.router-link-exact-active {
+                      color: $white;
+                      &:after {
+                          display: block;
+                          position: relative;
+                          top: 1em;
+                          width: 35px;
+                          height: 3px;
+                          margin: 0 auto;
+                          background-color: $accent-color;
+                          content: "";
+                      }
                     }
                     &:not(.router-link-exact-active):hover {
                         cursor: pointer;
-                        opacity: 0.7;
+                        color: rgba($white, 0.7);
                     }
                 }
             }
@@ -335,7 +335,7 @@ nav {
             box-sizing: border-box;
             .sidenav-section {
                 margin: 15px;
-                &.bottom{
+                &.bottom {
                     border-top: 1px solid $border-color;
                     margin: auto 0 0;
                     li {
@@ -350,16 +350,15 @@ nav {
                     overflow: hidden;
                     h4 {
                         text-transform: uppercase;
-                        opacity: 0.7;
+                        color: rgba($white, 0.7);
                         font-weight: 300;
                         font-size: 0.9em;
                         padding: 5px 10px;
                     }
                     a {
-                        transition: opacity 0.3s;
-                        opacity: 0.7;
+                        color: rgba($white, 0.7);
                         font-size: 0.85em;
-                        transition: opacity 0.3s, background-color 0.1s;
+                        transition: color 0.3s, background-color 0.1s;
                         padding: 10px;
                         border-radius: 5px;
                         width: 100%;
@@ -371,11 +370,11 @@ nav {
                         }
                         &.router-link-active {
                             background-color: $accent-color;
-                            opacity: 1;
+                            color: $white;
                         }
                         &:hover {
                             cursor: pointer;
-                            opacity: 1;
+                            color: $white;
                         }
                     }
                 }
@@ -397,7 +396,7 @@ nav {
     .biography {
         font-weight: 300;
         line-height: 1.5em;
-        opacity: 0.9;
+        color: rgba($white, 0.9);
         font-size: 1.1em;
         & p:nth-of-type(1) {
             margin-top: 0;
@@ -414,10 +413,10 @@ nav {
         font-weight: 300;
     }
     .section-actions {
-        opacity: 0.7;
-        transition: opacity 0.3s;
+        color: rgba($white, 0.7);
+        transition: color 0.3s;
         &:hover {
-            opacity: 1;
+            color: $white;
             cursor: pointer;
         }
     }
@@ -470,10 +469,10 @@ nav {
                     font-size: 0.9em;
                     font-weight: 300;
                     a {
-                        opacity: 0.7;
-                        transition: opacity 0.3s;
+                        color: rgba($white, 0.7);
+                        transition: color 0.3s;
                         &:hover {
-                            opacity: 1;
+                            color: $white;
                             cursor: pointer;
                         }
                         &:after {
@@ -501,17 +500,17 @@ nav {
             justify-content: space-between;
             .toggle {
                 font-size: 3.3em;
-                opacity: 1;
+                color: $white;
                 &:hover {
                     transform: scale(1.15);
                 }
             }
         }
         i {
-            transition: opacity 0.3s;
-            opacity: 0.7;
+            transition: color 0.3s;
+            color: rgba($white, 0.7);
             &:hover {
-                opacity: 1;
+                color: $white;
                 cursor: pointer;
             }
         }

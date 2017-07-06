@@ -95,6 +95,11 @@ export default {
         overflow: hidden;
         transition: box-shadow 0.3s;
         box-shadow: $shadow;
+        &:hover {
+            .item-overlay {
+                opacity: 1;
+            }
+        }
         .image-container {
           display: flex;
           justify-content: center;
@@ -124,10 +129,10 @@ export default {
                 justify-content: space-around;
                 flex: 0.8;
                 i {
-                    transition: opacity 0.3s;
+                    transition: color 0.3s;
                     &:hover {
                         cursor: pointer;
-                        opacity: 0.7;
+                        color: rgba($white, 0.7);
                     }
                     &.play {
                         font-size: 4.5em;
@@ -147,7 +152,7 @@ export default {
                 line-height: 1.4em;
                 .item-subtitle {
                     font-size: 0.85em;
-                    opacity: 0.7;
+                    color: rgba($white, 0.7);
                     font-weight: 300;
                     &:hover {
                         cursor: pointer;
@@ -156,11 +161,6 @@ export default {
                 }
 
             }
-        }
-    }
-    &:hover {
-        .item-overlay {
-            opacity: 1;
         }
     }
 }

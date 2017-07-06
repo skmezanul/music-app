@@ -54,7 +54,7 @@
         margin: 2px 0;
         background-color: $blue;
         &:hover {
-            background-color: rgba($white,0.1);
+            background-color: rgba($white, 0.1);
             .image i {
                 opacity: 1;
             }
@@ -75,13 +75,13 @@
             }
         }
         i {
-            transition: opacity 0.3s;
+            transition: color 0.3s;
             flex: 0.13;
             @media screen and (max-width: 955px) {
                 padding: 0 15px;
             }
             &:hover {
-                opacity: 0.7;
+                color: rgba($white, 0.7);
                 cursor: pointer;
             }
         }
@@ -100,10 +100,10 @@
             .artist {
                 font-weight: 300;
                 a {
-                    opacity: 0.7;
-                    transition: opacity 0.3s;
+                    color: rgba($white, 0.7);
+                    transition: color 0.3s;
                     &:hover {
-                        opacity: 1;
+                        color: $white;
                         cursor: pointer;
                     }
                     &:after {
