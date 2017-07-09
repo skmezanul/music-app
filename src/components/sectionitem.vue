@@ -1,11 +1,11 @@
 <template>
 <div class="section-item" :class="type">
   <div class="section-item-inner">
-    <div class="item-overlay" v-if="type == null">
+    <div class="item-overlay" v-if="type === 'album'">
       <div class="overlay-actions">
         <i class="favorite material-icons">favorite</i>
-        <i v-if="playing == false" @click="playing = true" class="play material-icons">play_circle_outline</i>
-        <i v-if="playing == true" @click="playing = false" class="play material-icons">pause_circle_outline</i>
+        <i v-if="playing === false" @click="playing = true" class="play material-icons">play_circle_outline</i>
+        <i v-if="playing === true" @click="playing = false" class="play material-icons">pause_circle_outline</i>
         <i class="more material-icons">more_horiz</i>
       </div>
     </div>
@@ -73,16 +73,12 @@ export default {
               height: 350px;
               img {
                   filter: brightness(80%) contrast(110%);
-                  transition: transform 0.3s;
                   height: 100%;
                   width: auto;
               }
             }
             &:hover {
                 cursor: pointer;
-                img {
-                    transform: scale(1.1);
-                }
             }
         }
     }

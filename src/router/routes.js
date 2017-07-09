@@ -6,71 +6,66 @@ export default [
       path: '',
       name: 'overview',
       meta: {
-        overview: true
+        header: 'full',
+        current: 'overview'
       },
       components: {
-        default: require('./views/artist/_overview.vue'),
-        header: require('./views/artist/header/header.vue'),
-        headerbackground: require('./views/artist/header/background/artist.vue')
+        default: require('./views/artist/_overview.vue')
       }
     },
     {
       path: 'concerts',
       name: 'concerts',
       meta: {
-        compactHeader: true,
-        concerts: true
+        header: 'compact',
+        current: 'concerts'
       },
       components: {
-        default: require('./views/artist/_concerts.vue'),
-        header: require('./views/artist/header/header.vue')
+        default: require('./views/artist/_concerts.vue')
       }
     },
     {
       path: 'playlists',
       name: 'playlists',
       meta: {
-        compactHeader: true,
-        playlists: true
+        header: 'compact',
+        current: 'playlists'
       },
       components: {
-        default: require('./views/artist/_playlists.vue'),
-        header: require('./views/artist/header/header.vue')
+        default: require('./views/artist/_playlists.vue')
       }
     },
     {
       path: 'feed',
       name: 'feed',
       meta: {
-        compactHeader: true,
-        feed: true
+        header: 'compact',
+        current: 'feed'
       },
       components: {
-        default: require('./views/artist/_feed.vue'),
-        header: require('./views/artist/header/header.vue')
+        default: require('./views/artist/_feed.vue')
       }
     },
     {
       path: 'similar',
       name: 'similar',
       meta: {
-        compactHeader: true,
-        similar: true
+        header: 'compact',
+        current: 'similar'
       },
       components: {
-        default: require('./views/artist/_similar.vue'),
-        header: require('./views/artist/header/header.vue')
+        default: require('./views/artist/_similar.vue')
       }
     },
     {
       path: 'information',
       name: 'information',
       meta: {
-        information: true
+        header: 'full',
+        current: 'information'
       },
       components: {
-        default: require('./views/artist/_information.vue'),
-        headerbackground: require('./views/artist/header/background/information.vue')
+        default: require('./views/artist/_information.vue')
       }
     }
   ]

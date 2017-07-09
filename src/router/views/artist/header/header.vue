@@ -1,6 +1,6 @@
 <template>
 <div class="header-container">
-  <h2 v-if="$route.meta.compactHeader == null">Artist</h2>
+  <h2 v-if="$route.meta.compactHeader === null">Artist</h2>
   <h1>Ellie Goulding</h1>
   <h2><span>Electro</span><span>Pop</span><span>Folk</span></h2>
   <div class="button-container">

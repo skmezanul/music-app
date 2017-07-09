@@ -1,7 +1,7 @@
 <template>
 <ol class="flex-table">
   <li class="table-row">
-    <div class="image">
+    <div class="image-container">
       <i class="material-icons">play_arrow</i>
       <img src="/static/images/cover4.png" alt="First duration" height="100%" />
     </div>
@@ -15,7 +15,7 @@
     <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
   </li>
   <li class="table-row">
-    <div class="image">
+    <div class="image-container">
       <i class="material-icons">play_arrow</i>
       <img src="/static/images/cover2.png" alt="Love Me Like You Do" height="100%" />
     </div>
@@ -29,7 +29,7 @@
     <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
   </li>
   <li class="table-row">
-    <div class="image">
+    <div class="image-container">
       <i class="material-icons">play_arrow</i>
       <img src="/static/images/cover1.png" alt="Burn" height="100%" />
     </div>
@@ -59,7 +59,7 @@
                 opacity: 1;
             }
         }
-        .image {
+        .image-container {
             height: 60px;
             width: 60px;
             position: relative;

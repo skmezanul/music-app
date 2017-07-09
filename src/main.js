@@ -1,35 +1,12 @@
 import Vue from 'vue'
 import router from './router'
 import components from './components'
+import store from './store'
+import app from './app.vue'
 
-const app = new Vue({
+new Vue({
   el: '#app',
   router,
-  data: {
-    scrollPosition: null,
-    dropdown: false,
-    volume: 50,
-    playing: false
-  },
-  methods: {
-    updateScroll() {
-      this.scrollPosition = window.scrollY
-    },
-    closeDropdown: function() {
-      this.dropdown = false
-    },
-    goBack: function () {
-      router.go(-1)
-    },
-    goForward: function () {
-      router.go(1)
-    }
-  },
-
-  mounted() {
-    window.addEventListener('scroll', this.updateScroll);
-  },
-  destroy() {
-    window.removeEventListener('scroll', this.updateScroll)
-  }
+  store,
+  render: h => h(app)
 })

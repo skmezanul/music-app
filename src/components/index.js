@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import normalize from 'normalize.css'
 import FlexTable from './flextable.vue'
 Vue.component('flextable', FlexTable)
 import SectionItem from './sectionitem.vue'

@@ -5,116 +5,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>music-app</title>
-  <link href="dist/style.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:700|Roboto:300,400,700|Material+Icons" rel="stylesheet">
 </head>
 
 <body>
-  <div id="app" :class="{scrolled: scrollPosition > 5}">
-
-    <!-- Top Bar -->
-    <header class="top-bar">
-      <div class="top-bar-inner">
-        <div class="top left">
-          <i class="material-icons" @click="goBack">keyboard_arrow_left</i>
-          <i class="material-icons" @click="goForward">keyboard_arrow_right</i>
-        </div>
-        <div class="top center">
-          <i class="material-icons search-icon">search</i>
-          <input type="text" placeholder="Search" />
-        </div>
-        <div class="top right">
-          <img src="/static/images/avatar.jpg" alt="Avatar" class="user-avatar mobile-hidden" />
-          <a href="" class="user-name mobile-hidden">Leon S.</a>
-          <i class="toggle material-icons" v-on:click="dropdown = !dropdown">keyboard_arrow_down</i>
-          <ul class="dropdown" v-if="dropdown">
-            <li>My Account</li>
-            <li>Settings</li>
-            <li>Logout</li>
-          </ul>
-        </div>
-      </div>
-    </header>
-    <!-- End Top Bar -->
-
-    <!-- Sidenav -->
-    <nav class="sidenav">
-      <ul>
-        <div class="sidenav-section top">
-          <li>
-            <router-link to="/artist"><i class="material-icons">book</i>Browse</router-link>
-          </li>
-          <li>
-            <router-link to="/radio"><i class="material-icons">radio</i>Radio</router-link>
-          </li>
-        </div>
-        <div class="sidenav-section yourmusic">
-          <li>
-            <h4>Your Music</h4></li>
-          <li>
-            <router-link to="/lastheard"><i class="material-icons">history</i>Last heard</router-link>
-          </li>
-          <li>
-            <router-link to="/songs"><i class="material-icons">music_note</i>Songs</router-link>
-          </li>
-          <li>
-            <router-link to="/albums"><i class="material-icons">album</i>Albums</router-link>
-          </li>
-          <li>
-            <router-link to="/artists"><i class="material-icons">person</i>Artists</router-link>
-          </li>
-        </div>
-        <div class="sidenav-section playlists">
-          <li>
-            <h4>Playlists</h4></li>
-          <li><a><i class="material-icons">favorite</i>Favorites</a></li>
-          <li><a><i class="material-icons">playlist_play</i>Mix of the week</a></li>
-          <li><a><i class="material-icons">playlist_play</i>Good music</a></li>
-          <li><a><i class="material-icons">playlist_play</i>Hits Remixed</a></li>
-        </div>
-        <div class="sidenav-section bottom">
-          <li><a><i class="material-icons">playlist_add</i>New Playlist</a></li>
-        </div>
-      </ul>
-    </nav>
-    <!-- End Sidenav -->
-
-    <!-- Router View -->
-    <router-view></router-view>
-    <!-- End Router View -->
-
-    <!-- Bottom Bar -->
-    <footer class="bottom-bar">
-      <div class="bottom left mobile-hidden">
-        <img src="/static/images/cover4.png" alt="First Time" />
-        <div class="currently-playing">
-          <div class="title"><a>First Time</a></div>
-          <div class="artist"><a>Kygo</a><a>Ellie Goulding</a></div>
-        </div>
-      </div>
-      <div class="bottom center">
-        <i class="shuffle material-icons" v-tooltip="{ content: 'Shuffle', container: '.tooltip-container' }">shuffle</i>
-        <i class="skip material-icons">skip_previous</i>
-        <i v-if="playing == false" @click="playing = true" class="toggle play material-icons">play_circle_filled</i>
-        <i v-if="playing == true" @click="playing = false" class="toggle pause material-icons">pause_circle_filled</i>
-        <i class="skip material-icons">skip_next</i>
-        <i class="repeat material-icons" v-tooltip="{ content: 'Repeat', container: '.tooltip-container' }">repeat</i>
-      </div>
-      <div class="bottom right mobile-hidden">
-        <i v-if="volume == 0" class="volume material-icons">volume_mute</i>
-        <i v-if="volume <= 50 && volume > 0" class="volume material-icons">volume_down</i>
-        <i v-if="volume > 50" class="volume material-icons">volume_up</i>
-        <vue-slider ref="slider" v-model="volume" width="100px" tooltip="false"></vue-slider>
-        <i class="cast material-icons" v-tooltip="{ content: 'Cast', container: '.tooltip-container' }">cast</i>
-        <i class="queue material-icons" v-tooltip="{ content: 'Queue', container: '.tooltip-container' }">queue_music</i>
-      </div>
-    </footer>
-    <!-- End Bottom Bar -->
-
-    <div class="tooltip-container">
-    </div>
-
-  </div>
+<div id="app"></div>
   <script src="/dist/build.js"></script>
 </body>
 
