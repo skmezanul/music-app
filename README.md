@@ -16,3 +16,7 @@ npm run dev
 # build for production with minification
 npm run build
 ```
+## Electron version
+
+The electron version is available here:
+https://github.com/microeinhundert/music-app-electron
