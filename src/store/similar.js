@@ -1,8 +1,8 @@
 export default {
   similar: [{
-      title: "Carly Rae Jepsen",
+      title: "Jess Glynne",
       subtitle: "Pop",
-      image: "https://i.scdn.co/image/1e0dec2c670988638af24e4755dfb260f295f409"
+      image: "https://i.scdn.co/image/ebf29d2f98abdedb754d32372da2dec7f0f1c49b"
     },
     {
       title: "Rita Ora",
@@ -13,11 +13,6 @@ export default {
       title: "Birdy",
       subtitle: "Pop",
       image: "https://i.scdn.co/image/1de4a0124740841da21bac08084fbf1161ec97ab"
-    },
-    {
-      title: "Jess Glynne",
-      subtitle: "Pop",
-      image: "https://i.scdn.co/image/ebf29d2f98abdedb754d32372da2dec7f0f1c49b"
     },
     {
       title: "Olly Murs",

@@ -6,7 +6,7 @@
   </div>
   <div class="container right">
     <div class="right-inner">
-      <h2><span>{{city}}</span><span>{{country}}</span></h2>
+      <div class="location"><a>{{city}}</a><a>{{country}}</a></div>
       <h1>{{venue}}</h1>
       <div class="button-container">
         <a class="btn"><i class="material-icons">event_available</i>Buy Tickets</a>
@@ -35,7 +35,7 @@ export default {
 
 <style lang="scss">
 .event-card {
-    margin-bottom: 10px;
+    margin-bottom: 14px;
     box-shadow: $shadow;
     display: flex;
     height: 250px;
@@ -69,6 +69,12 @@ export default {
                 h1 {
                     font-size: 4em;
                     margin-left: -4px;
+                }
+                .location {
+                  a {
+                      text-transform: uppercase;
+                      @include comma-separated(1.2em, 400);
+                  }
                 }
                 .button-container {
                     margin-top: auto;

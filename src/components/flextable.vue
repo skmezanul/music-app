@@ -46,23 +46,20 @@
 </template>
 <style lang="scss">
 .flex-table {
-  box-shadow: $shadow;
+    box-shadow: $shadow;
     .table-row {
         display: flex;
         align-items: center;
         transition: background-color 0.3s;
         margin: 2px 0;
         background-color: $blue;
-        &:hover {
-            background-color: rgba($white, 0.1);
-            .image i {
-                opacity: 1;
-            }
-        }
         .image-container {
             height: 60px;
             width: 60px;
             position: relative;
+            img {
+                transition: filter 0.3s;
+            }
             i {
                 opacity: 0;
                 position: absolute;
@@ -74,8 +71,19 @@
                 font-size: 3.8em;
             }
         }
+        &:hover {
+            background-color: rgba($white, 0.1);
+            .image-container {
+                i {
+                    opacity: 1;
+                }
+                img {
+                    filter: brightness(50%);
+                }
+            }
+        }
         i {
-            transition: color 0.3s;
+            transition: color 0.3s, opacity 0.3s;
             flex: 0.13;
             @media screen and (max-width: 955px) {
                 padding: 0 15px;
@@ -98,20 +106,8 @@
                 padding: 0 15px;
             }
             .artist {
-                font-weight: 300;
                 a {
-                    color: rgba($white, 0.7);
-                    transition: color 0.3s;
-                    &:hover {
-                        color: $white;
-                        cursor: pointer;
-                    }
-                    &:after {
-                        content: ", ";
-                    }
-                    &:last-child:after {
-                        content: "";
-                    }
+                    @include comma-separated(1em, 300);
                 }
             }
         }

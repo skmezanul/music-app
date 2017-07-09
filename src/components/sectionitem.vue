@@ -14,7 +14,7 @@
     </div>
     <div class="item-description">
       <div class="item-description-inner">
-        <h4 class="item-title">{{title}}</h4>
+        <h4>{{title}}</h4>
         <div class="item-subtitle"><a>{{subtitle}}</a></div>
       </div>
     </div>
@@ -40,7 +40,7 @@ export default {
 
 <style lang="scss">
 .section-item {
-    padding: 5px;
+    padding: 7px;
     box-sizing: border-box;
     flex: 1;
     flex-basis: 20%;
@@ -70,15 +70,21 @@ export default {
                 }
             }
             .image-container {
-              height: 350px;
-              img {
-                  filter: brightness(80%) contrast(110%);
-                  height: 100%;
-                  width: auto;
-              }
+                height: 350px;
+                img {
+                    filter: brightness(70%) contrast(110%);
+                    transition: filter 0.3s;
+                    height: 100%;
+                    width: auto;
+                }
             }
             &:hover {
                 cursor: pointer;
+                .image-container {
+                    img {
+                        filter: brightness(100%) contrast(100%);
+                    }
+                }
             }
         }
     }
@@ -92,20 +98,21 @@ export default {
         transition: box-shadow 0.3s;
         box-shadow: $shadow;
         &:hover {
+            box-shadow: $shadow-highlight;
             .item-overlay {
                 opacity: 1;
             }
         }
         .image-container {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
-          height: auto;
-          img {
-              width: 100%;
-              height: auto;
-          }
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: auto;
+            img {
+                width: 100%;
+                height: auto;
+            }
         }
         .item-overlay {
             display: flex;
@@ -147,12 +154,8 @@ export default {
                 text-align: center;
                 line-height: 1.4em;
                 .item-subtitle {
-                    font-size: 0.85em;
-                    color: rgba($white, 0.7);
-                    font-weight: 300;
-                    &:hover {
-                        cursor: pointer;
-                        text-decoration: underline;
+                    a {
+                        @include comma-separated(0.95em, 300);
                     }
                 }
 

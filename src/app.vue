@@ -24,7 +24,6 @@
       </div>
     </div>
   </header>
-  <!-- End Top Bar -->
 
   <!-- Sidenav -->
   <nav class="sidenav">
@@ -66,11 +65,9 @@
       </div>
     </ul>
   </nav>
-  <!-- End Sidenav -->
 
   <!-- Router View -->
   <router-view></router-view>
-  <!-- End Router View -->
 
   <!-- Bottom Bar -->
   <footer class="bottom-bar">
@@ -98,7 +95,6 @@
       <i class="queue material-icons" v-tooltip="{ content: 'Queue', container: '.tooltip-container' }">queue_music</i>
     </div>
   </footer>
-  <!-- End Bottom Bar -->
 
   <div class="tooltip-container">
   </div>
@@ -180,19 +176,10 @@ h1 {
 }
 
 h2 {
-    font-size: 1.1em;
+    font-size: 1.2em;
     letter-spacing: 1.7px;
     text-transform: uppercase;
     color: rgba($white, 0.7);
-
-    span {
-        &:after {
-            content: ", ";
-        }
-        &:last-child:after {
-            content: "";
-        }
-    }
 }
 
 a {
@@ -394,7 +381,12 @@ a {
                 transition: font-size 0.3s;
                 font-size: 5em;
             }
-
+            .genres {
+                a {
+                    text-transform: uppercase;
+                    @include comma-separated(1.2em, 400);
+                }
+            }
             .button-container {
                 margin-top: 20px;
                 display: flex;
@@ -451,6 +443,7 @@ nav {
                 a {
                     font-size: 0.9em;
                     letter-spacing: 1.7px;
+                    line-height: 1em;
                     text-transform: uppercase;
                     transition: color 0.3s;
                     color: rgba($white, 0.5);
@@ -460,7 +453,7 @@ nav {
                         &:after {
                             display: block;
                             position: relative;
-                            top: 0.9em;
+                            top: 0.8em;
                             width: 35px;
                             height: 3px;
                             margin: 0 auto;
@@ -579,22 +572,20 @@ nav {
         align-items: center;
         justify-content: space-between;
         margin-bottom: 15px;
-    }
-
-    .section-title {
-        font-size: 1.4em;
-        font-weight: 300;
-    }
-
-    .section-actions {
-        span {
-            display: flex;
-            align-items: center;
-            color: rgba($white, 0.7);
-            transition: color 0.3s;
-            &:hover {
-                color: $white;
-                cursor: pointer;
+        h4 {
+            font-size: 1.5em;
+            letter-spacing: 2px;
+        }
+        .section-actions {
+            span {
+                display: flex;
+                align-items: center;
+                color: rgba($white, 0.7);
+                transition: color 0.3s;
+                &:hover {
+                    color: $white;
+                    cursor: pointer;
+                }
             }
         }
     }
@@ -602,7 +593,7 @@ nav {
     .section-items-container {
         display: flex;
         flex-flow: row wrap;
-        margin: 0 -5px;
+        margin: 0 -7px;
 
         &.is-collapsed {
             @media screen and (max-width: 955px) {

@@ -20,7 +20,9 @@
           <h2 v-show="$route.meta.header === 'full'">Artist</h2>
         </transition>
         <h1>Ellie Goulding</h1>
-        <h2><span>Electro</span><span>Pop</span><span>Folk</span></h2>
+        <div class="genres">
+          <a>Electro</a><a>Pop</a><a>Folk</a>
+        </div>
         <div class="button-container">
           <div class="button-group">
             <a class="btn btn-accent"><i class="material-icons">play_circle_filled</i>Play All</a>
