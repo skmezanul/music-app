@@ -9,9 +9,15 @@
 </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return this.$store.state.concerts;
+  },
+  computed: {
+    ...mapGetters({
+      singles: 'getConcerts'
+    })
   }
 }
 </script>

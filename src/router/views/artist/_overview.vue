@@ -22,16 +22,13 @@
 </template>
 <script>
 export default {
-  data() {
-    return this.$store.state.singles;
-  },
-  computed: {
-    playing() {
-      return this.$store.state.playing;
-    },
-    collapsed() {
-      return this.$store.state.collapsed;
+  data () {
+    return {
+      item: ''
     }
+  },
+  firebase: {
+    singles: db.ref('singles')
   }
 }
 </script>

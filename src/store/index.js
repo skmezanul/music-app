@@ -14,7 +14,18 @@ const store = new Vuex.Store({
     concerts,
     playing: true,
     collapsed: true
-  }
+  },
+   getters: {
+     getSingles(state) {
+       return state.singles;
+     },
+     getSimilar(state) {
+       return state.similar;
+     },
+     getConcerts(state) {
+       return state.concerts;
+     }
+   }
 });
 
 export default store

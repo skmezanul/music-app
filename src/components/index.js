@@ -8,8 +8,8 @@ import EventCard from './eventcard.vue'
 Vue.component('eventcard', EventCard)
 import Parallax from 'vue-parallaxy'
 Vue.component('parallax', Parallax)
-import vueSlider from 'vue-slider-component'
-Vue.component('vue-slider', vueSlider)
+import VueSlider from 'vue-slider-component'
+Vue.component('vue-slider', VueSlider)
 import VTooltip from 'v-tooltip'
 Vue.use(VTooltip)
 import inViewportDirective from 'vue-in-viewport-directive'
