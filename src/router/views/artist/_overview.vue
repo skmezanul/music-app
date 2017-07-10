@@ -9,7 +9,7 @@
   <section class="page-section singles">
     <div class="section-header">
       <h4>Singles</h4>
-      <div class="section-actions" @click="collapsed = !collapsed">
+      <div class="section-actions" @click="toggleCollapse">
         <span v-show="collapsed === true">Show More<i class="material-icons">keyboard_arrow_down</i></span><span v-show="collapsed === false">Show Less<i class="material-icons">keyboard_arrow_up</i></span>
       </div>
     </div>
@@ -22,13 +22,8 @@
 </template>
 <script>
 export default {
-  data () {
-    return {
-      item: ''
-    }
-  },
-  firebase: {
-    singles: db.ref('singles')
+  data() {
+    return this.$store.state.singles
   }
 }
 </script>

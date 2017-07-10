@@ -90,7 +90,7 @@
       <i v-if="volume == 0" class="volume material-icons">volume_mute</i>
       <i v-if="volume <= 50 && volume > 0" class="volume material-icons">volume_down</i>
       <i v-if="volume > 50" class="volume material-icons">volume_up</i>
-      <vue-slider ref="slider" v-model="volume" width="100px" tooltip="false"></vue-slider>
+      <slider ref="slider" v-model="volume" width="100px" tooltip="false"></slider>
       <i class="cast material-icons" v-tooltip="{ content: 'Cast', container: '.tooltip-container' }">cast</i>
       <i class="queue material-icons" v-tooltip="{ content: 'Queue', container: '.tooltip-container' }">queue_music</i>
     </div>
@@ -110,7 +110,8 @@ export default {
       scrollPosition: null,
       dropdown: false,
       volume: 50,
-      playing: false
+      playing: false,
+      collapsed: true
     }
   },
   methods: {
@@ -127,7 +128,6 @@ export default {
       router.go(1)
     }
   },
-
   mounted() {
     window.addEventListener('scroll', this.updateScroll);
   },
@@ -453,8 +453,8 @@ nav {
                         &:after {
                             display: block;
                             position: relative;
-                            top: 0.8em;
-                            width: 35px;
+                            top: 1em;
+                            width: 40px;
                             height: 3px;
                             margin: 0 auto;
                             background-color: $accent-color;

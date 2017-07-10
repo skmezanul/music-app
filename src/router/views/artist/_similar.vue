@@ -12,15 +12,9 @@
 </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
 export default {
   data() {
     return this.$store.state.similar;
-  },
-  computed: {
-    ...mapGetters({
-      singles: 'getSimilar'
-    })
   }
 }
 </script>

@@ -11,21 +11,11 @@ const store = new Vuex.Store({
   state: {
     singles,
     similar,
-    concerts,
-    playing: true,
-    collapsed: true
+    concerts
   },
-   getters: {
-     getSingles(state) {
-       return state.singles;
-     },
-     getSimilar(state) {
-       return state.similar;
-     },
-     getConcerts(state) {
-       return state.concerts;
-     }
-   }
+  getters: {
+
+  }
 });
 
 export default store

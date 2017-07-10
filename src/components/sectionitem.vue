@@ -73,7 +73,7 @@ export default {
                 height: 350px;
                 img {
                     filter: brightness(70%) contrast(110%);
-                    transition: filter 0.3s;
+                    transition: filter 0.3s, transform 1s;
                     height: 100%;
                     width: auto;
                 }
@@ -83,6 +83,7 @@ export default {
                 .image-container {
                     img {
                         filter: brightness(100%) contrast(100%);
+                        transform: scale(1.05);
                     }
                 }
             }

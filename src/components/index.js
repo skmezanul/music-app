@@ -9,7 +9,7 @@ Vue.component('eventcard', EventCard)
 import Parallax from 'vue-parallaxy'
 Vue.component('parallax', Parallax)
 import VueSlider from 'vue-slider-component'
-Vue.component('vue-slider', VueSlider)
+Vue.component('slider', VueSlider)
 import VTooltip from 'v-tooltip'
 Vue.use(VTooltip)
 import inViewportDirective from 'vue-in-viewport-directive'
