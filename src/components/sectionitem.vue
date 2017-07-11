@@ -49,7 +49,7 @@ export default {
         flex-basis: 50%;
         max-width: 50%;
     }
-    &.stage {
+    &.artist {
         flex-basis: 25%;
         max-width: 25%;
         .section-item-inner {

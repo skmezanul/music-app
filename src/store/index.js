@@ -1,13 +1,13 @@
-import vue from 'vue'
-import vuex from 'vuex'
+import Vue from 'vue'
+import Vuex from 'vuex'
 import singles from './singles'
 import concerts from './concerts'
 import similar from './similar'
 import information from './information'
 
-vue.use(vuex)
+Vue.use(Vuex)
 
-const store = new vuex.Store({
+const store = new Vuex.Store({
   strict: true,
   state: {
     singles,

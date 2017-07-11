@@ -11,7 +11,7 @@
 <script>
 export default {
   data() {
-    return this.$store.state.concerts;
+    return this.$store.state.concerts
   }
 }
 </script>

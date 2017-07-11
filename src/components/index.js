@@ -1,29 +1,35 @@
 // Import Vue.js
-import vue from 'vue'
+import Vue from 'vue'
 
 // Import Normalize.css
 import 'normalize.css/normalize.css'
 
 // Import Components
 import flextable from './flextable.vue'
-vue.component('flextable', flextable)
+Vue.component('flextable', flextable)
 
 import sectionitem from './sectionitem.vue'
-vue.component('sectionitem', sectionitem)
+Vue.component('sectionitem', sectionitem)
 
 import eventcard from './eventcard.vue'
-vue.component('eventcard', eventcard)
+Vue.component('eventcard', eventcard)
+
+import headerbar from './headerbar.vue'
+Vue.component('headerbar', headerbar)
+
+import footerbar from './footerbar.vue'
+Vue.component('footerbar', footerbar)
 
 import parallax from 'vue-parallaxy'
-vue.component('parallax', parallax)
+Vue.component('parallax', parallax)
 
 import slider from 'vue-slider-component'
-vue.component('slider', slider)
+Vue.component('slider', slider)
 
 // Import Plugins
 import tooltip from 'v-tooltip'
-vue.use(tooltip)
+Vue.use(tooltip)
 
 // Import Directives
 import viewport from 'vue-in-viewport-directive'
-vue.directive('in-viewport', viewport)
+Vue.directive('in-viewport', viewport)

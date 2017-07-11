@@ -5,7 +5,7 @@
       <h4>Similar to Ellie Goulding</h4>
     </div>
     <div class="section-items-container">
-      <sectionitem v-for="item in similar" type="stage" :key="item.title" :image="item.image" :title="item.title" :subtitle="item.subtitle">
+      <sectionitem v-for="item in similar" type="artist" :key="item.title" :image="item.image" :title="item.title" :subtitle="item.subtitle">
       </sectionitem>
     </div>
   </section>
@@ -14,7 +14,7 @@
 <script>
 export default {
   data() {
-    return this.$store.state.similar;
+    return this.$store.state.similar
   }
 }
 </script>

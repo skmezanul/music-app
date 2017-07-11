@@ -1,29 +1,8 @@
 <template>
 <div id="app" :class="{scrolled: scrollPosition > 5}">
 
-  <!-- Top Bar -->
-  <header class="top-bar">
-    <div class="top-bar-inner">
-      <div class="top left">
-        <i class="material-icons" @click="goBack">keyboard_arrow_left</i>
-        <i class="material-icons" @click="goForward">keyboard_arrow_right</i>
-      </div>
-      <div class="top center">
-        <i class="material-icons search-icon">search</i>
-        <input type="text" placeholder="Search" />
-      </div>
-      <div class="top right">
-        <img src="/static/images/avatar.jpg" alt="Avatar" class="user-avatar mobile-hidden" />
-        <a href="" class="user-name mobile-hidden">Leon S.</a>
-        <i class="toggle material-icons" v-on:click="dropdown = !dropdown">keyboard_arrow_down</i>
-        <ul class="dropdown" v-if="dropdown">
-          <li>My Account</li>
-          <li>Settings</li>
-          <li>Logout</li>
-        </ul>
-      </div>
-    </div>
-  </header>
+  <!-- Header -->
+  <headerbar></headerbar>
 
   <!-- Sidenav -->
   <nav class="sidenav">
@@ -69,63 +48,28 @@
   <!-- Router View -->
   <router-view></router-view>
 
-  <!-- Bottom Bar -->
-  <footer class="bottom-bar">
-    <div class="bottom left mobile-hidden">
-      <img src="/static/images/cover4.png" alt="First Time" />
-      <div class="currently-playing">
-        <div class="title"><a>First Time</a></div>
-        <div class="artist"><a>Kygo</a><a>Ellie Goulding</a></div>
-      </div>
-    </div>
-    <div class="bottom center">
-      <i class="shuffle material-icons" v-tooltip="{ content: 'Shuffle', container: '.tooltip-container' }">shuffle</i>
-      <i class="skip material-icons">skip_previous</i>
-      <i v-if="playing == false" @click="playing = true" class="toggle play material-icons">play_circle_filled</i>
-      <i v-if="playing == true" @click="playing = false" class="toggle pause material-icons">pause_circle_filled</i>
-      <i class="skip material-icons">skip_next</i>
-      <i class="repeat material-icons" v-tooltip="{ content: 'Repeat', container: '.tooltip-container' }">repeat</i>
-    </div>
-    <div class="bottom right mobile-hidden">
-      <i v-if="volume == 0" class="volume material-icons">volume_mute</i>
-      <i v-if="volume <= 50 && volume > 0" class="volume material-icons">volume_down</i>
-      <i v-if="volume > 50" class="volume material-icons">volume_up</i>
-      <slider ref="slider" v-model="volume" width="100px" tooltip="false"></slider>
-      <i class="cast material-icons" v-tooltip="{ content: 'Cast', container: '.tooltip-container' }">cast</i>
-      <i class="queue material-icons" v-tooltip="{ content: 'Queue', container: '.tooltip-container' }">queue_music</i>
-    </div>
-  </footer>
+  <!-- Footer -->
+  <footerbar></footerbar>
 
   <div class="tooltip-container">
+
+    <!--Insert Tooltips-->
+
   </div>
 
 </div>
 </template>
 
 <script>
-import router from './router'
 export default {
   data() {
     return {
-      scrollPosition: null,
-      dropdown: false,
-      volume: 50,
-      playing: false,
-      collapsed: true
+      scrollPosition: null
     }
   },
   methods: {
     updateScroll() {
       this.scrollPosition = window.scrollY
-    },
-    closeDropdown: function() {
-      this.dropdown = false
-    },
-    goBack: function() {
-      router.go(-1)
-    },
-    goForward: function() {
-      router.go(1)
     }
   },
   mounted() {
@@ -191,135 +135,18 @@ a {
     }
 }
 
-.top-bar {
-    display: flex;
-    justify-content: center;
-    position: fixed;
-    border-bottom: 1px solid;
-    border-color: transparent;
-    background-color: transparent;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 999;
-    padding: 13px 0;
-    transition: background-color 0.3s, border-color 0.3s;
-    -webkit-app-region: drag;
-
-    .top-bar-inner {
-        display: flex;
-        justify-content: space-between;
-        @media screen and (max-width: 955px) {
-            width: 95%;
-        }
-        transition: width 0.3s;
-        will-change: width;
-        height: 42px;
-
-        .top {
-            display: flex;
-            align-items: center;
-
-            &.left {
-                @media screen and (min-width: 955px) {
-                    justify-content: flex-start;
-                    flex: 1;
-                }
-
-                i {
-                    font-size: 2.2em;
-                }
-            }
-
-            &.center {
-                position: relative;
-                @media screen and (max-width: 955px) {
-                    width: 100%;
-                }
-                @media screen and (min-width: 955px) {
-                    flex: 2;
-                }
-
-                input {
-                    border: none;
-                    padding: 12px 12px 12px 50px;
-                    width: 100%;
-                    background-color: rgba($white,0.1);
-                    z-index: 1;
-                    color: $white;
-                    border-radius: 3px;
-                    transition: background-color 0.3s, box-shadow 0.3s;
-                    letter-spacing: 1.3px;
-                    margin: 0 10px;
-
-                    &::-webkit-input-placeholder {
-                        color: rgba($white,0.4);
-                    }
-                    &:focus {
-                        outline: 0;
-                        background-color: rgba($white,0.2);
-                        box-shadow: $shadow;
-
-                        &::-webkit-input-placeholder {
-                            visibility: hidden;
-                        }
-                    }
-                }
-
-                .search-icon {
-                    color: rgba($white, 0.5);
-                    position: absolute;
-                    left: 25px;
-                    top: 9px;
-                }
-            }
-
-            &.right {
-                position: relative;
-                @media screen and (min-width: 955px) {
-                    justify-content: flex-end;
-                    flex: 1;
-                }
-
-                .user-avatar {
-                    border-radius: 100%;
-                    height: 34px;
-                    width: 34px;
-                }
-
-                .user-name {
-                    padding: 0 10px;
-                    transition: color 0.3s;
-                    &:hover {
-                        color: rgba($white, 0.7);
-                    }
-                }
-            }
-
-            i {
-                color: rgba($white, 0.7);
-                transition: color 0.3s;
-                &:hover {
-                    cursor: pointer;
-                    color: $white;
-                }
-            }
-        }
-    }
-}
-
 .main-container {
     padding-bottom: 81px;
     margin-top: 0;
     will-change: margin-top;
     transition: margin-top 0.3s;
 
-    &.header-compact {
+    &.stage-compact {
         margin-top: -250px;
 
-        .header {
-            .header-inner {
-                .header-container {
+        .stage {
+            .stage-inner {
+                .stage-container {
                     h1 {
                         font-size: 4.4em;
                     }
@@ -329,7 +156,7 @@ a {
     }
 }
 
-.header {
+.stage {
     display: flex;
     position: relative;
     align-items: flex-end;
@@ -341,7 +168,7 @@ a {
     height: 550px;
     overflow: hidden;
 
-    .background-container {
+    .stage-background {
         position: absolute;
         top: 0;
         left: 0;
@@ -366,12 +193,12 @@ a {
         content: "";
     }
 
-    .header-inner {
+    .stage-inner {
         display: flex;
         flex-direction: column;
         z-index: 996;
 
-        .header-container {
+        .stage-container {
             display: flex;
             flex-direction: column;
             animation: zoomOut 0.3s 0.2s both;
@@ -608,98 +435,6 @@ nav {
     }
 }
 
-.bottom-bar {
-    display: flex;
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    align-items: center;
-    padding: 15px 20px;
-    background-color: $dark-blue;
-    z-index: 999;
-    border-top: 1px solid $border-color;
-
-    .bottom {
-        display: flex;
-        align-items: center;
-        height: 50px;
-
-        &.left {
-            flex: 1;
-            justify-content: flex-start;
-
-            img {
-                height: 50px;
-                width: 50px;
-                margin-right: 10px;
-                border-radius: 3px;
-                box-shadow: $shadow;
-            }
-
-            .currently-playing {
-                .title {
-                    font-size: 1.2em;
-                }
-
-                .artist {
-                    font-size: 0.9em;
-                    font-weight: 300;
-
-                    a {
-                        color: rgba($white, 0.7);
-                        transition: color 0.3s;
-                        &:hover {
-                            color: $white;
-                            cursor: pointer;
-                        }
-                        &:after {
-                            content: ", ";
-                        }
-                        &:last-child:after {
-                            content: "";
-                        }
-                    }
-                }
-            }
-        }
-
-        &.right {
-            flex: 1;
-            justify-content: flex-end;
-
-            i {
-                padding-left: 20px;
-            }
-        }
-
-        &.center {
-            flex: 0.7;
-            @media screen and (max-width: 955px) {
-                flex: 1;
-            }
-            justify-content: space-between;
-
-            .toggle {
-                font-size: 3.3em;
-                color: $white;
-                &:hover {
-                    transform: scale(1.15);
-                }
-            }
-        }
-
-        i {
-            transition: color 0.3s;
-            color: rgba($white, 0.7);
-            &:hover {
-                color: $white;
-                cursor: pointer;
-            }
-        }
-    }
-}
-
 .dropdown {
     position: absolute;
     width: 150px;
@@ -791,19 +526,18 @@ nav {
 }
 
 .scrolled {
-    .top-bar {
+    .header {
         background-color: $dark-blue;
         border-color: $border-color;
 
-        .top-bar-inner {
+        .header-inner {
             width: $small-width;
         }
     }
 }
-
+.header,
 .main-container,
-.subnav.above-viewport,
-.top-bar {
+.subnav.above-viewport {
     margin-left: 200px;
 }
 @media screen and (max-width: 955px) {
@@ -856,8 +590,8 @@ nav {
     }
 }
 @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
-    .bottom-bar,
-    .scrolled .top-bar,
+    .footer,
+    .scrolled .header,
     .subnav.above-viewport {
         background-color: $dark-blue-transparent !important;
         backdrop-filter: saturate(200%) blur(20px);
@@ -867,8 +601,8 @@ nav {
 
 .header-inner,
 .page-section,
-.subnav.above-viewport ul,
-.top-bar-inner {
+.stage-inner,
+.subnav.above-viewport ul {
     width: $large-width;
     @media screen and (max-width: 1500px) {
         width: $small-width;

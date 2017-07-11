@@ -15,7 +15,7 @@
 <script>
  export default {
    data() {
-     return this.$store.state.information;
+     return this.$store.state.information
    }
  }
  </script>

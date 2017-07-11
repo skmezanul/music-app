@@ -1,21 +1,21 @@
 <template>
-<main class="main-container" :class="{ 'header-compact': $route.meta.header === 'compact' }">
+<main class="main-container" :class="{ 'stage-compact': $route.meta.header === 'compact' }">
 
-  <!--Header-->
-  <header class="header">
+  <!--Stage-->
+  <div class="stage">
 
     <!--Background-->
-    <div class="background-container">
+    <div class="stage-background">
       <parallax :speedFactor="0.3">
         <img v-show="$route.meta.current === 'overview'" src="/static/images/header.jpg" alt="Ellie Goulding" />
         <img v-show="$route.meta.current === 'information'" src="/static/images/bio1.jpg" alt="Ellie Goulding" />
       </parallax>
     </div>
 
-    <div class="header-inner">
+    <div class="stage-inner">
 
       <!--Content-->
-      <div class="header-container">
+      <div class="stage-container">
         <transition name="fade">
           <h2 v-show="$route.meta.header === 'full'">Artist</h2>
         </transition>
@@ -59,7 +59,7 @@
 
     </div>
 
-  </header>
+  </div>
 
   <!--Router View-->
     <router-view></router-view>
