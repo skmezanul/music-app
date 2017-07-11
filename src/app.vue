@@ -548,7 +548,7 @@ nav {
 
 .fade-enter-active,
 .fade-leave-active {
-    transition: opacity 0.3s;
+    transition: opacity 0.2s;
 }
 
 .fade-enter,
@@ -591,9 +591,10 @@ nav {
 }
 @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
     .footer,
+    .header .search-dropdown,
     .scrolled .header,
     .subnav.above-viewport {
-        background-color: $dark-blue-transparent !important;
+        background-color: rgba($dark-blue, 0.7) !important;
         backdrop-filter: saturate(200%) blur(20px);
         -webkit-backdrop-filter: saturate(200%) blur(20px);
     }
