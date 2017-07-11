@@ -1,9 +1,10 @@
-import Vue from 'vue'
-import router from './router'
+import vue from 'vue'
 import components from './components'
-import store from './store'
 import app from './app.vue'
-new Vue({
+import store from './store'
+import router from './router'
+
+new vue({
   el: '#app',
   router,
   store,

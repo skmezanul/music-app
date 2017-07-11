@@ -1,16 +1,29 @@
-import Vue from 'vue'
-import normalize from 'normalize.css/normalize.css'
-import FlexTable from './flextable.vue'
-Vue.component('flextable', FlexTable)
-import SectionItem from './sectionitem.vue'
-Vue.component('sectionitem', SectionItem)
-import EventCard from './eventcard.vue'
-Vue.component('eventcard', EventCard)
-import Parallax from 'vue-parallaxy'
-Vue.component('parallax', Parallax)
-import VueSlider from 'vue-slider-component'
-Vue.component('slider', VueSlider)
-import VTooltip from 'v-tooltip'
-Vue.use(VTooltip)
-import inViewportDirective from 'vue-in-viewport-directive'
-Vue.directive('in-viewport', inViewportDirective)
+// Import Vue.js
+import vue from 'vue'
+
+// Import Normalize.css
+import 'normalize.css/normalize.css'
+
+// Import Components
+import flextable from './flextable.vue'
+vue.component('flextable', flextable)
+
+import sectionitem from './sectionitem.vue'
+vue.component('sectionitem', sectionitem)
+
+import eventcard from './eventcard.vue'
+vue.component('eventcard', eventcard)
+
+import parallax from 'vue-parallaxy'
+vue.component('parallax', parallax)
+
+import slider from 'vue-slider-component'
+vue.component('slider', slider)
+
+// Import Plugins
+import tooltip from 'v-tooltip'
+vue.use(tooltip)
+
+// Import Directives
+import viewport from 'vue-in-viewport-directive'
+vue.directive('in-viewport', viewport)
