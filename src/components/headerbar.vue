@@ -5,16 +5,15 @@
       <i class="material-icons" @click="goBack">keyboard_arrow_left</i>
       <i class="material-icons" @click="goForward">keyboard_arrow_right</i>
     </div>
-    <div class="top center">
+    <div class="top center" :class="{ 'search-active': searchQuery.length > 0 }">
       <i class="material-icons search-icon">search</i>
-      <input type="text" @click="searchDropdown = true" v-model="searchQuery" :class="{active: searchDropdown === true}" placeholder="Search" />
+      <input type="text" v-model="searchQuery" placeholder="Search" />
 
       <!--Search Dropdown-->
       <transition name="fade">
-        <div class="search-dropdown" v-if="searchDropdown === true">
+        <div class="search-dropdown" v-if="searchQuery.length > 0">
           <i class="material-icons">search</i>
-          <p v-if="searchQuery.length === 0">Search for tracks, albums, artists or playlists.</p>
-          <p v-else>No results found for "{{ searchQuery }}".</p>
+          <p>No results found for "{{ searchQuery }}".</p>
         </div>
       </transition>
 
@@ -23,12 +22,16 @@
       <img src="/static/images/avatar.jpg" alt="Avatar" class="user-avatar mobile-hidden" />
       <a href="" class="user-name mobile-hidden">Leon S.</a>
       <i class="toggle material-icons" @click="userDropdown = !userDropdown">keyboard_arrow_down</i>
+
       <!--User Dropdown-->
-      <ul class="dropdown" v-if="userDropdown">
-        <li>My Account</li>
-        <li>Settings</li>
-        <li>Logout</li>
-      </ul>
+      <transition name="fade">
+        <ul class="dropdown" v-if="userDropdown">
+          <li>My Account</li>
+          <li>Settings</li>
+          <li>Logout</li>
+        </ul>
+      </transition>
+
     </div>
   </div>
 </header>
@@ -40,7 +43,6 @@ export default {
   data() {
     return {
       userDropdown: false,
-      searchDropdown: false,
       searchQuery: ''
     }
   },
@@ -97,6 +99,7 @@ export default {
             }
 
             &.center {
+                margin: 0 10px;
                 position: relative;
                 @media screen and (max-width: 955px) {
                     width: 100%;
@@ -104,48 +107,53 @@ export default {
                 @media screen and (min-width: 955px) {
                     flex: 2;
                 }
+                &.search-active {
+                    input {
+                        border-radius: 5px 5px 0 0;
+                        background-color: lighten($dark-blue, 5%);
+                        border-width: 1px 1px 0 1px;
 
+                        &::-webkit-input-placeholder {
+                            visibility: hidden;
+                        }
+                    }
+                    .search-icon {
+                        color: $white;
+                    }
+                }
                 input {
                     border: none;
                     padding: 12px 12px 12px 50px;
-                    width: 100%;
+                    border: solid $border-color;
+                    border-width: 0;
+                    box-sizing: border-box;
                     background-color: rgba($white,0.1);
                     z-index: 1;
+                    width: 100%;
                     color: $white;
                     border-radius: 3px;
                     transition: background-color 0.2s, box-shadow 0.2s;
                     letter-spacing: 1.3px;
-                    margin: 0 10px;
                     outline: 0;
-
-                    &.active {
-                      border-radius: 5px 5px 0 0;
-                      background-color: rgba($white,0.2);
-                      box-shadow: $shadow;
-                      border-color: $border-color;
-
-                      &::-webkit-input-placeholder {
-                          visibility: hidden;
-                      }
-                    }
 
                     &::-webkit-input-placeholder {
                         color: rgba($white,0.4);
                     }
                 }
-
                 .search-icon {
                     color: rgba($white, 0.5);
                     position: absolute;
-                    left: 25px;
+                    left: 17px;
                     top: 9px;
+                    z-index: 2;
                 }
-
                 .search-dropdown {
                     position: absolute;
-                    top: 43px;
+                    top: 42px;
+                    width: 100%;
                     left: 0;
                     right: 0;
+                    z-index: 999;
                     display: flex;
                     align-items: center;
                     justify-content: space-around;
@@ -153,20 +161,21 @@ export default {
                     height: 170px;
                     padding: 15px;
                     box-sizing: border-box;
-                    background-color: lighten($dark-blue, 3%);
-                    box-shadow: $shadow;
+                    border: 1px solid $border-color;
+                    background-color: lighten($dark-blue, 5%);
                     border-radius: 0 0 5px 5px;
-                    margin: 0 10px;
                     overflow: hidden;
                     i {
                         margin-top: 10px;
                         font-size: 4em;
                     }
                     p {
-                        font-size: 1.1em;
-                        color: rgba($white, 0.85);
                         text-align: center;
+                        font-weight: 300;
+                        text-transform: uppercase;
                         -webkit-hyphens: auto;
+                        hyphens: auto;
+                        color: rgba($white, 0.7);
                     }
                 }
             }
@@ -195,7 +204,7 @@ export default {
 
             i {
                 color: rgba($white, 0.7);
-                transition: color 0.3s;
+                transition: color 0.2s;
                 &:hover {
                     cursor: pointer;
                     color: $white;
