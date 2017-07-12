@@ -43,8 +43,8 @@ export default {
     padding: 7px;
     box-sizing: border-box;
     flex: 1;
-    flex-basis: 20%;
-    max-width: 20%;
+    flex-basis: 25%;
+    max-width: 25%;
     @media screen and (max-width: 955px) {
         flex-basis: 50%;
         max-width: 50%;

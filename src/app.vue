@@ -415,7 +415,7 @@ nav {
                     display: none;
                 }
             }
-            .section-item:nth-child(n+6) {
+            .section-item:nth-child(n+5) {
                 display: none;
             }
         }
