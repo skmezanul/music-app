@@ -25,5 +25,10 @@ export default {
   data() {
     return this.$store.state.singles
   }
+  methods: {
+    toggleCollapse: function() {
+      collapsed = !collapsed
+    },
+  }
 }
 </script>

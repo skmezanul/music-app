@@ -223,17 +223,13 @@ a {
                     display: flex;
                     box-shadow: $shadow;
                     margin: 0 5px 10px 0;
+                    border-radius: 5px;
+                    overflow: hidden;
 
                     a {
                         border-radius: 0;
                         margin: 0;
-                        &:first-of-type {
-                            border-top-left-radius: 5px;
-                            border-bottom-left-radius: 5px;
-                        }
-                        &:last-of-type {
-                            border-top-right-radius: 5px;
-                            border-bottom-right-radius: 5px;
+                        &:nth-child(3) {
                             border-left: 1px solid $blue;
                         }
                     }
@@ -343,14 +339,14 @@ nav {
                     }
 
                     a {
-                        color: rgba($white, 0.7);
                         font-size: 0.85em;
-                        transition: color 0.3s, background-color 0.1s;
+                        transition: background-color 0.1s;
                         padding: 10px;
                         border-radius: 5px;
                         width: 100%;
                         display: flex;
                         align-items: center;
+                        @include item-hover;
 
                         i {
                             font-size: 1.3em;
@@ -359,10 +355,6 @@ nav {
 
                         &.router-link-active {
                             background-color: $accent-color;
-                            color: $white;
-                        }
-                        &:hover {
-                            cursor: pointer;
                             color: $white;
                         }
                     }
@@ -407,12 +399,7 @@ nav {
             span {
                 display: flex;
                 align-items: center;
-                color: rgba($white, 0.7);
-                transition: color 0.3s;
-                &:hover {
-                    color: $white;
-                    cursor: pointer;
-                }
+                @include item-hover;
             }
         }
     }
@@ -592,6 +579,7 @@ nav {
 @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
     .footer,
     .header .search-dropdown,
+    .header .search-active input,
     .scrolled .header,
     .subnav.above-viewport {
         background-color: rgba($dark-blue, 0.7) !important;

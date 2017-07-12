@@ -5,20 +5,20 @@ import Vue from 'vue'
 import 'normalize.css/normalize.css'
 
 // Import Components
-import flextable from './flextable.vue'
-Vue.component('flextable', flextable)
+import flexTable from './flextable.vue'
+Vue.component('flextable', flexTable)
 
-import sectionitem from './sectionitem.vue'
-Vue.component('sectionitem', sectionitem)
+import sectionItem from './sectionitem.vue'
+Vue.component('sectionitem', sectionItem)
 
-import eventcard from './eventcard.vue'
-Vue.component('eventcard', eventcard)
+import eventCard from './eventcard.vue'
+Vue.component('eventcard', eventCard)
 
-import headerbar from './headerbar.vue'
-Vue.component('headerbar', headerbar)
+import headerBar from './headerbar.vue'
+Vue.component('headerbar', headerBar)
 
-import footerbar from './footerbar.vue'
-Vue.component('footerbar', footerbar)
+import footerBar from './footerbar.vue'
+Vue.component('footerbar', footerBar)
 
 import parallax from 'vue-parallaxy'
 Vue.component('parallax', parallax)

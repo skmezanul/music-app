@@ -5,17 +5,16 @@
       <i class="material-icons" @click="goBack">keyboard_arrow_left</i>
       <i class="material-icons" @click="goForward">keyboard_arrow_right</i>
     </div>
-    <div class="top center" :class="{ 'search-active': searchQuery.length > 0 }">
+    <div class="top center" @keyup.esc="toggleSearch" :class="{ 'search-active': searchDropdown === true }">
       <i class="material-icons search-icon">search</i>
-      <input type="text" v-model="searchQuery" placeholder="Search" />
+      <input type="text" @click="toggleSearch" v-model="searchQuery" placeholder="Search" />
 
       <!--Search Dropdown-->
-      <transition name="fade">
-        <div class="search-dropdown" v-if="searchQuery.length > 0">
-          <i class="material-icons">search</i>
-          <p>No results found for "{{ searchQuery }}".</p>
-        </div>
-      </transition>
+      <div class="search-dropdown" v-if="searchDropdown === true" v-on-clickaway="toggleSearch">
+        <i class="material-icons">search</i>
+        <p v-if="searchQuery.length === 0">Search for artists, tracks or albums.</p>
+        <p v-else>No results found for "{{ searchQuery }}".</p>
+      </div>
 
     </div>
     <div class="top right">
@@ -24,13 +23,11 @@
       <i class="toggle material-icons" @click="userDropdown = !userDropdown">keyboard_arrow_down</i>
 
       <!--User Dropdown-->
-      <transition name="fade">
-        <ul class="dropdown" v-if="userDropdown">
-          <li>My Account</li>
-          <li>Settings</li>
-          <li>Logout</li>
-        </ul>
-      </transition>
+      <ul class="dropdown" v-if="userDropdown">
+        <li>My Account</li>
+        <li>Settings</li>
+        <li>Logout</li>
+      </ul>
 
     </div>
   </div>
@@ -39,10 +36,18 @@
 
 <script>
 import router from '../router'
+import {
+  directive as onClickaway
+} from 'vue-clickaway';
+
 export default {
+  directives: {
+    onClickaway: onClickaway,
+  },
   data() {
     return {
       userDropdown: false,
+      searchDropdown: false,
       searchQuery: ''
     }
   },
@@ -52,6 +57,9 @@ export default {
     },
     goForward: function() {
       router.go(1)
+    },
+    toggleSearch: function() {
+      this.searchDropdown =! this.searchDropdown
     }
   }
 }
@@ -61,10 +69,10 @@ export default {
 .header {
     display: flex;
     justify-content: center;
-    position: fixed;
     border-bottom: 1px solid;
     border-color: transparent;
     background-color: transparent;
+    position: fixed;
     top: 0;
     right: 0;
     left: 0;
@@ -95,6 +103,7 @@ export default {
 
                 i {
                     font-size: 2.2em;
+                    @include item-hover;
                 }
             }
 
@@ -112,6 +121,7 @@ export default {
                         border-radius: 5px 5px 0 0;
                         background-color: lighten($dark-blue, 5%);
                         border-width: 1px 1px 0 1px;
+                        box-shadow: $shadow;
 
                         &::-webkit-input-placeholder {
                             visibility: hidden;
@@ -131,8 +141,7 @@ export default {
                     z-index: 1;
                     width: 100%;
                     color: $white;
-                    border-radius: 3px;
-                    transition: background-color 0.2s, box-shadow 0.2s;
+                    border-radius: 5px;
                     letter-spacing: 1.3px;
                     outline: 0;
 
@@ -150,19 +159,20 @@ export default {
                 .search-dropdown {
                     position: absolute;
                     top: 42px;
-                    width: 100%;
                     left: 0;
                     right: 0;
                     z-index: 999;
+                    width: 100%;
+                    height: 170px;
                     display: flex;
                     align-items: center;
                     justify-content: space-around;
                     flex-direction: column;
-                    height: 170px;
                     padding: 15px;
                     box-sizing: border-box;
                     border: 1px solid $border-color;
-                    background-color: lighten($dark-blue, 5%);
+                    background-color: lighten($dark-blue, 3%);
+                    box-shadow: $shadow;
                     border-radius: 0 0 5px 5px;
                     overflow: hidden;
                     i {
@@ -171,11 +181,7 @@ export default {
                     }
                     p {
                         text-align: center;
-                        font-weight: 300;
                         text-transform: uppercase;
-                        -webkit-hyphens: auto;
-                        hyphens: auto;
-                        color: rgba($white, 0.7);
                     }
                 }
             }
@@ -195,19 +201,10 @@ export default {
 
                 .user-name {
                     padding: 0 10px;
-                    transition: color 0.3s;
-                    &:hover {
-                        color: rgba($white, 0.7);
-                    }
                 }
-            }
 
-            i {
-                color: rgba($white, 0.7);
-                transition: color 0.2s;
-                &:hover {
-                    cursor: pointer;
-                    color: $white;
+                i {
+                    @include item-hover;
                 }
             }
         }

@@ -120,12 +120,7 @@ export default {
         }
 
         i {
-            transition: color 0.3s;
-            color: rgba($white, 0.7);
-            &:hover {
-                color: $white;
-                cursor: pointer;
-            }
+            @include item-hover;
         }
     }
 }
