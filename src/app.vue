@@ -1,5 +1,5 @@
 <template>
-<div id="app" :class="{scrolled: scrollPosition > 5}">
+<div id="app" :class="{scrolled: scrollPosition > 0}">
 
   <!-- Header -->
   <headerbar></headerbar>
