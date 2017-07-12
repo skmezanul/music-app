@@ -62,7 +62,7 @@
   </div>
 
   <!--Router View-->
-    <router-view></router-view>
+  <router-view></router-view>
 
 </main>
 </template>
