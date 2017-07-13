@@ -93,52 +93,52 @@ export default {
             font-size: 1em;
             margin-top: 15px;
         }
-    }
-    .search-section {
-        width: 100%;
-        &:first-of-type {
-            h1 {
-                margin-top: 0;
-            }
-        }
-        h1 {
-            margin: 40px 0 20px;
-        }
-        .search-item {
-            background-color: $blue;
-            margin-bottom: 3px;
-            display: flex;
-            align-items: center;
-            box-shadow: $shadow;
-            transition: background-color 0.3s, box-shadow 0.3s;
-            &:hover {
-                cursor: pointer;
-                background-color: rgba($white, 0.15);
-                box-shadow: $shadow-highlight;
-            }
-
-            .image-container {
-                height: 60px;
-                width: 60px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                img {
-                    height: 100%;
-                    width: auto;
+        .search-section {
+            width: 100%;
+            &:first-of-type {
+                h1 {
+                    margin-top: 0;
                 }
             }
-            .meta-container {
-              margin: 0 15px;
-              white-space: nowrap;
-              overflow: hidden;
-              line-height: 1.3em;
-              h4 {
-                  font-size: 1.1em;
-              }
-              a {
-                  @include comma-separated(1em, 300);
-              }
+            h1 {
+                margin: 40px 0 20px;
+            }
+            .search-item {
+                background-color: $blue;
+                margin-bottom: 3px;
+                display: flex;
+                align-items: center;
+                box-shadow: $shadow;
+                transition: background-color 0.3s, box-shadow 0.3s;
+                &:hover {
+                    cursor: pointer;
+                    background-color: rgba($white, 0.15);
+                    box-shadow: $shadow-highlight;
+                }
+
+                .image-container {
+                    height: 60px;
+                    width: 60px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    img {
+                        height: 100%;
+                        width: auto;
+                    }
+                }
+                .meta-container {
+                  margin: 0 15px;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  line-height: 1.3em;
+                  h4 {
+                      font-size: 1.1em;
+                  }
+                  a {
+                      @include comma-separated(1em, 300);
+                  }
+                }
             }
         }
     }
