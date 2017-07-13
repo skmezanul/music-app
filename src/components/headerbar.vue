@@ -7,13 +7,11 @@
     </div>
     <div class="top center" @keyup.esc="toggleSearch" :class="{ 'search-active': searchDropdown === true }">
       <i class="material-icons search-icon">search</i>
-      <input type="text" @click="toggleSearch" v-model="searchQuery" placeholder="Search" />
+      <input type="text" @click="toggleSearch" v-model="userInput" placeholder="Search" />
 
       <!--Search Dropdown-->
       <div class="search-dropdown" v-if="searchDropdown === true" v-on-clickaway="toggleSearch">
-        <i class="material-icons">search</i>
-        <p v-if="searchQuery.length === 0">Search for artists, tracks or albums.</p>
-        <p v-else>No results found for "{{ searchQuery }}".</p>
+        <search :searchQuery="userInput"></search>
       </div>
 
     </div>
@@ -48,7 +46,7 @@ export default {
     return {
       userDropdown: false,
       searchDropdown: false,
-      searchQuery: ''
+      userInput: ''
     }
   },
   methods: {
@@ -59,7 +57,7 @@ export default {
       router.go(1)
     },
     toggleSearch: function() {
-      this.searchDropdown =! this.searchDropdown
+      this.searchDropdown = !this.searchDropdown
     }
   }
 }
@@ -162,27 +160,14 @@ export default {
                     left: 0;
                     right: 0;
                     z-index: 999;
-                    width: 100%;
-                    height: 170px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-around;
-                    flex-direction: column;
-                    padding: 15px;
+                    max-height: 500px;
+                    padding: 20px;
                     box-sizing: border-box;
                     border: 1px solid $border-color;
                     background-color: lighten($dark-blue, 3%);
                     box-shadow: $shadow;
                     border-radius: 0 0 5px 5px;
-                    overflow: hidden;
-                    i {
-                        margin-top: 10px;
-                        font-size: 4em;
-                    }
-                    p {
-                        text-align: center;
-                        text-transform: uppercase;
-                    }
+                    overflow-y: auto;
                 }
             }
 

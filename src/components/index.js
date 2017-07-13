@@ -14,6 +14,9 @@ Vue.component('sectionitem', sectionItem)
 import eventCard from './eventcard.vue'
 Vue.component('eventcard', eventCard)
 
+import search from './search.vue'
+Vue.component('search', search)
+
 import headerBar from './headerbar.vue'
 Vue.component('headerbar', headerBar)
 
@@ -25,6 +28,7 @@ Vue.component('parallax', parallax)
 
 import slider from 'vue-slider-component'
 Vue.component('slider', slider)
+
 
 // Import Plugins
 import tooltip from 'v-tooltip'

@@ -2,7 +2,7 @@
 <div class="page-container">
   <section class="page-section feed">
     <div class="section-header">
-      <h4>Artist Feed</h4>
+      <h1>Artist Feed</h1>
     </div>
     <div class="section-items-container">
     </div>

@@ -82,10 +82,6 @@ export default {
 </script>
 
 <style lang="scss">
-::-webkit-scrollbar {
-    display: none;
-}
-
 body {
     font-family: 'Roboto', sans-serif;
     letter-spacing: 1px;
@@ -391,10 +387,6 @@ nav {
         align-items: center;
         justify-content: space-between;
         margin-bottom: 15px;
-        h4 {
-            font-size: 1.5em;
-            letter-spacing: 2px;
-        }
         .section-actions {
             span {
                 display: flex;
