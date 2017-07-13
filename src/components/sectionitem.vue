@@ -12,8 +12,8 @@
     <div class="image-container">
       <img :src="image" :alt="title" />
     </div>
-    <div class="item-description">
-      <div class="item-description-inner">
+    <div class="meta-container">
+      <div class="meta-container-inner">
         <h4>{{title}}</h4>
         <div class="item-subtitle"><a>{{subtitle}}</a></div>
       </div>
@@ -50,10 +50,8 @@ export default {
         max-width: 50%;
     }
     &.artist {
-        flex-basis: 25%;
-        max-width: 25%;
         .section-item-inner {
-            .item-description {
+            .meta-container {
                 position: absolute;
                 bottom: 0;
                 top: 0;
@@ -65,7 +63,7 @@ export default {
                 background: linear-gradient(to top, rgba($black,0.7), rgba($black,0));
                 padding-bottom: 25px;
                 height: 100%;
-                .item-description-inner {
+                .meta-container-inner {
                     font-size: 1.3em;
                 }
             }
@@ -144,11 +142,11 @@ export default {
                 }
             }
         }
-        .item-description {
+        .meta-container {
             display: flex;
             justify-content: center;
             padding: 15px;
-            .item-description-inner {
+            .meta-container-inner {
                 z-index: 2;
                 overflow: hidden;
                 white-space: nowrap;

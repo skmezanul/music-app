@@ -18,11 +18,13 @@
     <!--If artists found-->
     <div class="search-section artists" v-if="artistsResults.length > 0">
       <h1>Artists ({{artistsResults.length}})</h1>
-      <div class="search-item" v-for="artist in artistsResults" :key="artist.id" @click="selectItem(artist.title)">
+      <div class="search-item" v-for="artist in artistsResults" :key="artist.id" @click="selectItem(artist.subtitle)">
         <div class="image-container">
-          <img :src="artist.image" :alt="artist.title" />
+          <img :src="artist.image" :alt="artist.subtitle" />
         </div>
+        <div class="meta-container">
         <h4>{{artist.title}}</h4>
+      </div>
       </div>
     </div>
     <!--If tracks found-->
@@ -32,7 +34,10 @@
         <div class="image-container">
           <img :src="track.image" :alt="track.title" />
         </div>
+        <div class="meta-container">
         <h4>{{track.title}}</h4>
+        <a>{{track.subtitle}}</a>
+      </div>
       </div>
     </div>
   </span>
@@ -123,10 +128,17 @@ export default {
                     width: auto;
                 }
             }
-            h4 {
-                padding: 0 15px;
-                box-sizing: border-box;
-                font-size: 1.1em;
+            .meta-container {
+              margin: 0 15px;
+              white-space: nowrap;
+              overflow: hidden;
+              line-height: 1.3em;
+              h4 {
+                  font-size: 1.1em;
+              }
+              a {
+                  @include comma-separated(1em, 300);
+              }
             }
         }
     }
