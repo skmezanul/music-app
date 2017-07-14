@@ -1,49 +1,44 @@
 <template>
 <ol class="flex-table">
-  <li class="table-row">
+  <li class="table-row" @click="playTrack(title, subtitle)">
     <div class="image-container">
       <i class="material-icons">play_arrow</i>
-      <img src="/static/images/cover4.png" alt="First duration" height="100%" />
+      <img :src="image" :alt="title" />
     </div>
-    <span class="index mobile-hidden">01</span>
+    <span class="index mobile-hidden">{{String("0" + (index+1)).slice(-2)}}</span>
     <div class="meta-container">
-      <span class="title">First Time</span>
-      <div class="artist"><a>Kygo</a><a>Ellie Goulding</a></div>
+      <span class="item-title">{{title}}</span>
+      <div class="item-subtitle"><router-link :to="toArtist">{{subtitle}}</router-link></div>
     </div>
-    <span class="duration">3:14</span>
-    <i class="material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
-    <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
-  </li>
-  <li class="table-row">
-    <div class="image-container">
-      <i class="material-icons">play_arrow</i>
-      <img src="/static/images/cover2.png" alt="Love Me Like You Do" height="100%" />
-    </div>
-    <span class="index mobile-hidden">02</span>
-    <div class="meta-container">
-      <span class="title">Love Me Like You Do</span>
-      <div class="artist"><a>Ellie Goulding</a></div>
-    </div>
-    <span class="duration">4:13</span>
-    <i class="material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
-    <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
-  </li>
-  <li class="table-row">
-    <div class="image-container">
-      <i class="material-icons">play_arrow</i>
-      <img src="/static/images/cover1.png" alt="Burn" height="100%" />
-    </div>
-    <span class="index mobile-hidden">03</span>
-    <div class="meta-container">
-      <span class="title">Burn</span>
-      <div class="artist"><a>Ellie Goulding</a></div>
-    </div>
-    <span class="duration">3:51</span>
+    <span class="item-duration">{{duration}}</span>
     <i class="material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
     <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
   </li>
 </ol>
 </template>
+
+<script>
+export default {
+  props: [
+    'title',
+    'subtitle',
+    'duration',
+    'image',
+    'index'
+  ],
+  methods: {
+    playTrack: function(title, artist) {
+      console.log('Playing "'+title+'" by '+artist+'.')
+    }
+  },
+  computed: {
+    toArtist() {
+      return `/artist/${this.subtitle}`
+    }
+  }
+}
+</script>
+
 <style lang="scss">
 .flex-table {
     box-shadow: $shadow;
@@ -59,6 +54,8 @@
             position: relative;
             img {
                 transition: filter 0.3s;
+                height: 100%;
+                width: auto;
             }
             i {
                 opacity: 0;
@@ -105,13 +102,13 @@
             @media screen and (max-width: 955px) {
                 padding: 0 15px;
             }
-            .artist {
+            .item-subtitle {
                 a {
                     @include comma-separated(1em, 300);
                 }
             }
         }
-        .duration {
+        .item-duration {
             flex: 0.5;
             text-align: center;
         }
