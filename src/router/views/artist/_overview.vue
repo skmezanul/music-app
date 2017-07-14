@@ -5,7 +5,9 @@
     <div class="section-header">
       <h1>Top Tracks</h1>
     </div>
-    <flextable></flextable>
+    <ol class="flex-table">
+    <flextable v-for="(item, index) in singles" :key="item.id" :image="item.image" :title="item.title" :subtitle="item.subtitle" :index="index"></flextable>
+    </ol>
   </section>
   <section class="page-section singles">
     <div class="section-header">
@@ -15,19 +17,23 @@
       </div>
     </div>
     <div class="section-items-container" :class="{'is-collapsed' : collapsed }">
-      <sectionitem v-for="item in singles" type="album" :key="item.title" :image="item.image" :title="item.title" :subtitle="item.subtitle">
+      <sectionitem v-for="item in singles" type="album" :key="item.id" :image="item.image" :title="item.title" :subtitle="item.subtitle"></sectionitem>
       </sectionitem>
     </div>
   </section>
 </div>
 -->
 <div class="page-container">
+
   <section class="page-section tracks">
     <div class="section-header">
       <h1>Top Tracks</h1>
     </div>
-    <flextable></flextable>
+    <ol class="flex-table">
+      <flextable v-for="(item, index) in singles" :key="item.id" :image="item.image" :title="item.title" :subtitle="item.subtitle" :duration="item.duration" :index="index"></flextable>
+    </ol>
   </section>
+
   <section class="page-section singles">
     <div class="section-header">
       <h1>Singles</h1>
@@ -36,10 +42,10 @@
       </div>
     </div>
     <div class="section-items-container">
-      <sectionitem v-for="item in singles" type="album" :key="item.title" :image="item.image" :title="item.title" :subtitle="item.subtitle">
-      </sectionitem>
+      <sectionitem v-for="item in singles" type="album" :key="item.id" :image="item.image" :title="item.title" :subtitle="item.subtitle"></sectionitem>
     </div>
   </section>
+
 </div>
 </template>
 <script>

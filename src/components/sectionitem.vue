@@ -1,5 +1,6 @@
 <template>
 <div class="section-item" :class="type">
+  <router-link :to="toTarget">
   <div class="section-item-inner">
     <div class="item-overlay" v-if="type === 'album'">
       <div class="overlay-actions">
@@ -19,6 +20,7 @@
       </div>
     </div>
   </div>
+  </router-link>
 </div>
 </template>
 
@@ -34,7 +36,12 @@ export default {
     'title',
     'subtitle',
     'image'
-  ]
+  ],
+  computed: {
+    toTarget() {
+      return `/${this.type}/${this.title}`
+    }
+  },
 }
 </script>
 
