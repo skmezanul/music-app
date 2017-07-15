@@ -204,6 +204,12 @@ a {
                 transition: font-size 0.3s;
                 font-size: 5em;
             }
+            .genres {
+                a {
+                    text-transform: uppercase;
+                    @include comma-separated(1.2em, 400);
+                }
+            }
             .button-container {
                 margin-top: 15px;
                 display: flex;

@@ -1,5 +1,5 @@
 <template>
-<main class="main-container" :class="{ 'stage-compact': $route.meta.header === 'compact'}">
+<main class="main-container" :class="{ 'stage-compact': $route.meta.header === 'compact' }">
 
   <!--Stage-->
   <div class="stage">
@@ -20,6 +20,9 @@
           <h2 v-show="$route.meta.header === 'full'">Artist</h2>
         </transition>
         <h1>{{ $route.params.id }}</h1>
+        <div class="genres">
+          <a>Electro</a><a>Pop</a><a>Folk</a>
+        </div>
         <div class="button-container">
           <div class="button-group">
             <a class="btn btn-accent"><i class="material-icons">play_circle_filled</i>Play All</a>
