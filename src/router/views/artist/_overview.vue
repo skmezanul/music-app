@@ -52,28 +52,9 @@
 </div>
 </template>
 <script>
-import axios from 'axios'
-
-var client_id = '98ef0a911fb04e9a980707d7687949c9'; // Your client id
-var client_secret = '334d634c367048a490527a0414349021'; // Your secret
-
-var authOptions = {
-  url: 'https://accounts.spotify.com/api/token',
-  headers: {
-    'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
-  },
-  form: {
-    grant_type: 'client_credentials'
-  },
-  json: true
-};
-
 export default {
   data() {
     return this.$store.state.singles
-  },
-  created() {
-    axios.post(authOptions).then(response => console.log(response));
   }
 }
 </script>
