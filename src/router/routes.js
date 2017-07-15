@@ -1,6 +1,6 @@
 export default [
   {
-  path: '/artist',
+  path: '/artist/:id',
   component: require('./views/artist/index.vue'),
   children: [{
       path: '',

@@ -1,25 +1,25 @@
 <template>
 <div class="section-item" :class="type">
-  <router-link :to="toTarget">
-  <div class="section-item-inner">
-    <div class="item-overlay" v-if="type === 'album'">
-      <div class="overlay-actions">
-        <i class="favorite material-icons">favorite</i>
-        <i v-if="playing === false" @click="playing = true" class="play material-icons">play_circle_outline</i>
-        <i v-if="playing === true" @click="playing = false" class="play material-icons">pause_circle_outline</i>
-        <i class="more material-icons">more_horiz</i>
+  <router-link :to="'/'+type+'/'+title">
+    <div class="section-item-inner">
+      <div class="item-overlay" v-if="type != 'artist'">
+        <div class="overlay-actions">
+          <i class="favorite material-icons">favorite</i>
+          <i v-if="playing === false" @click="playing = true" class="play material-icons">play_circle_outline</i>
+          <i v-if="playing === true" @click="playing = false" class="play material-icons">pause_circle_outline</i>
+          <i class="more material-icons">more_horiz</i>
+        </div>
+      </div>
+      <div class="image-container">
+        <img :src="image" :alt="title" />
+      </div>
+      <div class="meta-container">
+        <div class="meta-container-inner">
+          <span>{{title}}</span>
+          <div class="item-subtitle" v-if="type != 'playlist' "><router-link :to="'/artist/'+subtitle">{{subtitle}}</router-link></div>
+        </div>
       </div>
     </div>
-    <div class="image-container">
-      <img :src="image" :alt="title" />
-    </div>
-    <div class="meta-container">
-      <div class="meta-container-inner">
-        <h4>{{title}}</h4>
-        <div class="item-subtitle"><a>{{subtitle}}</a></div>
-      </div>
-    </div>
-  </div>
   </router-link>
 </div>
 </template>
@@ -36,12 +36,7 @@ export default {
     'title',
     'subtitle',
     'image'
-  ],
-  computed: {
-    toTarget() {
-      return `/${this.type}/${this.title}`
-    }
-  },
+  ]
 }
 </script>
 
@@ -50,13 +45,15 @@ export default {
     padding: 7px;
     box-sizing: border-box;
     flex: 1;
-    flex-basis: 25%;
-    max-width: 25%;
+    flex-basis: 20%;
+    max-width: 20%;
     @media screen and (max-width: 955px) {
         flex-basis: 50%;
         max-width: 50%;
     }
     &.artist {
+        flex-basis: 25%;
+        max-width: 25%;
         .section-item-inner {
             .meta-container {
                 position: absolute;
@@ -91,6 +88,13 @@ export default {
                         transform: scale(1.05);
                     }
                 }
+            }
+        }
+    }
+    &.playlist {
+        .section-item-inner {
+            .meta-container {
+              padding: 20px 15px;
             }
         }
     }
@@ -158,6 +162,7 @@ export default {
                 overflow: hidden;
                 white-space: nowrap;
                 text-align: center;
+                text-overflow: ellipsis;
                 line-height: 1.4em;
                 .item-subtitle {
                     a {

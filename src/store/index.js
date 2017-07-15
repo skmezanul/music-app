@@ -13,7 +13,8 @@ const store = new Vuex.Store({
     singles,
     similar,
     concerts,
-    information
+    information,
+    playing: true
   }
 });
 

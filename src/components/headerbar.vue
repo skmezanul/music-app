@@ -7,11 +7,11 @@
     </div>
     <div class="top center" @keyup.esc="toggleSearch" :class="{ 'search-active': searchDropdown === true }">
       <i class="material-icons search-icon">search</i>
-      <input type="text" @click="toggleSearch" v-model="userInput" placeholder="Search" />
+      <input type="text" @click="toggleSearch" v-model="searchQuery" placeholder="Search" />
 
       <!--Search Dropdown-->
       <div class="search-dropdown" v-if="searchDropdown === true" v-on-clickaway="toggleSearch">
-        <search :searchQuery="userInput"></search>
+        <search :searchQuery="searchQuery" :searchDropdown="searchDropdown"></search>
       </div>
 
     </div>
@@ -46,7 +46,7 @@ export default {
     return {
       userDropdown: false,
       searchDropdown: false,
-      userInput: ''
+      searchQuery: ''
     }
   },
   methods: {

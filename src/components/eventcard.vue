@@ -6,6 +6,7 @@
   </div>
   <div class="container right">
     <div class="right-inner">
+      <div class="date"><a>{{month}}</a><a>{{day}}</a></div>
       <div class="location"><a>{{city}}</a><a>{{country}}</a></div>
       <h1>{{venue}}</h1>
       <div class="button-container">
@@ -39,16 +40,19 @@ export default {
     box-shadow: $shadow;
     display: flex;
     height: 250px;
+    background-color: $blue;
     .container {
         display: flex;
         flex-direction: column;
         padding: 30px;
         &.left {
+            text-transform: uppercase;
             flex: 1;
             align-items: center;
             justify-content: center;
-            text-transform: uppercase;
-            background: $blue;
+            @media screen and (max-width: 955px) {
+                display: none;
+            }
             h1 {
                 font-size: 2.5em;
                 line-height: 1em;
@@ -67,14 +71,27 @@ export default {
                 justify-content: space-between;
                 height: 100%;
                 h1 {
-                    font-size: 4em;
-                    margin-left: -4px;
+                    hyphens: auto;
+                    @media screen and (min-width: 955px) {
+                        font-size: 3em;
+                        margin-left: -4px;
+                    }
+                }
+                .date {
+                    margin-bottom: 5px;
+                    @media screen and (min-width: 955px) {
+                        display: none;
+                    }
+                    a {
+                        text-transform: uppercase;
+                        @include comma-separated(1.2em, 400);
+                    }
                 }
                 .location {
-                  a {
-                      text-transform: uppercase;
-                      @include comma-separated(1.2em, 400);
-                  }
+                    a {
+                        text-transform: uppercase;
+                        @include comma-separated(1.2em, 400);
+                    }
                 }
                 .button-container {
                     margin-top: auto;
@@ -93,7 +110,7 @@ export default {
                 display: flex;
                 align-items: center;
                 img {
-                    filter: brightness(40%) saturate(150%);
+                    filter: brightness(40%) saturate(130%);
                     width: 100%;
                     height: auto;
                 }

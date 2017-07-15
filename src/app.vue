@@ -9,7 +9,7 @@
     <ul>
       <div class="sidenav-section top">
         <li>
-          <router-link to="/artist"><i class="material-icons">book</i>Browse</router-link>
+          <router-link to="/artist/Ellie%20Goulding"><i class="material-icons">book</i>Browse</router-link>
         </li>
         <li>
           <router-link to="/radio"><i class="material-icons">radio</i>Radio</router-link>
@@ -204,14 +204,8 @@ a {
                 transition: font-size 0.3s;
                 font-size: 5em;
             }
-            .genres {
-                a {
-                    text-transform: uppercase;
-                    @include comma-separated(1.2em, 400);
-                }
-            }
             .button-container {
-                margin-top: 20px;
+                margin-top: 15px;
                 display: flex;
                 align-items: center;
 
@@ -386,7 +380,7 @@ nav {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
         .section-actions {
             span {
                 display: flex;

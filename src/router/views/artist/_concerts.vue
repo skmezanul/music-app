@@ -4,7 +4,7 @@
     <div class="section-header">
       <h1>2018</h1>
     </div>
-    <eventcard v-for="item in concerts" :key="item.venue" :image="item.image" :month="item.month" :day="item.day" :city="item.city" :country="item.country" :venue="item.venue"></eventcard>
+    <eventcard v-for="concert in concerts" :key="concert.venue" :image="concert.image" :month="concert.month" :day="concert.day" :city="concert.city" :country="concert.country" :venue="concert.venue"></eventcard>
   </section>
 </div>
 </template>
