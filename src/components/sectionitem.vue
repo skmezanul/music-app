@@ -1,6 +1,6 @@
 <template>
 <div class="section-item" :class="type">
-  <router-link :to="'/'+type+'/'+title">
+  <router-link :to="'/'+type+'/'+id">
     <div class="section-item-inner">
       <div class="item-overlay" v-if="type != 'artist'">
         <div class="overlay-actions">
@@ -16,7 +16,9 @@
       <div class="meta-container">
         <div class="meta-container-inner">
           <span>{{title}}</span>
-          <div class="item-subtitle" v-if="type != 'playlist' "><router-link :to="'/artist/'+subtitle">{{subtitle}}</router-link></div>
+          <div class="item-subtitle" v-if="type === 'album' ">
+            <router-link :to="'/artist/'+id">{{subtitle}}</router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -35,7 +37,8 @@ export default {
     'type',
     'title',
     'subtitle',
-    'image'
+    'image',
+    'id'
   ]
 }
 </script>
@@ -48,13 +51,14 @@ export default {
     flex-basis: 20%;
     max-width: 20%;
     @media screen and (max-width: 955px) {
-        flex-basis: 50%;
-        max-width: 50%;
+        flex-basis: 50% !important;
+        max-width: 50% !important;
     }
     &.artist {
         flex-basis: 25%;
         max-width: 25%;
         .section-item-inner {
+            height: 300px;
             .meta-container {
                 position: absolute;
                 bottom: 0;
@@ -93,7 +97,7 @@ export default {
     &.playlist {
         .section-item-inner {
             .meta-container {
-              padding: 20px 15px;
+                padding: 20px 15px;
             }
         }
     }

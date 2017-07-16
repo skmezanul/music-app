@@ -14,8 +14,7 @@ const store = new Vuex.Store({
     similar,
     concerts,
     information,
-    playing: true,
-    artist: null
+    artist: {}
   },
   mutations: {
         artistInfo(state, artist) {
