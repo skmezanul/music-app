@@ -144,7 +144,7 @@ a {
             .stage-inner {
                 .stage-container {
                     h1 {
-                        font-size: 4.4em;
+                        font-size: 3.5em;
                     }
                 }
             }
@@ -200,9 +200,11 @@ a {
             animation: zoomOut 0.3s 0.2s both;
 
             h1 {
-                margin-left: -7px;
                 transition: font-size 0.3s;
                 font-size: 5em;
+                max-width: 80%;
+                margin-left: -5px;
+                text-transform: uppercase;
             }
             .genres {
                 a {
@@ -377,9 +379,7 @@ nav {
         line-height: 1.5em;
         color: rgba($white, 0.9);
         font-size: 1.1em;
-        & p:nth-of-type(1) {
-            margin-top: 0;
-        }
+        margin: 0;
     }
 
     .section-header {

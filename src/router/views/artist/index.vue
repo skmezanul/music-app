@@ -7,8 +7,7 @@
     <!--Background-->
     <div class="stage-background">
       <parallax :speedFactor="0.3">
-        <img v-show="$route.meta.current === 'overview'" src="/static/images/header.jpg" alt="Ellie Goulding" />
-        <img v-show="$route.meta.current === 'information'" src="/static/images/bio1.jpg" alt="Ellie Goulding" />
+        <img v-show="$route.meta.header != 'compact'" :src="$store.state.artist.image[4]['#text']" :alt="$store.state.artist.name" />
       </parallax>
     </div>
 
@@ -19,9 +18,9 @@
         <transition name="fade">
           <h2 v-show="$route.meta.header === 'full'">Artist</h2>
         </transition>
-        <h1>{{ $route.params.id }}</h1>
+        <h1>{{ $store.state.artist.name }}</h1>
         <div class="genres">
-          <a>Electro</a><a>Pop</a><a>Folk</a>
+          <a v-for="item in $store.state.artist.tags.tag" :href="item.url" target="_blank">{{ item.name }}</a>
         </div>
         <div class="button-container">
           <div class="button-group">
@@ -66,3 +65,14 @@
 
 </main>
 </template>
+<script>
+import axios from 'axios'
+
+export default {
+  created() {
+    axios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&api_key=5ee365767f401c005a08f2ef9a92b66c&artist=${this.$route.params.id}&format=json`)
+      .then(response => this.$store.commit('artistInfo', response.data.artist))
+      .catch(error => console.log(error))
+  }
+}
+</script>

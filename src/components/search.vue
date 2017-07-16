@@ -14,27 +14,27 @@
   </span>
 
   <!--If results for this search-->
-  <span v-if="searchQuery.length > 0 && countResults > 0">
+  <span v-show="searchQuery.length > 0 && countResults.length > 0">
     <!--If artists found-->
-    <div class="search-section artists" v-if="artistsResults.length > 0">
-      <h1>Artists ({{artistsResults.length}})</h1>
-      <div class="search-item" v-for="artist in artistsResults" :key="artist.id">
-        <router-link :to="'/artist/'+artist.subtitle"></router-link>
+    <div class="search-section artists" v-show="artistsResults > 0">
+      <h1>Artists ({{ artistsResults }})</h1>
+      <div class="search-item" v-for="artist in artists" :key="artist.mbid">
+        <router-link :to="'/artist/'+artist.name"></router-link>
         <div class="image-container">
-          <img :src="artist.image" :alt="artist.subtitle" />
+          <img :src="artist.image[1]['#text']" :alt="artist.name" />
         </div>
         <div class="meta-container">
-        <h4>{{artist.subtitle}}</h4>
+        <h4>{{artist.name}}</h4>
       </div>
       </div>
     </div>
     <!--If tracks found-->
-    <div class="search-section tracks" v-if="tracksResults.length > 0">
-      <h1>Tracks ({{tracksResults.length}})</h1>
-      <div class="search-item" v-for="track in tracksResults" :key="track.id">
+    <div class="search-section tracks" v-show="tracksResults > 0">
+      <h1>Tracks ({{ tracksResults }})</h1>
+      <div class="search-item" v-for="track in artists" :key="track.id">
         <router-link :to="'/track/'+track.title"></router-link>
         <div class="image-container">
-          <img :src="track.image" :alt="track.title" />
+          <img src="https://i.scdn.co/image/7ebfd980c297445443953f9b8073a2492f2daad4" :alt="track.title" />
         </div>
         <div class="meta-container">
         <h4>{{track.title}}</h4>
@@ -48,33 +48,34 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data() {
-    return this.$store.state.singles
+    return {
+      artists: {},
+      tracks: {},
+      userSearch: this.searchQuery
+    }
   },
   props: [
     'searchQuery'
   ],
   computed: {
+    countResults() {
+      return this.artists + this.tracks
+    },
     artistsResults() {
-      return this.findBy(this.singles, this.searchQuery, 'subtitle')
+      return this.artists.length
     },
     tracksResults() {
-      return this.findBy(this.singles, this.searchQuery, 'title')
-    },
-    countResults() {
-      return this.artistsResults.length + this.tracksResults.length
+      return this.tracks.length
     }
   },
-  methods: {
-    findBy(list, value, column) {
-      return list.filter(function(item) {
-        return item[column].includes(value)
-      })
-    },
-    selectItem(event) {
-      console.log(event)
-    }
+  created() {
+    axios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.search&api_key=5ee365767f401c005a08f2ef9a92b66c&artist=${this.userSearch}&limit=5&format=json`)
+      .then(response => this.artists = response.data.results.artistmatches.artist)
+      .catch(error => console.log(error))
   }
 }
 </script>

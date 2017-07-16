@@ -72,7 +72,6 @@ export default {
                 }
             }
             .image-container {
-                height: 350px;
                 img {
                     filter: brightness(70%) contrast(110%);
                     transition: filter 0.3s, transform 1s;

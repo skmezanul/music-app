@@ -14,8 +14,14 @@ const store = new Vuex.Store({
     similar,
     concerts,
     information,
-    playing: true
-  }
+    playing: true,
+    artist: null
+  },
+  mutations: {
+        artistInfo(state, artist) {
+            state.artist = artist
+        }
+    }
 });
 
 export default store

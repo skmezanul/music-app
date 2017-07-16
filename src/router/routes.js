@@ -6,8 +6,7 @@ export default [
       path: '',
       name: 'overview',
       meta: {
-        header: 'full',
-        current: 'overview'
+        header: 'full'
       },
       components: {
         default: require('./views/artist/_overview.vue')
@@ -17,8 +16,7 @@ export default [
       path: 'concerts',
       name: 'concerts',
       meta: {
-        header: 'compact',
-        current: 'concerts'
+        header: 'compact'
       },
       components: {
         default: require('./views/artist/_concerts.vue')
@@ -28,8 +26,7 @@ export default [
       path: 'playlists',
       name: 'playlists',
       meta: {
-        header: 'compact',
-        current: 'playlists'
+        header: 'compact'
       },
       components: {
         default: require('./views/artist/_playlists.vue')
@@ -39,8 +36,7 @@ export default [
       path: 'feed',
       name: 'feed',
       meta: {
-        header: 'compact',
-        current: 'feed'
+        header: 'compact'
       },
       components: {
         default: require('./views/artist/_feed.vue')
@@ -50,8 +46,7 @@ export default [
       path: 'similar',
       name: 'similar',
       meta: {
-        header: 'compact',
-        current: 'similar'
+        header: 'compact'
       },
       components: {
         default: require('./views/artist/_similar.vue')
@@ -61,13 +56,27 @@ export default [
       path: 'information',
       name: 'information',
       meta: {
-        header: 'full',
-        current: 'information'
+        header: 'full'
       },
       components: {
         default: require('./views/artist/_information.vue')
       }
     }
   ]
+},
+{
+path: '/album/:id',
+component: require('./views/album/index.vue'),
+children: [{
+    path: '',
+    name: 'album',
+    meta: {
+      header: 'compact'
+    },
+    components: {
+      default: require('./views/album/_album.vue')
+    }
+  }
+]
 }
 ];

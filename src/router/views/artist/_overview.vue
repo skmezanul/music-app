@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="section-items-container">
-      <sectionitem v-for="single in singles" type="single" :key="single.id" :image="single.image" :title="single.title" :subtitle="single.subtitle"></sectionitem>
+      <sectionitem v-for="single in singles" type="album" :key="single.id" :image="single.image" :title="single.title" :subtitle="single.subtitle"></sectionitem>
     </div>
   </section>
 
