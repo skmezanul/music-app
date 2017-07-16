@@ -3,6 +3,7 @@ import components from './components'
 import app from './app.vue'
 import store from './store'
 import router from './router'
+import './api'
 
 new Vue({
   el: '#app',

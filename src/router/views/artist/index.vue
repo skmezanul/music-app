@@ -7,7 +7,7 @@
     <!--Background-->
     <div class="stage-background">
       <parallax :speedFactor="0.3">
-        <img v-show="$route.meta.header != 'compact'" :src="$store.state.artist.image[4]['#text']" :alt="$store.state.artist.name" />
+        <img v-show="$route.meta.header != 'compact'" :src="$store.state.artist.images[0].url" :alt="$store.state.artist.name" />
       </parallax>
     </div>
 
@@ -20,7 +20,7 @@
         </transition>
         <h1>{{ $store.state.artist.name }}</h1>
         <div class="genres">
-          <a v-for="item in $store.state.artist.tags.tag" :href="item.url" target="_blank">{{ item.name }}</a>
+          <a v-for="item in $store.state.artist.genres">{{ item }}</a>
         </div>
         <div class="button-container">
           <div class="button-group">
@@ -66,13 +66,12 @@
 </main>
 </template>
 <script>
-import axios from 'axios'
+import spotifyApi from '../../../api/'
 
 export default {
   created() {
-    axios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&api_key=5ee365767f401c005a08f2ef9a92b66c&artist=${this.$route.params.id}&format=json`)
-      .then(response => this.$store.commit('artistInfo', response.data.artist))
-      .catch(error => console.log(error))
+    spotifyApi.getArtist(this.$route.params.id)
+      .then(response => this.$store.commit('artistInfo', response))
   }
 }
 </script>

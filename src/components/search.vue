@@ -8,37 +8,37 @@
   </span>
 
   <!--If no results for this search-->
-  <span v-if="countResults === 0">
+  <span v-if="searchQuery.length > 0 && countResults === 0">
     <i class="material-icons">search</i>
     <h2>No results found for "{{ searchQuery }}".</h2>
   </span>
 
   <!--If results for this search-->
-  <span v-show="searchQuery.length > 0 && countResults.length > 0">
+  <span v-if="searchQuery.length > 0 && countResults.length > 0">
     <!--If artists found-->
-    <div class="search-section artists" v-show="artistsResults > 0">
-      <h1>Artists ({{ artistsResults }})</h1>
-      <div class="search-item" v-for="artist in artists" :key="artist.mbid">
-        <router-link :to="'/artist/'+artist.name"></router-link>
+    <div class="search-section artists" v-if="artists.length > 0">
+      <h1>Artists ({{ artists.length }})</h1>
+      <div class="search-item" v-for="artist in artists" :key="artist.id">
+        <router-link :to="'/artist/'+artist.id"></router-link>
         <div class="image-container">
-          <img :src="artist.image[1]['#text']" :alt="artist.name" />
+          <img :src="artist.images[0].url" :alt="artist.name" />
         </div>
         <div class="meta-container">
-        <h4>{{artist.name}}</h4>
+        <h4>{{ artist.name }}</h4>
       </div>
       </div>
     </div>
     <!--If tracks found-->
-    <div class="search-section tracks" v-show="tracksResults > 0">
-      <h1>Tracks ({{ tracksResults }})</h1>
-      <div class="search-item" v-for="track in artists" :key="track.id">
-        <router-link :to="'/track/'+track.title"></router-link>
+    <div class="search-section tracks" v-if="tracks.length > 0">
+      <h1>Tracks ({{ tracks.length }})</h1>
+      <div class="search-item" v-for="track in tracks" :key="track.id">
+        <router-link :to="'/track/'+track.name"></router-link>
         <div class="image-container">
-          <img src="https://i.scdn.co/image/7ebfd980c297445443953f9b8073a2492f2daad4" :alt="track.title" />
+          <img :src="track.album.images[1].url" :alt="track.name" />
         </div>
         <div class="meta-container">
-        <h4>{{track.title}}</h4>
-        <router-link :to="'/artist/'+track.subtitle">{{track.subtitle}}</router-link>
+        <h4>{{track.name}}</h4>
+        <router-link :to="'/artist/'+track.artists[0].id">{{ track.artists[0].name }}</router-link>
       </div>
       </div>
     </div>
@@ -48,14 +48,13 @@
 </template>
 
 <script>
-import axios from 'axios'
+import spotifyApi from '../api/'
 
 export default {
   data() {
     return {
-      artists: {},
-      tracks: {},
-      userSearch: this.searchQuery
+      artists: 0,
+      tracks: 0
     }
   },
   props: [
@@ -64,18 +63,18 @@ export default {
   computed: {
     countResults() {
       return this.artists + this.tracks
-    },
-    artistsResults() {
-      return this.artists.length
-    },
-    tracksResults() {
-      return this.tracks.length
     }
   },
-  created() {
-    axios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.search&api_key=5ee365767f401c005a08f2ef9a92b66c&artist=${this.userSearch}&limit=5&format=json`)
-      .then(response => this.artists = response.data.results.artistmatches.artist)
-      .catch(error => console.log(error))
+  watch: {
+    '$props':{
+      handler: function () {
+        spotifyApi.searchArtists(this.searchQuery)
+          .then(response => this.artists = response.artists.items)
+        spotifyApi.searchTracks(this.searchQuery)
+        .then(response => this.tracks = response.tracks.items)
+      },
+      deep: true
+    }
   }
 }
 </script>
@@ -130,12 +129,10 @@ export default {
                 .image-container {
                     height: 60px;
                     width: 60px;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
+                    overflow: hidden;
                     img {
                         height: 100%;
-                        width: auto;
+                        width: 100%;
                     }
                 }
                 .meta-container {

@@ -5,7 +5,7 @@
       <i class="material-icons" @click="goBack">keyboard_arrow_left</i>
       <i class="material-icons" @click="goForward">keyboard_arrow_right</i>
     </div>
-    <div class="top center" @keyup.esc="toggleSearch" :class="{ 'search-active': searchDropdown === true }">
+    <div class="top center" @keyup.esc="toggleSearch" @keyup.enter="fetchdata" :class="{ 'search-active': searchDropdown === true }">
       <i class="material-icons search-icon">search</i>
       <input type="text" @click="toggleSearch" v-model="searchQuery" placeholder="Search" />
 
