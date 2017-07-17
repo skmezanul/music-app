@@ -176,6 +176,7 @@ a {
 
             img {
                 animation: zoomOut 0.3s 0.2s both;
+                filter: saturate(140%);
             }
         }
     }
@@ -185,7 +186,7 @@ a {
         right: 0;
         bottom: 0;
         left: 0;
-        background: radial-gradient(circle, rgba($main-bg-color,0) 0%, $main-bg-color 90%), linear-gradient(rgba($main-bg-color,0) -30%, $main-bg-color);
+        background: radial-gradient(circle, rgba($main-bg-color,0) 0%, $main-bg-color), linear-gradient(rgba($main-bg-color,0) -30%, $main-bg-color);
         content: "";
     }
 
@@ -204,9 +205,8 @@ a {
                 font-size: 5em;
                 max-width: 80%;
                 margin-left: -5px;
-                text-transform: uppercase;
             }
-            .genres {
+            .info {
                 a {
                     text-transform: uppercase;
                     @include comma-separated(1.2em, 400);
@@ -570,8 +570,8 @@ nav {
 }
 @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
     .footer,
-    .header .search-dropdown,
     .header .search-active input,
+    .header .search-dropdown,
     .scrolled .header,
     .subnav.above-viewport {
         background-color: rgba($dark-blue, 0.7) !important;

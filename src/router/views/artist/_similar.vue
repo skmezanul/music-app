@@ -5,7 +5,7 @@
       <h1>Similar to {{ $store.state.artist.name }}</h1>
     </div>
     <div class="section-items-container">
-      <sectionitem v-for="item in similar" type="artist" :key="item.name" :image="item.images[1].url" :title="item.name" :subtitle="item.genres[0]" :id="item.id">
+      <sectionitem v-for="artist in similar" :type="artist.type" :key="artist.name" :image="artist.images[1].url" :title="artist.name" :subtitle="artist.genres[0]" :primaryid="artist.id">
       </sectionitem>
     </div>
   </section>
@@ -17,7 +17,7 @@ import spotifyApi from '../../../api/'
 export default {
   data() {
     return {
-      similar: null
+      similar: {}
     }
   },
   created() {

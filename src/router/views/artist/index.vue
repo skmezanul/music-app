@@ -19,15 +19,13 @@
           <h2 v-show="$route.meta.header === 'full'">Artist</h2>
         </transition>
         <h1>{{ $store.state.artist.name }}</h1>
-        <!--
-        <div class="genres">
-          <a v-for="item in $store.state.artist.genres">{{ item }}</a>
+        <div class="info">
+          <a>{{ $store.state.artist.followers.total }} followers</a><a>{{ $store.state.artist.genres[0] }}</a>
         </div>
-        -->
         <div class="button-container">
           <div class="button-group">
             <a class="btn btn-accent"><i class="material-icons">play_circle_filled</i>Play All</a>
-            <a class="btn" v-tooltip="{ content: $store.state.artist.followers.total + ' Followers', container: '.tooltip-container' }"><i class="material-icons">add_circle</i>Follow</a>
+            <a class="btn"><i class="material-icons">add_circle</i>Follow</a>
             <a class="btn btn-icon"><i class="material-icons">favorite</i></a>
           </div>
           <a class="btn btn-transparent"><i class="material-icons">share</i>Share</a>
@@ -71,19 +69,24 @@
 import spotifyApi from '../../../api/'
 
 export default {
-  created() {
-    // fetch the data when the view is created and the data is
-    // already being observed
-    this.fetchData()
+  beforeRouteEnter (to, from, next) {
+    spotifyApi.getArtist(to.params.id, (err, response) => {
+      next(vm => vm.setData(err, response))
+    })
   },
-  watch: {
-    // call again the method if the route changes
-    '$route': 'fetchData'
+  beforeRouteUpdate (to, from, next) {
+    spotifyApi.getArtist(to.params.id, (err, response) => {
+      this.setData(err, response)
+      next()
+    })
   },
   methods: {
-    fetchData() {
-      spotifyApi.getArtist(this.$route.params.id)
-        .then(response => this.$store.commit('artistInfo', response))
+    setData (err, response) {
+      if (err) {
+        console.log(err.toString())
+      } else {
+        this.$store.commit('artistInfo', response)
+      }
     }
   }
 }

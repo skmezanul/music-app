@@ -1,6 +1,6 @@
 <template>
 <div class="section-item" :class="type">
-  <router-link :to="'/'+type+'/'+id">
+  <a :href="'/'+type+'/'+primaryid">
     <div class="section-item-inner">
       <div class="item-overlay" v-if="type != 'artist'">
         <div class="overlay-actions">
@@ -17,12 +17,12 @@
         <div class="meta-container-inner">
           <span>{{title}}</span>
           <div class="item-subtitle" v-if="type === 'album' ">
-            <router-link :to="'/artist/'+id">{{subtitle}}</router-link>
+            <a v-for="item in subtitle" :key="item.id" :href="'/'+item.type+'/'+item.id">{{item.name}}</a>
           </div>
         </div>
       </div>
     </div>
-  </router-link>
+  </a>
 </div>
 </template>
 
@@ -35,10 +35,11 @@ export default {
   },
   props: [
     'type',
+    'primaryid',
+    'secondaryid',
     'title',
     'subtitle',
-    'image',
-    'id'
+    'image'
   ]
 }
 </script>
@@ -69,7 +70,7 @@ export default {
                 justify-content: center;
                 align-items: flex-end;
                 background: linear-gradient(to top, rgba($black,0.7), rgba($black,0));
-                padding-bottom: 25px;
+                padding-bottom: 40px;
                 height: 100%;
                 .meta-container-inner {
                     font-size: 1.3em;
@@ -103,8 +104,9 @@ export default {
     }
     .section-item-inner {
         display: flex;
-        position: relative;
+        justify-content: space-between;
         flex-direction: column;
+        position: relative;
         background-color: $blue;
         height: 100%;
         overflow: hidden;

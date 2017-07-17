@@ -37,24 +37,54 @@
     </ol>
   </section>
 
-  <section class="page-section singles">
+  <section class="page-section albums">
     <div class="section-header">
-      <h1>Singles</h1>
+      <h1>Albums</h1>
       <div class="section-actions">
         <span>Show Less<i class="material-icons">keyboard_arrow_up</i></span>
       </div>
     </div>
     <div class="section-items-container">
-      <sectionitem v-for="single in singles" type="album" :key="single.id" :image="single.image" :title="single.title" :subtitle="single.subtitle"></sectionitem>
+      <sectionitem v-for="album in albums"
+      :key="album.id"
+      :type="album.type"
+      :primaryid="album.id"
+      :secondaryid="album.artists[0].id"
+      :image="album.images[0].url"
+      :title="album.name"
+      :subtitle="album.artists"
+      ></sectionitem>
     </div>
   </section>
 
 </div>
 </template>
 <script>
+import spotifyApi from '../../../api/'
+
 export default {
   data() {
-    return this.$store.state.singles
+    return {
+      tracks: {},
+      albums: {}
+    }
+  },
+  created() {
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.fetchData()
+  },
+  watch: {
+    // call again the method if the route changes
+    '$route': 'fetchData'
+  },
+  methods: {
+    fetchData() {
+      spotifyApi.getArtistTopTracks(this.$route.params.id, {country: 'de'})
+        .then(response => this.tracks = response)
+      spotifyApi.getArtistAlbums(this.$route.params.id)
+        .then(response => this.albums = response.items)
+    }
   }
 }
 </script>

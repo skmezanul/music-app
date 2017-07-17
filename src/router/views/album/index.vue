@@ -15,7 +15,7 @@
 
       <!--Content-->
       <div class="stage-container">
-          <h2>Album by Ellie Goulding</h2>
+        <h2>Album by Ellie Goulding</h2>
         <h1>{{ $route.params.id }}</h1>
         <div class="button-container">
           <div class="button-group">
