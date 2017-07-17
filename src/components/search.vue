@@ -57,6 +57,11 @@ export default {
       tracks: 0
     }
   },
+  created() {
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.fetchData()
+  },
   props: [
     'searchQuery'
   ],
@@ -66,14 +71,15 @@ export default {
     }
   },
   watch: {
-    '$props':{
-      handler: function () {
-        spotifyApi.searchArtists(this.searchQuery)
-          .then(response => this.artists = response.artists.items)
-        spotifyApi.searchTracks(this.searchQuery)
-        .then(response => this.tracks = response.tracks.items)
-      },
-      deep: true
+    // call again the method if the prop changes
+    '$props': 'fetchData'
+  },
+  methods: {
+    fetchData() {
+      spotifyApi.searchArtists(this.searchQuery)
+        .then(response => this.artists = response.artists.items)
+      spotifyApi.searchTracks(this.searchQuery)
+      .then(response => this.tracks = response.tracks.items)
     }
   }
 }

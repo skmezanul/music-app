@@ -19,13 +19,15 @@
           <h2 v-show="$route.meta.header === 'full'">Artist</h2>
         </transition>
         <h1>{{ $store.state.artist.name }}</h1>
+        <!--
         <div class="genres">
           <a v-for="item in $store.state.artist.genres">{{ item }}</a>
         </div>
+        -->
         <div class="button-container">
           <div class="button-group">
             <a class="btn btn-accent"><i class="material-icons">play_circle_filled</i>Play All</a>
-            <a class="btn"><i class="material-icons">add_circle</i>Follow</a>
+            <a class="btn" v-tooltip="{ content: $store.state.artist.followers.total + ' Followers', container: '.tooltip-container' }"><i class="material-icons">add_circle</i>Follow</a>
             <a class="btn btn-icon"><i class="material-icons">favorite</i></a>
           </div>
           <a class="btn btn-transparent"><i class="material-icons">share</i>Share</a>
@@ -70,8 +72,19 @@ import spotifyApi from '../../../api/'
 
 export default {
   created() {
-    spotifyApi.getArtist(this.$route.params.id)
-      .then(response => this.$store.commit('artistInfo', response))
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.fetchData()
+  },
+  watch: {
+    // call again the method if the route changes
+    '$route': 'fetchData'
+  },
+  methods: {
+    fetchData() {
+      spotifyApi.getArtist(this.$route.params.id)
+        .then(response => this.$store.commit('artistInfo', response))
+    }
   }
 }
 </script>
