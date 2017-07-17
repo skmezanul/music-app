@@ -176,7 +176,7 @@ a {
 
             img {
                 animation: zoomOut 0.3s 0.2s both;
-                filter: saturate(140%);
+                filter: saturate(150%);
             }
         }
     }
@@ -203,8 +203,10 @@ a {
             h1 {
                 transition: font-size 0.3s;
                 font-size: 5em;
-                max-width: 80%;
+                max-width: 90%;
+                margin-bottom: 10px;
                 margin-left: -5px;
+                text-transform: uppercase;
             }
             .info {
                 a {

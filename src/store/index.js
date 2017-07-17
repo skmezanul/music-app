@@ -10,11 +10,15 @@ const store = new Vuex.Store({
   state: {
     singles,
     concerts,
-    artist: {}
+    artist: {},
+    album: {}
   },
   mutations: {
     artistInfo(state, artist) {
       state.artist = artist
+    },
+    albumInfo(state, album) {
+      state.album = album
     }
   }
 });

@@ -1,6 +1,6 @@
 <template>
 <li class="table-row" @click="playTrack(title, subtitle)" :class="{ 'playing': playing }">
-  <div class="image-container">
+  <div v-if="type === 'tracks'" class="image-container">
     <i v-show="playing === false" class="material-icons">play_circle_filled</i>
     <i v-show="playing === true" class="material-icons playing">volume_up</i>
     <i v-show="playing === true" class="material-icons">pause_circle_filled</i>
@@ -9,7 +9,7 @@
   <span class="index mobile-hidden">{{String("0" + (index+1)).slice(-2)}}</span>
   <div class="meta-container">
     <span>{{title}}</span>
-    <div class="item-subtitle">
+    <div v-if="type === 'tracks'" class="item-subtitle">
       <router-link :to="'/artist/'+subtitle">{{subtitle}}</router-link>
     </div>
   </div>
@@ -31,7 +31,8 @@ export default {
     'subtitle',
     'duration',
     'image',
-    'index'
+    'index',
+    'type'
   ],
   methods: {
     playTrack: function(title, artist) {
@@ -51,6 +52,7 @@ export default {
         transition: background-color 0.3s, color 0.3s, margin 0.3s, box-shadow 0.3s, transform 0.3s;
         margin: 2px 0;
         background-color: $blue;
+        height: 60px;
         &.playing {
             background-color: $dark-blue;
             margin: 10px 0;

@@ -7,7 +7,7 @@
     <!--Background-->
     <div class="stage-background">
       <parallax :speedFactor="0.3">
-        <img src="https://i.scdn.co/image/a0861fd5913a776b587a56ba3b6ce9910c0542f1" alt="Ellie Goulding" />
+        <img :src="$store.state.album.images[0].url" :alt="$store.state.album.name" />
       </parallax>
     </div>
 
@@ -15,8 +15,11 @@
 
       <!--Content-->
       <div class="stage-container">
-        <h2>Album by Ellie Goulding</h2>
-        <h1>{{ $route.params.id }}</h1>
+        <h2>Album</h2>
+        <h1>{{ $store.state.album.name }}</h1>
+        <div class="info">
+          <a>By {{ $store.state.album.artists[0].name }}</a><a>Released {{ $store.state.album.release_date }}</a>
+        </div>
         <div class="button-container">
           <div class="button-group">
             <a class="btn btn-accent"><i class="material-icons">play_circle_filled</i>Play All</a>
@@ -35,3 +38,29 @@
 
 </main>
 </template>
+<script>
+import spotifyApi from '../../../api/'
+
+export default {
+  beforeRouteEnter (to, from, next) {
+    spotifyApi.getAlbum(to.params.id, (err, response) => {
+      next(vm => vm.setData(err, response))
+    })
+  },
+  beforeRouteUpdate (to, from, next) {
+    spotifyApi.getAlbum(to.params.id, (err, response) => {
+      this.setData(err, response)
+      next()
+    })
+  },
+  methods: {
+    setData (err, response) {
+      if (err) {
+        console.log(err.toString())
+      } else {
+        this.$store.commit('albumInfo', response)
+      }
+    }
+  }
+}
+</script>
