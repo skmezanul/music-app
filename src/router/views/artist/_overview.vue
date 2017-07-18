@@ -80,8 +80,6 @@ export default {
   },
   methods: {
     fetchData() {
-      spotifyApi.getArtistTopTracks(this.$route.params.id, {country: 'de'})
-        .then(response => this.tracks = response)
       spotifyApi.getArtistAlbums(this.$route.params.id)
         .then(response => this.albums = response.items)
     }

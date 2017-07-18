@@ -14,9 +14,28 @@
 </div>
 </template>
 <script>
+import spotifyApi from '../../../api/'
+
 export default {
   data() {
-    return this.$store.state.singles
+    return {
+      playlists: {}
+    }
+  },
+  created() {
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.fetchData()
+  },
+  watch: {
+    // call again the method if the route changes
+    '$route': 'fetchData'
+  },
+  methods: {
+    fetchData() {
+      spotifyApi.getArtistPlaylists(this.$route.params.id)
+        .then(response => this.playlists = response.items)
+    }
   }
 }
 </script>

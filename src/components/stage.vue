@@ -105,7 +105,7 @@ export default {
 
             h1 {
                 transition: font-size 0.3s;
-                font-size: 5em;
+                font-size: 5.5em;
                 max-width: 90%;
                 margin: 0 0 5px -5px;
                 text-transform: uppercase;
