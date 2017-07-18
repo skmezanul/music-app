@@ -5,6 +5,18 @@ import Vue from 'vue'
 import 'normalize.css/normalize.css'
 
 // Import Components
+import stage from './stage.vue'
+Vue.component('stage', stage)
+
+import sideNav from './sidenav.vue'
+Vue.component('sidenav', sideNav)
+
+import headerBar from './headerbar.vue'
+Vue.component('headerbar', headerBar)
+
+import footerBar from './footerbar.vue'
+Vue.component('footerbar', footerBar)
+
 import flexTable from './flextable.vue'
 Vue.component('flextable', flexTable)
 
@@ -16,12 +28,6 @@ Vue.component('eventcard', eventCard)
 
 import search from './search.vue'
 Vue.component('search', search)
-
-import headerBar from './headerbar.vue'
-Vue.component('headerbar', headerBar)
-
-import footerBar from './footerbar.vue'
-Vue.component('footerbar', footerBar)
 
 import parallax from 'vue-parallaxy'
 Vue.component('parallax', parallax)

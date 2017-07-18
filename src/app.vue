@@ -1,49 +1,12 @@
 <template>
+
 <div id="app" :class="{scrolled: scrollPosition > 0}">
 
   <!-- Header -->
   <headerbar></headerbar>
 
   <!-- Sidenav -->
-  <nav class="sidenav">
-    <ul>
-      <div class="sidenav-section top">
-        <li>
-          <router-link to="/artist/0X2BH1fck6amBIoJhDVmmJ"><i class="material-icons">book</i>Browse</router-link>
-        </li>
-        <li>
-          <router-link to="/radio"><i class="material-icons">radio</i>Radio</router-link>
-        </li>
-      </div>
-      <div class="sidenav-section yourmusic">
-        <li>
-          <h4>Your Music</h4></li>
-        <li>
-          <router-link to="/lastheard"><i class="material-icons">history</i>Last heard</router-link>
-        </li>
-        <li>
-          <router-link to="/songs"><i class="material-icons">music_note</i>Songs</router-link>
-        </li>
-        <li>
-          <router-link to="/albums"><i class="material-icons">album</i>Albums</router-link>
-        </li>
-        <li>
-          <router-link to="/artists"><i class="material-icons">person</i>Artists</router-link>
-        </li>
-      </div>
-      <div class="sidenav-section playlists">
-        <li>
-          <h4>Playlists</h4></li>
-        <li><a><i class="material-icons">favorite</i>Favorites</a></li>
-        <li><a><i class="material-icons">playlist_play</i>Mix of the week</a></li>
-        <li><a><i class="material-icons">playlist_play</i>Good music</a></li>
-        <li><a><i class="material-icons">playlist_play</i>Hits Remixed</a></li>
-      </div>
-      <div class="sidenav-section bottom">
-        <li><a><i class="material-icons">playlist_add</i>New Playlist</a></li>
-      </div>
-    </ul>
-  </nav>
+  <sidenav></sidenav>
 
   <!-- Router View -->
   <router-view></router-view>
@@ -58,6 +21,7 @@
   </div>
 
 </div>
+
 </template>
 
 <script>
@@ -111,8 +75,9 @@ h4 {
 }
 
 h1 {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
     font-weight: 700;
+    letter-spacing: 3px;
 }
 
 h2 {
@@ -136,232 +101,6 @@ a {
     margin-top: 0;
     will-change: margin-top;
     transition: margin-top 0.3s;
-
-    &.stage-compact {
-        margin-top: -250px;
-
-        .stage {
-            .stage-inner {
-                .stage-container {
-                    h1 {
-                        font-size: 3.5em;
-                    }
-                }
-            }
-        }
-    }
-}
-
-.stage {
-    display: flex;
-    position: relative;
-    align-items: flex-end;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 20px;
-    padding-top: 65px;
-    min-height: 400px;
-    height: 550px;
-    overflow: hidden;
-
-    .stage-background {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-
-        .Masthead {
-            min-height: 100% !important;
-
-            img {
-                animation: zoomOut 0.3s 0.2s both;
-                filter: saturate(150%);
-            }
-        }
-    }
-    &:after {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background: radial-gradient(circle, rgba($main-bg-color,0) 0%, $main-bg-color), linear-gradient(rgba($main-bg-color,0) -30%, $main-bg-color);
-        content: "";
-    }
-
-    .stage-inner {
-        display: flex;
-        flex-direction: column;
-        z-index: 996;
-
-        .stage-container {
-            display: flex;
-            flex-direction: column;
-            animation: zoomOut 0.3s 0.2s both;
-
-            h1 {
-                transition: font-size 0.3s;
-                font-size: 5em;
-                max-width: 90%;
-                margin-bottom: 10px;
-                margin-left: -5px;
-                text-transform: uppercase;
-            }
-            .info {
-                a {
-                    text-transform: uppercase;
-                    @include comma-separated(1.2em, 400);
-                }
-            }
-            .button-container {
-                margin-top: 15px;
-                display: flex;
-                align-items: center;
-
-                .button-group {
-                    display: flex;
-                    box-shadow: $shadow;
-                    margin: 0 5px 10px 0;
-                    border-radius: 5px;
-                    overflow: hidden;
-
-                    a {
-                        border-radius: 0;
-                        margin: 0;
-                        &:nth-child(3) {
-                            border-left: 1px solid $blue;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-nav {
-    &.subnav {
-        margin-top: 30px;
-        padding-top: 5px;
-
-        &.above-viewport {
-            position: fixed;
-            top: 69px;
-            left: 0;
-            right: 0;
-            z-index: 999;
-            margin-top: 0;
-            display: flex;
-            justify-content: center;
-            background-color: $dark-blue;
-            border-bottom: 1px solid $border-color;
-        }
-
-        ul {
-            display: flex;
-            justify-content: space-between;
-
-            li {
-                padding: 15px 0;
-                a {
-                    font-size: 0.9em;
-                    letter-spacing: 1.7px;
-                    line-height: 1em;
-                    text-transform: uppercase;
-                    transition: color 0.3s;
-                    color: rgba($white, 0.5);
-
-                    &.router-link-exact-active {
-                        color: $white;
-                        &:after {
-                            display: block;
-                            position: relative;
-                            top: 1em;
-                            width: 40px;
-                            height: 3px;
-                            margin: 0 auto;
-                            background-color: $accent-color;
-                            content: "";
-                        }
-                    }
-                    &:not(.router-link-exact-active):hover {
-                        cursor: pointer;
-                        color: rgba($white, 0.7);
-                    }
-                }
-            }
-        }
-    }
-
-    &.sidenav {
-        position: fixed;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        z-index: 999;
-        width: 200px;
-        margin-bottom: 81px;
-
-        ul {
-            display: flex;
-            flex-direction: column;
-            padding-top: 50px;
-            background-color: $dark-blue;
-            border-right: 1px solid $border-color;
-            height: 100%;
-            box-sizing: border-box;
-
-            .sidenav-section {
-                margin: 15px;
-
-                &.bottom {
-                    border-top: 1px solid $border-color;
-                    margin: auto 0 0;
-
-                    li {
-                        padding: 15px;
-                    }
-                }
-
-                li {
-                    display: flex;
-                    align-items: center;
-                    transition: background-color 0.5s;
-                    white-space: nowrap;
-                    overflow: hidden;
-
-                    h4 {
-                        text-transform: uppercase;
-                        color: rgba($white, 0.7);
-                        font-weight: 300;
-                        font-size: 0.9em;
-                        padding: 5px 10px;
-                    }
-
-                    a {
-                        font-size: 0.85em;
-                        transition: background-color 0.1s;
-                        padding: 10px;
-                        border-radius: 5px;
-                        width: 100%;
-                        display: flex;
-                        align-items: center;
-                        @include item-hover;
-
-                        i {
-                            font-size: 1.3em;
-                            margin-right: 7px;
-                        }
-
-                        &.router-link-active {
-                            background-color: $accent-color;
-                            color: $white;
-                        }
-                    }
-                }
-            }
-        }
-    }
 }
 
 .page-container {
@@ -438,7 +177,7 @@ nav {
 }
 
 .btn {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
     font-weight: 700;
     display: inline-flex;
     margin: 0 5px 10px 0;

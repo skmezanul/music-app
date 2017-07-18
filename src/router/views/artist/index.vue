@@ -2,63 +2,7 @@
 <main class="main-container" :class="{ 'stage-compact': $route.meta.header === 'compact' }">
 
   <!--Stage-->
-  <div class="stage">
-
-    <!--Background-->
-    <div class="stage-background">
-      <parallax :speedFactor="0.3">
-        <img v-show="$route.meta.header != 'compact'" :src="$store.state.artist.images[0].url" :alt="$store.state.artist.name" />
-      </parallax>
-    </div>
-
-    <div class="stage-inner">
-
-      <!--Content-->
-      <div class="stage-container">
-        <transition name="fade">
-          <h2 v-show="$route.meta.header === 'full'">Artist</h2>
-        </transition>
-        <h1>{{ $store.state.artist.name }}</h1>
-        <div class="info">
-          <a>{{ $store.state.artist.followers.total }} followers</a><a>{{ $store.state.artist.genres[0] }}</a>
-        </div>
-        <div class="button-container">
-          <div class="button-group">
-            <a class="btn btn-accent"><i class="material-icons">play_circle_filled</i>Play All</a>
-            <a class="btn"><i class="material-icons">add_circle</i>Follow</a>
-            <a class="btn btn-icon"><i class="material-icons">favorite</i></a>
-          </div>
-          <a class="btn btn-transparent"><i class="material-icons">share</i>Share</a>
-        </div>
-      </div>
-
-      <!--Navigation-->
-      <nav class="subnav mobile-hidden" v-in-viewport='69'>
-        <ul>
-          <li>
-            <router-link :to="'/artist/'+$route.params.id">Overview</router-link>
-          </li>
-          <li>
-            <router-link :to="'/artist/'+$route.params.id+'/concerts'">Concerts</router-link>
-          </li>
-          <li>
-            <router-link :to="'/artist/'+$route.params.id+'/playlists'">Playlists</router-link>
-          </li>
-          <li>
-            <router-link :to="'/artist/'+$route.params.id+'/feed'">Artist Feed</router-link>
-          </li>
-          <li>
-            <router-link :to="'/artist/'+$route.params.id+'/similar'">Similar Artists</router-link>
-          </li>
-          <li>
-            <router-link :to="'/artist/'+$route.params.id+'/information'">Information</router-link>
-          </li>
-        </ul>
-      </nav>
-
-    </div>
-
-  </div>
+  <stage :type="$store.state.artist.type" :navigation="navigation" :image="$store.state.artist.images[0].url" :title="$store.state.artist.name" :primaryinfo="$store.state.artist.genres[0]" :secondaryinfo="$store.state.artist.followers.total+' Followers'"></stage>
 
   <!--Router View-->
   <router-view></router-view>
@@ -69,19 +13,48 @@
 import spotifyApi from '../../../api/'
 
 export default {
-  beforeRouteEnter (to, from, next) {
+  data() {
+    return {
+      navigation: [{
+          title: 'Overview',
+          link: ''
+        },
+        {
+          title: 'Concerts',
+          link: 'concerts'
+        },
+        {
+          title: 'Playlists',
+          link: 'playlists'
+        },
+        {
+          title: 'Artist Feed',
+          link: 'feed'
+        },
+        {
+          title: 'Similar Artists',
+          link: 'similar'
+        },
+        {
+          title: 'Information',
+          link: 'information'
+        }
+      ]
+    }
+  },
+  beforeRouteEnter(to, from, next) {
     spotifyApi.getArtist(to.params.id, (err, response) => {
       next(vm => vm.setData(err, response))
     })
   },
-  beforeRouteUpdate (to, from, next) {
+  beforeRouteUpdate(to, from, next) {
     spotifyApi.getArtist(to.params.id, (err, response) => {
       this.setData(err, response)
       next()
     })
   },
   methods: {
-    setData (err, response) {
+    setData(err, response) {
       if (err) {
         console.log(err.toString())
       } else {
