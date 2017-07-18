@@ -4,7 +4,7 @@
   <!--Background-->
   <div class="stage-background">
     <transition name="fade">
-    <parallax :speedFactor="0.3" v-show="$route.meta.header === 'full' || type === 'album'">
+    <parallax :speedFactor="0.3" v-show="$route.meta.header === 'full' || type === 'album' || type === 'track'">
       <img :src="image" :alt="title" />
     </parallax>
   </transition>
@@ -21,7 +21,7 @@
       </div>
       <div class="button-container">
         <div class="button-group">
-          <a class="btn btn-accent"><i class="material-icons">play_circle_filled</i>Play All</a>
+          <a class="btn btn-accent"><i class="material-icons">play_circle_filled</i>Play <span v-if="type != 'track'">All</span></a>
           <a v-if="type === 'artist'" class="btn"><i class="material-icons">add_circle</i>Follow</a>
           <a class="btn btn-icon"><i class="material-icons">favorite</i></a>
         </div>

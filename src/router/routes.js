@@ -78,5 +78,20 @@ children: [{
     }
   }
 ]
+},
+{
+path: '/track/:id',
+component: require('./views/track/index.vue'),
+children: [{
+    path: '',
+    name: 'track',
+    meta: {
+      header: 'compact'
+    },
+    components: {
+      default: require('./views/track/_track.vue')
+    }
+  }
+]
 }
 ];

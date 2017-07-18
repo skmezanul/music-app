@@ -32,7 +32,7 @@
     <div class="search-section tracks" v-if="tracks.length > 0">
       <h1>Tracks ({{ tracks.length }})</h1>
       <div class="search-item" v-for="track in tracks" :key="track.id">
-        <router-link :to="'/track/'+track.name"></router-link>
+        <router-link :to="'/track/'+track.id"></router-link>
         <div class="image-container">
           <img :src="track.album.images[1].url" :alt="track.name" />
         </div>

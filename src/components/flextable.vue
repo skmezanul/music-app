@@ -13,7 +13,7 @@
       <router-link :to="'/artist/'+subtitle">{{subtitle}}</router-link>
     </div>
   </div>
-  <span class="item-duration">{{duration}}</span>
+  <span class="item-duration">{{ formatDuration }}</span>
   <i class="material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
   <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
 </li>
@@ -36,7 +36,14 @@ export default {
   ],
   methods: {
     playTrack: function(title, artist) {
-        this.playing = !this.playing
+      this.playing = !this.playing
+    }
+  },
+  computed: {
+    formatDuration() {
+      const minutes = Math.floor(this.duration / 60000);
+      const seconds = ((this.duration % 60000) / 1000).toFixed(0);
+      return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
     }
   }
 }
