@@ -3,9 +3,11 @@
 
   <!--Background-->
   <div class="stage-background">
-    <parallax :speedFactor="0.3">
-      <img v-show="$route.meta.header === 'full' || type === 'album'" :src="image" :alt="title" />
+    <transition name="fade">
+    <parallax :speedFactor="0.3" v-show="$route.meta.header === 'full' || type === 'album'">
+      <img :src="image" :alt="title" />
     </parallax>
+  </transition>
   </div>
 
   <div class="stage-inner">
@@ -89,7 +91,7 @@ export default {
         right: 0;
         bottom: 0;
         left: 0;
-        background: radial-gradient(circle, rgba($main-bg-color, 0) 0%, $main-bg-color), linear-gradient(rgba($main-bg-color, 0) -30%, $main-bg-color);
+        background: radial-gradient(circle, rgba($main-bg-color, 0), $main-bg-color), linear-gradient(to top, $main-bg-color, rgba($main-bg-color, 0));
         content: "";
     }
 
