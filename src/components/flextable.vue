@@ -36,7 +36,6 @@ export default {
   ],
   methods: {
     playTrack: function(title, artist) {
-      console.log('Playing "' + title + '" by ' + artist + '.'),
         this.playing = !this.playing
     }
   }

@@ -1,5 +1,4 @@
 <template>
-
 <div id="app" :class="{scrolled: scrollPosition > 0}">
 
   <!-- Header -->
@@ -9,7 +8,9 @@
   <sidenav></sidenav>
 
   <!-- Router View -->
-  <router-view></router-view>
+  <transition name="fade">
+    <router-view></router-view>
+  </transition>
 
   <!-- Footer -->
   <footerbar></footerbar>
@@ -21,7 +22,6 @@
   </div>
 
 </div>
-
 </template>
 
 <script>
@@ -107,7 +107,6 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation: fadeIn 0.3s 0.2s both;
 }
 
 .page-section {
@@ -287,7 +286,7 @@ a {
 @keyframes zoomOut {
     0% {
         opacity: 0;
-        transform: scale(1.05);
+        transform: scale(1.1);
     }
 
     50% {

@@ -80,7 +80,7 @@ export default {
             min-height: 100% !important;
 
             img {
-                animation: fadeIn 0.2s both;
+                animation: zoomOut 0.7s 0.2s both;
                 filter: saturate(150%);
             }
         }
@@ -103,7 +103,6 @@ export default {
         .stage-container {
             display: flex;
             flex-direction: column;
-            animation: zoomOut 0.3s 0.2s both;
 
             h1 {
                 transition: font-size 0.3s;
