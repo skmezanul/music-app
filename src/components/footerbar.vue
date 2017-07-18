@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <div class="bottom left mobile-hidden">
-      <img src="/static/images/cover4.png" alt="First Time" />
+      <img src="https://i.scdn.co/image/1e848b021e7d2becf7f5355a28961a490b041aff" alt="First Time" />
       <div class="currently-playing">
         <div class="title"><a>First Time</a></div>
         <div class="artist"><a>Kygo</a><a>Ellie Goulding</a></div>
