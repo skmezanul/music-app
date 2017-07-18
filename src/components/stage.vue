@@ -80,7 +80,7 @@ export default {
             min-height: 100% !important;
 
             img {
-                animation: zoomOut 0.3s 0.2s both;
+                animation: fadeIn 0.2s both;
                 filter: saturate(150%);
             }
         }
