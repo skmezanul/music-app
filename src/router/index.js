@@ -12,7 +12,7 @@ const router = new VueRouter({
       y: 0
     }
   },
-  routes,
+  routes
 });
 
 export default router;

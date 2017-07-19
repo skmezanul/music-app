@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     fetchData() {
-      spotifyApi.getArtistPlaylists(this.$route.params.id)
+      spotifyApi.getUserPlaylists(this.$route.params.id)
         .then(response => this.playlists = response.items)
     }
   }

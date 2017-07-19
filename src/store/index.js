@@ -14,11 +14,11 @@ const store = new Vuex.Store({
     album: {}
   },
   mutations: {
-    artistInfo(state, artist) {
-      state.artist = artist
+    artistInfo(state, response) {
+      state.artist = response
     },
-    albumInfo(state, album) {
-      state.album = album
+    albumInfo(state, response) {
+      state.album = response
     }
   }
 });
