@@ -4,6 +4,6 @@ import * as SpotifyWebApi from 'spotify-web-api-js';
 
 const spotifyApi = new SpotifyWebApi();
 
-spotifyApi.setAccessToken('BQAPdiCoPxBKTxgLdXoBJYREmmBRoI68xc55TzWLran3RM7v7DkrOKvyF4HuZL-Cw9MhoHnmPbWHDYS_gpTcoJRsKmKuSBuMRFiNrFuwvhjpugClNWTArAh02xSj8977J7yRfvCWruCBprj_V9I1sM0Y45oNMBL8tslWAPu1HeFQArPhZspY7Ui3pXa4m7J1Qd8d3yZRW6b2JCA');
+spotifyApi.setAccessToken('BQBYu3s43uJh20Pgu4l4CTk2_Mjs_If1rtwBb78BmNG4csWBN7-gUwWbG7ISYnmAA7hB46nFw5dcyFpt91n0eNI4e8xvkJ6fw4yfw2syjXNeS_3eiZJNa-jgUIQtO43WfqgpxPGvOqTJsfbvmsX--_z7T19GM5JbCwLTAISF-5WaJMmUX7BkA1ShwbBTPESqEkwXJ9T6SwbnKdY');
 
 export default spotifyApi;

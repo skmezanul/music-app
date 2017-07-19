@@ -27,11 +27,11 @@
     </div>
     <div class="sidenav-section playlists">
       <li>
-        <h4>Playlists</h4></li>
-      <li><a><i class="material-icons">favorite</i>Favorites</a></li>
-      <li><a><i class="material-icons">playlist_play</i>Mix of the week</a></li>
-      <li><a><i class="material-icons">playlist_play</i>Good music</a></li>
-      <li><a><i class="material-icons">playlist_play</i>Hits Remixed</a></li>
+        <h4>Playlists</h4>
+      </li>
+      <li v-for="playlist in playlists">
+        <a :href="'/'+playlist.type+'/'+playlist.owner.id+'/'+playlist.id">{{ playlist.name }}</a>
+      </li>
     </div>
     <div class="sidenav-section bottom">
       <li><a><i class="material-icons">playlist_add</i>New Playlist</a></li>
@@ -41,6 +41,26 @@
 </template>
 
 <script>
+import spotifyApi from '../api/'
+
+export default {
+  data() {
+    return {
+      playlists: {}
+    }
+  },
+  created() {
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.fetchData()
+  },
+  methods: {
+    fetchData() {
+      spotifyApi.getUserPlaylists()
+        .then(response => this.playlists = response.items)
+    }
+  }
+}
 </script>
 
 <style lang="scss">
