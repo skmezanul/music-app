@@ -2,7 +2,8 @@
 <main class="main-container" :class="{ 'stage-compact': $route.meta.header === 'compact' }">
 
   <!--Stage-->
-  <stage :type="$store.state.album.type"
+  <stage
+  :type="$store.state.album.type"
   :image="$store.state.album.images[0].url"
   :title="$store.state.album.name"
   :primaryinfo="'By '+$store.state.album.artists[0].name"

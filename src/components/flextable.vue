@@ -1,6 +1,6 @@
 <template>
-<li class="table-row" @click="playTrack(title, subtitle)" :class="{ 'playing': playing }">
-  <div v-if="type === 'tracks'" class="image-container">
+<li class="table-row" @dblclick="playTrack(title, subtitle)" :class="{ 'playing': playing }">
+  <div v-if="image != null" class="image-container">
     <i v-show="playing === false" class="material-icons">play_circle_filled</i>
     <i v-show="playing === true" class="material-icons playing">volume_up</i>
     <i v-show="playing === true" class="material-icons">pause_circle_filled</i>
@@ -9,11 +9,14 @@
   <span class="index mobile-hidden">{{String("0" + (index+1)).slice(-2)}}</span>
   <div class="meta-container">
     <span>{{title}}</span>
-    <div v-if="type === 'tracks'" class="item-subtitle">
-      <router-link :to="'/artist/'+subtitle">{{subtitle}}</router-link>
+    <div v-if="artistID != null" class="artist">
+      <router-link :to="'/artist/'+artistID">{{ artist }}</router-link>
     </div>
   </div>
-  <span class="item-duration">{{ formatDuration }}</span>
+  <div v-if="albumID != null" class="album">
+    <router-link :to="'/album/'+albumID">{{ album }}</router-link>
+  </div>
+  <span class="duration">{{ formattedDuration }}</span>
   <i class="material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
   <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
 </li>
@@ -27,12 +30,15 @@ export default {
     }
   },
   props: [
-    'title',
-    'subtitle',
-    'duration',
-    'image',
     'index',
-    'type'
+    'type',
+    'title',
+    'artist',
+    'artistID',
+    'album',
+    'albumID',
+    'duration',
+    'image'
   ],
   methods: {
     playTrack: function(title, artist) {
@@ -40,7 +46,7 @@ export default {
     }
   },
   computed: {
-    formatDuration() {
+    formattedDuration() {
       const minutes = Math.floor(this.duration / 60000);
       const seconds = ((this.duration % 60000) / 1000).toFixed(0);
       return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
@@ -55,7 +61,7 @@ export default {
     .table-row {
         display: flex;
         align-items: center;
-        transition: background-color 0.3s, color 0.3s, margin 0.3s, box-shadow 0.3s, transform 0.3s;
+        transition: background-color 0.3s, margin 0.3s, box-shadow 0.3s, transform 0.3s;
         margin: 2px 0;
         background-color: $blue;
         height: 60px;
@@ -77,6 +83,7 @@ export default {
             height: 60px;
             width: 60px;
             position: relative;
+            overflow: hidden;
             img {
                 transition: filter 0.3s;
                 height: 100%;
@@ -129,23 +136,33 @@ export default {
             font-size: 1.3em;
         }
         .meta-container {
-            flex: 2;
+            flex: 1.5;
             line-height: 1.3em;
+            margin-right: 20px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             @media screen and (max-width: 955px) {
                 padding: 0 15px;
             }
-            .item-subtitle {
+            .artist {
                 a {
                     @include comma-separated(1em, 300);
                 }
             }
         }
-        .item-duration {
+        .duration {
             flex: 0.5;
             text-align: center;
+        }
+        .album {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            a {
+                @include comma-separated(1em, 300);
+            }
         }
     }
 }

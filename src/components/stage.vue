@@ -4,7 +4,7 @@
   <!--Background-->
   <div class="stage-background">
     <transition name="fade">
-    <parallax :speedFactor="0.3" v-show="$route.meta.header === 'full' || type === 'album' || type === 'track'">
+    <parallax :speedFactor="0.3" v-show="$route.meta.header === 'full' || type === 'album' || type === 'playlist'">
       <img :src="image" :alt="title" />
     </parallax>
   </transition>
@@ -21,7 +21,7 @@
       </div>
       <div class="button-container">
         <div class="button-group">
-          <a class="btn btn-accent"><i class="material-icons">play_circle_filled</i>Play <span v-if="type != 'track'">All</span></a>
+          <a class="btn btn-accent"><i class="material-icons">play_circle_filled</i>Play All</a>
           <a v-if="type === 'artist'" class="btn"><i class="material-icons">add_circle</i>Follow</a>
           <a class="btn btn-icon"><i class="material-icons">favorite</i></a>
         </div>
@@ -30,7 +30,7 @@
     </div>
 
     <!--Navigation-->
-    <nav v-if="navigation != null" class="subnav mobile-hidden" v-in-viewport='69'>
+    <nav v-if="navigation != null" class="subnav mobile-hidden">
       <ul>
         <li v-for="navitem in navigation">
           <router-link :to="'/'+type+'/'+$route.params.id+'/'+navitem.link">{{ navitem.title }}</router-link>
@@ -103,11 +103,11 @@ export default {
         .stage-container {
             display: flex;
             flex-direction: column;
+            max-width: 80%;
 
             h1 {
                 transition: font-size 0.3s;
                 font-size: 5.5em;
-                max-width: 90%;
                 margin: 0 0 5px -5px;
                 text-transform: uppercase;
             }

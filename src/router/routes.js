@@ -64,18 +64,6 @@ export default [{
     }]
   },
   {
-    path: '/track/:id',
-    component: require('./views/track/index.vue'),
-    children: [{
-      path: '',
-      name: 'track',
-      meta: {
-        header: 'compact'
-      },
-      component: require('./views/track/_track.vue'),
-    }]
-  },
-  {
     path: '/playlist/:user/:id',
     component: require('./views/playlist/index.vue'),
     children: [{

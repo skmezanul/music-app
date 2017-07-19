@@ -8,9 +8,7 @@
   <sidenav></sidenav>
 
   <!-- Router View -->
-  <transition name="fade">
-    <router-view></router-view>
-  </transition>
+  <router-view :key="$route.params.id"></router-view>
 
   <!-- Footer -->
   <footerbar></footerbar>

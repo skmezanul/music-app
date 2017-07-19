@@ -32,9 +32,11 @@
         <span>Show Less<i class="material-icons">keyboard_arrow_up</i></span>
       </div>
     </div>
+    <!--
     <ol class="flex-table">
-      <flextable v-for="(track, index) in singles" :key="track.id" :image="track.image" :title="track.title" :subtitle="track.subtitle" :duration="track.duration" :index="index"></flextable>
+      <flextable v-for="(track, index) in singles" :key="track.id" :image="track.image" :title="track.title" :artist="track.subtitle" :duration="track.duration" :index="index"></flextable>
     </ol>
+    -->
   </section>
 
   <section class="page-section albums">
@@ -45,14 +47,15 @@
       </div>
     </div>
     <div class="section-items-container">
-      <sectionitem v-for="album in albums"
+      <sectionitem
+      v-for="album in albums"
       :key="album.id"
       :type="album.type"
       :primaryid="album.id"
       :secondaryid="album.artists[0].id"
-      :image="album.images[0].url"
+      :image="album.images[0].url" 
       :title="album.name"
-      :subtitle="album.artists"
+      :artist="album.artists"
       ></sectionitem>
     </div>
   </section>

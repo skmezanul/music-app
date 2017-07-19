@@ -1,6 +1,6 @@
 <template>
 <div class="section-item" :class="type">
-  <a :href="'/'+type+'/'+primaryid">
+  <router-link :to="'/'+type+'/'+primaryid">
     <div class="section-item-inner">
       <div class="item-overlay" v-if="type != 'artist'">
         <div class="overlay-actions">
@@ -15,14 +15,14 @@
       </div>
       <div class="meta-container">
         <div class="meta-container-inner">
-          <span>{{title}}</span>
-          <div class="item-subtitle" v-if="type === 'album' ">
-            <a v-for="item in subtitle" :key="item.id" :href="'/'+item.type+'/'+item.id">{{item.name}}</a>
+          <span>{{ title }}</span>
+          <div v-if="artist != null" class="artist-container">
+            <router-link v-for="item in artist" :to="'/'+item.type+'/'+item.id" :key="item.id">{{ item.name }}</router-link >
           </div>
         </div>
       </div>
     </div>
-  </a>
+  </router-link >
 </div>
 </template>
 
@@ -38,7 +38,7 @@ export default {
     'primaryid',
     'secondaryid',
     'title',
-    'subtitle',
+    'artist',
     'image'
   ]
 }
@@ -169,7 +169,7 @@ export default {
                 text-align: center;
                 text-overflow: ellipsis;
                 line-height: 1.4em;
-                .item-subtitle {
+                .artist-container {
                     a {
                         @include comma-separated(0.95em, 300);
                     }

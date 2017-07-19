@@ -8,7 +8,16 @@
       </div>
     </div>
     <div class="section-items-container">
-      <sectionitem v-for="playlist in singles" type="playlist" :key="playlist.id" :image="playlist.image" :title="playlist.title" :subtitle="playlist.subtitle"></sectionitem>
+      <!--
+      <sectionitem
+      v-for="playlist in singles"
+      type="playlist"
+      :key="playlist.id"
+      :image="playlist.image"
+      :title="playlist.title"
+      :subtitle="playlist.subtitle"
+      ></sectionitem>
+      -->
     </div>
   </section>
 </div>

@@ -30,7 +30,10 @@
         <h4>Playlists</h4>
       </li>
       <li v-for="playlist in playlists">
-        <a :href="'/'+playlist.type+'/'+playlist.owner.id+'/'+playlist.id">{{ playlist.name }}</a>
+        <router-link :to="'/'+playlist.type+'/'+playlist.owner.id+'/'+playlist.id">
+          <i class="material-icons">playlist_play</i>
+          <span>{{ playlist.name }}</span>
+        </router-link>
       </li>
     </div>
     <div class="sidenav-section bottom">

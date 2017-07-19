@@ -5,8 +5,15 @@
       <h1>Similar to {{ $store.state.artist.name }}</h1>
     </div>
     <div class="section-items-container">
-      <sectionitem v-for="artist in similar" :type="artist.type" :key="artist.name" :image="artist.images[1].url" :title="artist.name" :subtitle="artist.genres[0]" :primaryid="artist.id">
-      </sectionitem>
+      <sectionitem
+      v-for="artist in similar"
+      :type="artist.type"
+      :key="artist.name"
+      :image="artist.images[1].url"
+      :title="artist.name"
+      :subtitle="artist.genres[0]"
+      :primaryid="artist.id"
+      ></sectionitem>
     </div>
   </section>
 </div>

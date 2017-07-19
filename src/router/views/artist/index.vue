@@ -2,7 +2,14 @@
 <main class="main-container" :class="{ 'stage-compact': $route.meta.header === 'compact' }">
 
   <!--Stage-->
-  <stage :type="$store.state.artist.type" :navigation="navigation" :image="$store.state.artist.images[0].url" :title="$store.state.artist.name" :primaryinfo="$store.state.artist.genres[0]" :secondaryinfo="$store.state.artist.followers.total+' Followers'"></stage>
+  <stage
+  :type="$store.state.artist.type"
+  :navigation="navigation"
+  :image="$store.state.artist.images[0].url"
+  :title="$store.state.artist.name"
+  :primaryinfo="$store.state.artist.genres[0]"
+  :secondaryinfo="$store.state.artist.followers.total+' Followers'"
+  ></stage>
 
   <!--Router View-->
   <router-view></router-view>
