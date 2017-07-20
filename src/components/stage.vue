@@ -147,19 +147,6 @@ nav {
         margin-top: 30px;
         padding-top: 5px;
 
-        &.above-viewport {
-            position: fixed;
-            top: 69px;
-            left: 0;
-            right: 0;
-            z-index: 999;
-            margin-top: 0;
-            display: flex;
-            justify-content: center;
-            background-color: $dark-blue;
-            border-bottom: 1px solid $border-color;
-        }
-
         ul {
             display: flex;
             justify-content: space-between;

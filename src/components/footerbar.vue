@@ -1,17 +1,17 @@
 <template>
   <footer class="footer">
     <div class="bottom left mobile-hidden">
-      <img src="https://i.scdn.co/image/1e848b021e7d2becf7f5355a28961a490b041aff" alt="First Time" />
+      <img :src="playing.item.album.images[0].url" :alt="playing.item.name" />
       <div class="currently-playing">
-        <div class="title"><a>First Time</a></div>
-        <div class="artist"><a>Kygo</a><a>Ellie Goulding</a></div>
+        <div class="title"><a>{{ playing.item.name }}</a></div>
+        <div class="artist"><router-link v-for="artist in playing.item.artists" :key="artist.id" :to="'/artist/'+artist.id">{{ artist.name }}</router-link></div>
       </div>
     </div>
     <div class="bottom center">
       <i class="shuffle material-icons" v-tooltip="{ content: 'Shuffle', container: '.tooltip-container' }">shuffle</i>
       <i class="skip material-icons">skip_previous</i>
-      <i v-if="playing == false" @click="playing = true" class="toggle play material-icons">play_circle_filled</i>
-      <i v-if="playing == true" @click="playing = false" class="toggle pause material-icons">pause_circle_filled</i>
+      <i v-show="playing.is_playing === false" @click="playing = true" class="toggle play material-icons">play_circle_filled</i>
+      <i v-show="playing.is_playing === true" @click="playing = false" class="toggle pause material-icons">pause_circle_filled</i>
       <i class="skip material-icons">skip_next</i>
       <i class="repeat material-icons" v-tooltip="{ content: 'Repeat', container: '.tooltip-container' }">repeat</i>
     </div>
@@ -25,15 +25,31 @@
     </div>
   </footer>
 </template>
-
 <script>
+import spotifyApi from '../api/'
+
 export default {
   data() {
     return {
       volume: 50,
-      playing: false
+      playing: {}
     }
   },
+  created() {
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.fetchData()
+  },
+  watch: {
+    // call again the method if the route changes
+    '$route': 'fetchData'
+  },
+  methods: {
+    fetchData() {
+      spotifyApi.getMyCurrentPlaybackState()
+        .then(response => this.playing = response)
+    }
+  }
 }
 </script>
 

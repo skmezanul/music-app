@@ -8,10 +8,14 @@
   <sidenav></sidenav>
 
   <!-- Router View -->
-  <router-view :key="$route.params.id"></router-view>
+  <transition name="fade">
+    <router-view :key="$route.params.id"></router-view>
+  </transition>
 
   <!-- Footer -->
-  <footerbar></footerbar>
+  <transition name="fade">
+    <footerbar></footerbar>
+  </transition>
 
   <div class="tooltip-container">
 
@@ -253,8 +257,7 @@ a {
     }
 }
 .header,
-.main-container,
-.subnav.above-viewport {
+.main-container {
     margin-left: 200px;
 }
 @media screen and (max-width: 955px) {
@@ -310,8 +313,7 @@ a {
     .footer,
     .header .search-active input,
     .header .search-dropdown,
-    .scrolled .header,
-    .subnav.above-viewport {
+    .scrolled .header {
         background-color: rgba($dark-blue, 0.7) !important;
         backdrop-filter: saturate(200%) blur(20px);
         -webkit-backdrop-filter: saturate(200%) blur(20px);
@@ -320,8 +322,7 @@ a {
 
 .header-inner,
 .page-section,
-.stage-inner,
-.subnav.above-viewport ul {
+.stage-inner {
     width: $large-width;
     @media screen and (max-width: 1500px) {
         width: $small-width;

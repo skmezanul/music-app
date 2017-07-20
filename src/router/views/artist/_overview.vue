@@ -47,16 +47,7 @@
       </div>
     </div>
     <div class="section-items-container">
-      <sectionitem
-      v-for="album in albums"
-      :key="album.id"
-      :type="album.type"
-      :primaryid="album.id"
-      :secondaryid="album.artists[0].id"
-      :image="album.images[0].url" 
-      :title="album.name"
-      :artist="album.artists"
-      ></sectionitem>
+      <sectionitem v-for="album in albums" :key="album.id" :type="album.type" :primaryID="album.id" :secondaryID="album.artists[0].id" :image="album.images[0].url" :title="album.name" :artist="album.artists"></sectionitem>
     </div>
   </section>
 
@@ -83,7 +74,9 @@ export default {
   },
   methods: {
     fetchData() {
-      spotifyApi.getArtistAlbums(this.$route.params.id)
+      spotifyApi.getArtistAlbums(this.$route.params.id, {
+          country: 'DE'
+        })
         .then(response => this.albums = response.items)
     }
   }

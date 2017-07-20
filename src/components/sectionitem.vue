@@ -1,6 +1,6 @@
 <template>
 <div class="section-item" :class="type">
-  <router-link :to="'/'+type+'/'+primaryid">
+  <router-link :to="'/'+type+'/'+primaryID">
     <div class="section-item-inner">
       <div class="item-overlay" v-if="type != 'artist'">
         <div class="overlay-actions">
@@ -35,8 +35,7 @@ export default {
   },
   props: [
     'type',
-    'primaryid',
-    'secondaryid',
+    'primaryID',
     'title',
     'artist',
     'image'

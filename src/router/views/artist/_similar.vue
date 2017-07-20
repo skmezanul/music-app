@@ -8,11 +8,10 @@
       <sectionitem
       v-for="artist in similar"
       :type="artist.type"
-      :key="artist.name"
+      :key="artist.id"
       :image="artist.images[1].url"
       :title="artist.name"
-      :subtitle="artist.genres[0]"
-      :primaryid="artist.id"
+      :primaryID="artist.id"
       ></sectionitem>
     </div>
   </section>
