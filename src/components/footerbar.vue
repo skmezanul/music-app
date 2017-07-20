@@ -1,29 +1,31 @@
 <template>
-  <footer class="footer">
-    <div class="bottom left mobile-hidden">
-      <img :src="playing.item.album.images[0].url" :alt="playing.item.name" />
-      <div class="currently-playing">
-        <div class="title"><a>{{ playing.item.name }}</a></div>
-        <div class="artist"><router-link v-for="artist in playing.item.artists" :key="artist.id" :to="'/artist/'+artist.id">{{ artist.name }}</router-link></div>
+<footer class="footer">
+  <div class="bottom left mobile-hidden">
+    <img :src="playing.item.album.images[0].url" :alt="playing.item.name" />
+    <div class="currently-playing">
+      <span class="title">{{ playing.item.name }}</span>
+      <div class="artist-container">
+        <router-link v-for="artist in playing.item.artists" :key="artist.id" :to="'/artist/'+artist.id">{{ artist.name }}</router-link>
       </div>
     </div>
-    <div class="bottom center">
-      <i class="shuffle material-icons" v-tooltip="{ content: 'Shuffle', container: '.tooltip-container' }">shuffle</i>
-      <i class="skip material-icons">skip_previous</i>
-      <i v-show="playing.is_playing === false" @click="playing = true" class="toggle play material-icons">play_circle_filled</i>
-      <i v-show="playing.is_playing === true" @click="playing = false" class="toggle pause material-icons">pause_circle_filled</i>
-      <i class="skip material-icons">skip_next</i>
-      <i class="repeat material-icons" v-tooltip="{ content: 'Repeat', container: '.tooltip-container' }">repeat</i>
-    </div>
-    <div class="bottom right mobile-hidden">
-      <i v-if="volume == 0" class="volume material-icons">volume_mute</i>
-      <i v-if="volume <= 50 && volume > 0" class="volume material-icons">volume_down</i>
-      <i v-if="volume > 50" class="volume material-icons">volume_up</i>
-      <slider ref="slider" v-model="volume" width="100px" tooltip="false"></slider>
-      <i class="cast material-icons" v-tooltip="{ content: 'Cast', container: '.tooltip-container' }">cast</i>
-      <i class="queue material-icons" v-tooltip="{ content: 'Queue', container: '.tooltip-container' }">queue_music</i>
-    </div>
-  </footer>
+  </div>
+  <div class="bottom center">
+    <i @click="toggleRepeat" class="shuffle material-icons" v-tooltip="{ content: 'Shuffle', container: '.tooltip-container' }">shuffle</i>
+    <i @click="previousTrack" class="skip material-icons">skip_previous</i>
+    <i v-show="playing.is_playing === false" @click="resumePlayback" class="toggle play material-icons">play_circle_filled</i>
+    <i v-show="playing.is_playing === true" @click="pausePlayback" class="toggle pause material-icons">pause_circle_filled</i>
+    <i @click="nextTrack" class="skip material-icons">skip_next</i>
+    <i @click="toggleShuffle" class="repeat material-icons" v-tooltip="{ content: 'Repeat', container: '.tooltip-container' }">repeat</i>
+  </div>
+  <div class="bottom right mobile-hidden">
+    <i v-if="volume == 0" class="volume material-icons">volume_mute</i>
+    <i v-if="volume <= 50 && volume > 0" class="volume material-icons">volume_down</i>
+    <i v-if="volume > 50" class="volume material-icons">volume_up</i>
+    <slider ref="slider" v-model="volume" width="100px" tooltip="false"></slider>
+    <i class="cast material-icons" v-tooltip="{ content: 'Cast', container: '.tooltip-container' }">cast</i>
+    <i class="queue material-icons" v-tooltip="{ content: 'Queue', container: '.tooltip-container' }">queue_music</i>
+  </div>
+</footer>
 </template>
 <script>
 import spotifyApi from '../api/'
@@ -48,6 +50,38 @@ export default {
     fetchData() {
       spotifyApi.getMyCurrentPlaybackState()
         .then(response => this.playing = response)
+    },
+    previousTrack() {
+      spotifyApi.skipToPrevious({
+        device_id: this.$store.state.deviceID
+      })
+    },
+    nextTrack() {
+      spotifyApi.skipToNext({
+        device_id: this.$store.state.deviceID
+      })
+    },
+    pausePlayback() {
+      spotifyApi.pause({
+          device_id: this.$store.state.deviceID
+        })
+        .then(this.fetchData())
+    },
+    resumePlayback() {
+      spotifyApi.play({
+          device_id: this.$store.state.deviceID
+        })
+        .then(this.fetchData())
+    },
+    toggleRepeat() {
+      spotifyApi.setRepeat({
+        device_id: this.$store.state.deviceID
+      })
+    },
+    toggleShuffle() {
+      spotifyApi.setShuffle({
+        device_id: this.$store.state.deviceID
+      })
     }
   }
 }
@@ -88,7 +122,7 @@ export default {
                     font-size: 1.2em;
                 }
 
-                .artist {
+                .artist-container {
                     font-size: 0.9em;
                     font-weight: 300;
 

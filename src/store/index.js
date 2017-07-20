@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import singles from './singles'
 import concerts from './concerts'
 
 Vue.use(Vuex)
@@ -8,10 +7,10 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   strict: true,
   state: {
-    singles,
     concerts,
     artist: {},
-    album: {}
+    album: {},
+    deviceID: null
   },
   mutations: {
     artistInfo(state, response) {
@@ -19,6 +18,9 @@ const store = new Vuex.Store({
     },
     albumInfo(state, response) {
       state.album = response
+    },
+    deviceID(state, response) {
+      state.deviceID = response
     }
   }
 });

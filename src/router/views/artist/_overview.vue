@@ -74,6 +74,7 @@ export default {
   },
   methods: {
     fetchData() {
+      // Get this artist's albums from the api
       spotifyApi.getArtistAlbums(this.$route.params.id, {
           country: 'DE'
         })

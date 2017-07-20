@@ -8,9 +8,7 @@
   <sidenav></sidenav>
 
   <!-- Router View -->
-  <transition name="fade">
-    <router-view :key="$route.params.id"></router-view>
-  </transition>
+  <router-view :key="$route.params.id"></router-view>
 
   <!-- Footer -->
   <transition name="fade">
@@ -27,6 +25,8 @@
 </template>
 
 <script>
+import spotifyApi from './api/'
+
 export default {
   data() {
     return {
@@ -38,8 +38,13 @@ export default {
       this.scrollPosition = window.scrollY
     }
   },
+  created() {
+    // Get the current device's ID and commit it to global store
+    spotifyApi.getMyDevices()
+      .then(response => this.$store.commit('deviceID', response.devices[0].id))
+  },
   mounted() {
-    window.addEventListener('scroll', this.updateScroll);
+    window.addEventListener('scroll', this.updateScroll)
   },
   destroy() {
     window.removeEventListener('scroll', this.updateScroll)

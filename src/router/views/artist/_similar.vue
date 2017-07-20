@@ -27,6 +27,7 @@ export default {
     }
   },
   created() {
+    // Get artists related to this artist from the api
     spotifyApi.getArtistRelatedArtists(this.$route.params.id)
       .then(response => this.similar = response.artists)
   }

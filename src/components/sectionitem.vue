@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-  </router-link >
+  </router-link>
 </div>
 </template>
 
@@ -78,17 +78,14 @@ export default {
             .image-container {
                 img {
                     filter: brightness(70%) contrast(110%);
-                    transition: filter 0.3s, transform 1s;
                     height: 100%;
                     width: auto;
                 }
             }
             &:hover {
-                cursor: pointer;
                 .image-container {
                     img {
                         filter: brightness(100%) contrast(100%);
-                        transform: scale(1.05);
                     }
                 }
             }
@@ -116,6 +113,11 @@ export default {
             .item-overlay {
                 opacity: 1;
             }
+            .image-container {
+              img {
+                transform: scale(1.07);
+              }
+            }
         }
         .image-container {
             display: flex;
@@ -123,9 +125,11 @@ export default {
             align-items: center;
             width: 100%;
             height: auto;
+            overflow: hidden;
             img {
                 width: 100%;
                 height: auto;
+                transition: transform 0.7s, filter 0.3s;
             }
         }
         .item-overlay {

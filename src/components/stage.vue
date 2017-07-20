@@ -4,10 +4,10 @@
   <!--Background-->
   <div class="stage-background">
     <transition name="fade">
-    <parallax :speedFactor="0.3" v-show="$route.meta.header === 'full' || type === 'album' || type === 'playlist'">
-      <img :src="image" :alt="title" />
-    </parallax>
-  </transition>
+      <parallax :speedFactor="0.3" v-show="$route.meta.header === 'full' || type === 'album' || type === 'playlist'">
+        <img :src="image" :alt="title" />
+      </parallax>
+    </transition>
   </div>
 
   <div class="stage-inner">
@@ -193,6 +193,8 @@ nav {
                 .stage-container {
                     h1 {
                         font-size: 3.5em;
+                        max-height: 130px;
+                        overflow: hidden;
                     }
                 }
             }
