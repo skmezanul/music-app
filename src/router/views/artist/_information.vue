@@ -18,7 +18,7 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      biography: {}
+      biography: null
     }
   },
   created() {
@@ -38,4 +38,4 @@ export default {
     }
   }
 }
- </script>
+</script>

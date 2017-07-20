@@ -1,7 +1,7 @@
 <template>
 <nav class="sidenav">
   <ul>
-    <div class="sidenav-section top">
+    <div class="sidenav-section">
       <li>
         <router-link to="/artist/0X2BH1fck6amBIoJhDVmmJ"><i class="material-icons">book</i>Browse</router-link>
       </li>
@@ -9,7 +9,7 @@
         <router-link to="/radio"><i class="material-icons">radio</i>Radio</router-link>
       </li>
     </div>
-    <div class="sidenav-section yourmusic">
+    <div class="sidenav-section">
       <li>
         <h4>Your Music</h4></li>
       <li>
@@ -25,7 +25,7 @@
         <router-link to="/artists"><i class="material-icons">person</i>Artists</router-link>
       </li>
     </div>
-    <div class="sidenav-section playlists">
+    <div class="sidenav-section">
       <li>
         <h4>Playlists</h4>
       </li>
@@ -37,7 +37,7 @@
       </li>
     </div>
     <div class="sidenav-section bottom">
-      <li><a><i class="material-icons">playlist_add</i>New Playlist</a></li>
+      <li><a><i class="material-icons">playlist_add</i><span>New Playlist</span></a></li>
     </div>
   </ul>
 </nav>
@@ -100,10 +100,6 @@ nav {
 
                 li {
                     display: flex;
-                    align-items: center;
-                    transition: background-color 0.5s;
-                    white-space: nowrap;
-                    overflow: hidden;
 
                     h4 {
                         text-transform: uppercase;
@@ -121,11 +117,18 @@ nav {
                         width: 100%;
                         display: flex;
                         align-items: center;
+                        overflow: hidden;
                         @include item-hover;
 
                         i {
                             font-size: 1.3em;
                             margin-right: 7px;
+                        }
+
+                        span {
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                            white-space: nowrap;
                         }
 
                         &.router-link-active {
