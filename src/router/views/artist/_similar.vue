@@ -26,10 +26,16 @@ export default {
       similar: {}
     }
   },
-  created() {
-    // Get artists related to this artist from the api
-    spotifyApi.getArtistRelatedArtists(this.$route.params.id)
-      .then(response => this.similar = response.artists)
+  beforeRouteEnter(to, from, next) {
+    spotifyApi.getArtistRelatedArtists(to.params.id, (err, response) => {
+      next(vm => vm.similar = response.artists)
+    })
+  },
+  beforeRouteUpdate(to, from, next) {
+    spotifyApi.getArtistRelatedArtists(to.params.id, (err, response) => {
+      this.similar = response.artists
+      next()
+    })
   }
 }
 </script>

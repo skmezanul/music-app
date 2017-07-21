@@ -63,23 +63,16 @@ export default {
       albums: {}
     }
   },
-  created() {
-    // fetch the data when the view is created and the data is
-    // already being observed
-    this.fetchData()
+  beforeRouteEnter(to, from, next) {
+    spotifyApi.getArtistAlbums(to.params.id, (err, response) => {
+      next(vm => vm.albums = response.items)
+    })
   },
-  watch: {
-    // call again the method if the route changes
-    '$route': 'fetchData'
-  },
-  methods: {
-    fetchData() {
-      // Get this artist's albums from the api
-      spotifyApi.getArtistAlbums(this.$route.params.id, {
-          country: 'DE'
-        })
-        .then(response => this.albums = response.items)
-    }
+  beforeRouteUpdate(to, from, next) {
+    spotifyApi.getArtistAlbums(to.params.id, (err, response) => {
+      this.albums = response.items
+      next()
+    })
   }
 }
 </script>
