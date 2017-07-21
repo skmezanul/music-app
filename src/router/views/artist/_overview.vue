@@ -64,12 +64,12 @@ export default {
     }
   },
   beforeRouteEnter(to, from, next) {
-    spotifyApi.getArtistAlbums(to.params.id, (err, response) => {
+    spotifyApi.getArtistAlbums(to.params.id, {country: "DE"}, (err, response) => {
       next(vm => vm.albums = response.items)
     })
   },
   beforeRouteUpdate(to, from, next) {
-    spotifyApi.getArtistAlbums(to.params.id, (err, response) => {
+    spotifyApi.getArtistAlbums(to.params.id, {country: "DE"}, (err, response) => {
       this.albums = response.items
       next()
     })
