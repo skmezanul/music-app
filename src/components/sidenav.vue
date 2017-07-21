@@ -11,7 +11,7 @@
     </div>
     <div class="sidenav-section">
       <li>
-        <h4>Your Music</h4></li>
+        <h4>My Music</h4></li>
       <li>
         <router-link to="/lastheard"><i class="material-icons">history</i>Last heard</router-link>
       </li>
@@ -27,7 +27,7 @@
     </div>
     <div class="sidenav-section">
       <li>
-        <h4>Playlists</h4>
+        <h4>My Playlists</h4>
       </li>
       <li v-for="playlist in playlists">
         <router-link :to="'/'+playlist.type+'/'+playlist.owner.id+'/'+playlist.id">
@@ -75,12 +75,12 @@ nav {
         bottom: 0;
         z-index: 999;
         width: 200px;
-        margin-bottom: 81px;
 
         ul {
             display: flex;
             flex-direction: column;
             padding-top: 50px;
+            padding-bottom: 81px;
             background-color: $dark-blue;
             border-right: 1px solid $border-color;
             height: 100%;

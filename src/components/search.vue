@@ -19,7 +19,7 @@
     <div class="search-section artists" v-if="artists.length > 0">
       <h1>Artists ({{ artists.length }})</h1>
       <div class="search-item" v-for="artist in artists" :key="artist.id">
-        <a :href="'/'+artist.type+'/'+artist.id"></a>
+        <router-link :to="'/'+artist.type+'/'+artist.id"></router-link>
         <div class="image-container">
           <img :src="artist.images[0].url" :alt="artist.name" />
         </div>
@@ -32,7 +32,7 @@
     <div class="search-section tracks" v-if="tracks.length > 0">
       <h1>Tracks ({{ tracks.length }})</h1>
       <div class="search-item" v-for="track in tracks" :key="track.id">
-        <a :href="'/'+track.type+'/'+track.id"></a>
+        <router-link :to="'/'+track.type+'/'+track.id"></router-link>
         <div class="image-container">
           <img :src="track.album.images[1].url" :alt="track.name" />
         </div>

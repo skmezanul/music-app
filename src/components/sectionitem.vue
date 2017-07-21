@@ -77,6 +77,8 @@ export default {
             }
             .image-container {
                 img {
+                    transition: transform 0.7s, filter 0.3s;
+                    will-change: transform;
                     filter: brightness(70%) contrast(110%);
                     height: 100%;
                     width: auto;
@@ -86,6 +88,7 @@ export default {
                 .image-container {
                     img {
                         filter: brightness(100%) contrast(100%);
+                        transform: scale(1.07);
                     }
                 }
             }
@@ -113,11 +116,6 @@ export default {
             .item-overlay {
                 opacity: 1;
             }
-            .image-container {
-              img {
-                transform: scale(1.07);
-              }
-            }
         }
         .image-container {
             display: flex;
@@ -129,7 +127,6 @@ export default {
             img {
                 width: 100%;
                 height: auto;
-                transition: transform 0.7s, filter 0.3s;
             }
         }
         .item-overlay {
