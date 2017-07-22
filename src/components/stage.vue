@@ -4,7 +4,7 @@
   <!--Background-->
   <div class="stage-background">
     <transition name="fade">
-      <parallax :speedFactor="0.3" v-show="$route.meta.header === 'full' || type === 'album' || type === 'playlist'">
+      <parallax :speedFactor="0.3">
         <img :src="image" :alt="title" />
       </parallax>
     </transition>
@@ -78,15 +78,6 @@ export default {
             flex-direction: row;
             align-items: center;
         }
-        .stage-background {
-            .Masthead {
-                @media screen and (min-width: 955px) {
-                    img {
-                        filter: saturate(200%) blur(15px);
-                    }
-                }
-            }
-        }
     }
 
     .stage-background {
@@ -101,6 +92,7 @@ export default {
 
             img {
                 animation: zoomOut 0.7s 0.2s both;
+                will-change: filter;
                 filter: saturate(150%);
                 transition: filter 0.3s;
             }
@@ -140,19 +132,21 @@ export default {
             flex-direction: column;
 
             h1 {
+                will-change: font-size;
                 transition: font-size 0.3s;
                 font-size: 5.5em;
-                margin: 0 0 5px -5px;
+                margin-left: -5px;
                 text-transform: uppercase;
             }
             .info-container {
+              margin-bottom: 5px;
                 a {
                     text-transform: uppercase;
                     @include comma-separated(1.2em, 400);
                 }
             }
             .button-container {
-                margin-top: 15px;
+                margin-top: 10px;
                 display: flex;
                 align-items: center;
 
@@ -222,6 +216,13 @@ nav {
         margin-top: -250px;
 
         .stage {
+            .stage-background {
+                .Masthead {
+                    img {
+                        filter: saturate(200%) blur(20px);
+                    }
+                }
+            }
             .stage-inner {
                 .stage-container {
                     h1 {
