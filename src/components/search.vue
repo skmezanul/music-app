@@ -14,11 +14,11 @@
   </span>
 
   <!--If results for this search-->
-  <span v-if="searchQuery.length > 0 && countResults.length > 0">
+  <span v-if="searchQuery.length > 0">
     <!--If artists found-->
-    <div class="search-section artists" v-if="artists.length > 0">
-      <h1>Artists ({{ artists.length }})</h1>
-      <div class="search-item" v-for="artist in artists" :key="artist.id">
+    <div class="search-section artists" v-if="results.artists.items.length > 0">
+      <h1>Artists ({{results.artists.items.length}})</h1>
+      <div class="search-item" v-for="artist in results.artists.items" :key="artist.id">
         <router-link :to="'/'+artist.type+'/'+artist.id"></router-link>
         <div class="image-container">
           <img :src="artist.images[0].url" :alt="artist.name" />
@@ -28,10 +28,12 @@
       </div>
       </div>
     </div>
+
+
     <!--If tracks found-->
-    <div class="search-section tracks" v-if="tracks.length > 0">
-      <h1>Tracks ({{ tracks.length }})</h1>
-      <div class="search-item" v-for="track in tracks" :key="track.id">
+    <div class="search-section tracks" v-if="results.tracks.items.length > 0">
+      <h1>Tracks ({{results.tracks.items.length}})</h1>
+      <div class="search-item" v-for="track in results.tracks.items" :key="track.id">
         <router-link :to="'/'+track.type+'/'+track.id"></router-link>
         <div class="image-container">
           <img :src="track.album.images[1].url" :alt="track.name" />
@@ -42,6 +44,36 @@
       </div>
       </div>
     </div>
+
+    <!--If albums found-->
+    <div class="search-section albums" v-if="results.albums.items.length > 0">
+      <h1>Albums ({{results.albums.items.length}})</h1>
+      <div class="search-item" v-for="album in results.albums.items" :key="album.id">
+        <router-link :to="'/'+album.type+'/'+album.id"></router-link>
+        <div class="image-container">
+          <img :src="album.images[1].url" :alt="album.name" />
+        </div>
+        <div class="meta-container">
+        <h4>{{album.name}}</h4>
+        <a :href="'/'+album.artists[0].type+'/'+album.artists[0].id">{{ album.artists[0].name }}</a>
+      </div>
+      </div>
+    </div>
+
+    <!--If playlists found-->
+    <div class="search-section playlists" v-if="results.playlists.items.length > 0">
+      <h1>Playlists ({{results.playlists.items.length}})</h1>
+      <div class="search-item" v-for="playlist in results.playlists.items" :key="playlist.id">
+        <router-link :to="'/'+playlist.type+'/'+playlist.id"></router-link>
+        <div class="image-container">
+          <img :src="playlist.images[0].url" :alt="playlist.name" />
+        </div>
+        <div class="meta-container">
+        <h4>{{playlist.name}}</h4>
+      </div>
+      </div>
+    </div>
+
   </span>
 
 </div>
@@ -53,8 +85,7 @@ import spotifyApi from '../api/'
 export default {
   data() {
     return {
-      artists: {},
-      tracks: {}
+      results: {}
     }
   },
   created() {
@@ -67,7 +98,7 @@ export default {
   ],
   computed: {
     countResults() {
-      return this.artists + this.tracks
+      return
     }
   },
   watch: {
@@ -76,10 +107,8 @@ export default {
   },
   methods: {
     fetchData() {
-      spotifyApi.searchArtists(this.searchQuery)
-        .then(response => this.artists = response.artists.items)
-      spotifyApi.searchTracks(this.searchQuery)
-      .then(response => this.tracks = response.tracks.items)
+      spotifyApi.search(this.searchQuery, ['album', 'artist', 'playlist', 'track'])
+        .then(response => this.results = response)
     }
   }
 }
@@ -135,10 +164,10 @@ export default {
                 .image-container {
                     height: 60px;
                     width: 60px;
-                    overflow: hidden;
+                    min-width: 60px;
                     img {
                         height: 100%;
-                        width: 100%;
+                        width: auto;
                     }
                 }
                 .meta-container {

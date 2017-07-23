@@ -17,10 +17,3 @@
   </section>
 </div>
 </template>
-<script>
-export default {
-  data() {
-    return this.$store.state.concerts
-  }
-}
-</script>

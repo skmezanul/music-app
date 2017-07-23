@@ -134,7 +134,7 @@ export default {
             h1 {
                 will-change: font-size;
                 transition: font-size 0.3s;
-                font-size: 5.5em;
+                font-size: 5em;
                 margin-left: -5px;
                 text-transform: uppercase;
             }
