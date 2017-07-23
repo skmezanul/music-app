@@ -219,7 +219,7 @@ nav {
             .stage-background {
                 .Masthead {
                     img {
-                        filter: saturate(200%) blur(20px);
+                        filter: saturate(300%) blur(20px);
                     }
                 }
             }

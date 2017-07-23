@@ -60,20 +60,6 @@
       </div>
     </div>
 
-    <!--If playlists found-->
-    <div class="search-section playlists" v-if="results.playlists.items.length > 0">
-      <h1>Playlists ({{results.playlists.items.length}})</h1>
-      <div class="search-item" v-for="playlist in results.playlists.items" :key="playlist.id">
-        <router-link :to="'/'+playlist.type+'/'+playlist.id"></router-link>
-        <div class="image-container">
-          <img :src="playlist.images[0].url" :alt="playlist.name" />
-        </div>
-        <div class="meta-container">
-        <h4>{{playlist.name}}</h4>
-      </div>
-      </div>
-    </div>
-
   </span>
 
 </div>
@@ -103,11 +89,11 @@ export default {
   },
   watch: {
     // call again the method if the prop changes
-    '$props': 'fetchData'
+    'searchQuery': 'fetchData'
   },
   methods: {
     fetchData() {
-      spotifyApi.search(this.searchQuery, ['album', 'artist', 'playlist', 'track'])
+      spotifyApi.search(this.searchQuery, ['album', 'artist', 'track'])
         .then(response => this.results = response)
     }
   }
@@ -165,9 +151,10 @@ export default {
                     height: 60px;
                     width: 60px;
                     min-width: 60px;
+                    overflow: hidden;
                     img {
                         height: 100%;
-                        width: auto;
+                        width: 100%;
                     }
                 }
                 .meta-container {
