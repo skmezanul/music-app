@@ -7,8 +7,8 @@
   :navigation="navigation"
   :image="$store.state.artist.images[0].url"
   :title="$store.state.artist.name"
-  :primaryinfo="$store.state.artist.genres[0]"
-  :secondaryinfo="$store.state.artist.followers.total+' Followers'"
+  :primaryInfo="$store.state.artist.genres[0]"
+  :secondaryInfo="$store.state.artist.followers.total+' Followers'"
   ></stage>
 
   <!--Router View-->

@@ -20,8 +20,8 @@
     <div class="stage-container">
       <h2>{{ type }}</h2>
       <h1>{{ title }}</h1>
-      <div v-if="primaryinfo != null" class="info-container mobile-hidden">
-        <a>{{ primaryinfo }}</a><a v-if="secondaryinfo != null">{{ secondaryinfo }}</a>
+      <div v-if="primaryInfo != null" class="info-container mobile-hidden">
+        <a>{{ primaryInfo }}</a><a v-if="secondaryInfo != null">{{ secondaryInfo }}</a>
       </div>
       <div class="button-container">
         <div class="button-group">
@@ -54,8 +54,8 @@ export default {
     'navigation',
     'image',
     'title',
-    'primaryinfo',
-    'secondaryinfo'
+    'primaryInfo',
+    'secondaryInfo'
   ]
 }
 </script>

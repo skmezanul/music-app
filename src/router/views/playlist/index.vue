@@ -6,7 +6,7 @@
   :type="$store.state.album.type"
   :image="$store.state.album.images[0].url"
   :title="$store.state.album.name"
-  :primaryinfo="$store.state.album.description"
+  :primaryInfo="$store.state.album.description"
   ></stage>
 
   <!--Router View-->

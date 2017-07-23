@@ -36,7 +36,7 @@
         </router-link>
       </li>
     </div>
-    <div class="sidenav-section bottom">
+    <div class="sidenav-section">
       <li><a><i class="material-icons">playlist_add</i><span>New Playlist</span></a></li>
     </div>
   </ul>
@@ -89,7 +89,7 @@ nav {
             .sidenav-section {
                 margin: 15px;
 
-                &.bottom {
+                &:last-child {
                     border-top: 1px solid $border-color;
                     margin: auto 0 0;
 

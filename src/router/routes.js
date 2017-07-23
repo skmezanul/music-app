@@ -45,7 +45,7 @@ export default [{
         path: 'information',
         name: 'information',
         meta: {
-          header: 'full'
+          header: 'compact'
         },
         component: require('./views/artist/_information.vue'),
       }
