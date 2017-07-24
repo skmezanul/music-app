@@ -39,7 +39,10 @@ export default {
     }
   },
   created() {
-    // Get the current device's ID and commit it to global store
+    // Get the current user's profile
+    spotifyApi.getMe()
+      .then(response => this.$store.commit('currentUser', response))
+    // Get the current device's ID
     spotifyApi.getMyDevices()
       .then(response => this.$store.commit('deviceID', response.devices[0].id))
   },

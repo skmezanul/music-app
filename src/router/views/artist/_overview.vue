@@ -55,7 +55,6 @@
 </template>
 <script>
 import spotifyApi from '../../../api/'
-
 export default {
   data() {
     return {
@@ -63,16 +62,23 @@ export default {
       albums: {}
     }
   },
-  beforeRouteEnter(to, from, next) {
-    spotifyApi.getArtistAlbums(to.params.id, {country: "DE"}, (err, response) => {
-      next(vm => vm.albums = response.items)
-    })
+  created() {
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.fetchData()
   },
-  beforeRouteUpdate(to, from, next) {
-    spotifyApi.getArtistAlbums(to.params.id, {country: "DE"}, (err, response) => {
-      this.albums = response.items
-      next()
-    })
+  watch: {
+    // call again the method if the route changes
+    '$route': 'fetchData'
+  },
+  methods: {
+    fetchData() {
+      // Get this artist's albums from the api
+      spotifyApi.getArtistAlbums(this.$route.params.id, {
+          country: this.$store.state.currentUser.country
+        })
+        .then(response => this.albums = response.items)
+    }
   }
 }
 </script>

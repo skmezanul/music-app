@@ -1,14 +1,14 @@
 <template>
 <div class="event-card">
   <div class="container left">
-    <h1>{{month}}</h1>
-    <h1>{{day}}</h1>
+    <h1>{{ month }}</h1>
+    <h1>{{ day }}</h1>
   </div>
   <div class="container right">
     <div class="right-inner">
-      <div class="date"><a>{{month}}</a><a>{{day}}</a></div>
-      <div class="location"><a>{{city}}</a><a>{{country}}</a></div>
-      <h1>{{venue}}</h1>
+      <div class="date"><a>{{ month }}</a><a>{{ day }}</a></div>
+      <div class="location"><a>{{ city }}</a><a>{{ country }}</a></div>
+      <h1>{{ venue }}</h1>
       <div class="button-container">
         <a class="btn"><i class="material-icons">event_available</i>Buy Tickets</a>
         <a class="btn btn-transparent"><i class="material-icons">share</i>Share</a>

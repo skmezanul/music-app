@@ -135,11 +135,12 @@ export default {
                 will-change: font-size;
                 transition: font-size 0.3s;
                 font-size: 5em;
-                margin-left: -5px;
+                margin: 5px 0 10px -5px;
                 text-transform: uppercase;
+                line-height: 0.95em;
             }
             .info-container {
-              margin-bottom: 5px;
+                margin-bottom: 5px;
                 a {
                     text-transform: uppercase;
                     @include comma-separated(1.2em, 400);
@@ -227,7 +228,7 @@ nav {
                 .stage-container {
                     h1 {
                         font-size: 3.5em;
-                        max-height: 130px;
+                        max-height: 108px;
                         overflow: hidden;
                     }
                 }

@@ -16,8 +16,8 @@
 
     </div>
     <div class="top right">
-      <img src="/static/images/avatar.jpg" alt="Avatar" class="user-avatar mobile-hidden" />
-      <a href="" class="user-name mobile-hidden">Leon S.</a>
+      <img :src="$store.state.currentUser.images[0].url" :alt="$store.state.currentUser.display_name" class="user-avatar mobile-hidden" />
+      <a href="" class="user-name mobile-hidden">{{ $store.state.currentUser.display_name }}</a>
       <i class="toggle material-icons" @click="userDropdown = !userDropdown">keyboard_arrow_down</i>
 
       <!--User Dropdown-->

@@ -17,7 +17,7 @@
         <div class="meta-container-inner">
           <span>{{ title }}</span>
           <div v-if="artist != null" class="artist-container">
-            <router-link v-for="item in artist" :to="'/'+item.type+'/'+item.id" :key="item.id">{{ item.name }}</router-link >
+            <router-link v-for="item in artist" :to="'/'+item.type+'/'+item.id" :key="item.id">{{ item.name }}</router-link>
           </div>
         </div>
       </div>

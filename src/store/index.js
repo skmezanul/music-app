@@ -10,6 +10,7 @@ const store = new Vuex.Store({
     concerts,
     artist: {},
     album: {},
+    currentUser: {},
     deviceID: null
   },
   mutations: {
@@ -18,6 +19,9 @@ const store = new Vuex.Store({
     },
     albumInfo(state, response) {
       state.album = response
+    },
+    currentUser(state, response) {
+      state.currentUser = response
     },
     deviceID(state, response) {
       state.deviceID = response

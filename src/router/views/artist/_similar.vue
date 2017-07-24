@@ -26,16 +26,21 @@ export default {
       similar: {}
     }
   },
-  beforeRouteEnter(to, from, next) {
-    spotifyApi.getArtistRelatedArtists(to.params.id, (err, response) => {
-      next(vm => vm.similar = response.artists)
-    })
+  created() {
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.fetchData()
   },
-  beforeRouteUpdate(to, from, next) {
-    spotifyApi.getArtistRelatedArtists(to.params.id, (err, response) => {
-      this.similar = response.artists
-      next()
-    })
+  watch: {
+    // call again the method if the route changes
+    '$route': 'fetchData'
+  },
+  methods: {
+    fetchData() {
+      // Get artists similar to this artist from the api
+      spotifyApi.getArtistRelatedArtists(this.$route.params.id)
+        .then(response => this.similar = response.artists)
+    }
   }
 }
 </script>

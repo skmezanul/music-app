@@ -10,12 +10,13 @@
     </div>
   </div>
   <div class="bottom center">
-    <i @click="toggleRepeat" class="shuffle material-icons" v-tooltip="{ content: 'Shuffle', container: '.tooltip-container' }">shuffle</i>
+    <i @click="toggleShuffle" :class="{ 'active': playing.shuffle_state === true }" class="shuffle material-icons" v-tooltip="{ content: 'Shuffle', container: '.tooltip-container' }">shuffle</i>
     <i @click="previousTrack" class="skip material-icons">skip_previous</i>
     <i v-show="playing.is_playing === false" @click="resumePlayback" class="toggle play material-icons">play_circle_filled</i>
     <i v-show="playing.is_playing === true" @click="pausePlayback" class="toggle pause material-icons">pause_circle_filled</i>
     <i @click="nextTrack" class="skip material-icons">skip_next</i>
-    <i @click="toggleShuffle" class="repeat material-icons" v-tooltip="{ content: 'Repeat', container: '.tooltip-container' }">repeat</i>
+    <i v-show="playing.repeat_state != 'track'" @click="toggleRepeat" :class="{ 'active': playing.repeat_state === 'context' }" class="repeat material-icons" v-tooltip="{ content: 'Repeat', container: '.tooltip-container' }">repeat</i>
+    <i v-show="playing.repeat_state === 'track'" @click="toggleRepeat" class="repeat material-icons active" v-tooltip="{ content: 'Repeat', container: '.tooltip-container' }">repeat_one</i>
   </div>
   <div class="bottom right mobile-hidden">
     <i v-if="volume == 0" class="volume material-icons">volume_mute</i>
@@ -43,8 +44,9 @@ export default {
     this.fetchData()
   },
   watch: {
-    // call again the method if the route changes
-    '$route': 'fetchData'
+    // call again the method if value changes
+    'playing': 'fetchData',
+    'volume': 'setVolume'
   },
   methods: {
     fetchData() {
@@ -63,15 +65,13 @@ export default {
     },
     pausePlayback() {
       spotifyApi.pause({
-          device_id: this.$store.state.deviceID
-        })
-        .then(this.fetchData())
+        device_id: this.$store.state.deviceID
+      })
     },
     resumePlayback() {
       spotifyApi.play({
-          device_id: this.$store.state.deviceID
-        })
-        .then(this.fetchData())
+        device_id: this.$store.state.deviceID
+      })
     },
     toggleRepeat() {
       spotifyApi.setRepeat({
@@ -80,6 +80,12 @@ export default {
     },
     toggleShuffle() {
       spotifyApi.setShuffle({
+        device_id: this.$store.state.deviceID
+      })
+    },
+    setVolume() {
+      spotifyApi.setVolume({
+        volume_percent: this.volume,
         device_id: this.$store.state.deviceID
       })
     }
@@ -171,6 +177,10 @@ export default {
 
         i {
             @include item-hover;
+            &.active {
+                color: $accent-color;
+                opacity: 1;
+            }
         }
     }
 }
