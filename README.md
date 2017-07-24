@@ -1,10 +1,10 @@
 # music-app
 
-> Frontend for Music-Streaming app built with Webpack and Vue.js.
+> Music-Streaming app built with Webpack, Vue.js, Vuex and the Spotify api.
 
 ![Showcase](static/images/showcase.jpg)
 
-## How to install
+## How to setup dev environment
 
 ``` bash
 # install dependencies
