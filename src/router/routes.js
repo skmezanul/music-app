@@ -18,22 +18,6 @@ export default [{
         component: require('./views/artist/_concerts.vue')
       },
       {
-        path: 'playlists',
-        name: 'playlists',
-        meta: {
-          header: 'compact'
-        },
-        component: require('./views/artist/_playlists.vue')
-      },
-      {
-        path: 'feed',
-        name: 'feed',
-        meta: {
-          header: 'compact'
-        },
-        component: require('./views/artist/_feed.vue'),
-      },
-      {
         path: 'similar',
         name: 'similar',
         meta: {
@@ -53,26 +37,23 @@ export default [{
   },
   {
     path: '/album/:id',
-    component: require('./views/album/index.vue'),
-    children: [{
-      path: '',
-      name: 'album',
-      meta: {
-        header: 'compact'
-      },
-      component: require('./views/album/_album.vue'),
-    }]
+    component: require('./views/album/album.vue'),
+    meta: {
+      header: 'compact'
+    }
   },
   {
     path: '/playlist/:user/:id',
-    component: require('./views/playlist/index.vue'),
-    children: [{
-      path: '',
-      name: 'playlist',
-      meta: {
-        header: 'compact'
-      },
-      component: require('./views/playlist/_playlist.vue'),
-    }]
+    component: require('./views/playlist/playlist.vue'),
+    meta: {
+      header: 'compact'
+    }
+  },
+  {
+    path: '/lastheard',
+    component: require('./views/mymusic/lastheard.vue'),
+    meta: {
+      header: 'compact'
+    }
   }
 ];

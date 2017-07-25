@@ -1,12 +1,12 @@
 <template>
 <li class="table-row" @dblclick="playTrack(title, subtitle)" :class="{ 'playing': playing }">
   <div v-if="image != null" class="image-container">
-    <i v-show="playing === false" class="material-icons">play_circle_filled</i>
+    <i v-show="playing === false" @click="playTrack(title, subtitle)" class="material-icons">play_circle_filled</i>
     <i v-show="playing === true" class="material-icons playing">volume_up</i>
-    <i v-show="playing === true" class="material-icons">pause_circle_filled</i>
+    <i v-show="playing === true" @click="playTrack(title, subtitle)" class="material-icons">pause_circle_filled</i>
     <img :src="image" :alt="title" />
   </div>
-  <span class="index mobile-hidden">{{String("0" + (index+1)).slice(-2)}}</span>
+  <span v-if="index != null" class="index mobile-hidden">{{String("0" + (index+1)).slice(-2)}}</span>
   <div class="meta-container">
     <span>{{title}}</span>
     <div v-if="artistID != null" class="artist">
@@ -130,9 +130,9 @@ export default {
             }
         }
         .index {
-            flex: 0.2;
             font-weight: 300;
             text-align: center;
+            margin: 0 20px;
             font-size: 1.3em;
         }
         .meta-container {

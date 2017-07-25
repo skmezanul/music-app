@@ -31,14 +31,6 @@ export default {
           link: 'concerts'
         },
         {
-          title: 'Playlists',
-          link: 'playlists'
-        },
-        {
-          title: 'Artist Feed',
-          link: 'feed'
-        },
-        {
           title: 'Similar Artists',
           link: 'similar'
         },

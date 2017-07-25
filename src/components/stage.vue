@@ -172,19 +172,16 @@ export default {
 
 nav {
     &.subnav {
-        margin-top: 30px;
-        padding-top: 5px;
+        margin-top: 20px;
 
         ul {
             display: flex;
-            justify-content: space-between;
 
             li {
                 padding: 15px 0;
+                margin-right: 50px;
                 a {
-                    font-size: 0.9em;
-                    letter-spacing: 1.7px;
-                    line-height: 1em;
+                    letter-spacing: 2px;
                     text-transform: uppercase;
                     transition: color 0.3s;
                     color: rgba($white, 0.5);
@@ -194,7 +191,7 @@ nav {
                         &:after {
                             display: block;
                             position: relative;
-                            top: 1em;
+                            top: 0.9em;
                             width: 40px;
                             height: 3px;
                             margin: 0 auto;

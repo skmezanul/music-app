@@ -28,26 +28,43 @@
   <section class="page-section tracks">
     <div class="section-header">
       <h1>Top Tracks</h1>
-      <div class="section-actions">
-        <span>Show Less<i class="material-icons">keyboard_arrow_up</i></span>
+      <div class="section-actions" @click="collapsed = !collapsed">
+        <span v-show="collapsed === true">Show More<i class="material-icons">keyboard_arrow_down</i></span>
+        <span v-show="collapsed === false">Show Less<i class="material-icons">keyboard_arrow_up</i></span>
       </div>
     </div>
-    <!--
-    <ol class="flex-table">
-      <flextable v-for="(track, index) in singles" :key="track.id" :image="track.image" :title="track.title" :artist="track.subtitle" :duration="track.duration" :index="index"></flextable>
+    <ol class="flex-table" :class="{'is-collapsed' : collapsed }">
+      <flextable
+      v-for="(track, index) in tracks"
+      :key="track.id"
+      :type="track.type"
+      :image="track.album.images[0].url"
+      :title="track.name"
+      :duration="track.duration_ms"
+      :index="index"
+      ></flextable>
     </ol>
-    -->
   </section>
 
   <section class="page-section albums">
     <div class="section-header">
       <h1>Albums</h1>
-      <div class="section-actions">
-        <span>Show Less<i class="material-icons">keyboard_arrow_up</i></span>
+      <div class="section-actions" @click="collapsed = !collapsed">
+        <span v-show="collapsed === true">Show More<i class="material-icons">keyboard_arrow_down</i></span>
+        <span v-show="collapsed === false">Show Less<i class="material-icons">keyboard_arrow_up</i></span>
       </div>
     </div>
-    <div class="section-items-container">
-      <sectionitem v-for="album in albums" :key="album.id" :type="album.type" :primaryID="album.id" :secondaryID="album.artists[0].id" :image="album.images[0].url" :title="album.name" :artist="album.artists"></sectionitem>
+    <div class="section-items-container" :class="{'is-collapsed' : collapsed }">
+      <sectionitem
+      v-for="album in albums"
+      :key="album.id"
+      :type="album.type"
+      :primaryID="album.id"
+      :secondaryID="album.artists[0].id"
+      :image="album.images[0].url"
+      :title="album.name"
+      :artist="album.artists"
+      ></sectionitem>
     </div>
   </section>
 
@@ -55,6 +72,7 @@
 </template>
 <script>
 import spotifyApi from '../../../api/'
+
 export default {
   data() {
     return {
@@ -78,6 +96,8 @@ export default {
           country: this.$store.state.currentUser.country
         })
         .then(response => this.albums = response.items)
+      spotifyApi.getArtistTopTracks(this.$route.params.id, this.$store.state.currentUser.country)
+        .then(response => this.tracks = response.tracks)
     }
   }
 }

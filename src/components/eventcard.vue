@@ -72,6 +72,7 @@ export default {
                 height: 100%;
                 h1 {
                     hyphens: auto;
+                    margin-top: 5px;
                     @media screen and (min-width: 955px) {
                         font-size: 3em;
                         margin-left: -4px;
