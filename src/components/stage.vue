@@ -185,6 +185,8 @@ nav {
                     text-transform: uppercase;
                     transition: color 0.3s;
                     color: rgba($white, 0.5);
+                    font-weight: 300;
+                    font-size: 0.9em;
 
                     &.router-link-exact-active {
                         color: $white;
