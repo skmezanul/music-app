@@ -332,6 +332,7 @@ a {
 .page-section,
 .stage-inner {
     width: $large-width;
+    max-width: 1440px;
     @media screen and (max-width: 1500px) {
         width: $small-width;
     }
