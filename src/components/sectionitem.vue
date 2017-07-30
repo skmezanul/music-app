@@ -5,8 +5,8 @@
       <div class="item-overlay" v-if="type != 'artist'">
         <div class="overlay-actions">
           <i class="favorite material-icons">favorite</i>
-          <i v-if="playing === false" @click="playing = true" class="play material-icons">play_circle_outline</i>
-          <i v-if="playing === true" @click="playing = false" class="play material-icons">pause_circle_outline</i>
+          <i v-if="playing === false" @click="playing = true" class="play material-icons">play_circle_filled</i>
+          <i v-if="playing === true" @click="playing = false" class="play material-icons">pause_circle_filled</i>
           <i class="more material-icons">more_horiz</i>
         </div>
       </div>

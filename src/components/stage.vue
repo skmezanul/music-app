@@ -95,6 +95,7 @@ export default {
                 will-change: filter;
                 filter: saturate(150%);
                 transition: filter 0.3s;
+                margin-top: -10%;
             }
         }
     }
