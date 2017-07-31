@@ -1,11 +1,33 @@
-export default [{
+export default [
+  {
+    path: '/browse',
+    component: require('./views/browse/index.vue'),
+    children: [{
+        path: '',
+        name: 'Overview2',
+        meta: {
+          stage: 'full'
+        },
+        component: require('./views/browse/_overview.vue')
+      },
+      {
+        path: 'charts',
+        name: 'charts',
+        meta: {
+          stage: 'compact'
+        },
+        component: require('./views/browse/_charts.vue')
+      },
+    ]
+  },
+  {
     path: '/artist/:id',
     component: require('./views/artist/index.vue'),
     children: [{
         path: '',
         name: 'overview',
         meta: {
-          header: 'full'
+          stage: 'full'
         },
         component: require('./views/artist/_overview.vue')
       },
@@ -13,7 +35,7 @@ export default [{
         path: 'concerts',
         name: 'concerts',
         meta: {
-          header: 'compact'
+          stage: 'compact'
         },
         component: require('./views/artist/_concerts.vue')
       },
@@ -21,7 +43,7 @@ export default [{
         path: 'similar',
         name: 'similar',
         meta: {
-          header: 'compact'
+          stage: 'compact'
         },
         component: require('./views/artist/_similar.vue'),
       },
@@ -29,7 +51,7 @@ export default [{
         path: 'information',
         name: 'information',
         meta: {
-          header: 'compact'
+          stage: 'compact'
         },
         component: require('./views/artist/_information.vue'),
       }
@@ -39,21 +61,21 @@ export default [{
     path: '/album/:id',
     component: require('./views/album/album.vue'),
     meta: {
-      header: 'compact'
+      stage: 'compact'
     }
   },
   {
     path: '/playlist/:user/:id',
     component: require('./views/playlist/playlist.vue'),
     meta: {
-      header: 'compact'
+      stage: 'compact'
     }
   },
   {
     path: '/lastheard',
     component: require('./views/mymusic/lastheard.vue'),
     meta: {
-      header: 'compact'
+      stage: 'compact'
     }
   }
 ];
