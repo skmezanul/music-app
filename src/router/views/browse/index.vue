@@ -2,12 +2,7 @@
 <main class="main-container" :class="{ 'stage-compact': $route.meta.stage === 'compact' }">
 
   <!--Stage-->
-  <stage
-  type="browse"
-  :image="$store.state.currentUser.images[0].url"
-  :navigation="navigation"
-  :title="welcomeMessage"
-  ></stage>
+  <stage type="browse" :image="$store.state.currentUser.images[0].url" :navigation="navigation" :title="welcomeMessage"></stage>
 
   <!--Router View-->
   <router-view></router-view>
@@ -46,9 +41,10 @@ export default {
   },
   computed: {
     welcomeMessage() {
+      var greeting = "Good evening"
       var fullName = this.$store.state.currentUser.display_name
       var firstName = fullName.split(" ")[0]
-      return "Good evening " + firstName
+      return greeting + " " + firstName
     }
   }
 }
