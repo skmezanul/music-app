@@ -1,9 +1,9 @@
 <template>
 <li class="table-row" @dblclick="playTrack(title, subtitle)" :class="{ 'playing': playing }">
   <div v-if="image != null" class="image-container">
-    <i v-show="playing === false" @click="playTrack(title, subtitle)" class="material-icons">play_circle_filled</i>
-    <i v-show="playing === true" class="material-icons playing">volume_up</i>
-    <i v-show="playing === true" @click="playTrack(title, subtitle)" class="material-icons">pause_circle_filled</i>
+    <i v-if="playing === false" @click="playTrack(title, subtitle)" class="material-icons">play_circle_filled</i>
+    <i v-if="playing === true" class="material-icons playing">volume_up</i>
+    <i v-if="playing === true" @click="playTrack(title, subtitle)" class="material-icons">pause_circle_filled</i>
     <img :src="image" :alt="title" />
   </div>
   <span v-if="index != null" class="index mobile-hidden">{{String("0" + (index+1)).slice(-2)}}</span>
@@ -57,14 +57,14 @@ export default {
 
 <style lang="scss">
 .flex-table {
-    box-shadow: $shadow;
     .table-row {
         display: flex;
         align-items: center;
         transition: background-color 0.3s, margin 0.3s, box-shadow 0.3s, transform 0.3s;
-        margin: 2px 0;
+        margin-bottom: 2px;
         background-color: $blue;
-        height: 60px;
+        height: 65px;
+        box-shadow: $shadow;
         &.playing {
             background-color: $dark-blue;
             margin: 10px 0;
@@ -80,8 +80,8 @@ export default {
             }
         }
         .image-container {
-            height: 60px;
-            width: 60px;
+            height: 65px;
+            width: 65px;
             position: relative;
             overflow: hidden;
             img {

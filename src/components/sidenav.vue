@@ -3,7 +3,7 @@
   <ul>
     <div class="sidenav-section">
       <li>
-        <router-link to="/artist/0X2BH1fck6amBIoJhDVmmJ"><i class="material-icons">book</i>Browse</router-link>
+        <router-link to="/browse"><i class="material-icons">book</i>Browse</router-link>
       </li>
       <li>
         <router-link to="/radio"><i class="material-icons">radio</i>Radio</router-link>

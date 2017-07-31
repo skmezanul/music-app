@@ -111,6 +111,28 @@ a {
     margin-top: 0;
     will-change: margin-top;
     transition: margin-top 0.3s;
+    &.stage-compact {
+        margin-top: -250px;
+
+        .stage {
+            .stage-background {
+                .Masthead {
+                    img {
+                        filter: saturate(300%) blur(20px);
+                    }
+                }
+            }
+            .stage-inner {
+                .stage-container {
+                    h1 {
+                        font-size: 3.5em;
+                        max-height: 108px;
+                        overflow: hidden;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .page-container {
