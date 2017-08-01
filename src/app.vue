@@ -63,10 +63,12 @@ body {
     color: $white;
     min-width: 611px;
     user-select: none;
+    -webkit-user-select: none;
 }
 
 input {
     user-select: text;
+    -webkit-user-select: text;
 }
 
 ol,
@@ -339,8 +341,6 @@ a {
 }
 @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
     .footer,
-    .header .search-active input,
-    .header .search-dropdown,
     .scrolled .header {
         background-color: rgba($dark-blue, 0.7) !important;
         backdrop-filter: saturate(200%) blur(20px);

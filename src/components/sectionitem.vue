@@ -1,6 +1,6 @@
 <template>
 <div class="section-item" :class="type">
-  <div class="section-item-inner">
+  <div class="section-item-inner" @click="toTarget(type, primaryID, secondaryID)">
     <div class="item-overlay" v-if="type != 'artist'">
       <div class="overlay-actions">
         <i class="favorite material-icons">favorite</i>

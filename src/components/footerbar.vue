@@ -181,6 +181,7 @@ export default {
             .toggle {
                 font-size: 3.3em;
                 color: $white;
+                transition: transform 0.3s;
                 &:hover {
                     transform: scale(1.15);
                 }
