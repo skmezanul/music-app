@@ -17,9 +17,8 @@
   <span v-if="searchQuery.length > 0">
     <!--If artists found-->
     <div class="search-section artists" v-if="results.artists.items.length > 0">
-      <h1>Artists ({{results.artists.items.length}})</h1>
-      <div class="search-item" v-for="artist in results.artists.items" :key="artist.id">
-        <router-link :to="'/'+artist.type+'/'+artist.id"></router-link>
+      <h1>Artists ({{ results.artists.items.length }})</h1>
+      <div class="search-item" v-for="artist in results.artists.items" :key="artist.id" @click="toTarget(artist.type, artist.id)">
         <div class="image-container">
           <img :src="artist.images[0].url" :alt="artist.name" />
         </div>
@@ -32,30 +31,28 @@
 
     <!--If tracks found-->
     <div class="search-section tracks" v-if="results.tracks.items.length > 0">
-      <h1>Tracks ({{results.tracks.items.length}})</h1>
-      <div class="search-item" v-for="track in results.tracks.items" :key="track.id">
-        <router-link :to="'/'+track.type+'/'+track.id"></router-link>
+      <h1>Tracks ({{ results.tracks.items.length }})</h1>
+      <div class="search-item" v-for="track in results.tracks.items" :key="track.id" @click="toTarget(track.type, track.id)">
         <div class="image-container">
           <img :src="track.album.images[1].url" :alt="track.name" />
         </div>
         <div class="meta-container">
         <h4>{{track.name}}</h4>
-        <a :href="'/'+track.artists[0].type+'/'+track.artists[0].id">{{ track.artists[0].name }}</a>
+        <a class="artist" v-for="artist in track.artists" @click="toArtist(artist.type, artist.id)">{{ artist.name }}</a>
       </div>
       </div>
     </div>
 
     <!--If albums found-->
     <div class="search-section albums" v-if="results.albums.items.length > 0">
-      <h1>Albums ({{results.albums.items.length}})</h1>
-      <div class="search-item" v-for="album in results.albums.items" :key="album.id">
-        <router-link :to="'/'+album.type+'/'+album.id"></router-link>
+      <h1>Albums ({{ results.albums.items.length }})</h1>
+      <div class="search-item" v-for="album in results.albums.items" :key="album.id" @click="toTarget(album.type, album.id)">
         <div class="image-container">
           <img :src="album.images[1].url" :alt="album.name" />
         </div>
         <div class="meta-container">
         <h4>{{album.name}}</h4>
-        <a :href="'/'+album.artists[0].type+'/'+album.artists[0].id">{{ album.artists[0].name }}</a>
+        <a class="artist" v-for="artist in album.artists" @click="toArtist(artist.type, artist.id)">{{ artist.name }}</a>
       </div>
       </div>
     </div>
@@ -67,6 +64,7 @@
 
 <script>
 import spotifyApi from '../api/'
+import router from '../router'
 
 export default {
   data() {
@@ -95,6 +93,16 @@ export default {
     fetchData() {
       spotifyApi.search(this.searchQuery, ['album', 'artist', 'track'])
         .then(response => this.results = response)
+    },
+    toTarget(type, target) {
+      router.push({
+        path: '/' + type + '/' + target
+      })
+    },
+    toArtist(type, artistID) {
+      router.push({
+        path: '/' + type + '/' + artistID
+      })
     }
   }
 }
@@ -137,14 +145,7 @@ export default {
                 &:hover {
                     background-color: rgba($white, 0.15);
                     box-shadow: $shadow-highlight;
-                }
-
-                a {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
+                    cursor: pointer;
                 }
 
                 .image-container {

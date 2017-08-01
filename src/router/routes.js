@@ -75,7 +75,7 @@ export default [
     path: '/lastheard',
     component: require('./views/mymusic/lastheard.vue'),
     meta: {
-      stage: 'compact'
+      stage: 'full'
     }
   }
 ];

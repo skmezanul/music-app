@@ -11,8 +11,6 @@
 </template>
 
 <script>
-import spotifyApi from '../../../api/'
-
 export default {
   data() {
     return {

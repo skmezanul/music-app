@@ -61,7 +61,7 @@ export default {
     fetchData() {
       spotifyApi.getUserPlaylists()
         .then(response => this.playlists = response.items)
-    }
+    },
   }
 }
 </script>

@@ -1,32 +1,32 @@
 <template>
 <div class="section-item" :class="type">
-  <router-link :to="'/'+type+'/'+primaryID">
-    <div class="section-item-inner">
-      <div class="item-overlay" v-if="type != 'artist'">
-        <div class="overlay-actions">
-          <i class="favorite material-icons">favorite</i>
-          <i v-if="playing === false" @click="playing = true" class="play material-icons">play_circle_filled</i>
-          <i v-if="playing === true" @click="playing = false" class="play material-icons">pause_circle_filled</i>
-          <i class="more material-icons">more_horiz</i>
-        </div>
+  <div class="section-item-inner">
+    <div class="item-overlay" v-if="type != 'artist'">
+      <div class="overlay-actions">
+        <i class="favorite material-icons">favorite</i>
+        <i v-if="playing === false" @click="playing = true" class="play material-icons">play_circle_filled</i>
+        <i v-if="playing === true" @click="playing = false" class="play material-icons">pause_circle_filled</i>
+        <i class="more material-icons">more_horiz</i>
       </div>
-      <div class="image-container">
-        <img :src="image" :alt="title" />
-      </div>
-      <div class="meta-container">
-        <div class="meta-container-inner">
-          <span>{{ title }}</span>
-          <div v-if="artist != null" class="artist-container">
-            <router-link v-for="item in artist" :to="'/'+item.type+'/'+item.id" :key="item.id">{{ item.name }}</router-link>
-          </div>
+    </div>
+    <div class="image-container">
+      <img :src="image" :alt="title" />
+    </div>
+    <div class="meta-container">
+      <div class="meta-container-inner">
+        <span>{{ title }}</span>
+        <div v-if="artist != null" class="artist-container">
+          <a class="artist" v-for="item in artist" @click="toArtist(item.type, item.id)">{{ item.name }}</a>
         </div>
       </div>
     </div>
-  </router-link>
+  </div>
 </div>
 </template>
 
 <script>
+import router from '../router'
+
 export default {
   data() {
     return {
@@ -36,10 +36,30 @@ export default {
   props: [
     'type',
     'primaryID',
+    'secondaryID',
     'title',
     'artist',
     'image'
-  ]
+  ],
+  methods: {
+    toTarget(type, primaryID, secondaryID) {
+      if (type != 'playlist') {
+        router.push({
+          path: '/' + type + '/' + primaryID
+        })
+      }
+      else {
+        router.push({
+          path: '/' + type + '/' + secondaryID + '/' + primaryID
+        })
+      }
+    },
+    toArtist(type, artistID) {
+      router.push({
+        path: '/' + type + '/' + artistID
+      })
+    }
+  }
 }
 </script>
 
@@ -113,6 +133,7 @@ export default {
         box-shadow: $shadow;
         &:hover {
             box-shadow: $shadow-highlight;
+            cursor: pointer;
             .item-overlay {
                 opacity: 1;
             }
@@ -148,12 +169,16 @@ export default {
                 flex: 0.8;
                 i {
                     transition: color 0.3s;
-                    &:hover {
+                    &:not(.play):hover {
                         cursor: pointer;
                         color: rgba($white, 0.7);
                     }
                     &.play {
                         font-size: 4.5em;
+                        transition: transform 0.3s;
+                        &:hover {
+                            transform: scale(1.1);
+                        }
                     }
                 }
             }

@@ -5,7 +5,7 @@
     <div class="currently-playing">
       <span class="title">{{ playing.item.name }}</span>
       <div class="artist-container">
-        <router-link v-for="artist in playing.item.artists" :key="artist.id" :to="'/artist/'+artist.id">{{ artist.name }}</router-link>
+        <a class="artist" v-for="artist in playing.item.artists" :key="artist.id" @click="toArtist(artist.type, artist.id)">{{ artist.name }}</a>
       </div>
     </div>
   </div>
@@ -30,6 +30,7 @@
 </template>
 <script>
 import spotifyApi from '../api/'
+import router from '../router'
 
 export default {
   data() {
@@ -55,6 +56,11 @@ export default {
     'volume': 'setVolume'
   },
   methods: {
+    toArtist(type, artistID) {
+      router.push({
+        path: '/' + type + '/' + artistID
+      })
+    },
     fetchData() {
       spotifyApi.getMyCurrentPlaybackState()
         .then(response => this.playing = response)

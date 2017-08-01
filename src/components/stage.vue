@@ -21,7 +21,7 @@
       <h2>{{ type }}</h2>
       <h1>{{ title }}</h1>
       <div v-if="primaryInfo != null" class="info-container mobile-hidden">
-        <a>{{ primaryInfo }}</a><a v-if="secondaryInfo != null">{{ secondaryInfo }}</a>
+        <a v-html="primaryInfo"></a><a v-if="secondaryInfo != null">{{ secondaryInfo }}</a>
       </div>
       <div v-if="type != 'browse'" class="button-container">
         <div class="button-group">
@@ -139,10 +139,13 @@ export default {
                 margin: 5px 0 0 -5px;
             }
             .info-container {
-                margin-bottom: 5px;
+                margin-top: 10px;
                 a {
                     text-transform: uppercase;
                     @include comma-separated(1.2em, 400);
+                    a {
+                        font-size: inherit;
+                    }
                 }
             }
             .button-container {

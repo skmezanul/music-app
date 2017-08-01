@@ -126,8 +126,6 @@ a {
                 .stage-container {
                     h1 {
                         font-size: 3.5em;
-                        max-height: 108px;
-                        overflow: hidden;
                     }
                 }
             }
