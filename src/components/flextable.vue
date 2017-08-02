@@ -9,8 +9,8 @@
   <span v-if="index != null" class="index mobile-hidden">{{String("0" + (index+1)).slice(-2)}}</span>
   <div class="meta-container">
     <span>{{title}}</span>
-    <div v-if="artistID != null" class="artist">
-      <router-link :to="'/artist/'+artistID">{{ artist }}</router-link>
+    <div v-if="artists != null" class="artist-container">
+      <router-link v-for="artist in artists" :key="artist.id" :to="'/'+artist.type+'/'+artist.id">{{ artist.name }}</router-link>
     </div>
   </div>
   <div v-if="albumID != null" class="album">
@@ -33,8 +33,7 @@ export default {
     'index',
     'type',
     'title',
-    'artist',
-    'artistID',
+    'artists',
     'album',
     'albumID',
     'duration',
@@ -145,7 +144,7 @@ export default {
             @media screen and (max-width: 955px) {
                 padding: 0 15px;
             }
-            .artist {
+            .artist-container {
                 a {
                     @include comma-separated(1em, 300);
                 }
