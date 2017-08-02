@@ -1,5 +1,5 @@
 <template>
-<main class="main-container" :class="{ 'stage-compact': $route.meta.stage === 'compact' }">
+<main class="main-container">
 
   <!--Stage-->
   <stage type="browse" :image="$store.state.currentUser.images[0].url" :navigation="navigation" :title="welcomeMessage"></stage>

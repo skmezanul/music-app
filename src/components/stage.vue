@@ -1,5 +1,5 @@
 <template>
-<div class="stage" :class="{'with-cover': type === 'album' || type === 'playlist'}">
+<div class="stage" :class="{ 'with-cover' : type === 'album' || type === 'playlist', 'stage-compact': $route.meta.stage === 'compact'}">
 
   <!--Background-->
   <div class="stage-background">
@@ -67,10 +67,31 @@ export default {
     align-items: flex-end;
     justify-content: center;
     width: 100%;
+    transition: margin-top 0.3s;
+    will-change: margin-top;
     margin-bottom: 20px;
+    margin-top: 0;
     padding-top: 65px;
     min-height: 400px;
     height: 550px;
+
+    &.stage-compact {
+      margin-top: -250px;
+      .stage-background {
+          .Masthead {
+              img {
+                  filter: saturate(300%) blur(20px);
+              }
+          }
+      }
+      .stage-inner {
+          .stage-container {
+              h1 {
+                  font-size: 3.5em;
+              }
+          }
+      }
+    }
 
     &.with-cover {
         .stage-inner {

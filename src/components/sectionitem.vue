@@ -43,14 +43,14 @@ export default {
   ],
   methods: {
     toTarget(type, primaryID, secondaryID) {
-      if (type != 'playlist') {
+      if (type === 'playlist') {
         router.push({
-          path: '/' + type + '/' + primaryID
+          path: '/' + type + '/' + secondaryID + '/' + primaryID
         })
       }
       else {
         router.push({
-          path: '/' + type + '/' + secondaryID + '/' + primaryID
+          path: '/' + type + '/' + primaryID
         })
       }
     },
