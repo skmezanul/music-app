@@ -13,8 +13,8 @@
       <router-link v-for="artist in artists" :key="artist.id" :to="'/'+artist.type+'/'+artist.id">{{ artist.name }}</router-link>
     </div>
   </div>
-  <div v-if="albumID != null" class="album">
-    <router-link :to="'/album/'+albumID">{{ album }}</router-link>
+  <div v-if="album != null" class="album">
+    <router-link :to="'/'+album.type+'/'+album.id">{{ album.name }}</router-link>
   </div>
   <span class="duration">{{ formattedDuration }}</span>
   <i class="material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
@@ -35,7 +35,6 @@ export default {
     'title',
     'artists',
     'album',
-    'albumID',
     'duration',
     'image'
   ],

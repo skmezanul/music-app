@@ -20,8 +20,7 @@
         :image="playlist.track.album.images[0].url"
         :title="playlist.track.name"
         :artists="playlist.track.artists"
-        :album="playlist.track.album.name"
-        :albumID="playlist.track.album.id"
+        :album="playlist.track.album"
         :duration="playlist.track.duration_ms"
         :index="index"
         ></flextable>

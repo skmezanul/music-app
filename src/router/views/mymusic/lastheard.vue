@@ -19,8 +19,7 @@
         :image="lastheard.track.album.images[0].url"
         :title="lastheard.track.name"
         :artists="lastheard.track.artists"
-        :album="lastheard.track.album.name"
-        :albumID="lastheard.track.album.id"
+        :album="lastheard.track.album"
         :duration="lastheard.track.duration_ms"
         :index="index"
         ></flextable>
