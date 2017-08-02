@@ -2,7 +2,12 @@
 <main class="main-container">
 
   <!--Stage-->
-  <stage type="browse" :image="$store.state.currentUser.images[0].url" :navigation="navigation" :title="welcomeMessage"></stage>
+  <stage
+  type="browse"
+  :image="$store.state.currentUser.images[0].url"
+  :navigation="navigation"
+  :title="welcomeMessage"
+  ></stage>
 
   <!--Router View-->
   <router-view></router-view>
