@@ -5,11 +5,8 @@ import { createVuexLoader } from 'vuex-loading'
 Vue.use(Vuex)
 
 const VuexLoading = createVuexLoader({
-  // The Vuex module name, 'loading' by default.
   moduleName: 'loading',
-  // The Vue component name, 'v-loading' by default.
   componentName: 'v-loading',
-  // Vue component class name, 'v-loading' by default.
   className: 'v-loading',
 });
 
@@ -20,8 +17,7 @@ const store = new Vuex.Store({
   state: {
     artist: {},
     currentUser: {},
-    deviceID: null,
-    loading: true
+    deviceID: null
   },
   mutations: {
     artistInfo(state, response) {
