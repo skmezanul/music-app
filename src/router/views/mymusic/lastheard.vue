@@ -50,9 +50,13 @@ export default {
   },
   methods: {
     fetchData() {
+      this.$startLoading('fetching data')
       // Get this playlist's tracks
       spotifyApi.getMyRecentlyPlayedTracks()
-        .then(response => this.lastheard = response.items)
+        .then((response) => {
+          this.lastheard = response.items
+          this.$endLoading('fetching data')
+        })
     }
   }
 }

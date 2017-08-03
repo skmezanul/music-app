@@ -29,6 +29,9 @@ Vue.component('eventcard', eventCard)
 import search from './search.vue'
 Vue.component('search', search)
 
+import loading from './loading.vue'
+Vue.component('loading', loading)
+
 import parallax from 'vue-parallaxy'
 Vue.component('parallax', parallax)
 
@@ -39,6 +42,10 @@ Vue.component('slider', slider)
 // Import Plugins
 import tooltip from 'v-tooltip'
 Vue.use(tooltip)
+
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+Vue.use(VueAxios, axios)
 
 // Import Directives
 import viewport from 'vue-in-viewport-directive'

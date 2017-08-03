@@ -20,6 +20,11 @@
     <!--Insert Tooltips-->
 
   </div>
+    <v-loading>
+      <template slot='spinner'>
+      <loading></loading>
+       </template>
+    </v-loading>
 
 </div>
 </template>

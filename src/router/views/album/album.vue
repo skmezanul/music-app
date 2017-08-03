@@ -49,9 +49,13 @@ export default {
   },
   methods: {
     fetchData() {
+      this.$startLoading('fetching data')
       // Get this playlist's tracks
       spotifyApi.getAlbum(this.$route.params.id)
-        .then(response => this.album = response)
+        .then((response) => {
+          this.album = response
+          this.$endLoading('fetching data')
+        })
     }
   }
 }
