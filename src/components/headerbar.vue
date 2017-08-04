@@ -11,17 +11,24 @@
 
       <!--Search Dropdown-->
       <div class="search-dropdown" v-if="searchDropdown === true" v-on-clickaway="toggleSearch">
-        <search :searchQuery="searchQuery" :searchDropdown="searchDropdown"></search>
+        <search
+        :searchQuery="searchQuery"
+        :searchDropdown="searchDropdown"
+        ></search>
       </div>
 
     </div>
     <div class="top right">
-      <img :src="$store.state.currentUser.images[0].url" :alt="$store.state.currentUser.display_name" class="user-avatar mobile-hidden" />
+      <img
+      :src="$store.state.currentUser.images[0].url"
+      :alt="$store.state.currentUser.display_name"
+      class="user-avatar mobile-hidden" 
+      />
       <a href="" class="user-name mobile-hidden">{{ $store.state.currentUser.display_name }}</a>
-      <i class="toggle material-icons" @click="userDropdown = !userDropdown">keyboard_arrow_down</i>
+      <i class="toggle material-icons" @click="toggleDropdown">keyboard_arrow_down</i>
 
       <!--User Dropdown-->
-      <ul class="dropdown" v-if="userDropdown">
+      <ul class="dropdown" v-if="userDropdown" v-on-clickaway="toggleDropdown">
         <li>My Account</li>
         <li>Settings</li>
         <li>Logout</li>
@@ -50,14 +57,17 @@ export default {
     }
   },
   methods: {
-    goBack: function() {
+    goBack() {
       router.go(-1)
     },
-    goForward: function() {
+    goForward() {
       router.go(1)
     },
-    toggleSearch: function() {
+    toggleSearch() {
       this.searchDropdown = !this.searchDropdown
+    },
+    toggleDropdown() {
+      this.userDropdown = !this.userDropdown
     }
   }
 }
