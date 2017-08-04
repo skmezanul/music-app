@@ -3,11 +3,7 @@
 
   <!--Background-->
   <div class="stage-background">
-    <transition name="fade">
-      <parallax :speedFactor="0.3">
-        <img :src="image" :alt="title" />
-      </parallax>
-    </transition>
+    <img v-parallax="0.5" :src="image" :alt="title" />
   </div>
 
   <div class="stage-inner">
@@ -74,23 +70,22 @@ export default {
     padding-top: 65px;
     min-height: 400px;
     height: 550px;
+    overflow: hidden;
 
     &.stage-compact {
-      margin-top: -250px;
-      .stage-background {
-          .Masthead {
-              img {
-                  filter: saturate(300%) blur(20px);
-              }
-          }
-      }
-      .stage-inner {
-          .stage-container {
-              h1 {
-                  font-size: 3.5em;
-              }
-          }
-      }
+        margin-top: -250px;
+        .stage-background {
+            img {
+                filter: saturate(300%) blur(20px);
+            }
+        }
+        .stage-inner {
+            .stage-container {
+                h1 {
+                    font-size: 3.5em;
+                }
+            }
+        }
     }
 
     &.with-cover {
@@ -106,18 +101,16 @@ export default {
         left: 0;
         right: 0;
         bottom: 0;
-        overflow: hidden;
+        animation: zoomOut 0.7s 0.2s both;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-        .Masthead {
-            min-height: 100% !important;
-
-            img {
-                animation: zoomOut 0.7s 0.2s both;
-                will-change: filter;
-                filter: saturate(150%);
-                transition: filter 0.3s;
-                margin-top: -10%;
-            }
+        img {
+            will-change: filter;
+            filter: saturate(150%);
+            transition: filter 0.3s;
+            width: 100%;
         }
     }
     &:after {

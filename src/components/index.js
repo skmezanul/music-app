@@ -32,9 +32,6 @@ Vue.component('search', search)
 import loading from './loading.vue'
 Vue.component('loading', loading)
 
-import parallax from 'vue-parallaxy'
-Vue.component('parallax', parallax)
-
 import slider from 'vue-slider-component'
 Vue.component('slider', slider)
 
@@ -42,6 +39,9 @@ Vue.component('slider', slider)
 // Import Plugins
 import tooltip from 'v-tooltip'
 Vue.use(tooltip)
+
+import parallax from 'vue-parallax-js'
+Vue.use(parallax)
 
 import axios from 'axios'
 import VueAxios from 'vue-axios'
