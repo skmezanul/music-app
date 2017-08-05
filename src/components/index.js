@@ -1,8 +1,6 @@
 // Import
 import Vue from 'vue';
 import 'normalize.css/normalize.css';
-import axios from 'axios';
-import VueAxios from 'vue-axios';
 import slider from 'vue-slider-component';
 import tooltip from 'v-tooltip';
 import parallax from 'vue-parallax-js';
@@ -32,7 +30,6 @@ Vue.component('slider', slider);
 // Register plugins
 Vue.use(tooltip);
 Vue.use(parallax);
-Vue.use(VueAxios, axios);
 
 // Register directives
 Vue.directive('in-viewport', viewport);

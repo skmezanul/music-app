@@ -2,7 +2,7 @@
 <div class="page-container similar">
   <section class="page-section">
     <div class="section-header">
-      <h1>Similar to {{ $store.state.artist.name }}</h1>
+      <h1>Similar to {{ $parent.artist.name }}</h1>
     </div>
     <div class="section-items-container">
       <sectionitem
@@ -34,14 +34,15 @@ export default {
   watch: {
     // call again the method if the route changes
     $route: 'fetchData',
+    $parent: 'fetchData',
   },
   methods: {
     fetchData() {
       // Get artists similar to this artist from the api
       spotifyApi.getArtistRelatedArtists(this.$route.params.id)
-      .then((response) => {
-        this.similar = response.artists;
-      });
+        .then((response) => {
+          this.similar = response.artists;
+        });
     },
   },
 };

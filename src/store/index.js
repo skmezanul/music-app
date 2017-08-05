@@ -19,9 +19,6 @@ const store = new Vuex.Store({
     deviceID: null,
   },
   mutations: {
-    artistInfo(state, response) {
-      state.artist = response;
-    },
     currentUser(state, response) {
       state.currentUser = response;
     },

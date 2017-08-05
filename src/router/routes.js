@@ -26,7 +26,7 @@ export default [{
     path: '',
     name: 'Overview2',
     meta: {
-      stage: 'full',
+      stage: 'compact',
     },
     component: browseOverview,
   },

@@ -3,12 +3,12 @@
 
   <!--Stage-->
   <stage
-  :type="$store.state.artist.type"
+  :type="artist.type"
   :navigation="navigation"
-  :image="$store.state.artist.images[0].url"
-  :title="$store.state.artist.name"
-  :primaryInfo="$store.state.artist.genres[0]"
-  :secondaryInfo="$store.state.artist.followers.total+' Followers'"
+  :image="artist.images[0].url"
+  :title="artist.name"
+  :primaryInfo="artist.genres[0]"
+  :secondaryInfo="`${artist.followers.total} Followers`"
   ></stage>
 
   <!--Router View-->
@@ -16,12 +16,14 @@
 
 </main>
 </template>
+
 <script>
 import spotifyApi from '../../../api/';
 
 export default {
   data() {
     return {
+      artist: {},
       navigation: [{
         title: 'Overview',
         link: '',
@@ -41,24 +43,24 @@ export default {
       ],
     };
   },
-  beforeRouteEnter(to, from, next) {
-    spotifyApi.getArtist(to.params.id, (err, response) => {
-      next(vm => vm.setData(err, response));
-    });
+  created() {
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.fetchData();
   },
-  beforeRouteUpdate(to, from, next) {
-    spotifyApi.getArtist(to.params.id, (err, response) => {
-      this.setData(err, response);
-      next();
-    });
+  watch: {
+    // call again the method if the route changes
+    $route: 'fetchData',
   },
   methods: {
-    setData(err, response) {
-      if (err) {
-        console.log(err.toString());
-      } else {
-        this.$store.commit('artistInfo', response);
-      }
+    fetchData() {
+      this.$startLoading('fetching data');
+      // Get artist information
+      spotifyApi.getArtist(this.$route.params.id)
+        .then((response) => {
+          this.artist = response;
+          this.$endLoading('fetching data');
+        });
     },
   },
 };
