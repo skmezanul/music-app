@@ -22,9 +22,9 @@
       <img
       :src="$store.state.currentUser.images[0].url"
       :alt="$store.state.currentUser.display_name"
-      class="user-avatar mobile-hidden" 
+      class="user-avatar mobile-hidden"
       />
-      <a href="" class="user-name mobile-hidden">{{ $store.state.currentUser.display_name }}</a>
+      <router-link to="/" class="user-name mobile-hidden">{{ $store.state.currentUser.display_name }}</router-link>
       <i class="toggle material-icons" @click="toggleDropdown">keyboard_arrow_down</i>
 
       <!--User Dropdown-->
@@ -40,37 +40,37 @@
 </template>
 
 <script>
-import router from '../router'
+import router from '../router';
 import {
-  directive as onClickaway
+  directive as onClickaway,
 } from 'vue-clickaway';
 
 export default {
   directives: {
-    onClickaway: onClickaway,
+    onClickaway,
   },
   data() {
     return {
       userDropdown: false,
       searchDropdown: false,
-      searchQuery: ''
-    }
+      searchQuery: '',
+    };
   },
   methods: {
     goBack() {
-      router.go(-1)
+      router.go(-1);
     },
     goForward() {
-      router.go(1)
+      router.go(1);
     },
     toggleSearch() {
-      this.searchDropdown = !this.searchDropdown
+      this.searchDropdown = !this.searchDropdown;
     },
     toggleDropdown() {
-      this.userDropdown = !this.userDropdown
-    }
-  }
-}
+      this.userDropdown = !this.userDropdown;
+    },
+  },
+};
 </script>
 
 <style lang="scss">

@@ -31,33 +31,33 @@
 </main>
 </template>
 <script>
-import spotifyApi from '../../../api/'
+import spotifyApi from '../../../api/';
 
 export default {
   data() {
     return {
-      lastheard: {}
-    }
+      lastheard: {},
+    };
   },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.fetchData()
+    this.fetchData();
   },
   watch: {
     // call again the method if the route changes
-    '$route': 'fetchData'
+    $route: 'fetchData',
   },
   methods: {
     fetchData() {
-      this.$startLoading('fetching data')
+      this.$startLoading('fetching data');
       // Get this playlist's tracks
       spotifyApi.getMyRecentlyPlayedTracks()
         .then((response) => {
-          this.lastheard = response.items
-          this.$endLoading('fetching data')
-        })
-    }
-  }
-}
+          this.lastheard = response.items;
+          this.$endLoading('fetching data');
+        });
+    },
+  },
+};
 </script>

@@ -25,13 +25,13 @@
 </template>
 
 <script>
-import router from '../router'
+import router from '../router';
 
 export default {
   data() {
     return {
-      playing: false
-    }
+      playing: false,
+    };
   },
   props: [
     'type',
@@ -39,28 +39,27 @@ export default {
     'secondaryID',
     'title',
     'artist',
-    'image'
+    'image',
   ],
   methods: {
     toTarget(type, primaryID, secondaryID) {
       if (type === 'playlist') {
         router.push({
-          path: '/' + type + '/' + secondaryID + '/' + primaryID
-        })
-      }
-      else {
+          path: `/${type}/${secondaryID}/${primaryID}`,
+        });
+      } else {
         router.push({
-          path: '/' + type + '/' + primaryID
-        })
+          path: `/${type}/${primaryID}`,
+        });
       }
     },
     toArtist(type, artistID) {
       router.push({
-        path: '/' + type + '/' + artistID
-      })
-    }
-  }
-}
+        path: `/${type}/${artistID}`,
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss">

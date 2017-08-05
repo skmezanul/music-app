@@ -51,9 +51,9 @@ export default {
     'image',
     'title',
     'primaryInfo',
-    'secondaryInfo'
-  ]
-}
+    'secondaryInfo',
+  ],
+};
 </script>
 
 <style lang="scss">

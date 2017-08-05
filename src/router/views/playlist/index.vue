@@ -18,33 +18,33 @@
 </main>
 </template>
 <script>
-import spotifyApi from '../../../api/'
+import spotifyApi from '../../../api/';
 
 export default {
   data() {
     return {
-      playlist: {}
-    }
+      playlist: {},
+    };
   },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.fetchData()
+    this.fetchData();
   },
   watch: {
     // call again the method if the route changes
-    '$route': 'fetchData'
+    $route: 'fetchData',
   },
   methods: {
     fetchData() {
-      this.$startLoading('fetching data')
+      this.$startLoading('fetching data');
       // Get this playlist's tracks
       spotifyApi.getPlaylist(this.$route.params.user, this.$route.params.id)
         .then((response) => {
-          this.playlist = response
-          this.$endLoading('fetching data')
-        })
-    }
-  }
-}
+          this.playlist = response;
+          this.$endLoading('fetching data');
+        });
+    },
+  },
+};
 </script>

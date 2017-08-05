@@ -63,49 +63,44 @@
 </template>
 
 <script>
-import spotifyApi from '../api/'
-import router from '../router'
+import spotifyApi from '../api/';
+import router from '../router';
 
 export default {
   data() {
     return {
-      results: {}
-    }
+      results: {},
+    };
   },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.fetchData()
+    this.fetchData();
   },
   props: [
-    'searchQuery'
+    'searchQuery',
   ],
-  computed: {
-    countResults() {
-      return
-    }
-  },
   watch: {
     // call again the method if the prop changes
-    'searchQuery': 'fetchData'
+    searchQuery: 'fetchData',
   },
   methods: {
     fetchData() {
       spotifyApi.search(this.searchQuery, ['album', 'artist', 'track'])
-        .then(response => this.results = response)
+        .then(response => this.results = response);
     },
     toTarget(type, target) {
       router.push({
-        path: '/' + type + '/' + target
-      })
+        path: `/${type}/${target}`,
+      });
     },
     toArtist(type, artistID) {
       router.push({
-        path: '/' + type + '/' + artistID
-      })
-    }
-  }
-}
+        path: `/${type}/${artistID}`,
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss">

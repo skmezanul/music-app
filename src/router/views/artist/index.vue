@@ -17,49 +17,49 @@
 </main>
 </template>
 <script>
-import spotifyApi from '../../../api/'
+import spotifyApi from '../../../api/';
 
 export default {
   data() {
     return {
       navigation: [{
-          title: 'Overview',
-          link: ''
-        },
-        {
-          title: 'Concerts',
-          link: 'concerts'
-        },
-        {
-          title: 'Similar Artists',
-          link: 'similar'
-        },
-        {
-          title: 'Information',
-          link: 'information'
-        }
-      ]
-    }
+        title: 'Overview',
+        link: '',
+      },
+      {
+        title: 'Concerts',
+        link: 'concerts',
+      },
+      {
+        title: 'Similar Artists',
+        link: 'similar',
+      },
+      {
+        title: 'Information',
+        link: 'information',
+      },
+      ],
+    };
   },
   beforeRouteEnter(to, from, next) {
     spotifyApi.getArtist(to.params.id, (err, response) => {
-      next(vm => vm.setData(err, response))
-    })
+      next(vm => vm.setData(err, response));
+    });
   },
   beforeRouteUpdate(to, from, next) {
     spotifyApi.getArtist(to.params.id, (err, response) => {
-      this.setData(err, response)
-      next()
-    })
+      this.setData(err, response);
+      next();
+    });
   },
   methods: {
     setData(err, response) {
       if (err) {
-        console.log(err.toString())
+        console.log(err.toString());
       } else {
-        this.$store.commit('artistInfo', response)
+        this.$store.commit('artistInfo', response);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>

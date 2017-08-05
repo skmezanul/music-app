@@ -25,29 +25,29 @@
 </div>
 </template>
 <script>
-import spotifyApi from '../../../api/'
+import spotifyApi from '../../../api/';
 
 export default {
   data() {
     return {
-      featured: {}
-    }
+      featured: {},
+    };
   },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.fetchData()
+    this.fetchData();
   },
   watch: {
     // call again the method if the route changes
-    '$route': 'fetchData'
+    $route: 'fetchData',
   },
   methods: {
     fetchData() {
       // Get this artist's albums from the api
       spotifyApi.getFeaturedPlaylists()
-        .then(response => this.featured = response)
-    }
-  }
-}
+        .then(response => this.featured = response);
+    },
+  },
+};
 </script>

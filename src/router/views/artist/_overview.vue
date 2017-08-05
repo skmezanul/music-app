@@ -45,34 +45,34 @@
 </div>
 </template>
 <script>
-import spotifyApi from '../../../api/'
+import spotifyApi from '../../../api/';
 
 export default {
   data() {
     return {
       tracks: {},
-      albums: {}
-    }
+      albums: {},
+    };
   },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.fetchData()
+    this.fetchData();
   },
   watch: {
     // call again the method if the route changes
-    '$route': 'fetchData'
+    $route: 'fetchData',
   },
   methods: {
     fetchData() {
       // Get this artist's albums from the api
       spotifyApi.getArtistAlbums(this.$route.params.id, {
-          country: this.$store.state.currentUser.country
-        })
-        .then(response => this.albums = response.items)
+        country: this.$store.state.currentUser.country,
+      })
+        .then(response => this.albums = response.items);
       spotifyApi.getArtistTopTracks(this.$route.params.id, this.$store.state.currentUser.country)
-        .then(response => this.tracks = response.tracks)
-    }
-  }
-}
+        .then(response => this.tracks = response.tracks);
+    },
+  },
+};
 </script>

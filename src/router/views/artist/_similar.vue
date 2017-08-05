@@ -18,31 +18,31 @@
 </div>
 </template>
 <script>
-import spotifyApi from '../../../api/'
+import spotifyApi from '../../../api/';
 
 export default {
   data() {
     return {
-      similar: {}
-    }
+      similar: {},
+    };
   },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.fetchData()
+    this.fetchData();
   },
   watch: {
     // call again the method if the route changes
-    '$route': 'fetchData'
+    $route: 'fetchData',
   },
   methods: {
     fetchData() {
       // Get artists similar to this artist from the api
       spotifyApi.getArtistRelatedArtists(this.$route.params.id)
       .then((response) => {
-          this.similar = response.artists
-        })
-    }
-  }
-}
+        this.similar = response.artists;
+      });
+    },
+  },
+};
 </script>

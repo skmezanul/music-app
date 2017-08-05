@@ -16,28 +16,28 @@
 export default {
   data() {
     return {
-      biography: null
-    }
+      biography: null,
+    };
   },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.fetchData()
+    this.fetchData();
   },
   watch: {
     // call again the method if the route changes
-    '$route': 'fetchData'
+    $route: 'fetchData',
   },
   methods: {
     fetchData() {
       // Get this artist's biography from the api
       this.axios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.getInfo&api_key=5ee365767f401c005a08f2ef9a92b66c&artist=${this.$store.state.artist.name}&limit=5&autocorrect=1&format=json`).then((response) => {
-          this.biography = response.data.artist.bio.content
-        })
+        this.biography = response.data.artist.bio.content;
+      })
         .catch((error) => {
-          this.biography = 'No biography available for this artist.'
-        })
-    }
-  }
-}
+          this.biography = 'No biography available for this artist.';
+        });
+    },
+  },
+};
 </script>

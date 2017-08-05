@@ -29,8 +29,8 @@
 </footer>
 </template>
 <script>
-import spotifyApi from '../api/'
-import router from '../router'
+import spotifyApi from '../api/';
+import router from '../router';
 
 export default {
   data() {
@@ -38,71 +38,71 @@ export default {
       volume: 50,
       playing: {},
       bgStyle: {
-        "backgroundColor": "#1A1D2C"
+        backgroundColor: '#1A1D2C',
       },
       sliderStyle: {
-        "backgroundColor": "#ca2a59"
-      }
-    }
+        backgroundColor: '#ca2a59',
+      },
+    };
   },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.fetchData()
+    this.fetchData();
   },
   watch: {
-    // call again the method if value changes
-    'playing': 'fetchData',
-    'volume': 'setVolume'
+    // call again the method if value changesz
+    playing: 'fetchData',
+    volume: 'setVolume',
   },
   methods: {
     toArtist(type, artistID) {
       router.push({
-        path: '/' + type + '/' + artistID
-      })
+        path: `/${type}/${artistID}`,
+      });
     },
     fetchData() {
       spotifyApi.getMyCurrentPlaybackState()
-        .then(response => this.playing = response)
+        .then(response => this.playing = response);
     },
     previousTrack() {
       spotifyApi.skipToPrevious({
-        device_id: this.$store.state.deviceID
-      })
+        device_id: this.$store.state.deviceID,
+      });
     },
     nextTrack() {
       spotifyApi.skipToNext({
-        device_id: this.$store.state.deviceID
-      })
+        device_id: this.$store.state.deviceID,
+      });
     },
     pausePlayback() {
       spotifyApi.pause({
-        device_id: this.$store.state.deviceID
-      })
+        device_id: this.$store.state.deviceID,
+      });
     },
     resumePlayback() {
       spotifyApi.play({
-        device_id: this.$store.state.deviceID
-      })
+        device_id: this.$store.state.deviceID,
+      });
     },
     toggleRepeat() {
       spotifyApi.setRepeat({
-        device_id: this.$store.state.deviceID
-      })
+        device_id: this.$store.state.deviceID,
+      });
     },
     toggleShuffle() {
       spotifyApi.setShuffle({
-        device_id: this.$store.state.deviceID
-      })
+        device_id: this.$store.state.deviceID,
+      });
     },
     setVolume() {
       spotifyApi.setVolume({
         volume_percent: this.volume,
-        device_id: this.$store.state.deviceID
-      })
-    }
-  }
-}
+        device_id: this.$store.state.deviceID,
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss">

@@ -26,6 +26,7 @@ $duration: 1.4s;
         animation: rotate $duration linear infinite;
     }
 }
+
 @keyframes rotate {
     0% {
         transform: rotate(0deg);
@@ -34,6 +35,7 @@ $duration: 1.4s;
         transform: rotate(270deg);
     }
 }
+
 @keyframes dash {
     0% {
         stroke-dashoffset: $offset;

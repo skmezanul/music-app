@@ -29,7 +29,7 @@ export default {
     'city',
     'country',
     'venue',
-    'image'
+    'image',
   ]
 }
 </script>

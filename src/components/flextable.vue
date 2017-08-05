@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       playing: false,
-    }
+    };
   },
   props: [
     'index',
@@ -36,21 +36,21 @@ export default {
     'artists',
     'album',
     'duration',
-    'image'
+    'image',
   ],
   methods: {
-    playTrack: function(title, artist) {
-      this.playing = !this.playing
-    }
+    playTrack(title, artist) {
+      this.playing = !this.playing;
+    },
   },
   computed: {
     formattedDuration() {
       const minutes = Math.floor(this.duration / 60000);
       const seconds = ((this.duration % 60000) / 1000).toFixed(0);
-      return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
-    }
-  }
-}
+      return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    },
+  },
+};
 </script>
 
 <style lang="scss">

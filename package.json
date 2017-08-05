@@ -1,8 +1,8 @@
 {
   "name": "music-app",
-  "description": "Music streaming app built with Webpack and Vue.js.",
+  "description": "Music app built with webpack and vue.js.",
   "version": "1.1.0",
-  "author": "microeinhundert <leon-fm@gmx.de>",
+  "author": "microeinhundert <contact@micro100.de>",
   "private": true,
   "license": "Apache License 2.0",
   "scripts": {
@@ -23,7 +23,8 @@
     "frontend",
     "vue.js",
     "webpack",
-    "web"
+    "web",
+    "spotify"
   ],
   "dependencies": {
     "axios": "^0.16.2",

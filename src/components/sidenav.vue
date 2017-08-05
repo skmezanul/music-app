@@ -30,7 +30,7 @@
         <h4>My Playlists</h4>
       </li>
       <li v-for="playlist in playlists">
-        <router-link :to="'/'+playlist.type+'/'+playlist.owner.id+'/'+playlist.id">
+        <router-link :to="`/${playlist.type}/${playlist.owner.id}/${playlist.id}`">
           <i class="material-icons">playlist_play</i>
           <span>{{ playlist.name }}</span>
         </router-link>
@@ -44,26 +44,26 @@
 </template>
 
 <script>
-import spotifyApi from '../api/'
+import spotifyApi from '../api/';
 
 export default {
   data() {
     return {
-      playlists: {}
-    }
+      playlists: {},
+    };
   },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.fetchData()
+    this.fetchData();
   },
   methods: {
     fetchData() {
       spotifyApi.getUserPlaylists()
-        .then(response => this.playlists = response.items)
+        .then(response => this.playlists = response.items);
     },
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss">

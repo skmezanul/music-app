@@ -20,43 +20,44 @@
     <!--Insert Tooltips-->
 
   </div>
-    <v-loading>
+
+    <loading class="loading-container">
       <template slot='spinner'>
-      <loading></loading>
-       </template>
-    </v-loading>
+        <spinner></spinner>
+      </template>
+    </loading>
 
 </div>
 </template>
 
 <script>
-import spotifyApi from './api/'
+import spotifyApi from './api/';
 
 export default {
   data() {
     return {
-      scrollPosition: null
-    }
+      scrollPosition: null,
+    };
   },
   methods: {
     updateScroll() {
-      this.scrollPosition = window.scrollY
-    }
+      this.scrollPosition = window.scrollY;
+    },
   },
   created() {
     // Get the current user's profile
     spotifyApi.getMe()
-      .then(response => this.$store.commit('currentUser', response))
+      .then(response => this.$store.commit('currentUser', response));
     // Get the current device's ID
     spotifyApi.getMyDevices()
-      .then(response => this.$store.commit('deviceID', response.devices[0].id))
+      .then(response => this.$store.commit('deviceID', response.devices[0].id));
   },
   mounted() {
-    window.addEventListener('scroll', this.updateScroll)
+    window.addEventListener('scroll', this.updateScroll);
   },
   destroy() {
-    window.removeEventListener('scroll', this.updateScroll)
-  }
+    window.removeEventListener('scroll', this.updateScroll);
+  },
 };
 </script>
 
