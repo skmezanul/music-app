@@ -23,7 +23,7 @@ import spotifyApi from '../../../api/';
 export default {
   data() {
     return {
-      playlist: {},
+      playlist: [],
     };
   },
   created() {

@@ -50,8 +50,8 @@ import spotifyApi from '../../../api/';
 export default {
   data() {
     return {
-      tracks: {},
-      albums: {},
+      tracks: [],
+      albums: [],
     };
   },
   created() {

@@ -33,7 +33,7 @@
     <nav v-if="navigation != null" class="subnav mobile-hidden">
       <ul>
         <li v-for="navitem in navigation">
-          <router-link :to="'/'+type+'/'+$route.params.id+'/'+navitem.link">{{ navitem.title }}</router-link>
+          <router-link :to="`/${type}/${$route.params.id}/${navitem.link}`">{{ navitem.title }}</router-link>
         </li>
       </ul>
     </nav>

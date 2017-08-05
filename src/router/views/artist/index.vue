@@ -18,12 +18,10 @@
 </template>
 
 <script>
-import spotifyApi from '../../../api/';
-
 export default {
   data() {
     return {
-      artist: {},
+      artist: [],
       navigation: [{
         title: 'Overview',
         link: '',
@@ -56,11 +54,16 @@ export default {
     fetchData() {
       this.$startLoading('fetching data');
       // Get artist information
-      spotifyApi.getArtist(this.$route.params.id)
-        .then((response) => {
-          this.artist = response;
-          this.$endLoading('fetching data');
-        });
+      this.axios({
+        method: 'get',
+        url: `/artists/${this.$route.params.id}`,
+      }).then((res) => {
+        this.artist = res.data;
+        this.$endLoading('fetching data');
+      }).catch((error) => {
+        this.$store.commit('error', 'Artist info could not be fetched, please try again later.');
+        this.artist = [];
+      });
     },
   },
 };

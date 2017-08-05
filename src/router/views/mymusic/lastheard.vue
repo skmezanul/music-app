@@ -36,7 +36,7 @@ import spotifyApi from '../../../api/';
 export default {
   data() {
     return {
-      lastheard: {},
+      lastheard: [],
     };
   },
   created() {

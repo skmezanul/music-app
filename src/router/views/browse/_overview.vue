@@ -30,7 +30,7 @@ import spotifyApi from '../../../api/';
 export default {
   data() {
     return {
-      featured: {},
+      featured: [],
     };
   },
   created() {
