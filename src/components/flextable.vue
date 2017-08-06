@@ -1,12 +1,12 @@
 <template>
-<li class="table-row" @dblclick="playTrack(title, subtitle)" :class="{ 'playing': playing }">
+<li class="table-row" @dblclick="playTrack()" :class="{ 'playing': playing }">
   <div v-if="image != null" class="image-container">
     <i v-if="playing === false" @click="playTrack(title, subtitle)" class="material-icons">play_circle_filled</i>
     <i v-if="playing === true" class="material-icons playing">volume_up</i>
     <i v-if="playing === true" @click="playTrack(title, subtitle)" class="material-icons">pause_circle_filled</i>
     <img :src="image" :alt="title" />
   </div>
-  <span v-if="index != null" class="index mobile-hidden">{{String("0" + (index+1)).slice(-2)}}</span>
+  <span v-if="index != null" class="index mobile-hidden">{{ String("0" + (index+1)).slice(-2) }}</span>
   <div class="meta-container">
     <span>{{title}}</span>
     <div v-if="artists != null" class="artist-container">
@@ -36,11 +36,27 @@ export default {
     'artists',
     'album',
     'duration',
+    'primaryID',
     'image',
   ],
   methods: {
-    playTrack(title, artist) {
-      this.playing = !this.playing;
+    playTrack() {
+      if (this.playing === false) {
+        this.axios({
+          method: 'put',
+          url: '/me/player/play',
+          data: {
+            context_uri: 'spotify:album:5ht7ItJgpBH7W6vJ5BqpPr',
+          },
+        })
+          .then(() => {
+            this.playing = true;
+          }).catch(() => {
+            this.$store.commit('error', 'Track could not be played, please try again later.');
+          });
+      } else {
+        this.playing = false;
+      }
     },
   },
   computed: {

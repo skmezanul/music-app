@@ -1,7 +1,6 @@
 // Components for "browse"
 const browseIndex = require('./views/browse/index.vue');
 const browseOverview = require('./views/browse/_overview.vue');
-const browseCharts = require('./views/browse/_charts.vue');
 
 // Components for "artist"
 const artistIndex = require('./views/artist/index.vue');
@@ -11,7 +10,7 @@ const artistSimilar = require('./views/artist/_similar.vue');
 const artistInformation = require('./views/artist/_information.vue');
 
 // Components for "mymusic"
-const mymusicLastheard = require('./views/mymusic/lastheard.vue');
+const mymusicHistory = require('./views/mymusic/history.vue');
 
 // Component for single album
 const albumIndex = require('./views/album/index.vue');
@@ -21,22 +20,15 @@ const playlistIndex = require('./views/playlist/index.vue');
 
 export default [{
   path: '/browse',
+  name: 'browseIndex',
   component: browseIndex,
   children: [{
     path: '',
-    name: 'Overview2',
+    name: 'browseOverview',
     meta: {
       stage: 'compact',
     },
     component: browseOverview,
-  },
-  {
-    path: 'charts',
-    name: 'charts',
-    meta: {
-      stage: 'compact',
-    },
-    component: browseCharts,
   },
   ],
 },
@@ -45,7 +37,7 @@ export default [{
   component: artistIndex,
   children: [{
     path: '',
-    name: 'overview',
+    name: 'artistOverview',
     meta: {
       stage: 'full',
     },
@@ -53,7 +45,7 @@ export default [{
   },
   {
     path: 'concerts',
-    name: 'concerts',
+    name: 'artistConcerts',
     meta: {
       stage: 'compact',
     },
@@ -61,7 +53,7 @@ export default [{
   },
   {
     path: 'similar',
-    name: 'similar',
+    name: 'artistSimilar',
     meta: {
       stage: 'compact',
     },
@@ -69,7 +61,7 @@ export default [{
   },
   {
     path: 'information',
-    name: 'information',
+    name: 'artistInformation',
     meta: {
       stage: 'compact',
     },
@@ -79,23 +71,26 @@ export default [{
 },
 {
   path: '/album/:id',
-  component: albumIndex,
+  name: 'albumIndex',
   meta: {
     stage: 'compact',
   },
+  component: albumIndex,
 },
 {
   path: '/playlist/:user/:id',
-  component: playlistIndex,
+  name: 'playlistIndex',
   meta: {
     stage: 'compact',
   },
+  component: playlistIndex,
 },
 {
-  path: '/lastheard',
-  component: mymusicLastheard,
+  path: '/history',
+  name: 'mymusicHistory',
   meta: {
     stage: 'full',
   },
+  component: mymusicHistory,
 },
 ];

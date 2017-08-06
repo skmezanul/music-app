@@ -13,7 +13,7 @@
       <li>
         <h4>My Music</h4></li>
       <li>
-        <router-link to="/lastheard"><i class="material-icons">history</i>Last heard</router-link>
+        <router-link to="/history"><i class="material-icons">history</i>Recently Played</router-link>
       </li>
       <li>
         <router-link to="/songs"><i class="material-icons">music_note</i>Songs</router-link>
@@ -44,8 +44,6 @@
 </template>
 
 <script>
-import spotifyApi from '../api/';
-
 export default {
   data() {
     return {
@@ -59,8 +57,19 @@ export default {
   },
   methods: {
     fetchData() {
-      spotifyApi.getUserPlaylists()
-        .then(response => this.playlists = response.items);
+      // get current user's playlists from the api
+      this.axios({
+        method: 'get',
+        url: `/me/playlists`,
+        params: {
+          limit: 10,
+        },
+      }).then((res) => {
+        this.playlists = res.data.items;
+      }).catch(() => {
+        this.$store.commit('error', 'Playlists could not be fetched, please try again later.');
+        this.playlists = [];
+      });
     },
   },
 };
@@ -88,7 +97,6 @@ nav {
 
             .sidenav-section {
                 margin: 15px;
-
                 &:last-child {
                     border-top: 1px solid $border-color;
                     margin: auto 0 0;

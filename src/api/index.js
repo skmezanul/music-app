@@ -1,11 +1,17 @@
-import * as SpotifyWebApi from 'spotify-web-api-js';
+import Vue from 'vue';
+import VueAxios from 'vue-axios';
+import axios from 'axios';
 
-const spotifyApi = new SpotifyWebApi();
+Vue.use(VueAxios, axios);
 
-// Your api token goes here. You can get it from
+// Your api token goes here:
+const token = '';
+// You can get it from
 // https://developer.spotify.com/web-api/console/post-next/
 // Remember to grant all permissions for the app to work properly.
-spotifyApi.setAccessToken('');
-// I know you don't expose your api keys to the public. It's only temporary for development.
 
-export default spotifyApi;
+// Set default baseURL
+Vue.axios.defaults.baseURL = 'https://api.spotify.com/v1/';
+
+// Set default authorization header
+Vue.axios.defaults.headers.common.Authorization = `Bearer ${token}`;

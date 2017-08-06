@@ -25,8 +25,6 @@
 </div>
 </template>
 <script>
-import spotifyApi from '../../../api/';
-
 export default {
   data() {
     return {
@@ -44,9 +42,21 @@ export default {
   },
   methods: {
     fetchData() {
-      // Get this artist's albums from the api
-      spotifyApi.getFeaturedPlaylists()
-        .then(response => this.featured = response);
+      this.$startLoading('fetching data');
+      // get featured playlists from the api
+      this.axios({
+        method: 'get',
+        url: '/browse/featured-playlists',
+        params: {
+          country: this.$store.state.currentUser.country,
+        },
+      }).then((res) => {
+        this.featured = res.data;
+        this.$endLoading('fetching data');
+      }).catch(() => {
+        this.$store.commit('error', 'Featured playlists could not be fetched, please try again later.');
+        this.featured = [];
+      });
     },
   },
 };

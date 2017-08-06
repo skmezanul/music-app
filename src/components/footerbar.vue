@@ -29,9 +29,6 @@
 </footer>
 </template>
 <script>
-import spotifyApi from '../api/';
-import router from '../router';
-
 export default {
   data() {
     return {
@@ -48,57 +45,107 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.fetchData();
+    this.currentPlayback();
   },
   watch: {
     // call again the method if value changesz
-    playing: 'fetchData',
+    playing: 'currentPlayback',
     volume: 'setVolume',
   },
   methods: {
     toArtist(type, artistID) {
-      router.push({
+      this.$router.push({
         path: `/${type}/${artistID}`,
       });
     },
-    fetchData() {
-      spotifyApi.getMyCurrentPlaybackState()
-        .then(response => this.playing = response);
+    currentPlayback() {
+      this.axios({
+        method: 'get',
+        url: '/me/player',
+      }).then((res) => {
+        this.playing = res.data;
+      }).catch(() => {
+        this.$store.commit('error', 'Could not fetch your current playback, please try again later.');
+      });
     },
     previousTrack() {
-      spotifyApi.skipToPrevious({
-        device_id: this.$store.state.deviceID,
+      this.axios({
+        method: 'post',
+        url: '/me/player/previous',
+        params: {
+          device_id: this.$store.state.deviceID,
+        },
+      }).catch(() => {
+        this.$store.commit('error', 'Could not skip to previous track, please try again later.');
       });
     },
     nextTrack() {
-      spotifyApi.skipToNext({
-        device_id: this.$store.state.deviceID,
+      this.axios({
+        method: 'post',
+        url: '/me/player/next',
+        params: {
+          device_id: this.$store.state.deviceID,
+        },
+      }).catch(() => {
+        this.$store.commit('error', 'Could not skip to next track, please try again later.');
       });
     },
     pausePlayback() {
-      spotifyApi.pause({
-        device_id: this.$store.state.deviceID,
+      this.axios({
+        method: 'put',
+        url: '/me/player/pause',
+        params: {
+          device_id: this.$store.state.deviceID,
+        },
+      }).catch(() => {
+        this.$store.commit('error', 'Could not pause playback, please try again later.');
       });
     },
     resumePlayback() {
-      spotifyApi.play({
-        device_id: this.$store.state.deviceID,
+      this.axios({
+        method: 'put',
+        url: '/me/player/play',
+        params: {
+          device_id: this.$store.state.deviceID,
+        },
+      }).catch(() => {
+        this.$store.commit('error', 'Could not resume playback, please try again later.');
       });
     },
     toggleRepeat() {
-      spotifyApi.setRepeat({
-        device_id: this.$store.state.deviceID,
+      this.axios({
+        method: 'put',
+        url: '/me/player/repeat',
+        params: {
+          state: 'context',
+          device_id: this.$store.state.deviceID,
+        },
+      }).catch(() => {
+        this.$store.commit('error', 'Could not toggle repeat, please try again later.');
       });
     },
     toggleShuffle() {
-      spotifyApi.setShuffle({
-        device_id: this.$store.state.deviceID,
+      this.axios({
+        method: 'put',
+        url: '/me/player/shuffle',
+        params: {
+          state: !this.playing.shuffle_state,
+          device_id: this.$store.state.deviceID,
+        },
+      }).catch(() => {
+        this.$store.commit('error', 'Could not toggle shuffle, please try again later.');
       });
     },
     setVolume() {
-      spotifyApi.setVolume({
-        volume_percent: this.volume,
-        device_id: this.$store.state.deviceID,
+      this.axios({
+        method: 'put',
+        url: '/me/player/volume',
+        params: {
+          volume_percent: this.volume,
+          device_id: this.$store.state.deviceID,
+        },
+      }).catch(() => {
+        this.$store.commit('error', 'Volume could not be changed, please try again later.');
       });
     },
   },

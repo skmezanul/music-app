@@ -3,23 +3,24 @@
 
   <!--Stage-->
   <stage
-  :type="album.type"
-  :image="album.images[0].url"
-  :title="album.name"
-  :primaryInfo="'By '+album.artists[0].name"
-  :secondaryInfo="'Released '+album.release_date"
+  type="My Music"
+  title="Recently Played"
+  :image="history[0].track.album.images[0].url"
   ></stage>
 
   <div class="page-container">
 
-    <section class="page-section tracks">
+    <section class="page-section lastheard">
       <ol class="flex-table">
         <flextable
-        v-for="(track, index) in album.tracks.items"
-        :key="track.id"
-        :type="track.type"
-        :title="track.name"
-        :duration="track.duration_ms"
+        v-for="(history, index) in history"
+        :key="history.track.id"
+        :type="history.track.type"
+        :image="history.track.album.images[0].url"
+        :title="history.track.name"
+        :artists="history.track.artists"
+        :album="history.track.album"
+        :duration="history.track.duration_ms"
         :index="index"
         ></flextable>
       </ol>
@@ -33,7 +34,7 @@
 export default {
   data() {
     return {
-      album: {},
+      history: [],
     };
   },
   created() {
@@ -48,19 +49,19 @@ export default {
   methods: {
     fetchData() {
       this.$startLoading('fetching data');
-      // get album from the api
+      // get recently played tracks from the api
       this.axios({
         method: 'get',
-        url: `/albums/${this.$route.params.id}`,
+        url: '/me/player/recently-played',
         params: {
-          market: this.$store.state.currentUser.country,
+          type: 'track',
         },
       }).then((res) => {
-        this.album = res.data;
+        this.history = res.data.items;
         this.$endLoading('fetching data');
       }).catch(() => {
-        this.$store.commit('error', 'Album could not be fetched, please try again later.');
-        this.album = [];
+        this.$store.commit('error', 'Your recently played tracks could not be fetched, please try again later.');
+        this.history = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');
       });

@@ -25,8 +25,6 @@
 </template>
 
 <script>
-import router from '../router';
-
 export default {
   data() {
     return {
@@ -44,17 +42,17 @@ export default {
   methods: {
     toTarget(type, primaryID, secondaryID) {
       if (type === 'playlist') {
-        router.push({
+        this.$router.push({
           path: `/${type}/${secondaryID}/${primaryID}`,
         });
       } else {
-        router.push({
+        this.$router.push({
           path: `/${type}/${primaryID}`,
         });
       }
     },
     toArtist(type, artistID) {
-      router.push({
+      this.$router.push({
         path: `/${type}/${artistID}`,
       });
     },

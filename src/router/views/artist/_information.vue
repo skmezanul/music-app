@@ -31,14 +31,17 @@ export default {
   },
   methods: {
     fetchData() {
-      // Get this artist's biography from the api
-      this.axios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.getInfo&api_key=5ee365767f401c005a08f2ef9a92b66c&artist=${this.$parent.artist.name}&limit=5&autocorrect=1&format=json`)
-        .then((response) => {
-          this.biography = response.data.artist.bio.content;
-        })
-        .catch((error) => {
-          this.biography = 'No biography available for this artist.';
-        });
+      // get this artist's biography
+      this.axios({
+        method: 'get',
+        baseURL: 'http://ws.audioscrobbler.com/2.0/',
+        url: `/?method=artist.getInfo&api_key=5ee365767f401c005a08f2ef9a92b66c&artist=${this.$parent.artist.name}&limit=5&autocorrect=1&format=json`,
+      }).then((res) => {
+        this.biography = res.data.artist.bio.content;
+      }).catch(() => {
+        this.$store.commit('error', 'Biography could not be fetched, please try again later.');
+        this.biography = null;
+      });
     },
   },
 };

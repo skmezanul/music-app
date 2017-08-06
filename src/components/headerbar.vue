@@ -40,7 +40,6 @@
 </template>
 
 <script>
-import router from '../router';
 import {
   directive as onClickaway,
 } from 'vue-clickaway';
@@ -58,10 +57,10 @@ export default {
   },
   methods: {
     goBack() {
-      router.go(-1);
+      this.$router.go(-1);
     },
     goForward() {
-      router.go(1);
+      this.$router.go(1);
     },
     toggleSearch() {
       this.searchDropdown = !this.searchDropdown;

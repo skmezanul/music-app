@@ -18,8 +18,6 @@
 </div>
 </template>
 <script>
-import spotifyApi from '../../../api/';
-
 export default {
   data() {
     return {
@@ -38,11 +36,16 @@ export default {
   },
   methods: {
     fetchData() {
-      // Get artists similar to this artist from the api
-      spotifyApi.getArtistRelatedArtists(this.$route.params.id)
-        .then((response) => {
-          this.similar = response.artists;
-        });
+      // get artists similar to this artist from the api
+      this.axios({
+        method: 'get',
+        url: `/artists/${this.$route.params.id}/related-artists`,
+      }).then((res) => {
+        this.similar = res.data.artists;
+      }).catch(() => {
+        this.$store.commit('error', 'Similar artists could not be fetched, please try again later.');
+        this.similar = [];
+      });
     },
   },
 };

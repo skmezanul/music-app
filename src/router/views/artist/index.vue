@@ -53,16 +53,18 @@ export default {
   methods: {
     fetchData() {
       this.$startLoading('fetching data');
-      // Get artist information
+      // get artist information from the api
       this.axios({
         method: 'get',
         url: `/artists/${this.$route.params.id}`,
       }).then((res) => {
         this.artist = res.data;
         this.$endLoading('fetching data');
-      }).catch((error) => {
+      }).catch(() => {
         this.$store.commit('error', 'Artist info could not be fetched, please try again later.');
         this.artist = [];
+        this.$router.go(-1);
+        this.$endLoading('fetching data');
       });
     },
   },

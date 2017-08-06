@@ -18,8 +18,6 @@
 </main>
 </template>
 <script>
-import spotifyApi from '../../../api/';
-
 export default {
   data() {
     return {
@@ -38,12 +36,22 @@ export default {
   methods: {
     fetchData() {
       this.$startLoading('fetching data');
-      // Get this playlist's tracks
-      spotifyApi.getPlaylist(this.$route.params.user, this.$route.params.id)
-        .then((response) => {
-          this.playlist = response;
-          this.$endLoading('fetching data');
-        });
+      // get playlist from the api
+      this.axios({
+        method: 'get',
+        url: `/users/${this.$route.params.user}/playlists/${this.$route.params.id}`,
+        params: {
+          market: this.$store.state.currentUser.country,
+        },
+      }).then((res) => {
+        this.playlist = res.data;
+        this.$endLoading('fetching data');
+      }).catch(() => {
+        this.$store.commit('error', 'Playlist could not be fetched, please try again later.');
+        this.playlist = [];
+        this.$router.go(-1);
+        this.$endLoading('fetching data');
+      });
     },
   },
 };

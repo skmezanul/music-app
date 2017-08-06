@@ -1,6 +1,6 @@
 import Vue from 'vue';
+import './api';
 import './components';
-import './api/api.js';
 import app from './app.vue';
 import store from './store';
 import router from './router';

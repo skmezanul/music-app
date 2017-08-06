@@ -31,26 +31,47 @@
 </template>
 
 <script>
-import spotifyApi from './api/';
-
 export default {
   data() {
     return {
       scrollPosition: null,
     };
   },
+  created() {
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.getCurrentUser();
+    this.getMyDevices();
+  },
   methods: {
+    // get the current scroll position
     updateScroll() {
       this.scrollPosition = window.scrollY;
     },
-  },
-  created() {
-    // Get the current user's profile
-    spotifyApi.getMe()
-      .then(response => this.$store.commit('currentUser', response));
-    // Get the current device's ID
-    spotifyApi.getMyDevices()
-      .then(response => this.$store.commit('deviceID', response.devices[0].id));
+
+    // get the current user's info
+    getCurrentUser() {
+      this.axios({
+        method: 'get',
+        url: '/me',
+      }).then((res) => {
+        this.$store.commit('currentUser', res.data);
+      }).catch(() => {
+        this.$store.commit('error', 'Current user could not be fetched, please try again later.');
+      });
+    },
+
+    // get the current device's ID
+    getMyDevices() {
+      this.axios({
+        method: 'get',
+        url: '/me/player/devices',
+      }).then((res) => {
+        this.$store.commit('deviceID', res.data.devices[0].id);
+      }).catch(() => {
+        this.$store.commit('error', 'Available devices could not be fetched, please try again later.');
+      });
+    },
   },
   mounted() {
     window.addEventListener('scroll', this.updateScroll);
@@ -141,7 +162,7 @@ a {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
         .section-actions {
             span {
                 display: flex;

@@ -90,12 +90,12 @@ export default {
         .then(response => this.results = response);
     },
     toTarget(type, target) {
-      router.push({
+      this.$router.push({
         path: `/${type}/${target}`,
       });
     },
     toArtist(type, artistID) {
-      router.push({
+      this.$router.push({
         path: `/${type}/${artistID}`,
       });
     },
