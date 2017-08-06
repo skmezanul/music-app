@@ -27,23 +27,18 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.fetchData();
-  },
-  watch: {
-    // call again the method if the route changes
-    $route: 'fetchData',
-    $parent: 'fetchData',
+    this.getSimilarArtists();
   },
   methods: {
-    fetchData() {
-      // get artists similar to this artist from the api
+    // get artists similar to this artist from the api
+    getSimilarArtists() {
       this.axios({
         method: 'get',
         url: `/artists/${this.$route.params.id}/related-artists`,
       }).then((res) => {
         this.similar = res.data.artists;
       }).catch(() => {
-        this.$store.commit('error', 'Similar artists could not be fetched, please try again later.');
+        this.$store.commit('notice', 'Similar artists could not be fetched, please try again later.');
         this.similar = [];
       });
     },

@@ -27,14 +27,10 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.fetchData();
-  },
-  watch: {
-    // call again the method if the route changes
-    $route: 'fetchData',
+    this.getSinglePlaylist();
   },
   methods: {
-    fetchData() {
+    getSinglePlaylist() {
       this.$startLoading('fetching data');
       // get playlist from the api
       this.axios({
@@ -47,7 +43,7 @@ export default {
         this.playlist = res.data;
         this.$endLoading('fetching data');
       }).catch(() => {
-        this.$store.commit('error', 'Playlist could not be fetched, please try again later.');
+        this.$store.commit('notice', 'Playlist could not be fetched, please try again later.');
         this.playlist = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');

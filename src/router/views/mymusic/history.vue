@@ -40,14 +40,10 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.fetchData();
-  },
-  watch: {
-    // call again the method if the route changes
-    $route: 'fetchData',
+    this.getRecentlyPlayed();
   },
   methods: {
-    fetchData() {
+    getRecentlyPlayed() {
       this.$startLoading('fetching data');
       // get recently played tracks from the api
       this.axios({
@@ -60,7 +56,7 @@ export default {
         this.history = res.data.items;
         this.$endLoading('fetching data');
       }).catch(() => {
-        this.$store.commit('error', 'Your recently played tracks could not be fetched, please try again later.');
+        this.$store.commit('notice', 'Your recently played tracks could not be fetched, please try again later.');
         this.history = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');

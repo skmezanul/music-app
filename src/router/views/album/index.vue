@@ -7,7 +7,7 @@
   :image="album.images[0].url"
   :title="album.name"
   :primaryInfo="'By '+album.artists[0].name"
-  :secondaryInfo="'Released '+album.release_date"
+  :secondaryInfo="`Released ${album.release_date}`"
   ></stage>
 
   <div class="page-container">
@@ -19,6 +19,7 @@
         :key="track.id"
         :type="track.type"
         :title="track.name"
+        :primaryID="track.id"
         :duration="track.duration_ms"
         :index="index"
         ></flextable>
@@ -33,22 +34,18 @@
 export default {
   data() {
     return {
-      album: {},
+      album: [],
     };
   },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.fetchData();
-  },
-  watch: {
-    // call again the method if the route changes
-    $route: 'fetchData',
+    this.getSingleAlbum();
   },
   methods: {
-    fetchData() {
+    // get album from the api
+    getSingleAlbum() {
       this.$startLoading('fetching data');
-      // get album from the api
       this.axios({
         method: 'get',
         url: `/albums/${this.$route.params.id}`,
@@ -59,7 +56,7 @@ export default {
         this.album = res.data;
         this.$endLoading('fetching data');
       }).catch(() => {
-        this.$store.commit('error', 'Album could not be fetched, please try again later.');
+        this.$store.commit('notice', 'Album could not be fetched, please try again later.');
         this.album = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');

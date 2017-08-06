@@ -141,7 +141,9 @@ export default {
             align-items: center;
             width: 100%;
             height: auto;
+            min-height: 231.5px;
             overflow: hidden;
+            background-color: darken($blue, 5%);
             img {
                 width: 100%;
                 height: auto;

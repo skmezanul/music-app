@@ -30,8 +30,8 @@ export default {
     'country',
     'venue',
     'image',
-  ]
-}
+  ],
+};
 </script>
 
 <style lang="scss">

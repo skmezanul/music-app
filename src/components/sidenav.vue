@@ -29,12 +29,14 @@
       <li>
         <h4>My Playlists</h4>
       </li>
-      <li v-for="playlist in playlists">
-        <router-link :to="`/${playlist.type}/${playlist.owner.id}/${playlist.id}`">
-          <i class="material-icons">playlist_play</i>
-          <span>{{ playlist.name }}</span>
-        </router-link>
-      </li>
+      <transition-group name="fade" tag="playlists">
+        <li v-for="playlist in playlists" :key="playlist.id">
+          <router-link :to="`/${playlist.type}/${playlist.owner.id}/${playlist.id}`">
+            <i class="material-icons">playlist_play</i>
+            <span>{{ playlist.name }}</span>
+          </router-link>
+        </li>
+      </transition-group>
     </div>
     <div class="sidenav-section">
       <li><a><i class="material-icons">playlist_add</i><span>New Playlist</span></a></li>
@@ -47,27 +49,27 @@
 export default {
   data() {
     return {
-      playlists: {},
+      playlists: [],
     };
   },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.fetchData();
+    this.getMyPlaylists();
   },
   methods: {
-    fetchData() {
-      // get current user's playlists from the api
+    // get current user's playlists from the api
+    getMyPlaylists() {
       this.axios({
         method: 'get',
-        url: `/me/playlists`,
+        url: '/me/playlists',
         params: {
           limit: 10,
         },
       }).then((res) => {
         this.playlists = res.data.items;
       }).catch(() => {
-        this.$store.commit('error', 'Playlists could not be fetched, please try again later.');
+        this.$store.commit('notice', 'Playlists could not be fetched, please try again later.');
         this.playlists = [];
       });
     },

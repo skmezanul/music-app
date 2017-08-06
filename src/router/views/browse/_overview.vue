@@ -34,16 +34,12 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.fetchData();
-  },
-  watch: {
-    // call again the method if the route changes
-    $route: 'fetchData',
+    this.getFeaturedPlaylists();
   },
   methods: {
-    fetchData() {
+    // get featured playlists from the api
+    getFeaturedPlaylists() {
       this.$startLoading('fetching data');
-      // get featured playlists from the api
       this.axios({
         method: 'get',
         url: '/browse/featured-playlists',
@@ -54,7 +50,7 @@ export default {
         this.featured = res.data;
         this.$endLoading('fetching data');
       }).catch(() => {
-        this.$store.commit('error', 'Featured playlists could not be fetched, please try again later.');
+        this.$store.commit('notice', 'Featured playlists could not be fetched, please try again later.');
         this.featured = [];
       });
     },

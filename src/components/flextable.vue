@@ -1,20 +1,20 @@
 <template>
-<li class="table-row" @dblclick="playTrack()" :class="{ 'playing': playing }">
+<li class="table-row" @dblclick="playTrack" :class="{ 'playing': playing }">
   <div v-if="image != null" class="image-container">
-    <i v-if="playing === false" @click="playTrack(title, subtitle)" class="material-icons">play_circle_filled</i>
+    <i v-if="playing === false" @click="playTrack" class="material-icons">play_circle_filled</i>
     <i v-if="playing === true" class="material-icons playing">volume_up</i>
-    <i v-if="playing === true" @click="playTrack(title, subtitle)" class="material-icons">pause_circle_filled</i>
+    <i v-if="playing === true" class="material-icons">pause_circle_filled</i>
     <img :src="image" :alt="title" />
   </div>
-  <span v-if="index != null" class="index mobile-hidden">{{ String("0" + (index+1)).slice(-2) }}</span>
+  <span v-if="index != null" class="index mobile-hidden">{{ formattedIndex }}</span>
   <div class="meta-container">
     <span>{{title}}</span>
     <div v-if="artists != null" class="artist-container">
-      <router-link v-for="artist in artists" :key="artist.id" :to="'/'+artist.type+'/'+artist.id">{{ artist.name }}</router-link>
+      <router-link v-for="artist in artists" :key="artist.id" :to="`/${artist.type}/${artist.id}`">{{ artist.name }}</router-link>
     </div>
   </div>
   <div v-if="album != null" class="album">
-    <router-link :to="'/'+album.type+'/'+album.id">{{ album.name }}</router-link>
+    <router-link :to="`/${album.type}/${album.id}`">{{ album.name }}</router-link>
   </div>
   <span class="duration">{{ formattedDuration }}</span>
   <i class="material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
@@ -40,22 +40,23 @@ export default {
     'image',
   ],
   methods: {
+    // play track (WIP)
     playTrack() {
-      if (this.playing === false) {
-        this.axios({
-          method: 'put',
-          url: '/me/player/play',
-          data: {
-            context_uri: 'spotify:album:5ht7ItJgpBH7W6vJ5BqpPr',
-          },
-        })
-          .then(() => {
-            this.playing = true;
-          }).catch(() => {
-            this.$store.commit('error', 'Track could not be played, please try again later.');
-          });
-      } else {
-        this.playing = false;
+      this.axios({
+        method: 'put',
+        url: '/me/player/play',
+        data: {
+          context_uri: 'spotify:user:spotify:playlist:37i9dQZF1DWUW2bvSkjcJ6',
+        },
+      }).catch(() => {
+        this.$store.commit('notice', 'Track could not be played, please try again later.');
+      });
+    },
+
+    // check if track is playing
+    isPlaying() {
+      if (this.$store.state.currentPlayback.item.id === this.primaryID) {
+        console.log('true');
       }
     },
   },
@@ -64,6 +65,12 @@ export default {
       const minutes = Math.floor(this.duration / 60000);
       const seconds = ((this.duration % 60000) / 1000).toFixed(0);
       return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    },
+    formattedIndex() {
+      if (this.index < 99) {
+        return String(`0${this.index + 1}`).slice(-2);
+      }
+      return (this.index + 1);
     },
   },
 };

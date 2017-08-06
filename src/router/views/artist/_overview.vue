@@ -22,7 +22,7 @@
     </ol>
   </section>
 
-  <section class="page-section albums">
+  <section v-if="albums.length > 0" class="page-section albums">
     <div class="section-header">
       <h1>Albums</h1>
       <div class="section-actions">
@@ -43,7 +43,7 @@
     </div>
   </section>
 
-  <section class="page-section singles">
+  <section v-if="singles.length > 0" class="page-section singles">
     <div class="section-header">
       <h1>Singles</h1>
       <div class="section-actions">
@@ -64,7 +64,7 @@
     </div>
   </section>
 
-  <section class="page-section appearson">
+  <section v-if="appearson.length > 0" class="page-section appearson">
     <div class="section-header">
       <h1>Appears On</h1>
       <div class="section-actions">
@@ -100,16 +100,30 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.fetchData();
-  },
-  watch: {
-    // call again the method if the route changes
-    $route: 'fetchData',
-    $parent: 'fetchData',
+    this.getTopTracks();
+    this.getAlbums();
+    this.getSingles();
+    this.getAppearsOn();
   },
   methods: {
-    fetchData() {
-      // Get this artist's albums from the api
+    // Get this artist's top tracks from the api
+    getTopTracks() {
+      this.axios({
+        method: 'get',
+        url: `/artists/${this.$route.params.id}/top-tracks`,
+        params: {
+          country: this.$store.state.currentUser.country,
+        },
+      }).then((res) => {
+        this.toptracks = res.data.tracks;
+      }).catch(() => {
+        this.$store.commit('notice', 'This artists top tracks could not be fetched, please try again later.');
+        this.toptracks = [];
+      });
+    },
+
+    // Get this artist's albums from the api
+    getAlbums() {
       this.axios({
         method: 'get',
         url: `/artists/${this.$route.params.id}/albums`,
@@ -120,11 +134,13 @@ export default {
       }).then((res) => {
         this.albums = res.data.items;
       }).catch(() => {
-        this.$store.commit('error', 'Albums could not be fetched, please try again later.');
+        this.$store.commit('notice', 'Albums could not be fetched, please try again later.');
         this.albums = [];
       });
+    },
 
-      // Get this artist's singles from the api
+    // Get this artist's singles from the api
+    getSingles() {
       this.axios({
         method: 'get',
         url: `/artists/${this.$route.params.id}/albums`,
@@ -135,11 +151,13 @@ export default {
       }).then((res) => {
         this.singles = res.data.items;
       }).catch(() => {
-        this.$store.commit('error', 'Singles could not be fetched, please try again later.');
+        this.$store.commit('notice', 'Singles could not be fetched, please try again later.');
         this.singles = [];
       });
+    },
 
-      // Get album's this artist appears on from the api
+    // Get album's this artist appears on from the api
+    getAppearsOn() {
       this.axios({
         method: 'get',
         url: `/artists/${this.$route.params.id}/albums`,
@@ -150,22 +168,8 @@ export default {
       }).then((res) => {
         this.appearson = res.data.items;
       }).catch(() => {
-        this.$store.commit('error', 'Albums this artist appears on could not be fetched, please try again later.');
+        this.$store.commit('notice', 'Albums this artist appears on could not be fetched, please try again later.');
         this.appearson = [];
-      });
-
-      // Get this artist's top tracks from the api
-      this.axios({
-        method: 'get',
-        url: `/artists/${this.$route.params.id}/top-tracks`,
-        params: {
-          country: this.$store.state.currentUser.country,
-        },
-      }).then((res) => {
-        this.toptracks = res.data.tracks;
-      }).catch(() => {
-        this.$store.commit('error', 'This artists top tracks could not be fetched, please try again later.');
-        this.toptracks = [];
       });
     },
   },

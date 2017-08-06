@@ -61,7 +61,7 @@ export default {
         this.artist = res.data;
         this.$endLoading('fetching data');
       }).catch(() => {
-        this.$store.commit('error', 'Artist info could not be fetched, please try again later.');
+        this.$store.commit('notice', 'Artist info could not be fetched, please try again later.');
         this.artist = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');

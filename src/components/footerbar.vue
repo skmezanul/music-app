@@ -1,22 +1,22 @@
 <template>
 <footer class="footer">
   <div class="bottom left mobile-hidden">
-    <img :src="playing.item.album.images[0].url" :alt="playing.item.name" />
+    <img :src="$store.state.currentPlayback.item.album.images[0].url" :alt="$store.state.currentPlayback.item.name" />
     <div class="currently-playing">
-      <span class="title">{{ playing.item.name }}</span>
+      <span class="title">{{ $store.state.currentPlayback.item.name }}</span>
       <div class="artist-container">
-        <a class="artist" v-for="artist in playing.item.artists" :key="artist.id" @click="toArtist(artist.type, artist.id)">{{ artist.name }}</a>
+        <a class="artist" v-for="artist in $store.state.currentPlayback.item.artists" :key="artist.id" @click="toArtist(artist.type, artist.id)">{{ artist.name }}</a>
       </div>
     </div>
   </div>
   <div class="bottom center">
-    <i @click="toggleShuffle" :class="{ 'active': playing.shuffle_state === true }" class="shuffle material-icons" v-tooltip="{ content: 'Shuffle', container: '.tooltip-container' }">shuffle</i>
+    <i @click="toggleShuffle" :class="{ 'active': $store.state.currentPlayback.shuffle_state === true }" class="shuffle material-icons" v-tooltip="{ content: 'Shuffle', container: '.tooltip-container' }">shuffle</i>
     <i @click="previousTrack" class="skip material-icons">skip_previous</i>
-    <i v-show="playing.is_playing === false" @click="resumePlayback" class="toggle play material-icons">play_circle_filled</i>
-    <i v-show="playing.is_playing === true" @click="pausePlayback" class="toggle pause material-icons">pause_circle_filled</i>
+    <i v-show="$store.state.currentPlayback.is_playing === false" @click="resumePlayback" class="toggle play material-icons">play_circle_filled</i>
+    <i v-show="$store.state.currentPlayback.is_playing === true" @click="pausePlayback" class="toggle pause material-icons">pause_circle_filled</i>
     <i @click="nextTrack" class="skip material-icons">skip_next</i>
-    <i v-show="playing.repeat_state != 'track'" @click="toggleRepeat" :class="{ 'active': playing.repeat_state === 'context' }" class="repeat material-icons" v-tooltip="{ content: 'Repeat', container: '.tooltip-container' }">repeat</i>
-    <i v-show="playing.repeat_state === 'track'" @click="toggleRepeat" class="repeat material-icons active" v-tooltip="{ content: 'Repeat', container: '.tooltip-container' }">repeat_one</i>
+    <i v-show="$store.state.currentPlayback.repeat_state != 'track'" @click="toggleRepeat" :class="{ 'active': $store.state.currentPlayback.repeat_state === 'context' }" class="repeat material-icons" v-tooltip="{ content: 'Repeat', container: '.tooltip-container' }">repeat</i>
+    <i v-show="$store.state.currentPlayback.repeat_state === 'track'" @click="toggleRepeat" class="repeat material-icons active" v-tooltip="{ content: 'Repeat', container: '.tooltip-container' }">repeat_one</i>
   </div>
   <div class="bottom right mobile-hidden">
     <i v-if="volume == 0" class="volume material-icons">volume_mute</i>
@@ -33,7 +33,6 @@ export default {
   data() {
     return {
       volume: 50,
-      playing: {},
       bgStyle: {
         backgroundColor: '#1A1D2C',
       },
@@ -42,30 +41,14 @@ export default {
       },
     };
   },
-  created() {
-    // fetch the data when the view is created and the data is
-    // already being observed
-    this.currentPlayback();
-  },
   watch: {
-    // call again the method if value changesz
-    playing: 'currentPlayback',
+    // call again the method if value changes
     volume: 'setVolume',
   },
   methods: {
     toArtist(type, artistID) {
       this.$router.push({
         path: `/${type}/${artistID}`,
-      });
-    },
-    currentPlayback() {
-      this.axios({
-        method: 'get',
-        url: '/me/player',
-      }).then((res) => {
-        this.playing = res.data;
-      }).catch(() => {
-        this.$store.commit('error', 'Could not fetch your current playback, please try again later.');
       });
     },
     previousTrack() {
@@ -76,7 +59,7 @@ export default {
           device_id: this.$store.state.deviceID,
         },
       }).catch(() => {
-        this.$store.commit('error', 'Could not skip to previous track, please try again later.');
+        this.$store.commit('notice', 'Could not skip to previous track, please try again later.');
       });
     },
     nextTrack() {
@@ -87,7 +70,7 @@ export default {
           device_id: this.$store.state.deviceID,
         },
       }).catch(() => {
-        this.$store.commit('error', 'Could not skip to next track, please try again later.');
+        this.$store.commit('notice', 'Could not skip to next track, please try again later.');
       });
     },
     pausePlayback() {
@@ -98,7 +81,7 @@ export default {
           device_id: this.$store.state.deviceID,
         },
       }).catch(() => {
-        this.$store.commit('error', 'Could not pause playback, please try again later.');
+        this.$store.commit('notice', 'Could not pause playback, please try again later.');
       });
     },
     resumePlayback() {
@@ -109,7 +92,7 @@ export default {
           device_id: this.$store.state.deviceID,
         },
       }).catch(() => {
-        this.$store.commit('error', 'Could not resume playback, please try again later.');
+        this.$store.commit('notice', 'Could not resume playback, please try again later.');
       });
     },
     toggleRepeat() {
@@ -121,7 +104,7 @@ export default {
           device_id: this.$store.state.deviceID,
         },
       }).catch(() => {
-        this.$store.commit('error', 'Could not toggle repeat, please try again later.');
+        this.$store.commit('notice', 'Could not toggle repeat, please try again later.');
       });
     },
     toggleShuffle() {
@@ -133,7 +116,7 @@ export default {
           device_id: this.$store.state.deviceID,
         },
       }).catch(() => {
-        this.$store.commit('error', 'Could not toggle shuffle, please try again later.');
+        this.$store.commit('notice', 'Could not toggle shuffle, please try again later.');
       });
     },
     setVolume() {
@@ -145,7 +128,7 @@ export default {
           device_id: this.$store.state.deviceID,
         },
       }).catch(() => {
-        this.$store.commit('error', 'Volume could not be changed, please try again later.');
+        this.$store.commit('notice', 'Volume could not be changed, please try again later.');
       });
     },
   },

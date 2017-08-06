@@ -14,20 +14,26 @@ Vue.use(VuexLoading);
 const store = new Vuex.Store({
   strict: true,
   state: {
-    artist: [],
+    currentPlayback: null,
     currentUser: [],
     deviceID: null,
-    error: null,
+    notice: [],
   },
   mutations: {
-    currentUser(state, res) {
-      state.currentUser = res;
+    currentPlayback(state, data) {
+      state.currentPlayback = data;
     },
-    deviceID(state, res) {
-      state.deviceID = res;
+    currentUser(state, data) {
+      state.currentUser = data;
     },
-    error(state, res) {
-      state.error = res;
+    deviceID(state, ID) {
+      state.deviceID = ID;
+    },
+    notice(state, data) {
+      state.notice.push(data);
+    },
+    removeNotice(state, index) {
+      state.notice.splice(index, 1);
     },
   },
   plugins: [VuexLoading.Store],

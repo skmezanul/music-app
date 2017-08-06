@@ -63,37 +63,46 @@
 </template>
 
 <script>
-import spotifyApi from '../api/';
-import router from '../router';
-
 export default {
   data() {
     return {
-      results: {},
+      results: [],
     };
   },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.fetchData();
+    this.getResults();
   },
   props: [
     'searchQuery',
   ],
-  watch: {
-    // call again the method if the prop changes
-    searchQuery: 'fetchData',
-  },
   methods: {
-    fetchData() {
-      spotifyApi.search(this.searchQuery, ['album', 'artist', 'track'])
-        .then(response => this.results = response);
+    // get results for this search query from the api
+    getResults() {
+      this.axios({
+        method: 'get',
+        url: '/search',
+        params: {
+          q: this.searchQuery,
+          type: 'album,artist,track',
+        },
+      }).then((res) => {
+        this.results = res.data;
+      }).catch(() => {
+        this.$store.commit('notice', 'Search was not successful, please try again later.');
+        this.results = [];
+      });
     },
+
+    // navigate to detail view after clicked on item
     toTarget(type, target) {
       this.$router.push({
         path: `/${type}/${target}`,
       });
     },
+
+    // navigate to artist view after clicked on artist
     toArtist(type, artistID) {
       this.$router.push({
         path: `/${type}/${artistID}`,

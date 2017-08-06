@@ -21,11 +21,15 @@
 
   </div>
 
-    <loading class="loading-container">
-      <template slot='spinner'>
+  <loading class="loading-container">
+    <template slot='spinner'>
         <spinner></spinner>
       </template>
-    </loading>
+  </loading>
+
+  <transition-group name="fade" tag="notices">
+    <notice v-for="(notice, index) in $store.state.notice" :key="index" :message="notice" @remove="$store.commit('removeNotice', index)"></notice>
+  </transition-group>
 
 </div>
 </template>
@@ -42,6 +46,8 @@ export default {
     // already being observed
     this.getCurrentUser();
     this.getMyDevices();
+    this.currentPlayback();
+    this.$store.commit('notice', 'This app is still work in progress. Contact me on github if you want to contribute to the development.');
   },
   methods: {
     // get the current scroll position
@@ -57,7 +63,7 @@ export default {
       }).then((res) => {
         this.$store.commit('currentUser', res.data);
       }).catch(() => {
-        this.$store.commit('error', 'Current user could not be fetched, please try again later.');
+        this.$store.commit('notice', 'Current user could not be fetched, please try again later.');
       });
     },
 
@@ -69,7 +75,19 @@ export default {
       }).then((res) => {
         this.$store.commit('deviceID', res.data.devices[0].id);
       }).catch(() => {
-        this.$store.commit('error', 'Available devices could not be fetched, please try again later.');
+        this.$store.commit('notice', 'Available devices could not be fetched, please try again later.');
+      });
+    },
+
+    // get the current playback
+    currentPlayback() {
+      this.axios({
+        method: 'get',
+        url: '/me/player',
+      }).then((res) => {
+        this.$store.commit('currentPlayback', res.data);
+      }).catch(() => {
+        this.$store.commit('notice', 'Could not fetch your current playback, please try again later.');
       });
     },
   },
@@ -353,6 +371,7 @@ a {
 }
 
 .header-inner,
+.notice-inner,
 .page-section,
 .stage-inner {
     width: $large-width;

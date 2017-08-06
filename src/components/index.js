@@ -14,8 +14,10 @@ import sectionItem from './sectionitem.vue';
 import eventCard from './eventcard.vue';
 import search from './search.vue';
 import spinner from './spinner.vue';
+import notice from './notice.vue';
 
 // Register components
+Vue.component('slider', slider);
 Vue.component('stage', stage);
 Vue.component('sidenav', sideNav);
 Vue.component('headerbar', headerBar);
@@ -25,7 +27,7 @@ Vue.component('sectionitem', sectionItem);
 Vue.component('eventcard', eventCard);
 Vue.component('search', search);
 Vue.component('spinner', spinner);
-Vue.component('slider', slider);
+Vue.component('notice', notice);
 
 // Register plugins
 Vue.use(tooltip);
