@@ -1,5 +1,5 @@
 <template>
-<div id="app" :class="{scrolled: scrollPosition > 0}">
+<div id="app" :class="{scrolled: $store.state.scrollPosition > 0}">
 
   <!-- header -->
   <headerbar></headerbar>
@@ -22,7 +22,7 @@
   </div>
 
   <loading class="loading-container">
-    <template slot='spinner'>
+    <template slot="spinner">
         <spinner></spinner>
       </template>
   </loading>
@@ -36,23 +36,19 @@
 
 <script>
 export default {
-  data() {
-    return {
-      scrollPosition: null,
-    };
-  },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
     this.getCurrentUser();
     this.getMyDevices();
-    this.currentPlayback();
-    this.$store.commit('ADD_NOTICE', 'This app is still work in progress. Contact me on github if you want to contribute to the development.');
+    this.getCurrentPlayback();
+    this.showDevNotice();
   },
   methods: {
-    // get the current scroll position
-    updateScroll() {
-      this.scrollPosition = window.scrollY;
+
+    // show development notice
+    showDevNotice() {
+      this.$store.commit('ADD_NOTICE', 'This app is still work in progress. Contact me (microeinhundert) on github if you want to contribute to the development.');
     },
 
     // get the current user's info
@@ -62,8 +58,9 @@ export default {
         url: '/me',
       }).then((res) => {
         this.$store.commit('CURRENT_USER', res.data);
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Current user could not be fetched, please try again later.');
+      }).catch((err) => {
+        this.$store.commit('CURRENT_USER', []);
+        this.$store.commit('ADD_NOTICE', `Current user could not be fetched, please try again later. ${err}`);
       });
     },
 
@@ -74,21 +71,31 @@ export default {
         url: '/me/player/devices',
       }).then((res) => {
         this.$store.commit('DEVICE_ID', res.data.devices[0].id);
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Available devices could not be fetched, please try again later.');
+      }).catch((err) => {
+        this.$store.commit('DEVICE_ID', null);
+        this.$store.commit('ADD_NOTICE', `Available devices could not be fetched, please try again later. ${err}`);
       });
     },
 
     // get the current playback
-    currentPlayback() {
+    getCurrentPlayback() {
+      this.$startLoading('fetching data');
       this.axios({
         method: 'get',
         url: '/me/player',
       }).then((res) => {
         this.$store.commit('CURRENT_PLAYBACK', res.data);
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Could not fetch your current playback, please try again later.');
+        this.$endLoading('fetching data');
+      }).catch((err) => {
+        this.$store.commit('CURRENT_PLAYBACK', []);
+        this.$endLoading('fetching data');
+        this.$store.commit('ADD_NOTICE', `Could not fetch your current playback, please try again later. ${err}`);
       });
+    },
+
+    // get the current scroll position
+    updateScroll() {
+      this.$store.commit('SCROLL_POSITION', window.scrollY);
     },
   },
   mounted() {
@@ -320,7 +327,7 @@ a {
 
 .fade-enter-active,
 .fade-leave-active {
-    transition: opacity 0.2s;
+    transition: opacity 0.3s;
 }
 
 .fade-enter,

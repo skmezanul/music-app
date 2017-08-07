@@ -2,16 +2,30 @@
 <main class="main-container">
 
   <!-- stage -->
-  <stage :type="playlist.type" :image="playlist.images[0].url" :title="playlist.name" :primaryInfo="playlist.description"></stage>
+  <stage
+  :type="playlist.type"
+  :image="playlist.images[0].url"
+  :title="playlist.name"
+  :meta="playlist.description"
+  ></stage>
 
   <div class="page-container">
 
-    <section class="page-section tracks">
+    <pagesection>
       <ol class="flex-table">
-        <flextable v-for="(playlist, index) in playlist.tracks.items" :key="playlist.track.id" :type="playlist.track.type" :image="playlist.track.album.images[0].url" :title="playlist.track.name" :artists="playlist.track.artists" :album="playlist.track.album"
-          :duration="playlist.track.duration_ms" :index="index"></flextable>
+        <flextable
+        v-for="(playlist, index) in playlist.tracks.items"
+        :key="playlist.track.id"
+        :type="playlist.track.type"
+        :image="playlist.track.album.images[0].url"
+        :title="playlist.track.name"
+        :artists="playlist.track.artists"
+        :album="playlist.track.album"
+        :duration="playlist.track.duration_ms"
+        :index="index"
+        ></flextable>
       </ol>
-    </section>
+    </pagesection>
 
   </div>
 
@@ -42,11 +56,11 @@ export default {
       }).then((res) => {
         this.playlist = res.data;
         this.$endLoading('fetching data');
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Playlist could not be fetched, please try again later.');
+      }).catch((err) => {
         this.playlist = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');
+        this.$store.commit('ADD_NOTICE', `Playlist could not be fetched, please try again later. ${err}`);
       });
     },
   },

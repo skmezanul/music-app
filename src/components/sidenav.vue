@@ -1,6 +1,7 @@
 <template>
 <nav class="sidenav">
   <ul>
+
     <div class="sidenav-section">
       <li>
         <router-link to="/browse"><i class="material-icons">book</i>Browse</router-link>
@@ -9,6 +10,8 @@
         <router-link to="/radio"><i class="material-icons">radio</i>Radio</router-link>
       </li>
     </div>
+
+    <!-- my music -->
     <div class="sidenav-section">
       <li>
         <h4>My Music</h4></li>
@@ -25,22 +28,27 @@
         <router-link to="/artists"><i class="material-icons">person</i>Artists</router-link>
       </li>
     </div>
-    <div class="sidenav-section">
-      <li>
-        <h4>My Playlists</h4>
-      </li>
-      <transition-group name="fade" tag="playlists">
-        <li v-for="playlist in playlists" :key="playlist.id">
-          <router-link :to="`/${playlist.type}/${playlist.owner.id}/${playlist.id}`">
-            <i class="material-icons">playlist_play</i>
-            <span>{{ playlist.name }}</span>
-          </router-link>
+
+    <!-- playlists -->
+    <transition name="fade">
+      <div v-if="playlists.length > 0" class="sidenav-section">
+        <li>
+          <h4>My Playlists</h4>
         </li>
-      </transition-group>
-    </div>
+          <li v-for="playlist in playlists" :key="playlist.id">
+            <router-link :to="`/${playlist.type}/${playlist.owner.id}/${playlist.id}`">
+              <i class="material-icons">playlist_play</i>
+              <span>{{ playlist.name }}</span>
+            </router-link>
+          </li>
+      </div>
+    </transition>
+
+    <!-- new playlist -->
     <div class="sidenav-section">
       <li><a><i class="material-icons">playlist_add</i><span>New Playlist</span></a></li>
     </div>
+
   </ul>
 </nav>
 </template>
@@ -68,8 +76,8 @@ export default {
         },
       }).then((res) => {
         this.playlists = res.data.items;
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Playlists could not be fetched, please try again later.');
+      }).catch((err) => {
+        this.$store.commit('ADD_NOTICE', `Playlists could not be fetched, please try again later. ${err}`);
         this.playlists = [];
       });
     },

@@ -6,13 +6,12 @@
   :type="album.type"
   :image="album.images[0].url"
   :title="album.name"
-  :primaryInfo="`By ${album.artists[0].name}`"
-  :secondaryInfo="`Released ${album.release_date}`"
+  :meta="`By ${album.artists[0].name}`"
   ></stage>
 
   <div class="page-container">
-
-    <section class="page-section tracks">
+    
+    <pagesection>
       <ol class="flex-table">
         <flextable
         v-for="(track, index) in album.tracks.items"
@@ -24,7 +23,7 @@
         :index="index"
         ></flextable>
       </ol>
-    </section>
+    </pagesection>
 
   </div>
 
@@ -55,11 +54,11 @@ export default {
       }).then((res) => {
         this.album = res.data;
         this.$endLoading('fetching data');
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Album could not be fetched, please try again later.');
+      }).catch((err) => {
         this.album = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');
+        this.$store.commit('ADD_NOTICE', `Album could not be fetched, please try again later. ${err}`);
       });
     },
   },

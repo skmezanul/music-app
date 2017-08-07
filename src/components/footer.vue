@@ -58,8 +58,8 @@ export default {
         params: {
           device_id: this.$store.state.deviceID,
         },
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Could not skip to previous track, please try again later.');
+      }).catch((err) => {
+        this.$store.commit('ADD_NOTICE', `Could not skip to previous track, please try again later. ${err}`);
       });
     },
     nextTrack() {
@@ -69,8 +69,8 @@ export default {
         params: {
           device_id: this.$store.state.deviceID,
         },
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Could not skip to next track, please try again later.');
+      }).catch((err) => {
+        this.$store.commit('ADD_NOTICE', `Could not skip to next track, please try again later. ${err}`);
       });
     },
     pausePlayback() {
@@ -80,8 +80,8 @@ export default {
         params: {
           device_id: this.$store.state.deviceID,
         },
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Could not pause playback, please try again later.');
+      }).catch((err) => {
+        this.$store.commit('ADD_NOTICE', `Could not pause playback, please try again later. ${err}`);
       });
     },
     resumePlayback() {
@@ -91,8 +91,8 @@ export default {
         params: {
           device_id: this.$store.state.deviceID,
         },
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Could not resume playback, please try again later.');
+      }).catch((err) => {
+        this.$store.commit('ADD_NOTICE', `Could not resume playback, please try again later. ${err}`);
       });
     },
     toggleRepeat() {
@@ -103,8 +103,8 @@ export default {
           state: 'context',
           device_id: this.$store.state.deviceID,
         },
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Could not toggle repeat, please try again later.');
+      }).catch((err) => {
+        this.$store.commit('ADD_NOTICE', `Could not toggle repeat, please try again later. ${err}`);
       });
     },
     toggleShuffle() {
@@ -115,8 +115,8 @@ export default {
           state: !this.playing.shuffle_state,
           device_id: this.$store.state.deviceID,
         },
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Could not toggle shuffle, please try again later.');
+      }).catch((err) => {
+        this.$store.commit('ADD_NOTICE', `Could not toggle shuffle, please try again later. ${err}`);
       });
     },
     setVolume() {
@@ -127,8 +127,8 @@ export default {
           volume_percent: this.volume,
           device_id: this.$store.state.deviceID,
         },
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Volume could not be changed, please try again later.');
+      }).catch((err) => {
+        this.$store.commit('ADD_NOTICE', `Volume could not be changed, please try again later. ${err}`);
       });
     },
   },

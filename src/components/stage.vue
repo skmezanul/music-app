@@ -1,7 +1,7 @@
 <template>
 <div class="stage" :class="{ 'with-cover' : type === 'album' || type === 'playlist', 'stage-compact': $route.meta.stage === 'compact'}">
 
-  <!--Background-->
+  <!-- background -->
   <div class="stage-background">
     <img v-parallax="0.5" :src="image" :alt="title" />
   </div>
@@ -12,12 +12,12 @@
     <div class="cover-container mobile-hidden" v-if="type === 'album' || type === 'playlist'">
       <img :src="image" :alt="title" />
     </div>
-    <!--Content-->
+    <!-- content -->
     <div class="stage-container">
       <h2>{{ type }}</h2>
       <h1>{{ title }}</h1>
-      <div v-if="primaryInfo != null" class="info-container mobile-hidden">
-        <a v-html="primaryInfo"></a><a v-if="secondaryInfo != null">{{ secondaryInfo }}</a>
+      <div v-if="meta != null" class="meta-container mobile-hidden">
+        <a v-html="meta"></a>
       </div>
       <div v-if="type != 'browse'" class="button-container">
         <div class="button-group">
@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    <!--Navigation-->
+    <!-- navigation -->
     <nav v-if="navigation != null" class="subnav mobile-hidden">
       <ul>
         <li v-for="navitem in navigation">
@@ -50,8 +50,7 @@ export default {
     'navigation',
     'image',
     'title',
-    'primaryInfo',
-    'secondaryInfo',
+    'meta',
   ],
 };
 </script>
@@ -149,16 +148,24 @@ export default {
             h1 {
                 will-change: font-size;
                 transition: font-size 0.3s;
-                font-size: 5em;
-                margin: 5px 0 0 -5px;
+                font-size: 5.5em;
+                margin-top: 5px;
+                margin-left: -3px;
             }
-            .info-container {
+            .meta-container {
                 margin-top: 10px;
                 a {
-                    text-transform: uppercase;
-                    @include comma-separated(1.2em, 400);
+                    line-height: 1.3em;
+                    font-size: 1.2em;
+                    letter-spacing: 1.7px;
+                    color: rgba($white, 0.7);
+
                     a {
                         font-size: inherit;
+                        transition: color 0.3s;
+                        &:hover {
+                          color: $white;
+                        }
                     }
                 }
             }

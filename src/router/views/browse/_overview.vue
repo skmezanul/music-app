@@ -1,13 +1,7 @@
 <template>
 <div class="page-container">
 
-  <section class="page-section recommended">
-    <div class="section-header">
-      <h1>{{ featured.message }}</h1>
-      <div class="section-actions">
-        <span>Show Less<i class="material-icons">keyboard_arrow_up</i></span>
-      </div>
-    </div>
+  <pagesection v-if="featured != null" :title="featured.message">
     <div class="section-items-container">
       <sectionitem
       v-for="featured in featured.playlists.items"
@@ -19,8 +13,7 @@
       :title="featured.name"
       ></sectionitem>
     </div>
-
-  </section>
+  </pagesection>
 
 </div>
 </template>
@@ -49,8 +42,8 @@ export default {
       }).then((res) => {
         this.featured = res.data;
         this.$endLoading('fetching data');
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Featured playlists could not be fetched, please try again later.');
+      }).catch((err) => {
+        this.$store.commit('ADD_NOTICE', `Featured playlists could not be fetched, please try again later. ${err}`);
         this.featured = [];
       });
     },

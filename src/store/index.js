@@ -17,7 +17,8 @@ const store = new Vuex.Store({
     currentPlayback: null,
     currentUser: [],
     deviceID: null,
-    notice: [],
+    notices: [],
+    scrollPosition: null,
   },
   mutations: {
     CURRENT_PLAYBACK(state, data) {
@@ -26,14 +27,17 @@ const store = new Vuex.Store({
     CURRENT_USER(state, data) {
       state.currentUser = data;
     },
-    DEVICE_ID(state, ID) {
-      state.deviceID = ID;
+    DEVICE_ID(state, data) {
+      state.deviceID = data;
     },
     ADD_NOTICE(state, data) {
-      state.notice.push(data);
+      state.notices.unshift(data);
     },
     REMOVE_NOTICE(state, index) {
-      state.notice.splice(index, 1);
+      state.notices.splice(index, 1);
+    },
+    SCROLL_POSITION(state, position) {
+      state.scrollPosition = position;
     },
   },
   plugins: [VuexLoading.Store],

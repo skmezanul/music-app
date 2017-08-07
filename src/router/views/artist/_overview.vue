@@ -1,89 +1,65 @@
 <template>
 <div class="page-container">
 
-  <section class="page-section tracks">
-    <div class="section-header">
-      <h1>Top Tracks</h1>
-      <div class="section-actions">
-        <span>Show Less<i class="material-icons">keyboard_arrow_up</i></span>
-      </div>
-    </div>
-    <ol class="flex-table">
-      <flextable
-      v-for="(track, index) in toptracks"
-      :key="track.id"
-      :primaryID="track.id"
-      :type="track.type"
-      :image="track.album.images[0].url"
-      :title="track.name"
-      :duration="track.duration_ms"
-      :index="index"
-      ></flextable>
-    </ol>
-  </section>
+<pagesection v-if="toptracks.length > 0" title="Top Tracks">
+  <ol class="flex-table">
+    <flextable
+    v-for="(track, index) in toptracks"
+    :key="track.id"
+    :primaryID="track.id"
+    :type="track.type"
+    :image="track.album.images[0].url"
+    :title="track.name"
+    :duration="track.duration_ms"
+    :index="index"
+    ></flextable>
+  </ol>
+</pagesection>
 
-  <section v-if="albums.length > 0" class="page-section albums">
-    <div class="section-header">
-      <h1>Albums</h1>
-      <div class="section-actions">
-        <span>Show Less<i class="material-icons">keyboard_arrow_up</i></span>
-      </div>
-    </div>
-    <div class="section-items-container">
-      <sectionitem
-      v-for="album in albums"
-      :key="album.id"
-      :type="album.type"
-      :primaryID="album.id"
-      :secondaryID="album.artists[0].id"
-      :image="album.images[0].url"
-      :title="album.name"
-      :artist="album.artists"
-      ></sectionitem>
-    </div>
-  </section>
+<pagesection v-if="albums.length > 0" title="Albums">
+  <div class="section-items-container">
+    <sectionitem
+    v-for="album in albums"
+    :key="album.id"
+    :type="album.type"
+    :primaryID="album.id"
+    :secondaryID="album.artists[0].id"
+    :image="album.images[0].url"
+    :title="album.name"
+    :artist="album.artists"
+    ></sectionitem>
+  </div>
+</pagesection>
 
-  <section v-if="singles.length > 0" class="page-section singles">
-    <div class="section-header">
-      <h1>Singles</h1>
-      <div class="section-actions">
-        <span>Show Less<i class="material-icons">keyboard_arrow_up</i></span>
-      </div>
-    </div>
-    <div class="section-items-container">
-      <sectionitem
-      v-for="single in singles"
-      :key="single.id"
-      :type="single.type"
-      :primaryID="single.id"
-      :secondaryID="single.artists[0].id"
-      :image="single.images[0].url"
-      :title="single.name"
-      :artist="single.artists"
-      ></sectionitem>
-    </div>
-  </section>
+<pagesection v-if="singles.length > 0" title="Singles">
+  <div class="section-items-container">
+    <sectionitem
+    v-for="single in singles"
+    :key="single.id"
+    :type="single.type"
+    :primaryID="single.id"
+    :secondaryID="single.artists[0].id"
+    :image="single.images[0].url"
+    :title="single.name"
+    :artist="single.artists"
+    ></sectionitem>
+  </div>
+</pagesection>
 
-  <section v-if="appearson.length > 0" class="page-section appearson">
-    <div class="section-header">
-      <h1>Appears On</h1>
-      <div class="section-actions">
-        <span>Show Less<i class="material-icons">keyboard_arrow_up</i></span>
-      </div>
-    </div>
-    <div class="section-items-container">
-      <sectionitem
-      v-for="album in appearson"
-      :key="album.id"
-      :type="album.type"
-      :primaryID="album.id"
-      :secondaryID="album.artists[0].id"
-      :image="album.images[0].url"
-      :title="album.name"
-      :artist="album.artists"
-      ></sectionitem>
-    </div>
-  </section>
+<pagesection v-if="appearson.length > 0" title="Appears On">
+  <div class="section-items-container">
+    <sectionitem
+    v-for="album in appearson"
+    :key="album.id"
+    :type="album.type"
+    :primaryID="album.id"
+    :secondaryID="album.artists[0].id"
+    :image="album.images[0].url"
+    :title="album.name"
+    :artist="album.artists"
+    ></sectionitem>
+  </div>
+</pagesection>
 
 </div>
 </template>
@@ -116,8 +92,8 @@ export default {
         },
       }).then((res) => {
         this.toptracks = res.data.tracks;
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'This artists top tracks could not be fetched, please try again later.');
+      }).catch((err) => {
+        this.$store.commit('ADD_NOTICE', `This artists top tracks could not be fetched, please try again later. ${err}`);
         this.toptracks = [];
       });
     },
@@ -133,8 +109,8 @@ export default {
         },
       }).then((res) => {
         this.albums = res.data.items;
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Albums could not be fetched, please try again later.');
+      }).catch((err) => {
+        this.$store.commit('ADD_NOTICE', `Albums could not be fetched, please try again later. ${err}`);
         this.albums = [];
       });
     },
@@ -150,8 +126,8 @@ export default {
         },
       }).then((res) => {
         this.singles = res.data.items;
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Singles could not be fetched, please try again later.');
+      }).catch((err) => {
+        this.$store.commit('ADD_NOTICE', `Singles could not be fetched, please try again later. ${err}`);
         this.singles = [];
       });
     },
@@ -167,8 +143,8 @@ export default {
         },
       }).then((res) => {
         this.appearson = res.data.items;
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Albums this artist appears on could not be fetched, please try again later.');
+      }).catch((err) => {
+        this.$store.commit('ADD_NOTICE', `Albums this artist appears on could not be fetched, please try again later. ${err}`);
         this.appearson = [];
       });
     },

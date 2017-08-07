@@ -10,7 +10,7 @@
 
   <div class="page-container">
 
-    <section class="page-section lastheard">
+    <pagesection>
       <ol class="flex-table">
         <flextable
         v-for="(history, index) in history"
@@ -24,7 +24,7 @@
         :index="index"
         ></flextable>
       </ol>
-    </section>
+    </pagesection>
 
   </div>
 
@@ -43,9 +43,9 @@ export default {
     this.getRecentlyPlayed();
   },
   methods: {
+    // get recently played tracks from the api
     getRecentlyPlayed() {
       this.$startLoading('fetching data');
-      // get recently played tracks from the api
       this.axios({
         method: 'get',
         url: '/me/player/recently-played',
@@ -55,11 +55,11 @@ export default {
       }).then((res) => {
         this.history = res.data.items;
         this.$endLoading('fetching data');
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Your recently played tracks could not be fetched, please try again later.');
+      }).catch((err) => {
         this.history = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');
+        this.$store.commit('ADD_NOTICE', `Your recently played tracks could not be fetched, please try again later. ${err}`);
       });
     },
   },

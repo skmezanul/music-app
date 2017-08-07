@@ -7,8 +7,6 @@
   :navigation="navigation"
   :image="artist.images[0].url"
   :title="artist.name"
-  :primaryInfo="artist.genres[0]"
-  :secondaryInfo="`${artist.followers.total} Followers`"
   ></stage>
 
   <!-- router view -->
@@ -47,20 +45,20 @@ export default {
     this.getArtist();
   },
   methods: {
+    // get artist information from the api
     getArtist() {
       this.$startLoading('fetching data');
-      // get artist information from the api
       this.axios({
         method: 'get',
         url: `/artists/${this.$route.params.id}`,
       }).then((res) => {
         this.artist = res.data;
         this.$endLoading('fetching data');
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Artist info could not be fetched, please try again later.');
+      }).catch((err) => {
         this.artist = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');
+        this.$store.commit('ADD_NOTICE', `Artist info could not be fetched, please try again later. ${err}`);
       });
     },
   },

@@ -1,9 +1,7 @@
 <template>
-<div class="page-container similar">
-  <section class="page-section">
-    <div class="section-header">
-      <h1>Similar to {{ $parent.artist.name }}</h1>
-    </div>
+<div class="page-container">
+
+  <pagesection :title="`Similar to ${$parent.artist.name}`" :collapsible="false">
     <div class="section-items-container">
       <sectionitem
       v-for="artist in similar"
@@ -14,7 +12,8 @@
       :primaryID="artist.id"
       ></sectionitem>
     </div>
-  </section>
+  </pagesection>
+
 </div>
 </template>
 <script>
@@ -37,8 +36,8 @@ export default {
         url: `/artists/${this.$route.params.id}/related-artists`,
       }).then((res) => {
         this.similar = res.data.artists;
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Similar artists could not be fetched, please try again later.');
+      }).catch((err) => {
+        this.$store.commit('ADD_NOTICE', `Similar artists could not be fetched, please try again later. ${err}`);
         this.similar = [];
       });
     },

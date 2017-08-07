@@ -1,15 +1,14 @@
 <template>
 <div class="page-container">
-  <section class="page-section information">
-    <div class="section-header">
-      <h1>About {{ $parent.artist.name }}</h1>
-    </div>
-    <p v-show="biography != null" class="biography" v-html="biography">
+
+  <pagesection :title="`About ${$parent.artist.name}`" :collapsible="false">
+    <p class="biography" v-html="biography">
 
       <!-- insert biography -->
 
     </p>
-  </section>
+  </pagesection>
+
 </div>
 </template>
 <script>
@@ -40,8 +39,8 @@ export default {
         },
       }).then((res) => {
         this.biography = res.data.artist.bio.content;
-      }).catch(() => {
-        this.$store.commit('ADD_NOTICE', 'Biography could not be fetched, please try again later.');
+      }).catch((err) => {
+        this.$store.commit('ADD_NOTICE', `Biography could not be fetched, please try again later. ${err}`);
         this.biography = null;
       });
     },

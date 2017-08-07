@@ -1,15 +1,19 @@
 <template>
 <header class="header">
   <div class="header-inner">
+
+    <!-- back and forward navigation -->
     <div class="top left">
       <i class="material-icons" @click="goBack">keyboard_arrow_left</i>
       <i class="material-icons" @click="goForward">keyboard_arrow_right</i>
     </div>
+
+    <!-- search -->
     <div class="top center" @keyup.esc="toggleSearch" @keyup.enter="fetchdata" :class="{ 'search-active': searchDropdown === true }">
       <i class="material-icons search-icon">search</i>
       <input type="text" @click="toggleSearch" v-model="searchQuery" placeholder="Search" />
 
-      <!--Search Dropdown-->
+      <!-- search dropdown -->
       <div class="search-dropdown" v-if="searchDropdown === true" v-on-clickaway="toggleSearch">
         <search
         :searchQuery="searchQuery"
@@ -18,6 +22,8 @@
       </div>
 
     </div>
+
+    <!-- current user -->
     <div class="top right">
       <img
       :src="$store.state.currentUser.images[0].url"
@@ -27,7 +33,7 @@
       <router-link to="/" class="user-name mobile-hidden">{{ $store.state.currentUser.display_name }}</router-link>
       <i class="toggle material-icons" @click="toggleDropdown">keyboard_arrow_down</i>
 
-      <!--User Dropdown-->
+      <!-- user dropdown -->
       <ul class="dropdown" v-if="userDropdown" v-on-clickaway="toggleDropdown">
         <li>My Account</li>
         <li>Settings</li>
@@ -35,6 +41,7 @@
       </ul>
 
     </div>
+
   </div>
 </header>
 </template>
@@ -45,9 +52,6 @@ import {
 } from 'vue-clickaway';
 
 export default {
-  directives: {
-    onClickaway,
-  },
   data() {
     return {
       userDropdown: false,
@@ -68,6 +72,9 @@ export default {
     toggleDropdown() {
       this.userDropdown = !this.userDropdown;
     },
+  },
+  directives: {
+    onClickaway,
   },
 };
 </script>

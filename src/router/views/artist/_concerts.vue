@@ -1,9 +1,7 @@
 <template>
 <div class="page-container">
-  <section class="page-section nearyou">
-    <div class="section-header">
-      <h1>2018</h1>
-    </div>
+
+  <pagesection title="2018" :collapsible="false">
     <eventcard
     v-for="concert in concerts"
     :key="concert.venue"
@@ -14,7 +12,8 @@
     :country="concert.country"
     :venue="concert.venue"
     ></eventcard>
-  </section>
+  </pagesection>
+  
 </div>
 </template>
 
