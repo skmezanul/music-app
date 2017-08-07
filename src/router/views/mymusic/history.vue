@@ -1,7 +1,7 @@
 <template>
 <main class="main-container">
 
-  <!--Stage-->
+  <!-- stage -->
   <stage
   type="My Music"
   title="Recently Played"
@@ -56,7 +56,7 @@ export default {
         this.history = res.data.items;
         this.$endLoading('fetching data');
       }).catch(() => {
-        this.$store.commit('notice', 'Your recently played tracks could not be fetched, please try again later.');
+        this.$store.commit('ADD_NOTICE', 'Your recently played tracks could not be fetched, please try again later.');
         this.history = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');

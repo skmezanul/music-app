@@ -1,23 +1,23 @@
 <template>
 <div id="app" :class="{scrolled: scrollPosition > 0}">
 
-  <!-- Header -->
+  <!-- header -->
   <headerbar></headerbar>
 
-  <!-- Sidenav -->
+  <!-- sidenav -->
   <sidenav></sidenav>
 
-  <!-- Router View -->
+  <!-- router view -->
   <router-view :key="$route.params.id"></router-view>
 
-  <!-- Footer -->
+  <!-- footer -->
   <transition name="fade">
     <footerbar></footerbar>
   </transition>
 
   <div class="tooltip-container">
 
-    <!--Insert Tooltips-->
+    <!-- insert tooltips -->
 
   </div>
 
@@ -28,7 +28,7 @@
   </loading>
 
   <transition-group name="fade" tag="notices">
-    <notice v-for="(notice, index) in $store.state.notice" :key="index" :message="notice" @remove="$store.commit('removeNotice', index)"></notice>
+    <notice v-for="(notice, index) in $store.state.notice" :key="index" :message="notice" @remove="$store.commit('REMOVE_NOTICE', index)"></notice>
   </transition-group>
 
 </div>
@@ -47,7 +47,7 @@ export default {
     this.getCurrentUser();
     this.getMyDevices();
     this.currentPlayback();
-    this.$store.commit('notice', 'This app is still work in progress. Contact me on github if you want to contribute to the development.');
+    this.$store.commit('ADD_NOTICE', 'This app is still work in progress. Contact me on github if you want to contribute to the development.');
   },
   methods: {
     // get the current scroll position
@@ -61,9 +61,9 @@ export default {
         method: 'get',
         url: '/me',
       }).then((res) => {
-        this.$store.commit('currentUser', res.data);
+        this.$store.commit('CURRENT_USER', res.data);
       }).catch(() => {
-        this.$store.commit('notice', 'Current user could not be fetched, please try again later.');
+        this.$store.commit('ADD_NOTICE', 'Current user could not be fetched, please try again later.');
       });
     },
 
@@ -73,9 +73,9 @@ export default {
         method: 'get',
         url: '/me/player/devices',
       }).then((res) => {
-        this.$store.commit('deviceID', res.data.devices[0].id);
+        this.$store.commit('DEVICE_ID', res.data.devices[0].id);
       }).catch(() => {
-        this.$store.commit('notice', 'Available devices could not be fetched, please try again later.');
+        this.$store.commit('ADD_NOTICE', 'Available devices could not be fetched, please try again later.');
       });
     },
 
@@ -85,9 +85,9 @@ export default {
         method: 'get',
         url: '/me/player',
       }).then((res) => {
-        this.$store.commit('currentPlayback', res.data);
+        this.$store.commit('CURRENT_PLAYBACK', res.data);
       }).catch(() => {
-        this.$store.commit('notice', 'Could not fetch your current playback, please try again later.');
+        this.$store.commit('ADD_NOTICE', 'Could not fetch your current playback, please try again later.');
       });
     },
   },

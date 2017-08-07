@@ -1,12 +1,12 @@
 <template>
 <main class="main-container">
 
-  <!--Stage-->
+  <!-- stage -->
   <stage
   :type="album.type"
   :image="album.images[0].url"
   :title="album.name"
-  :primaryInfo="'By '+album.artists[0].name"
+  :primaryInfo="`By ${album.artists[0].name}`"
   :secondaryInfo="`Released ${album.release_date}`"
   ></stage>
 
@@ -56,7 +56,7 @@ export default {
         this.album = res.data;
         this.$endLoading('fetching data');
       }).catch(() => {
-        this.$store.commit('notice', 'Album could not be fetched, please try again later.');
+        this.$store.commit('ADD_NOTICE', 'Album could not be fetched, please try again later.');
         this.album = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');

@@ -6,7 +6,7 @@
     </div>
     <p v-show="biography != null" class="biography" v-html="biography">
 
-      <!--Insert Biography-->
+      <!-- insert biography -->
 
     </p>
   </section>
@@ -41,7 +41,7 @@ export default {
       }).then((res) => {
         this.biography = res.data.artist.bio.content;
       }).catch(() => {
-        this.$store.commit('notice', 'Biography could not be fetched, please try again later.');
+        this.$store.commit('ADD_NOTICE', 'Biography could not be fetched, please try again later.');
         this.biography = null;
       });
     },

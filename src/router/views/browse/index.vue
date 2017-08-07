@@ -1,7 +1,7 @@
 <template>
 <main class="main-container">
 
-  <!--Stage-->
+  <!-- stage -->
   <stage
   type="browse"
   :image="$store.state.currentUser.images[0].url"
@@ -9,7 +9,7 @@
   :title="welcomeMessage"
   ></stage>
 
-  <!--Router View-->
+  <!-- router view -->
   <router-view></router-view>
 
 </main>

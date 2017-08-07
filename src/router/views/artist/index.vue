@@ -1,7 +1,7 @@
 <template>
 <main class="main-container">
 
-  <!--Stage-->
+  <!-- stage -->
   <stage
   :type="artist.type"
   :navigation="navigation"
@@ -11,7 +11,7 @@
   :secondaryInfo="`${artist.followers.total} Followers`"
   ></stage>
 
-  <!--Router View-->
+  <!-- router view -->
   <router-view></router-view>
 
 </main>
@@ -44,14 +44,10 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.fetchData();
-  },
-  watch: {
-    // call again the method if the route changes
-    $route: 'fetchData',
+    this.getArtist();
   },
   methods: {
-    fetchData() {
+    getArtist() {
       this.$startLoading('fetching data');
       // get artist information from the api
       this.axios({
@@ -61,7 +57,7 @@ export default {
         this.artist = res.data;
         this.$endLoading('fetching data');
       }).catch(() => {
-        this.$store.commit('notice', 'Artist info could not be fetched, please try again later.');
+        this.$store.commit('ADD_NOTICE', 'Artist info could not be fetched, please try again later.');
         this.artist = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');

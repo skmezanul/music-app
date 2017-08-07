@@ -20,19 +20,19 @@ const store = new Vuex.Store({
     notice: [],
   },
   mutations: {
-    currentPlayback(state, data) {
+    CURRENT_PLAYBACK(state, data) {
       state.currentPlayback = data;
     },
-    currentUser(state, data) {
+    CURRENT_USER(state, data) {
       state.currentUser = data;
     },
-    deviceID(state, ID) {
+    DEVICE_ID(state, ID) {
       state.deviceID = ID;
     },
-    notice(state, data) {
+    ADD_NOTICE(state, data) {
       state.notice.push(data);
     },
-    removeNotice(state, index) {
+    REMOVE_NOTICE(state, index) {
       state.notice.splice(index, 1);
     },
   },

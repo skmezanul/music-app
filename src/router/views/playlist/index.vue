@@ -1,7 +1,7 @@
 <template>
 <main class="main-container">
 
-  <!--Stage-->
+  <!-- stage -->
   <stage :type="playlist.type" :image="playlist.images[0].url" :title="playlist.name" :primaryInfo="playlist.description"></stage>
 
   <div class="page-container">
@@ -43,7 +43,7 @@ export default {
         this.playlist = res.data;
         this.$endLoading('fetching data');
       }).catch(() => {
-        this.$store.commit('notice', 'Playlist could not be fetched, please try again later.');
+        this.$store.commit('ADD_NOTICE', 'Playlist could not be fetched, please try again later.');
         this.playlist = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');

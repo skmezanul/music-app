@@ -59,7 +59,7 @@ export default {
           device_id: this.$store.state.deviceID,
         },
       }).catch(() => {
-        this.$store.commit('notice', 'Could not skip to previous track, please try again later.');
+        this.$store.commit('ADD_NOTICE', 'Could not skip to previous track, please try again later.');
       });
     },
     nextTrack() {
@@ -70,7 +70,7 @@ export default {
           device_id: this.$store.state.deviceID,
         },
       }).catch(() => {
-        this.$store.commit('notice', 'Could not skip to next track, please try again later.');
+        this.$store.commit('ADD_NOTICE', 'Could not skip to next track, please try again later.');
       });
     },
     pausePlayback() {
@@ -81,7 +81,7 @@ export default {
           device_id: this.$store.state.deviceID,
         },
       }).catch(() => {
-        this.$store.commit('notice', 'Could not pause playback, please try again later.');
+        this.$store.commit('ADD_NOTICE', 'Could not pause playback, please try again later.');
       });
     },
     resumePlayback() {
@@ -92,7 +92,7 @@ export default {
           device_id: this.$store.state.deviceID,
         },
       }).catch(() => {
-        this.$store.commit('notice', 'Could not resume playback, please try again later.');
+        this.$store.commit('ADD_NOTICE', 'Could not resume playback, please try again later.');
       });
     },
     toggleRepeat() {
@@ -104,7 +104,7 @@ export default {
           device_id: this.$store.state.deviceID,
         },
       }).catch(() => {
-        this.$store.commit('notice', 'Could not toggle repeat, please try again later.');
+        this.$store.commit('ADD_NOTICE', 'Could not toggle repeat, please try again later.');
       });
     },
     toggleShuffle() {
@@ -116,7 +116,7 @@ export default {
           device_id: this.$store.state.deviceID,
         },
       }).catch(() => {
-        this.$store.commit('notice', 'Could not toggle shuffle, please try again later.');
+        this.$store.commit('ADD_NOTICE', 'Could not toggle shuffle, please try again later.');
       });
     },
     setVolume() {
@@ -128,7 +128,7 @@ export default {
           device_id: this.$store.state.deviceID,
         },
       }).catch(() => {
-        this.$store.commit('notice', 'Volume could not be changed, please try again later.');
+        this.$store.commit('ADD_NOTICE', 'Volume could not be changed, please try again later.');
       });
     },
   },

@@ -50,7 +50,7 @@ export default {
         this.featured = res.data;
         this.$endLoading('fetching data');
       }).catch(() => {
-        this.$store.commit('notice', 'Featured playlists could not be fetched, please try again later.');
+        this.$store.commit('ADD_NOTICE', 'Featured playlists could not be fetched, please try again later.');
         this.featured = [];
       });
     },
