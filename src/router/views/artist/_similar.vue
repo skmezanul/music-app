@@ -1,7 +1,7 @@
 <template>
 <div class="page-container">
 
-  <pagesection :title="`Similar to ${$parent.artist.name}`" :collapsible="false">
+  <ma-section :title="`Similar to ${$parent.artist.name}`" :collapsible="false">
     <div class="section-items-container">
       <sectionitem
       v-for="artist in similar"
@@ -12,7 +12,7 @@
       :primaryID="artist.id"
       ></sectionitem>
     </div>
-  </pagesection>
+  </ma-section>
 
 </div>
 </template>

@@ -2,17 +2,17 @@
 <div id="app" :class="{scrolled: $store.state.scrollPosition > 0}">
 
   <!-- header -->
-  <headerbar></headerbar>
+  <ma-header></ma-header>
 
   <!-- sidenav -->
-  <sidenav></sidenav>
+  <ma-sidenav></ma-sidenav>
 
   <!-- router view -->
   <router-view :key="$route.params.id"></router-view>
 
   <!-- footer -->
   <transition name="fade">
-    <footerbar></footerbar>
+    <ma-footer></ma-footer>
   </transition>
 
   <div class="tooltip-container">
@@ -21,14 +21,14 @@
 
   </div>
 
-  <loading class="loading-container">
+  <ma-loading class="loading-container">
     <template slot="spinner">
-        <spinner></spinner>
+        <ma-spinner></ma-spinner>
       </template>
-  </loading>
+  </ma-loading>
 
   <transition-group name="fade" tag="notices">
-    <notice v-for="(notice, index) in $store.state.notice" :key="index" :message="notice" @remove="$store.commit('REMOVE_NOTICE', index)"></notice>
+    <ma-notice v-for="(notice, index) in $store.state.notice" :key="index" :message="notice" @remove="$store.commit('REMOVE_NOTICE', index)"></ma-notice>
   </transition-group>
 
 </div>

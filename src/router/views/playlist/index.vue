@@ -2,18 +2,18 @@
 <main class="main-container">
 
   <!-- stage -->
-  <stage
+  <ma-stage
   :type="playlist.type"
   :image="playlist.images[0].url"
   :title="playlist.name"
   :meta="playlist.description"
-  ></stage>
+  ></ma-stage>
 
   <div class="page-container">
 
-    <pagesection>
+    <ma-section>
       <ol class="flex-table">
-        <flextable
+        <ma-list
         v-for="(playlist, index) in playlist.tracks.items"
         :key="playlist.track.id"
         :type="playlist.track.type"
@@ -23,9 +23,9 @@
         :album="playlist.track.album"
         :duration="playlist.track.duration_ms"
         :index="index"
-        ></flextable>
+        ></ma-list>
       </ol>
-    </pagesection>
+    </ma-section>
 
   </div>
 

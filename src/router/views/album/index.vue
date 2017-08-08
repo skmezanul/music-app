@@ -2,18 +2,18 @@
 <main class="main-container">
 
   <!-- stage -->
-  <stage
+  <ma-stage
   :type="album.type"
   :image="album.images[0].url"
   :title="album.name"
   :meta="`By ${album.artists[0].name}`"
-  ></stage>
+  ></ma-stage>
 
   <div class="page-container">
-    
-    <pagesection>
+
+    <ma-section>
       <ol class="flex-table">
-        <flextable
+        <ma-list
         v-for="(track, index) in album.tracks.items"
         :key="track.id"
         :type="track.type"
@@ -21,9 +21,9 @@
         :primaryID="track.id"
         :duration="track.duration_ms"
         :index="index"
-        ></flextable>
+        ></ma-list>
       </ol>
-    </pagesection>
+    </ma-section>
 
   </div>
 

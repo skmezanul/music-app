@@ -1,9 +1,9 @@
 <template>
 <div class="page-container">
 
-<pagesection v-if="toptracks.length > 0" title="Top Tracks">
+<ma-section v-if="toptracks.length > 0" title="Top Tracks">
   <ol class="flex-table">
-    <flextable
+    <ma-list
     v-for="(track, index) in toptracks"
     :key="track.id"
     :primaryID="track.id"
@@ -12,13 +12,13 @@
     :title="track.name"
     :duration="track.duration_ms"
     :index="index"
-    ></flextable>
+    ></ma-list>
   </ol>
-</pagesection>
+</ma-section>
 
-<pagesection v-if="albums.length > 0" title="Albums">
+<ma-section v-if="albums.length > 0" title="Albums">
   <div class="section-items-container">
-    <sectionitem
+    <ma-item
     v-for="album in albums"
     :key="album.id"
     :type="album.type"
@@ -27,13 +27,13 @@
     :image="album.images[0].url"
     :title="album.name"
     :artist="album.artists"
-    ></sectionitem>
+    ></ma-item>
   </div>
-</pagesection>
+</ma-section>
 
-<pagesection v-if="singles.length > 0" title="Singles">
+<ma-section v-if="singles.length > 0" title="Singles">
   <div class="section-items-container">
-    <sectionitem
+    <ma-item
     v-for="single in singles"
     :key="single.id"
     :type="single.type"
@@ -42,13 +42,13 @@
     :image="single.images[0].url"
     :title="single.name"
     :artist="single.artists"
-    ></sectionitem>
+    ></ma-item>
   </div>
-</pagesection>
+</ma-section>
 
-<pagesection v-if="appearson.length > 0" title="Appears On">
+<ma-section v-if="appearson.length > 0" title="Appears On">
   <div class="section-items-container">
-    <sectionitem
+    <ma-item
     v-for="album in appearson"
     :key="album.id"
     :type="album.type"
@@ -57,9 +57,9 @@
     :image="album.images[0].url"
     :title="album.name"
     :artist="album.artists"
-    ></sectionitem>
+    ></ma-item>
   </div>
-</pagesection>
+</ma-section>
 
 </div>
 </template>

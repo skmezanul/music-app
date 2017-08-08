@@ -1,9 +1,9 @@
 <template>
 <div class="page-container">
 
-  <pagesection v-if="featured != null" :title="featured.message">
+  <ma-section v-if="featured != null" :title="featured.message">
     <div class="section-items-container">
-      <sectionitem
+      <ma-item
       v-for="featured in featured.playlists.items"
       :key="featured.id"
       :type="featured.type"
@@ -11,9 +11,9 @@
       :secondaryID="featured.owner.id"
       :image="featured.images[0].url"
       :title="featured.name"
-      ></sectionitem>
+      ></ma-item>
     </div>
-  </pagesection>
+  </ma-section>
 
 </div>
 </template>

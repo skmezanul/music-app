@@ -1,13 +1,13 @@
 <template>
 <div class="page-container">
 
-  <pagesection :title="`About ${$parent.artist.name}`" :collapsible="false">
+  <ma-section :title="`About ${$parent.artist.name}`" :collapsible="false">
     <p class="biography" v-html="biography">
 
       <!-- insert biography -->
 
     </p>
-  </pagesection>
+  </ma-section>
 
 </div>
 </template>

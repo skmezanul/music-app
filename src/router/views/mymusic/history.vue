@@ -2,17 +2,17 @@
 <main class="main-container">
 
   <!-- stage -->
-  <stage
+  <ma-stage
   type="My Music"
   title="Recently Played"
   :image="history[0].track.album.images[0].url"
-  ></stage>
+  ></ma-stage>
 
   <div class="page-container">
 
-    <pagesection>
+    <ma-section :collapsible="false">
       <ol class="flex-table">
-        <flextable
+        <ma-list
         v-for="(history, index) in history"
         :key="history.track.id"
         :type="history.track.type"
@@ -22,9 +22,9 @@
         :album="history.track.album"
         :duration="history.track.duration_ms"
         :index="index"
-        ></flextable>
+        ></ma-list>
       </ol>
-    </pagesection>
+    </ma-section>
 
   </div>
 

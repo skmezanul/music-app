@@ -2,12 +2,12 @@
 <main class="main-container">
 
   <!-- stage -->
-  <stage
+  <ma-stage
   type="browse"
   :image="$store.state.currentUser.images[0].url"
   :navigation="navigation"
   :title="welcomeMessage"
-  ></stage>
+  ></ma-stage>
 
   <!-- router view -->
   <router-view></router-view>

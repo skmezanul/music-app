@@ -4,7 +4,7 @@ import { createVuexLoader } from 'vuex-loading';
 
 const VuexLoading = createVuexLoader({
   moduleName: 'loading',
-  componentName: 'loading',
+  componentName: 'ma-loading',
   className: 'loading',
 });
 

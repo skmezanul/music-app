@@ -1,8 +1,8 @@
 <template>
 <div class="page-container">
 
-  <pagesection title="2018" :collapsible="false">
-    <eventcard
+  <ma-section title="2018" :collapsible="false">
+    <ma-event
     v-for="concert in concerts"
     :key="concert.venue"
     :image="concert.image"
@@ -11,9 +11,9 @@
     :city="concert.city"
     :country="concert.country"
     :venue="concert.venue"
-    ></eventcard>
-  </pagesection>
-  
+    ></ma-event>
+  </ma-section>
+
 </div>
 </template>
 

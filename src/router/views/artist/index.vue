@@ -2,12 +2,12 @@
 <main class="main-container">
 
   <!-- stage -->
-  <stage
+  <ma-stage
   :type="artist.type"
   :navigation="navigation"
   :image="artist.images[0].url"
   :title="artist.name"
-  ></stage>
+  ></ma-stage>
 
   <!-- router view -->
   <router-view></router-view>
