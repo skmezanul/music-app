@@ -1,13 +1,13 @@
 <template lang="pug">
 li.table-row(@dblclick='playTrack', :class="{ 'playing': playing }")
 	.image-container(v-if='image != null')
-		i.material-icons(v-if='playing === false', @click='playTrack') play_circle_filled
-		i.material-icons.playing(v-if='playing === true') volume_up
-		i.material-icons(v-if='playing === true') pause_circle_filled
+		i.material-icons(v-if='playing == false', @click='playTrack') play_circle_filled
+		i.material-icons.playing(v-if='playing == true') volume_up
+		i.material-icons(v-if='playing == true') pause_circle_filled
 		img(:src='image', :alt='title')
 	span.index.mobile-hidden(v-if='index != null') {{ formattedIndex }}
 	.meta-container
-		span {{title}}
+		span {{ title }}
 		.artist-container(v-if='artists != null')
 			router-link(v-for='artist in artists', :key='artist.id', :to='`/${artist.type}/${artist.id}`') {{ artist.name }}
 	.album(v-if='album != null')
@@ -31,7 +31,7 @@ export default {
     'artists',
     'album',
     'duration',
-    'primaryID',
+    'primaryid',
     'image',
   ],
   methods: {
@@ -50,7 +50,7 @@ export default {
 
     // check if track is playing
     isPlaying() {
-      if (this.$store.state.currentPlayback.item.id === this.primaryID) {
+      if (this.$store.state.currentPlayback.item.id == this.primaryid) {
         console.log('true');
       }
     },

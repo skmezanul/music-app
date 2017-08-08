@@ -5,8 +5,7 @@ import axios from 'axios';
 Vue.use(VueAxios, axios);
 
 // your api token goes here:
-const token = 'BQAdw9G9eDByt8diJZRTTQzwMWBbouxB0dRX1ipZY9-BYzsFdf709zo78wGQEYx4MEN5D3ObxJOq97kKpHAyuXtm2-rRNShHYyrUAMJKs2IH2PE1v0qmqnqGrQ7WcmN1F8Cp5-SG9k1Y9mqVPXb0HmAkj5p7HpddsLTqzWRq2xehkByyAmYJzXc1g9-61pLcfn_JECyU-jamBtXOYvzpmMEWMilFIHZFlqMiA6A7bafW6A-QFTPix5HZ9NY43kUzXuowe0hi1mf7YXnLaARXqgukhvyfjBEsCnYMRRwlEXx8yhwnUT_EHl7ULFuvYxhrmpwEUw';
-
+const token = 'BQAOMG9b_l6thynKFID9aJeNi_X7sHFXdq6OyfSUoG_HIcQRx-7KeVT8CisZEVQwPCsdrMMsVmwZ9xPxgOttWZ3neD7hQh95OMrZpsFwBnXae_84-td15FcCEG-1w-LD9zLNfQ0wnm9rgpzgFUGIPN8zVTuCZji58rb9Vaot5D_lksYAqbO5uK7aR3N06_OXBLjHTiYUn2kIWhb50Q2LIKHpIFlyJ3HHU_y91PO13kEoviqaCLQzKpZalYe3ZWqE9UCOmm8blg6IqMCPnQoX4oaU4PPI5DB0PXsy2Kh0SoFcVBqvhyS6Tdc3uAtsSxi7HgcZaQ';
 // you can get it from
 // https://developer.spotify.com/web-api/console/post-next/
 // remember to grant all permissions for the app to work properly.

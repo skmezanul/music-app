@@ -2,8 +2,8 @@
 #app(:class='{scrolled: $store.state.scrollPosition > 0}')
 	// header
 	ma-header
-	// sidenav
-	ma-sidenav
+	// navigation
+	ma-navigation
 	// router view
 	router-view(:key='$route.params.id')
 	// footer

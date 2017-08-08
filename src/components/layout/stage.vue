@@ -1,10 +1,10 @@
 <template lang="pug">
-.stage(:class="{ 'with-cover' : type === 'album' || type === 'playlist', 'stage-compact': $route.meta.stage === 'compact'}")
+.stage(:class="{ 'with-cover' : type == 'album' || type == 'playlist', 'stage-compact': $route.meta.stage == 'compact'}")
 	// background
 	.stage-background
 		img(v-parallax='0.5', :src='image', :alt='title')
 	.stage-inner
-		.cover-container.mobile-hidden(v-if="type === 'album' || type === 'playlist'")
+		.cover-container.mobile-hidden(v-if="type == 'album' || type == 'playlist'")
 			img(:src='image', :alt='title')
 		// content
 		.stage-container
@@ -17,7 +17,7 @@
 					a.btn.btn-accent
 						i.material-icons play_circle_filled
 						| Play All
-					a.btn(v-if="type === 'artist'")
+					a.btn(v-if="type == 'artist'")
 						i.material-icons add_circle
 						| Follow
 					a.btn.btn-icon

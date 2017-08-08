@@ -1,16 +1,27 @@
+<i18n>
+{
+	"en": {
+		"myaccount": "My Account"
+	},
+	"de": {
+		"myaccount": "Mein Konto"
+	}
+}
+</i18n>
+
 <template lang="pug">
 header
 	.header-inner
-		// back and forward navigation
+		// navigation
 		.header.left
 			i.material-icons(@click='goBack') keyboard_arrow_left
 			i.material-icons(@click='goForward') keyboard_arrow_right
 		// search
-		.header.center(@keyup.esc='toggleSearch', @keyup.enter='fetchdata', :class="{ 'search-active': searchDropdown === true }")
+		.header.center(@keyup.esc='toggleSearch', @keyup.enter='fetchdata', :class="{ 'search-active': searchDropdown == true }")
 			i.material-icons.search-icon search
-			input#searchfield(type='text', @click='toggleSearch', v-model='searchQuery', placeholder='Search')
+			input(type='text', @click='toggleSearch', v-model='searchQuery', placeholder='Search')
 			// search dropdown
-			.search-dropdown(v-if='searchDropdown === true', v-on-clickaway='toggleSearch')
+			.search-dropdown(v-if='searchDropdown == true', v-on-clickaway='toggleSearch')
 				ma-search(:searchquery='searchQuery', :searchdropdown='searchDropdown')
 		// current user
 		.header.right
@@ -19,9 +30,9 @@ header
 			i.toggle.material-icons(@click='toggleDropdown') keyboard_arrow_down
 			// user dropdown
 			ul.dropdown(v-if='userDropdown', v-on-clickaway='toggleDropdown')
-				li My Account
-				li Settings
-				li Logout
+				li {{ $t('myaccount') }}
+				li {{ $t('settings') }}
+				li {{ $t('logout') }}
 </template>
 
 <script>
@@ -34,7 +45,7 @@ export default {
     return {
       userDropdown: false,
       searchDropdown: false,
-      searchQuery: '',
+      searchQuery: null,
     };
   },
   methods: {

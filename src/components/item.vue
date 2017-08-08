@@ -1,11 +1,11 @@
 <template lang="pug">
 .section-item(:class='type')
-	.section-item-inner(@click='toTarget(type, primaryID, secondaryID)')
+	.section-item-inner(@click='toTarget(type, primaryid, secondaryid)')
 		.item-overlay(v-if="type != 'artist'")
 			.overlay-actions
 				i.favorite.material-icons favorite
-				i.play.material-icons(v-if='playing === false', @click='playing = true') play_circle_filled
-				i.play.material-icons(v-if='playing === true', @click='playing = false') pause_circle_filled
+				i.play.material-icons(v-if='playing == false', @click='playing = true') play_circle_filled
+				i.play.material-icons(v-if='playing == true', @click='playing = false') pause_circle_filled
 				i.more.material-icons more_horiz
 		.image-container
 			img(:src='image', :alt='title')
@@ -25,21 +25,21 @@ export default {
   },
   props: [
     'type',
-    'primaryID',
-    'secondaryID',
+    'primaryid',
+    'secondaryid',
     'title',
     'artist',
     'image',
   ],
   methods: {
-    toTarget(type, primaryID, secondaryID) {
-      if (type === 'playlist') {
+    toTarget(type, primaryid, secondaryid) {
+      if (type == 'playlist') {
         this.$router.push({
-          path: `/${type}/${secondaryID}/${primaryID}`,
+          path: `/${type}/${secondaryid}/${primaryid}`,
         });
       } else {
         this.$router.push({
-          path: `/${type}/${primaryID}`,
+          path: `/${type}/${primaryid}`,
         });
       }
     },

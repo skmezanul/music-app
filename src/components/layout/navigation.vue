@@ -1,7 +1,7 @@
 <template lang="pug">
-nav.sidenav-container
+nav.navigation-container
 	ul
-		.sidenav-section
+		.navigation-section
 			li
 				router-link(to='/browse')
 					i.material-icons book
@@ -11,7 +11,7 @@ nav.sidenav-container
 					i.material-icons radio
 					| Radio
 		// my music
-		.sidenav-section
+		.navigation-section
 			li
 				h4 My Music
 			li
@@ -32,7 +32,7 @@ nav.sidenav-container
 					| Artists
 		// playlists
 		transition(name='fade')
-			.sidenav-section(v-if='playlists.length > 0')
+			.navigation-section(v-if='playlists.length > 0')
 				li
 					h4 My Playlists
 				li(v-for='playlist in playlists', :key='playlist.id')
@@ -40,7 +40,7 @@ nav.sidenav-container
 						i.material-icons playlist_play
 						span {{ playlist.name }}
 		// new playlist
-		.sidenav-section
+		.navigation-section
 			li
 				a
 					i.material-icons playlist_add
@@ -80,7 +80,7 @@ export default {
 </script>
 
 <style lang="scss">
-.sidenav-container {
+.navigation-container {
     position: fixed;
     left: 0;
     top: 0;
@@ -98,7 +98,7 @@ export default {
         height: 100%;
         box-sizing: border-box;
 
-        .sidenav-section {
+        .navigation-section {
             margin: 15px;
             &:last-child {
                 border-top: 1px solid $border-color;

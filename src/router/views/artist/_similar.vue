@@ -2,7 +2,7 @@
 .page-container
 	ma-section(:title='`Similar to ${$parent.artist.name}`', :collapsible='false')
 		.section-items-container
-			sectionitem(v-for='artist in similar', :type='artist.type', :key='artist.id', :image='artist.images[1].url', :title='artist.name', :primaryid='artist.id')
+			ma-item(v-for='artist in similar', :type='artist.type', :key='artist.id', :image='artist.images[1].url', :title='artist.name', :primaryid='artist.id')
 </template>
 <script>
 export default {

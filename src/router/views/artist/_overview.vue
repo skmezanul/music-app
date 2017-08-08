@@ -2,7 +2,7 @@
 .page-container
 	ma-section(v-if='toptracks.length > 0', title='Top Tracks')
 		ol.flex-table
-			ma-list(v-for='(track, index) in toptracks', :key='track.id', :primaryid='track.id', :type='track.type', :image='track.album.images[0].url', :title='track.name', :duration='track.duration_ms', :index='index')
+			ma-list(v-for='(track, index) in toptracks', :key='track.id', :primaryID='track.id', :type='track.type', :image='track.album.images[0].url', :title='track.name', :duration='track.duration_ms', :index='index')
 	ma-section(v-if='albums.length > 0', title='Albums')
 		.section-items-container
 			ma-item(v-for='album in albums', :key='album.id', :type='album.type', :primaryid='album.id', :secondaryid='album.artists[0].id', :image='album.images[0].url', :title='album.name', :artist='album.artists')

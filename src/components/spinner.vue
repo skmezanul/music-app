@@ -1,6 +1,6 @@
 <template lang="pug">
 .loading
-	svg.spinner(width='75px', height='75px', viewbox='0 0 66 66')
+	svg.spinner(width='65', height='65', viewbox='0 0 66 66')
 		circle.path(fill='none', stroke-width='4', stroke-linecap='round', cx='33', cy='33', r='30')
 </template>
 

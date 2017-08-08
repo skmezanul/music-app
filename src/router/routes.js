@@ -20,7 +20,6 @@ const playlistIndex = require('./views/playlist/index.vue');
 
 export default [{
   path: '/browse',
-  name: 'browseIndex',
   component: browseIndex,
   children: [{
     path: '',

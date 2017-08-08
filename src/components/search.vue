@@ -1,15 +1,18 @@
 <template lang="pug">
 .search-container
+
 	// If user has not typed anything in
-	span(v-if='searchQuery.length === 0')
+	span(v-if='searchquery.length == 0')
 		i.material-icons search
 		h2 Search for artists, tracks or albums.
+
 	// if no results for this search
-	span(v-if='searchQuery.length > 0 && countResults === 0')
+	span(v-if='searchquery.length > 0 && countResults === 0')
 		i.material-icons search
-		h2 No results found for "{{ searchQuery }}".
+		h2 No results found for "{{ searchquery }}".
+
 	// if results for this search
-	span(v-if='searchQuery.length > 0')
+	span(v-if='searchquery.length > 0')
 		// if artists found
 		.search-section.artists(v-if='results.artists.items.length > 0')
 			h1 Artists ({{ results.artists.items.length }})
@@ -18,6 +21,7 @@
 					img(:src='artist.images[0].url', :alt='artist.name')
 				.meta-container
 					h4 {{ artist.name }}
+
 		// if tracks found
 		.search-section.tracks(v-if='results.tracks.items.length > 0')
 			h1 Tracks ({{ results.tracks.items.length }})
@@ -27,6 +31,7 @@
 				.meta-container
 					h4 {{track.name}}
 					a.artist(v-for='artist in track.artists', @click='toArtist(artist.type, artist.id)') {{ artist.name }}
+
 		// if albums found
 		.search-section.albums(v-if='results.albums.items.length > 0')
 			h1 Albums ({{ results.albums.items.length }})
@@ -51,7 +56,7 @@ export default {
     this.getResults();
   },
   props: [
-    'searchQuery',
+    'searchquery',
   ],
   methods: {
     // get results for this search query from the api
@@ -60,7 +65,7 @@ export default {
         method: 'get',
         url: '/search',
         params: {
-          q: this.searchQuery,
+          q: this.searchquery,
           type: 'album,artist,track',
         },
       }).then((res) => {
