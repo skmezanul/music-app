@@ -1,6 +1,6 @@
 <template>
-<footer class="footer">
-  <div class="bottom left mobile-hidden">
+<footer>
+  <div class="footer left mobile-hidden">
     <img :src="$store.state.currentPlayback.item.album.images[0].url" :alt="$store.state.currentPlayback.item.name" />
     <div class="currently-playing">
       <span class="title">{{ $store.state.currentPlayback.item.name }}</span>
@@ -9,7 +9,7 @@
       </div>
     </div>
   </div>
-  <div class="bottom center">
+  <div class="footer center">
     <i @click="toggleShuffle" :class="{ 'active': $store.state.currentPlayback.shuffle_state === true }" class="shuffle material-icons" v-tooltip="{ content: 'Shuffle', container: '.tooltip-container' }">shuffle</i>
     <i @click="previousTrack" class="skip material-icons">skip_previous</i>
     <i v-show="$store.state.currentPlayback.is_playing === false" @click="resumePlayback" class="toggle play material-icons">play_circle_filled</i>
@@ -18,11 +18,11 @@
     <i v-show="$store.state.currentPlayback.repeat_state != 'track'" @click="toggleRepeat" :class="{ 'active': $store.state.currentPlayback.repeat_state === 'context' }" class="repeat material-icons" v-tooltip="{ content: 'Repeat', container: '.tooltip-container' }">repeat</i>
     <i v-show="$store.state.currentPlayback.repeat_state === 'track'" @click="toggleRepeat" class="repeat material-icons active" v-tooltip="{ content: 'Repeat', container: '.tooltip-container' }">repeat_one</i>
   </div>
-  <div class="bottom right mobile-hidden">
+  <div class="footer right mobile-hidden">
     <i v-if="volume == 0" class="volume material-icons">volume_mute</i>
     <i v-if="volume <= 50 && volume > 0" class="volume material-icons">volume_down</i>
     <i v-if="volume > 50" class="volume material-icons">volume_up</i>
-    <slider ref="slider" v-model="volume" width="100px" :bgStyle="bgStyle" :sliderStyle="sliderStyle" :processStyle="sliderStyle" tooltip="false"></slider>
+    <ma-slider ref="slider" v-model="volume" width="100px" :bgStyle="bgStyle" :sliderStyle="sliderStyle" :processStyle="sliderStyle" tooltip="false"></ma-slider>
     <i class="cast material-icons" v-tooltip="{ content: 'Cast', container: '.tooltip-container' }">cast</i>
     <i class="queue material-icons" v-tooltip="{ content: 'Queue', container: '.tooltip-container' }">queue_music</i>
   </div>
@@ -136,7 +136,7 @@ export default {
 </script>
 
 <style lang="scss">
-.footer {
+footer {
     display: flex;
     position: fixed;
     right: 0;
@@ -148,7 +148,7 @@ export default {
     z-index: 999;
     border-top: 1px solid $border-color;
 
-    .bottom {
+    .footer {
         display: flex;
         align-items: center;
         height: 50px;

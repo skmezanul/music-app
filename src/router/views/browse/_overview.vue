@@ -1,7 +1,7 @@
 <template>
 <div class="page-container">
 
-  <ma-section v-if="featured != null" :title="featured.message">
+  <ma-section :title="featured.message">
     <div class="section-items-container">
       <ma-item
       v-for="featured in featured.playlists.items"

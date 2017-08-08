@@ -1,158 +1,156 @@
 <template>
-<nav class="sidenav">
-  <ul>
+<nav class="sidenav-container">
+    <ul>
 
-    <div class="sidenav-section">
-      <li>
-        <router-link to="/browse"><i class="material-icons">book</i>Browse</router-link>
-      </li>
-      <li>
-        <router-link to="/radio"><i class="material-icons">radio</i>Radio</router-link>
-      </li>
-    </div>
+        <div class="sidenav-section">
+            <li>
+                <router-link to="/browse"><i class="material-icons">book</i>Browse</router-link>
+            </li>
+            <li>
+                <router-link to="/radio"><i class="material-icons">radio</i>Radio</router-link>
+            </li>
+        </div>
 
-    <!-- my music -->
-    <div class="sidenav-section">
-      <li>
-        <h4>My Music</h4></li>
-      <li>
-        <router-link to="/history"><i class="material-icons">history</i>Recently Played</router-link>
-      </li>
-      <li>
-        <router-link to="/songs"><i class="material-icons">music_note</i>Songs</router-link>
-      </li>
-      <li>
-        <router-link to="/albums"><i class="material-icons">album</i>Albums</router-link>
-      </li>
-      <li>
-        <router-link to="/artists"><i class="material-icons">person</i>Artists</router-link>
-      </li>
-    </div>
+        <!-- my music -->
+        <div class="sidenav-section">
+            <li>
+                <h4>My Music</h4></li>
+            <li>
+                <router-link to="/history"><i class="material-icons">history</i>Recently Played</router-link>
+            </li>
+            <li>
+                <router-link to="/songs"><i class="material-icons">music_note</i>Songs</router-link>
+            </li>
+            <li>
+                <router-link to="/albums"><i class="material-icons">album</i>Albums</router-link>
+            </li>
+            <li>
+                <router-link to="/artists"><i class="material-icons">person</i>Artists</router-link>
+            </li>
+        </div>
 
-    <!-- playlists -->
-    <transition name="fade">
-      <div v-if="playlists.length > 0" class="sidenav-section">
-        <li>
-          <h4>My Playlists</h4>
-        </li>
-          <li v-for="playlist in playlists" :key="playlist.id">
-            <router-link :to="`/${playlist.type}/${playlist.owner.id}/${playlist.id}`">
-              <i class="material-icons">playlist_play</i>
-              <span>{{ playlist.name }}</span>
-            </router-link>
-          </li>
-      </div>
-    </transition>
+        <!-- playlists -->
+        <transition name="fade">
+            <div v-if="playlists.length > 0" class="sidenav-section">
+                <li>
+                    <h4>My Playlists</h4>
+                </li>
+                <li v-for="playlist in playlists" :key="playlist.id">
+                    <router-link :to="`/${playlist.type}/${playlist.owner.id}/${playlist.id}`">
+                        <i class="material-icons">playlist_play</i>
+                        <span>{{ playlist.name }}</span>
+                    </router-link>
+                </li>
+            </div>
+        </transition>
 
-    <!-- new playlist -->
-    <div class="sidenav-section">
-      <li><a><i class="material-icons">playlist_add</i><span>New Playlist</span></a></li>
-    </div>
+        <!-- new playlist -->
+        <div class="sidenav-section">
+            <li><a><i class="material-icons">playlist_add</i><span>New Playlist</span></a></li>
+        </div>
 
-  </ul>
+    </ul>
 </nav>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      playlists: [],
-    };
-  },
-  created() {
-    // fetch the data when the view is created and the data is
-    // already being observed
-    this.getMyPlaylists();
-  },
-  methods: {
-    // get current user's playlists from the api
-    getMyPlaylists() {
-      this.axios({
-        method: 'get',
-        url: '/me/playlists',
-        params: {
-          limit: 10,
-        },
-      }).then((res) => {
-        this.playlists = res.data.items;
-      }).catch((err) => {
-        this.$store.commit('ADD_NOTICE', `Playlists could not be fetched, please try again later. ${err}`);
-        this.playlists = [];
-      });
+    data() {
+        return {
+            playlists: [],
+        };
     },
-  },
+    created() {
+        // fetch the data when the view is created and the data is
+        // already being observed
+        this.getMyPlaylists();
+    },
+    methods: {
+        // get current user's playlists from the api
+        getMyPlaylists() {
+            this.axios({
+                method: 'get',
+                url: '/me/playlists',
+                params: {
+                    limit: 10,
+                },
+            }).then((res) => {
+                this.playlists = res.data.items;
+            }).catch((err) => {
+                this.$store.commit('ADD_NOTICE', `Playlists could not be fetched, please try again later. ${err}`);
+                this.playlists = [];
+            });
+        },
+    },
 };
 </script>
 
 <style lang="scss">
-nav {
-    &.sidenav {
-        position: fixed;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        z-index: 999;
-        width: 200px;
+.sidenav-container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 999;
+    width: 200px;
 
-        ul {
-            display: flex;
-            flex-direction: column;
-            padding-top: 50px;
-            padding-bottom: 81px;
-            background-color: $dark-blue;
-            border-right: 1px solid $border-color;
-            height: 100%;
-            box-sizing: border-box;
+    ul {
+        display: flex;
+        flex-direction: column;
+        padding-top: 50px;
+        padding-bottom: 81px;
+        background-color: $dark-blue;
+        border-right: 1px solid $border-color;
+        height: 100%;
+        box-sizing: border-box;
 
-            .sidenav-section {
-                margin: 15px;
-                &:last-child {
-                    border-top: 1px solid $border-color;
-                    margin: auto 0 0;
-
-                    li {
-                        padding: 15px;
-                    }
-                }
+        .sidenav-section {
+            margin: 15px;
+            &:last-child {
+                border-top: 1px solid $border-color;
+                margin: auto 0 0;
 
                 li {
-                    display: flex;
+                    padding: 15px;
+                }
+            }
 
-                    h4 {
-                        text-transform: uppercase;
-                        color: rgba($white, 0.7);
-                        font-weight: 300;
-                        font-size: 0.9em;
-                        padding: 5px 10px;
+            li {
+                display: flex;
+
+                h4 {
+                    text-transform: uppercase;
+                    color: rgba($white, 0.7);
+                    font-weight: 300;
+                    font-size: 0.9em;
+                    padding: 5px 10px;
+                }
+
+                a {
+                    font-size: 0.85em;
+                    transition: background-color 0.1s;
+                    padding: 10px;
+                    border-radius: 5px;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    overflow: hidden;
+                    @include item-hover;
+
+                    i {
+                        font-size: 1.3em;
+                        margin-right: 7px;
                     }
 
-                    a {
-                        font-size: 0.85em;
-                        transition: background-color 0.1s;
-                        padding: 10px;
-                        border-radius: 5px;
-                        width: 100%;
-                        display: flex;
-                        align-items: center;
+                    span {
+                        text-overflow: ellipsis;
                         overflow: hidden;
-                        @include item-hover;
+                        white-space: nowrap;
+                    }
 
-                        i {
-                            font-size: 1.3em;
-                            margin-right: 7px;
-                        }
-
-                        span {
-                            text-overflow: ellipsis;
-                            overflow: hidden;
-                            white-space: nowrap;
-                        }
-
-                        &.router-link-active {
-                            background-color: $accent-color;
-                            color: $white;
-                        }
+                    &.router-link-active {
+                        background-color: $accent-color;
+                        color: $white;
                     }
                 }
             }

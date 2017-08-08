@@ -99,10 +99,10 @@ export default {
     },
   },
   mounted() {
-    window.addEventListener('scroll', this.updateScroll);
+    window.addEventListener('scroll', this.updateScroll, {passive: true});
   },
   destroy() {
-    window.removeEventListener('scroll', this.updateScroll);
+    window.removeEventListener('scroll', this.updateScroll, {passive: true});
   },
 };
 </script>
@@ -168,51 +168,6 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.page-section {
-    display: flex;
-    flex-direction: column;
-    margin: 30px 0;
-
-    .biography {
-        font-weight: 300;
-        line-height: 1.5em;
-        color: rgba($white, 0.9);
-        font-size: 1.1em;
-        margin: 0;
-    }
-
-    .section-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 25px;
-        .section-actions {
-            span {
-                display: flex;
-                align-items: center;
-                @include item-hover;
-            }
-        }
-    }
-
-    .section-items-container {
-        display: flex;
-        flex-flow: row wrap;
-        margin: 0 -7px;
-
-        &.is-collapsed {
-            @media screen and (max-width: 955px) {
-                .section-item:nth-child(n+3) {
-                    display: none;
-                }
-            }
-            .section-item:nth-child(n+5) {
-                display: none;
-            }
-        }
-    }
 }
 
 .dropdown {
@@ -306,7 +261,7 @@ a {
 }
 
 .scrolled {
-    .header {
+    header {
         background-color: $dark-blue;
         border-color: $border-color;
 
@@ -315,7 +270,7 @@ a {
         }
     }
 }
-.header,
+header,
 .main-container {
     margin-left: 200px;
 }
@@ -369,8 +324,8 @@ a {
     }
 }
 @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
-    .footer,
-    .scrolled .header {
+    footer,
+    .scrolled header {
         background-color: rgba($dark-blue, 0.7) !important;
         backdrop-filter: saturate(200%) blur(20px);
         -webkit-backdrop-filter: saturate(200%) blur(20px);

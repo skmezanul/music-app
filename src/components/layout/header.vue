@@ -1,30 +1,30 @@
 <template>
-<header class="header">
+<header>
   <div class="header-inner">
 
     <!-- back and forward navigation -->
-    <div class="top left">
+    <div class="header left">
       <i class="material-icons" @click="goBack">keyboard_arrow_left</i>
       <i class="material-icons" @click="goForward">keyboard_arrow_right</i>
     </div>
 
     <!-- search -->
-    <div class="top center" @keyup.esc="toggleSearch" @keyup.enter="fetchdata" :class="{ 'search-active': searchDropdown === true }">
+    <div class="header center" @keyup.esc="toggleSearch" @keyup.enter="fetchdata" :class="{ 'search-active': searchDropdown === true }">
       <i class="material-icons search-icon">search</i>
-      <input type="text" @click="toggleSearch" v-model="searchQuery" placeholder="Search" />
+      <input type="text" id="searchfield" @click="toggleSearch" v-model="searchQuery" placeholder="Search" />
 
       <!-- search dropdown -->
       <div class="search-dropdown" v-if="searchDropdown === true" v-on-clickaway="toggleSearch">
-        <search
+        <ma-search
         :searchQuery="searchQuery"
         :searchDropdown="searchDropdown"
-        ></search>
+        ></ma-search>
       </div>
 
     </div>
 
     <!-- current user -->
-    <div class="top right">
+    <div class="header right">
       <img
       :src="$store.state.currentUser.images[0].url"
       :alt="$store.state.currentUser.display_name"
@@ -80,7 +80,7 @@ export default {
 </script>
 
 <style lang="scss">
-.header {
+header {
     display: flex;
     justify-content: center;
     border-bottom: 1px solid;
@@ -105,7 +105,7 @@ export default {
         will-change: width;
         height: 42px;
 
-        .top {
+        .header {
             display: flex;
             align-items: center;
 
