@@ -1,33 +1,28 @@
-<template>
-<footer>
-  <div class="footer left mobile-hidden">
-    <img :src="$store.state.currentPlayback.item.album.images[0].url" :alt="$store.state.currentPlayback.item.name" />
-    <div class="currently-playing">
-      <span class="title">{{ $store.state.currentPlayback.item.name }}</span>
-      <div class="artist-container">
-        <a class="artist" v-for="artist in $store.state.currentPlayback.item.artists" :key="artist.id" @click="toArtist(artist.type, artist.id)">{{ artist.name }}</a>
-      </div>
-    </div>
-  </div>
-  <div class="footer center">
-    <i @click="toggleShuffle" :class="{ 'active': $store.state.currentPlayback.shuffle_state === true }" class="shuffle material-icons" v-tooltip="{ content: 'Shuffle', container: '.tooltip-container' }">shuffle</i>
-    <i @click="previousTrack" class="skip material-icons">skip_previous</i>
-    <i v-show="$store.state.currentPlayback.is_playing === false" @click="resumePlayback" class="toggle play material-icons">play_circle_filled</i>
-    <i v-show="$store.state.currentPlayback.is_playing === true" @click="pausePlayback" class="toggle pause material-icons">pause_circle_filled</i>
-    <i @click="nextTrack" class="skip material-icons">skip_next</i>
-    <i v-show="$store.state.currentPlayback.repeat_state != 'track'" @click="toggleRepeat" :class="{ 'active': $store.state.currentPlayback.repeat_state === 'context' }" class="repeat material-icons" v-tooltip="{ content: 'Repeat', container: '.tooltip-container' }">repeat</i>
-    <i v-show="$store.state.currentPlayback.repeat_state === 'track'" @click="toggleRepeat" class="repeat material-icons active" v-tooltip="{ content: 'Repeat', container: '.tooltip-container' }">repeat_one</i>
-  </div>
-  <div class="footer right mobile-hidden">
-    <i v-if="volume == 0" class="volume material-icons">volume_mute</i>
-    <i v-if="volume <= 50 && volume > 0" class="volume material-icons">volume_down</i>
-    <i v-if="volume > 50" class="volume material-icons">volume_up</i>
-    <ma-slider ref="slider" v-model="volume" width="100px" :bgStyle="bgStyle" :sliderStyle="sliderStyle" :processStyle="sliderStyle" tooltip="false"></ma-slider>
-    <i class="cast material-icons" v-tooltip="{ content: 'Cast', container: '.tooltip-container' }">cast</i>
-    <i class="queue material-icons" v-tooltip="{ content: 'Queue', container: '.tooltip-container' }">queue_music</i>
-  </div>
-</footer>
+<template lang="pug">
+footer
+	.footer.left.mobile-hidden
+		img(:src='$store.state.currentPlayback.item.album.images[0].url', :alt='$store.state.currentPlayback.item.name')
+		.currently-playing
+			span.title {{ $store.state.currentPlayback.item.name }}
+			.artist-container
+				a.artist(v-for='artist in $store.state.currentPlayback.item.artists', :key='artist.id', @click='toArtist(artist.type, artist.id)') {{ artist.name }}
+	.footer.center
+		i.shuffle.material-icons(@click='toggleShuffle', :class="{ 'active': $store.state.currentPlayback.shuffle_state === true }", v-tooltip="{ content: 'Shuffle', container: '.tooltip-container' }") shuffle
+		i.skip.material-icons(@click='previousTrack') skip_previous
+		i.toggle.play.material-icons(v-show='$store.state.currentPlayback.is_playing === false', @click='resumePlayback') play_circle_filled
+		i.toggle.pause.material-icons(v-show='$store.state.currentPlayback.is_playing === true', @click='pausePlayback') pause_circle_filled
+		i.skip.material-icons(@click='nextTrack') skip_next
+		i.repeat.material-icons(v-show="$store.state.currentPlayback.repeat_state != 'track'", @click='toggleRepeat', :class="{ 'active': $store.state.currentPlayback.repeat_state === 'context' }", v-tooltip="{ content: 'Repeat', container: '.tooltip-container' }") repeat
+		i.repeat.material-icons.active(v-show="$store.state.currentPlayback.repeat_state === 'track'", @click='toggleRepeat', v-tooltip="{ content: 'Repeat', container: '.tooltip-container' }") repeat_one
+	.footer.right.mobile-hidden
+		i.volume.material-icons(v-if='volume == 0') volume_mute
+		i.volume.material-icons(v-if='volume <= 50 && volume > 0') volume_down
+		i.volume.material-icons(v-if='volume > 50') volume_up
+		ma-slider(ref='slider', v-model='volume', width='100px', :bgstyle='bgStyle', :sliderstyle='sliderStyle', :processstyle='sliderStyle', tooltip='false')
+		i.cast.material-icons(v-tooltip="{ content: 'Cast', container: '.tooltip-container' }") cast
+		i.queue.material-icons(v-tooltip="{ content: 'Queue', container: '.tooltip-container' }") queue_music
 </template>
+
 <script>
 export default {
   data() {

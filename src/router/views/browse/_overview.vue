@@ -1,21 +1,8 @@
-<template>
-<div class="page-container">
-
-  <ma-section :title="featured.message">
-    <div class="section-items-container">
-      <ma-item
-      v-for="featured in featured.playlists.items"
-      :key="featured.id"
-      :type="featured.type"
-      :primaryID="featured.id"
-      :secondaryID="featured.owner.id"
-      :image="featured.images[0].url"
-      :title="featured.name"
-      ></ma-item>
-    </div>
-  </ma-section>
-
-</div>
+<template lang="pug">
+.page-container
+	ma-section(:title='featured.message')
+		.section-items-container
+			ma-item(v-for='featured in featured.playlists.items', :key='featured.id', :type='featured.type', :primaryid='featured.id', :secondaryid='featured.owner.id', :image='featured.images[0].url', :title='featured.name')
 </template>
 <script>
 export default {

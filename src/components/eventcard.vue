@@ -1,24 +1,26 @@
-<template>
-<div class="event-card">
-  <div class="container left">
-    <h1>{{ month }}</h1>
-    <h1>{{ day }}</h1>
-  </div>
-  <div class="container right">
-    <div class="right-inner">
-      <div class="date"><a>{{ month }}</a><a>{{ day }}</a></div>
-      <div class="location"><a>{{ city }}</a><a>{{ country }}</a></div>
-      <h1>{{ venue }}</h1>
-      <div class="button-container">
-        <a class="btn"><i class="material-icons">event_available</i>Buy Tickets</a>
-        <a class="btn btn-transparent"><i class="material-icons">share</i>Share</a>
-      </div>
-    </div>
-    <div class="image-container">
-      <img :src="image" :alt="venue" />
-    </div>
-  </div>
-</div>
+<template lang="pug">
+.event-card
+	.container.left
+		h1 {{ month }}
+		h1 {{ day }}
+	.container.right
+		.right-inner
+			.date
+				a {{ month }}
+				a {{ day }}
+			.location
+				a {{ city }}
+				a {{ country }}
+			h1 {{ venue }}
+			.button-container
+				a.btn
+					i.material-icons event_available
+					| Buy Tickets
+				a.btn.btn-transparent
+					i.material-icons share
+					| Share
+		.image-container
+			img(:src='image', :alt='venue')
 </template>
 
 <script>

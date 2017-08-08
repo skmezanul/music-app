@@ -1,49 +1,27 @@
-<template>
-<header>
-  <div class="header-inner">
-
-    <!-- back and forward navigation -->
-    <div class="header left">
-      <i class="material-icons" @click="goBack">keyboard_arrow_left</i>
-      <i class="material-icons" @click="goForward">keyboard_arrow_right</i>
-    </div>
-
-    <!-- search -->
-    <div class="header center" @keyup.esc="toggleSearch" @keyup.enter="fetchdata" :class="{ 'search-active': searchDropdown === true }">
-      <i class="material-icons search-icon">search</i>
-      <input type="text" id="searchfield" @click="toggleSearch" v-model="searchQuery" placeholder="Search" />
-
-      <!-- search dropdown -->
-      <div class="search-dropdown" v-if="searchDropdown === true" v-on-clickaway="toggleSearch">
-        <ma-search
-        :searchQuery="searchQuery"
-        :searchDropdown="searchDropdown"
-        ></ma-search>
-      </div>
-
-    </div>
-
-    <!-- current user -->
-    <div class="header right">
-      <img
-      :src="$store.state.currentUser.images[0].url"
-      :alt="$store.state.currentUser.display_name"
-      class="user-avatar mobile-hidden"
-      />
-      <router-link to="/" class="user-name mobile-hidden">{{ $store.state.currentUser.display_name }}</router-link>
-      <i class="toggle material-icons" @click="toggleDropdown">keyboard_arrow_down</i>
-
-      <!-- user dropdown -->
-      <ul class="dropdown" v-if="userDropdown" v-on-clickaway="toggleDropdown">
-        <li>My Account</li>
-        <li>Settings</li>
-        <li>Logout</li>
-      </ul>
-
-    </div>
-
-  </div>
-</header>
+<template lang="pug">
+header
+	.header-inner
+		// back and forward navigation
+		.header.left
+			i.material-icons(@click='goBack') keyboard_arrow_left
+			i.material-icons(@click='goForward') keyboard_arrow_right
+		// search
+		.header.center(@keyup.esc='toggleSearch', @keyup.enter='fetchdata', :class="{ 'search-active': searchDropdown === true }")
+			i.material-icons.search-icon search
+			input#searchfield(type='text', @click='toggleSearch', v-model='searchQuery', placeholder='Search')
+			// search dropdown
+			.search-dropdown(v-if='searchDropdown === true', v-on-clickaway='toggleSearch')
+				ma-search(:searchquery='searchQuery', :searchdropdown='searchDropdown')
+		// current user
+		.header.right
+			img.user-avatar.mobile-hidden(:src='$store.state.currentUser.images[0].url', :alt='$store.state.currentUser.display_name')
+			router-link.user-name.mobile-hidden(to='/') {{ $store.state.currentUser.display_name }}
+			i.toggle.material-icons(@click='toggleDropdown') keyboard_arrow_down
+			// user dropdown
+			ul.dropdown(v-if='userDropdown', v-on-clickaway='toggleDropdown')
+				li My Account
+				li Settings
+				li Logout
 </template>
 
 <script>

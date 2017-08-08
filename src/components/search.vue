@@ -1,80 +1,41 @@
-<template>
-<div class="search-container">
-
-  <!--If user has not typed anything in-->
-  <span v-if="searchQuery.length === 0">
-    <i class="material-icons">search</i>
-    <h2>Search for artists, tracks or albums.</h2>
-  </span>
-
-  <!-- if no results for this search -->
-  <span v-if="searchQuery.length > 0 && countResults === 0">
-    <i class="material-icons">search</i>
-    <h2>No results found for "{{ searchQuery }}".</h2>
-  </span>
-
-  <!-- if results for this search -->
-  <span v-if="searchQuery.length > 0">
-    <!-- if artists found -->
-    <div class="search-section artists" v-if="results.artists.items.length > 0">
-      <h1>Artists ({{ results.artists.items.length }})</h1>
-      <div class="search-item"
-      v-for="artist in results.artists.items"
-      :key="artist.id"
-      @click="toTarget(artist.type, artist.id)">
-        <div class="image-container">
-          <img :src="artist.images[0].url" :alt="artist.name" />
-        </div>
-        <div class="meta-container">
-        <h4>{{ artist.name }}</h4>
-      </div>
-      </div>
-    </div>
-
-
-    <!-- if tracks found -->
-    <div class="search-section tracks" v-if="results.tracks.items.length > 0">
-      <h1>Tracks ({{ results.tracks.items.length }})</h1>
-      <div class="search-item"
-      v-for="track in results.tracks.items"
-      :key="track.id"
-      @click="toTarget(track.type, track.id)">
-        <div class="image-container">
-          <img :src="track.album.images[1].url" :alt="track.name" />
-        </div>
-        <div class="meta-container">
-        <h4>{{track.name}}</h4>
-        <a class="artist"
-        v-for="artist in track.artists"
-        @click="toArtist(artist.type, artist.id)"
-        >{{ artist.name }}</a>
-      </div>
-      </div>
-    </div>
-
-    <!-- if albums found -->
-    <div class="search-section albums" v-if="results.albums.items.length > 0">
-      <h1>Albums ({{ results.albums.items.length }})</h1>
-      <div class="search-item"
-      v-for="album in results.albums.items"
-      :key="album.id"
-      @click="toTarget(album.type, album.id)">
-        <div class="image-container">
-          <img :src="album.images[1].url" :alt="album.name" />
-        </div>
-        <div class="meta-container">
-        <h4>{{album.name}}</h4>
-        <a class="artist"
-        v-for="artist in album.artists"
-        @click="toArtist(artist.type, artist.id)"
-        >{{ artist.name }}</a>
-      </div>
-      </div>
-    </div>
-
-  </span>
-
-</div>
+<template lang="pug">
+.search-container
+	// If user has not typed anything in
+	span(v-if='searchQuery.length === 0')
+		i.material-icons search
+		h2 Search for artists, tracks or albums.
+	// if no results for this search
+	span(v-if='searchQuery.length > 0 && countResults === 0')
+		i.material-icons search
+		h2 No results found for "{{ searchQuery }}".
+	// if results for this search
+	span(v-if='searchQuery.length > 0')
+		// if artists found
+		.search-section.artists(v-if='results.artists.items.length > 0')
+			h1 Artists ({{ results.artists.items.length }})
+			.search-item(v-for='artist in results.artists.items', :key='artist.id', @click='toTarget(artist.type, artist.id)')
+				.image-container
+					img(:src='artist.images[0].url', :alt='artist.name')
+				.meta-container
+					h4 {{ artist.name }}
+		// if tracks found
+		.search-section.tracks(v-if='results.tracks.items.length > 0')
+			h1 Tracks ({{ results.tracks.items.length }})
+			.search-item(v-for='track in results.tracks.items', :key='track.id', @click='toTarget(track.type, track.id)')
+				.image-container
+					img(:src='track.album.images[1].url', :alt='track.name')
+				.meta-container
+					h4 {{track.name}}
+					a.artist(v-for='artist in track.artists', @click='toArtist(artist.type, artist.id)') {{ artist.name }}
+		// if albums found
+		.search-section.albums(v-if='results.albums.items.length > 0')
+			h1 Albums ({{ results.albums.items.length }})
+			.search-item(v-for='album in results.albums.items', :key='album.id', @click='toTarget(album.type, album.id)')
+				.image-container
+					img(:src='album.images[1].url', :alt='album.name')
+				.meta-container
+					h4 {{album.name}}
+					a.artist(v-for='artist in album.artists', @click='toArtist(artist.type, artist.id)') {{ artist.name }}
 </template>
 
 <script>

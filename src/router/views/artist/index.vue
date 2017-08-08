@@ -1,18 +1,9 @@
-<template>
-<main class="main-container">
-
-  <!-- stage -->
-  <ma-stage
-  :type="artist.type"
-  :navigation="navigation"
-  :image="artist.images[0].url"
-  :title="artist.name"
-  ></ma-stage>
-
-  <!-- router view -->
-  <router-view></router-view>
-
-</main>
+<template lang="pug">
+main.main-container
+	// stage
+	ma-stage(:type='artist.type', :navigation='navigation', :image='artist.images[0].url', :title='artist.name')
+	// router view
+	router-view
 </template>
 
 <script>

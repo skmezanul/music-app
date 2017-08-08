@@ -1,27 +1,19 @@
-<template>
-<div class="section-item" :class="type">
-  <div class="section-item-inner" @click="toTarget(type, primaryID, secondaryID)">
-    <div class="item-overlay" v-if="type != 'artist'">
-      <div class="overlay-actions">
-        <i class="favorite material-icons">favorite</i>
-        <i v-if="playing === false" @click="playing = true" class="play material-icons">play_circle_filled</i>
-        <i v-if="playing === true" @click="playing = false" class="play material-icons">pause_circle_filled</i>
-        <i class="more material-icons">more_horiz</i>
-      </div>
-    </div>
-    <div class="image-container">
-      <img :src="image" :alt="title" />
-    </div>
-    <div class="meta-container">
-      <div class="meta-container-inner">
-        <span>{{ title }}</span>
-        <div v-if="artist != null" class="artist-container">
-          <a class="artist" v-for="item in artist" @click="toArtist(item.type, item.id)">{{ item.name }}</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<template lang="pug">
+.section-item(:class='type')
+	.section-item-inner(@click='toTarget(type, primaryID, secondaryID)')
+		.item-overlay(v-if="type != 'artist'")
+			.overlay-actions
+				i.favorite.material-icons favorite
+				i.play.material-icons(v-if='playing === false', @click='playing = true') play_circle_filled
+				i.play.material-icons(v-if='playing === true', @click='playing = false') pause_circle_filled
+				i.more.material-icons more_horiz
+		.image-container
+			img(:src='image', :alt='title')
+		.meta-container
+			.meta-container-inner
+				span {{ title }}
+				.artist-container(v-if='artist != null')
+					a.artist(v-for='item in artist', @click='toArtist(item.type, item.id)') {{ item.name }}
 </template>
 
 <script>

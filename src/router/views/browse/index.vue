@@ -1,18 +1,9 @@
-<template>
-<main class="main-container">
-
-  <!-- stage -->
-  <ma-stage
-  type="browse"
-  :image="$store.state.currentUser.images[0].url"
-  :navigation="navigation"
-  :title="welcomeMessage"
-  ></ma-stage>
-
-  <!-- router view -->
-  <router-view></router-view>
-
-</main>
+<template lang="pug">
+main.main-container
+	// stage
+	ma-stage(type='browse', :image='$store.state.currentUser.images[0].url', :navigation='navigation', :title='welcomeMessage')
+	// router view
+	router-view
 </template>
 
 <script>

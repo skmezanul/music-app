@@ -1,20 +1,7 @@
-<template>
-<div class="page-container">
-
-  <ma-section title="2018" :collapsible="false">
-    <ma-event
-    v-for="concert in concerts"
-    :key="concert.venue"
-    :image="concert.image"
-    :month="concert.month"
-    :day="concert.day"
-    :city="concert.city"
-    :country="concert.country"
-    :venue="concert.venue"
-    ></ma-event>
-  </ma-section>
-
-</div>
+<template lang="pug">
+.page-container
+	ma-section(title='2018', :collapsible='false')
+		ma-event(v-for='concert in concerts', :key='concert.venue', :image='concert.image', :month='concert.month', :day='concert.day', :city='concert.city', :country='concert.country', :venue='concert.venue')
 </template>
 
 <script>
@@ -28,8 +15,7 @@ export default {
         city: 'Norrköping',
         country: 'Sweden',
         venue: 'Bråvalla festival',
-      },
-      ],
+      }],
     };
   },
 };

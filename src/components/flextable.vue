@@ -1,25 +1,20 @@
-<template>
-<li class="table-row" @dblclick="playTrack" :class="{ 'playing': playing }">
-  <div v-if="image != null" class="image-container">
-    <i v-if="playing === false" @click="playTrack" class="material-icons">play_circle_filled</i>
-    <i v-if="playing === true" class="material-icons playing">volume_up</i>
-    <i v-if="playing === true" class="material-icons">pause_circle_filled</i>
-    <img :src="image" :alt="title" />
-  </div>
-  <span v-if="index != null" class="index mobile-hidden">{{ formattedIndex }}</span>
-  <div class="meta-container">
-    <span>{{title}}</span>
-    <div v-if="artists != null" class="artist-container">
-      <router-link v-for="artist in artists" :key="artist.id" :to="`/${artist.type}/${artist.id}`">{{ artist.name }}</router-link>
-    </div>
-  </div>
-  <div v-if="album != null" class="album">
-    <router-link :to="`/${album.type}/${album.id}`">{{ album.name }}</router-link>
-  </div>
-  <span class="duration">{{ formattedDuration }}</span>
-  <i class="material-icons" v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }">playlist_add</i>
-  <i class="material-icons" v-tooltip="{ content: 'More', container: '.tooltip-container' }">more_horiz</i>
-</li>
+<template lang="pug">
+li.table-row(@dblclick='playTrack', :class="{ 'playing': playing }")
+	.image-container(v-if='image != null')
+		i.material-icons(v-if='playing === false', @click='playTrack') play_circle_filled
+		i.material-icons.playing(v-if='playing === true') volume_up
+		i.material-icons(v-if='playing === true') pause_circle_filled
+		img(:src='image', :alt='title')
+	span.index.mobile-hidden(v-if='index != null') {{ formattedIndex }}
+	.meta-container
+		span {{title}}
+		.artist-container(v-if='artists != null')
+			router-link(v-for='artist in artists', :key='artist.id', :to='`/${artist.type}/${artist.id}`') {{ artist.name }}
+	.album(v-if='album != null')
+		router-link(:to='`/${album.type}/${album.id}`') {{ album.name }}
+	span.duration {{ formattedDuration }}
+	i.material-icons(v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }") playlist_add
+	i.material-icons(v-tooltip="{ content: 'More', container: '.tooltip-container' }") more_horiz
 </template>
 
 <script>

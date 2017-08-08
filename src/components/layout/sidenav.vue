@@ -1,87 +1,81 @@
-<template>
-<nav class="sidenav-container">
-    <ul>
-
-        <div class="sidenav-section">
-            <li>
-                <router-link to="/browse"><i class="material-icons">book</i>Browse</router-link>
-            </li>
-            <li>
-                <router-link to="/radio"><i class="material-icons">radio</i>Radio</router-link>
-            </li>
-        </div>
-
-        <!-- my music -->
-        <div class="sidenav-section">
-            <li>
-                <h4>My Music</h4></li>
-            <li>
-                <router-link to="/history"><i class="material-icons">history</i>Recently Played</router-link>
-            </li>
-            <li>
-                <router-link to="/songs"><i class="material-icons">music_note</i>Songs</router-link>
-            </li>
-            <li>
-                <router-link to="/albums"><i class="material-icons">album</i>Albums</router-link>
-            </li>
-            <li>
-                <router-link to="/artists"><i class="material-icons">person</i>Artists</router-link>
-            </li>
-        </div>
-
-        <!-- playlists -->
-        <transition name="fade">
-            <div v-if="playlists.length > 0" class="sidenav-section">
-                <li>
-                    <h4>My Playlists</h4>
-                </li>
-                <li v-for="playlist in playlists" :key="playlist.id">
-                    <router-link :to="`/${playlist.type}/${playlist.owner.id}/${playlist.id}`">
-                        <i class="material-icons">playlist_play</i>
-                        <span>{{ playlist.name }}</span>
-                    </router-link>
-                </li>
-            </div>
-        </transition>
-
-        <!-- new playlist -->
-        <div class="sidenav-section">
-            <li><a><i class="material-icons">playlist_add</i><span>New Playlist</span></a></li>
-        </div>
-
-    </ul>
-</nav>
+<template lang="pug">
+nav.sidenav-container
+	ul
+		.sidenav-section
+			li
+				router-link(to='/browse')
+					i.material-icons book
+					| Browse
+			li
+				router-link(to='/radio')
+					i.material-icons radio
+					| Radio
+		// my music
+		.sidenav-section
+			li
+				h4 My Music
+			li
+				router-link(to='/history')
+					i.material-icons history
+					| Recently Played
+			li
+				router-link(to='/songs')
+					i.material-icons music_note
+					| Songs
+			li
+				router-link(to='/albums')
+					i.material-icons album
+					| Albums
+			li
+				router-link(to='/artists')
+					i.material-icons person
+					| Artists
+		// playlists
+		transition(name='fade')
+			.sidenav-section(v-if='playlists.length > 0')
+				li
+					h4 My Playlists
+				li(v-for='playlist in playlists', :key='playlist.id')
+					router-link(:to='`/${playlist.type}/${playlist.owner.id}/${playlist.id}`')
+						i.material-icons playlist_play
+						span {{ playlist.name }}
+		// new playlist
+		.sidenav-section
+			li
+				a
+					i.material-icons playlist_add
+					span New Playlist
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            playlists: [],
-        };
-    },
-    created() {
-        // fetch the data when the view is created and the data is
-        // already being observed
-        this.getMyPlaylists();
-    },
-    methods: {
-        // get current user's playlists from the api
-        getMyPlaylists() {
-            this.axios({
-                method: 'get',
-                url: '/me/playlists',
-                params: {
-                    limit: 10,
-                },
-            }).then((res) => {
-                this.playlists = res.data.items;
-            }).catch((err) => {
-                this.$store.commit('ADD_NOTICE', `Playlists could not be fetched, please try again later. ${err}`);
-                this.playlists = [];
-            });
+  data() {
+    return {
+      playlists: [],
+    };
+  },
+  created() {
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.getMyPlaylists();
+  },
+  methods: {
+    // get current user's playlists from the api
+    getMyPlaylists() {
+      this.axios({
+        method: 'get',
+        url: '/me/playlists',
+        params: {
+          limit: 10,
         },
+      }).then((res) => {
+        this.playlists = res.data.items;
+      }).catch((err) => {
+        this.$store.commit('ADD_NOTICE', `Playlists could not be fetched, please try again later. ${err}`);
+        this.playlists = [];
+      });
     },
+  },
 };
 </script>
 

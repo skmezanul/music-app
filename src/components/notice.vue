@@ -1,10 +1,8 @@
-<template>
-<div class="notice">
-  <div class="notice-inner">
-    <p>{{ message }}</p>
-    <i @click="$emit('remove')" class="material-icons">close</i>
-  </div>
-</div>
+<template lang="pug">
+.notice
+	.notice-inner
+		p {{ message }}
+		i.material-icons(@click="$emit('remove')") close
 </template>
 
 <script>

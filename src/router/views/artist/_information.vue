@@ -1,15 +1,7 @@
-<template>
-<div class="page-container">
-
-  <ma-section :title="`About ${$parent.artist.name}`" :collapsible="false">
-    <p class="biography" v-html="biography">
-
-      <!-- insert biography -->
-
-    </p>
-  </ma-section>
-
-</div>
+<template lang="pug">
+.page-container
+	ma-section(:title='`About ${$parent.artist.name}`', :collapsible='false')
+		p.biography(v-html='biography')
 </template>
 <script>
 export default {

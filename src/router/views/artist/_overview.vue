@@ -1,67 +1,17 @@
-<template>
-<div class="page-container">
-
-<ma-section v-if="toptracks.length > 0" title="Top Tracks">
-  <ol class="flex-table">
-    <ma-list
-    v-for="(track, index) in toptracks"
-    :key="track.id"
-    :primaryID="track.id"
-    :type="track.type"
-    :image="track.album.images[0].url"
-    :title="track.name"
-    :duration="track.duration_ms"
-    :index="index"
-    ></ma-list>
-  </ol>
-</ma-section>
-
-<ma-section v-if="albums.length > 0" title="Albums">
-  <div class="section-items-container">
-    <ma-item
-    v-for="album in albums"
-    :key="album.id"
-    :type="album.type"
-    :primaryID="album.id"
-    :secondaryID="album.artists[0].id"
-    :image="album.images[0].url"
-    :title="album.name"
-    :artist="album.artists"
-    ></ma-item>
-  </div>
-</ma-section>
-
-<ma-section v-if="singles.length > 0" title="Singles">
-  <div class="section-items-container">
-    <ma-item
-    v-for="single in singles"
-    :key="single.id"
-    :type="single.type"
-    :primaryID="single.id"
-    :secondaryID="single.artists[0].id"
-    :image="single.images[0].url"
-    :title="single.name"
-    :artist="single.artists"
-    ></ma-item>
-  </div>
-</ma-section>
-
-<ma-section v-if="appearson.length > 0" title="Appears On">
-  <div class="section-items-container">
-    <ma-item
-    v-for="album in appearson"
-    :key="album.id"
-    :type="album.type"
-    :primaryID="album.id"
-    :secondaryID="album.artists[0].id"
-    :image="album.images[0].url"
-    :title="album.name"
-    :artist="album.artists"
-    ></ma-item>
-  </div>
-</ma-section>
-
-</div>
+<template lang="pug">
+.page-container
+	ma-section(v-if='toptracks.length > 0', title='Top Tracks')
+		ol.flex-table
+			ma-list(v-for='(track, index) in toptracks', :key='track.id', :primaryid='track.id', :type='track.type', :image='track.album.images[0].url', :title='track.name', :duration='track.duration_ms', :index='index')
+	ma-section(v-if='albums.length > 0', title='Albums')
+		.section-items-container
+			ma-item(v-for='album in albums', :key='album.id', :type='album.type', :primaryid='album.id', :secondaryid='album.artists[0].id', :image='album.images[0].url', :title='album.name', :artist='album.artists')
+	ma-section(v-if='singles.length > 0', title='Singles')
+		.section-items-container
+			ma-item(v-for='single in singles', :key='single.id', :type='single.type', :primaryid='single.id', :secondaryid='single.artists[0].id', :image='single.images[0].url', :title='single.name', :artist='single.artists')
+	ma-section(v-if='appearson.length > 0', title='Appears On')
+		.section-items-container
+			ma-item(v-for='album in appearson', :key='album.id', :type='album.type', :primaryid='album.id', :secondaryid='album.artists[0].id', :image='album.images[0].url', :title='album.name', :artist='album.artists')
 </template>
 <script>
 export default {

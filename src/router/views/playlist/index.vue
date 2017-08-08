@@ -1,35 +1,11 @@
-<template>
-<main class="main-container">
-
-  <!-- stage -->
-  <ma-stage
-  :type="playlist.type"
-  :image="playlist.images[0].url"
-  :title="playlist.name"
-  :meta="playlist.description"
-  ></ma-stage>
-
-  <div class="page-container">
-
-    <ma-section>
-      <ol class="flex-table">
-        <ma-list
-        v-for="(playlist, index) in playlist.tracks.items"
-        :key="playlist.track.id"
-        :type="playlist.track.type"
-        :image="playlist.track.album.images[0].url"
-        :title="playlist.track.name"
-        :artists="playlist.track.artists"
-        :album="playlist.track.album"
-        :duration="playlist.track.duration_ms"
-        :index="index"
-        ></ma-list>
-      </ol>
-    </ma-section>
-
-  </div>
-
-</main>
+<template lang="pug">
+main.main-container
+	// stage
+	ma-stage(:type='playlist.type', :image='playlist.images[0].url', :title='playlist.name', :meta='playlist.description')
+	.page-container
+		ma-section
+			ol.flex-table
+				ma-list(v-for='(playlist, index) in playlist.tracks.items', :key='playlist.track.id', :type='playlist.track.type', :image='playlist.track.album.images[0].url', :title='playlist.track.name', :artists='playlist.track.artists', :album='playlist.track.album', :duration='playlist.track.duration_ms', :index='index')
 </template>
 <script>
 export default {

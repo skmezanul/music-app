@@ -1,109 +1,97 @@
-<template>
-<div id="app" :class="{scrolled: $store.state.scrollPosition > 0}">
-
-  <!-- header -->
-  <ma-header></ma-header>
-
-  <!-- sidenav -->
-  <ma-sidenav></ma-sidenav>
-
-  <!-- router view -->
-  <router-view :key="$route.params.id"></router-view>
-
-  <!-- footer -->
-  <transition name="fade">
-    <ma-footer></ma-footer>
-  </transition>
-
-  <div class="tooltip-container">
-
-    <!-- insert tooltips -->
-
-  </div>
-
-  <ma-loading class="loading-container">
-    <template slot="spinner">
-        <ma-spinner></ma-spinner>
-      </template>
-  </ma-loading>
-
-  <transition-group name="fade" tag="notices">
-    <ma-notice v-for="(notice, index) in $store.state.notice" :key="index" :message="notice" @remove="$store.commit('REMOVE_NOTICE', index)"></ma-notice>
-  </transition-group>
-
-</div>
+<template lang="pug">
+#app(:class='{scrolled: $store.state.scrollPosition > 0}')
+	// header
+	ma-header
+	// sidenav
+	ma-sidenav
+	// router view
+	router-view(:key='$route.params.id')
+	// footer
+	transition(name='fade')
+		ma-footer
+	.tooltip-container
+		// insert tooltips
+	ma-loading.loading-container
+		template(slot='spinner')
+			ma-spinner
+	transition-group(name='fade', tag='notices')
+		ma-notice(v-for='(notice, index) in $store.state.notice', :key='index', :message='notice', @remove="$store.commit('REMOVE_NOTICE', index)")
 </template>
 
 <script>
 export default {
-  created() {
-    // fetch the data when the view is created and the data is
-    // already being observed
-    this.getCurrentUser();
-    this.getMyDevices();
-    this.getCurrentPlayback();
-    this.showDevNotice();
-  },
-  methods: {
-
-    // show development notice
-    showDevNotice() {
-      this.$store.commit('ADD_NOTICE', 'This app is still work in progress. Contact me (microeinhundert) on github if you want to contribute to the development.');
+    created() {
+        // fetch the data when the view is created and the data is
+        // already being observed
+        this.getCurrentUser();
+        this.getMyDevices();
+        this.getCurrentPlayback();
+        this.showDevNotice();
     },
+    methods: {
 
-    // get the current user's info
-    getCurrentUser() {
-      this.axios({
-        method: 'get',
-        url: '/me',
-      }).then((res) => {
-        this.$store.commit('CURRENT_USER', res.data);
-      }).catch((err) => {
-        this.$store.commit('CURRENT_USER', []);
-        this.$store.commit('ADD_NOTICE', `Current user could not be fetched, please try again later. ${err}`);
-      });
-    },
+        // show development notice
+        showDevNotice() {
+            this.$store.commit('ADD_NOTICE', 'This app is still work in progress. Contact me (microeinhundert) on github if you want to contribute to the development.');
+        },
 
-    // get the current device's ID
-    getMyDevices() {
-      this.axios({
-        method: 'get',
-        url: '/me/player/devices',
-      }).then((res) => {
-        this.$store.commit('DEVICE_ID', res.data.devices[0].id);
-      }).catch((err) => {
-        this.$store.commit('DEVICE_ID', null);
-        this.$store.commit('ADD_NOTICE', `Available devices could not be fetched, please try again later. ${err}`);
-      });
-    },
+        // get the current user's info
+        getCurrentUser() {
+            this.axios({
+                method: 'get',
+                url: '/me',
+            }).then((res) => {
+                this.$store.commit('CURRENT_USER', res.data);
+            }).catch((err) => {
+                this.$store.commit('CURRENT_USER', []);
+                this.$store.commit('ADD_NOTICE', `Current user could not be fetched, please try again later. ${err}`);
+            });
+        },
 
-    // get the current playback
-    getCurrentPlayback() {
-      this.$startLoading('fetching data');
-      this.axios({
-        method: 'get',
-        url: '/me/player',
-      }).then((res) => {
-        this.$store.commit('CURRENT_PLAYBACK', res.data);
-        this.$endLoading('fetching data');
-      }).catch((err) => {
-        this.$store.commit('CURRENT_PLAYBACK', []);
-        this.$endLoading('fetching data');
-        this.$store.commit('ADD_NOTICE', `Could not fetch your current playback, please try again later. ${err}`);
-      });
-    },
+        // get the current device's ID
+        getMyDevices() {
+            this.axios({
+                method: 'get',
+                url: '/me/player/devices',
+            }).then((res) => {
+                this.$store.commit('DEVICE_ID', res.data.devices[0].id);
+            }).catch((err) => {
+                this.$store.commit('DEVICE_ID', null);
+                this.$store.commit('ADD_NOTICE', `Available devices could not be fetched, please try again later. ${err}`);
+            });
+        },
 
-    // get the current scroll position
-    updateScroll() {
-      this.$store.commit('SCROLL_POSITION', window.scrollY);
+        // get the current playback
+        getCurrentPlayback() {
+            this.$startLoading('fetching data');
+            this.axios({
+                method: 'get',
+                url: '/me/player',
+            }).then((res) => {
+                this.$store.commit('CURRENT_PLAYBACK', res.data);
+                this.$endLoading('fetching data');
+            }).catch((err) => {
+                this.$store.commit('CURRENT_PLAYBACK', []);
+                this.$endLoading('fetching data');
+                this.$store.commit('ADD_NOTICE', `Could not fetch your current playback, please try again later. ${err}`);
+            });
+        },
+
+        // get the current scroll position
+        updateScroll() {
+            this.$store.commit('SCROLL_POSITION', window.scrollY);
+        },
     },
-  },
-  mounted() {
-    window.addEventListener('scroll', this.updateScroll, {passive: true});
-  },
-  destroy() {
-    window.removeEventListener('scroll', this.updateScroll, {passive: true});
-  },
+    mounted() {
+        window.addEventListener('scroll', this.updateScroll, {
+            passive: true
+        });
+    },
+    destroy() {
+        window.removeEventListener('scroll', this.updateScroll, {
+            passive: true
+        });
+    },
 };
 </script>
 
@@ -270,8 +258,8 @@ a {
         }
     }
 }
-header,
-.main-container {
+.main-container,
+header {
     margin-left: 200px;
 }
 @media screen and (max-width: 955px) {
@@ -324,8 +312,8 @@ header,
     }
 }
 @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
-    footer,
-    .scrolled header {
+    .scrolled header,
+    footer {
         background-color: rgba($dark-blue, 0.7) !important;
         backdrop-filter: saturate(200%) blur(20px);
         -webkit-backdrop-filter: saturate(200%) blur(20px);

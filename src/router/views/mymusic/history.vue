@@ -1,34 +1,11 @@
-<template>
-<main class="main-container">
-
-  <!-- stage -->
-  <ma-stage
-  type="My Music"
-  title="Recently Played"
-  :image="history[0].track.album.images[0].url"
-  ></ma-stage>
-
-  <div class="page-container">
-
-    <ma-section :collapsible="false">
-      <ol class="flex-table">
-        <ma-list
-        v-for="(history, index) in history"
-        :key="history.track.id"
-        :type="history.track.type"
-        :image="history.track.album.images[0].url"
-        :title="history.track.name"
-        :artists="history.track.artists"
-        :album="history.track.album"
-        :duration="history.track.duration_ms"
-        :index="index"
-        ></ma-list>
-      </ol>
-    </ma-section>
-
-  </div>
-
-</main>
+<template lang="pug">
+main.main-container
+	// stage
+	ma-stage(type='My Music', title='Recently Played', :image='history[0].track.album.images[0].url')
+	.page-container
+		ma-section(:collapsible='false')
+			ol.flex-table
+				ma-list(v-for='(history, index) in history', :key='history.track.id', :type='history.track.type', :image='history.track.album.images[0].url', :title='history.track.name', :artists='history.track.artists', :album='history.track.album', :duration='history.track.duration_ms', :index='index')
 </template>
 <script>
 export default {

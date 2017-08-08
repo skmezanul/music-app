@@ -1,16 +1,16 @@
-<template>
-  <transition name="fade">
-    <section class="page-section" :class="{ 'is-collapsed' : isCollapsed }">
-      <div v-if="title != null" class="section-header">
-        <h1>{{ title }}</h1>
-        <div @click="toggleCollapse" v-if="collapsible != false" class="section-actions">
-            <span v-if="!isCollapsed">Show Less<i class="material-icons">keyboard_arrow_up</i></span>
-            <span v-if="isCollapsed">Show More<i class="material-icons">keyboard_arrow_down</i></span>
-        </div>
-      </div>
-      <slot></slot>
-    </section>
-  </transition>
+<template lang="pug">
+transition(name='fade')
+	section.page-section(:class="{ 'is-collapsed' : isCollapsed }")
+		.section-header(v-if='title != null')
+			h1 {{ title }}
+			.section-actions(@click='toggleCollapse', v-if='collapsible != false')
+				span(v-if='!isCollapsed')
+					| Show Less
+					i.material-icons keyboard_arrow_up
+				span(v-if='isCollapsed')
+					| Show More
+					i.material-icons keyboard_arrow_down
+		slot
 </template>
 
 <script>

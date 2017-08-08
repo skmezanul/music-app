@@ -1,33 +1,11 @@
-<template>
-<main class="main-container">
-
-  <!-- stage -->
-  <ma-stage
-  :type="album.type"
-  :image="album.images[0].url"
-  :title="album.name"
-  :meta="`By ${album.artists[0].name}`"
-  ></ma-stage>
-
-  <div class="page-container">
-
-    <ma-section>
-      <ol class="flex-table">
-        <ma-list
-        v-for="(track, index) in album.tracks.items"
-        :key="track.id"
-        :type="track.type"
-        :title="track.name"
-        :primaryID="track.id"
-        :duration="track.duration_ms"
-        :index="index"
-        ></ma-list>
-      </ol>
-    </ma-section>
-
-  </div>
-
-</main>
+<template lang="pug">
+main.main-container
+	// stage
+	ma-stage(:type='album.type', :image='album.images[0].url', :title='album.name', :meta='`By ${album.artists[0].name}`')
+	.page-container
+		ma-section
+			ol.flex-table
+				ma-list(v-for='(track, index) in album.tracks.items', :key='track.id', :type='track.type', :title='track.name', :primaryid='track.id', :duration='track.duration_ms', :index='index')
 </template>
 <script>
 export default {
