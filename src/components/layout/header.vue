@@ -1,14 +1,3 @@
-<i18n>
-{
-	"en": {
-		"myaccount": "My Account"
-	},
-	"de": {
-		"myaccount": "Mein Konto"
-	}
-}
-</i18n>
-
 <template lang="pug">
 header
 	.header-inner
@@ -30,9 +19,9 @@ header
 			i.toggle.material-icons(@click='toggleDropdown') keyboard_arrow_down
 			// user dropdown
 			ul.dropdown(v-if='userDropdown', v-on-clickaway='toggleDropdown')
-				li {{ $t('myaccount') }}
-				li {{ $t('settings') }}
-				li {{ $t('logout') }}
+				li My Account
+				li Settings
+				li Log Out
 </template>
 
 <script>
