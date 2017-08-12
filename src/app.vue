@@ -216,9 +216,8 @@ a {
 		display: block !important;
 		font-family: 'Roboto', sans-serif;
 		letter-spacing: 1px;
-		font-size: 0.9em;
-		z-index: 10000;
-		padding: 4px;
+		z-index: 999;
+		transition: opacity 0.3s, visibility 0.3s;
 
 		.tooltip-inner {
 			background: $dark-blue;
@@ -229,13 +228,11 @@ a {
 		&[aria-hidden='true'] {
 			visibility: hidden;
 			opacity: 0;
-			transition: opacity 0.15s, visibility 0.15s;
 		}
 
 		&[aria-hidden='false'] {
 			visibility: visible;
 			opacity: 1;
-			transition: opacity 0.15s;
 		}
 	}
 }
