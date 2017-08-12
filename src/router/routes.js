@@ -8,7 +8,7 @@ const artistOverview = require('./views/artist/_overview.vue').default;
 const artistSimilar = require('./views/artist/_similar.vue').default;
 const artistInformation = require('./views/artist/_information.vue').default;
 
-// Components for "mymusic"
+// Components for "mylibrary"
 const mylibraryHistory = require('./views/mylibrary/history.vue').default;
 
 // Component for single album
