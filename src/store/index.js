@@ -11,6 +11,8 @@ const VuexLoading = createVuexLoader({
 Vue.use(Vuex);
 Vue.use(VuexLoading);
 
+/* eslint-disable no-new */
+
 const store = new Vuex.Store({
   strict: true,
   state: {

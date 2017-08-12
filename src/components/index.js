@@ -1,6 +1,5 @@
 // import
 import Vue from 'vue';
-import VueI18n from 'vue-i18n';
 import 'normalize.css/normalize.css';
 import slider from 'vue-slider-component';
 import tooltip from 'v-tooltip';
@@ -31,7 +30,6 @@ Vue.component('ma-notice', notice);
 Vue.component('ma-event', eventCard);
 
 // register plugins
-Vue.use(VueI18n);
 Vue.use(tooltip);
 Vue.use(parallax);
 
