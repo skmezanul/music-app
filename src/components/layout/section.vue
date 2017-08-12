@@ -6,7 +6,7 @@ transition(name='fade')
 			h1 {{ title }}
 
 			// show more/less
-			.section-actions(@click='toggleCollapse', v-if='collapsible != false')
+			.section-actions(@click='toggleCollapse', v-if='collapsible')
 				span(v-if='!collapsed')
 					| Show Less
 					i.material-icons keyboard_arrow_up
