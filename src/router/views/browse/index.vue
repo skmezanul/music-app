@@ -9,38 +9,38 @@ main.main-container
 
 <script>
 export default {
-	data() {
-		return {
-			navigation: [{
-				title: 'Overview',
-				link: '',
-			},
-			{
-				title: 'Charts',
-				link: 'charts',
-			},
-			{
-				title: 'Genres & Moods',
-				link: 'genresandmoods',
-			},
-			{
-				title: 'New Releases',
-				link: 'newreleases',
-			},
-			{
-				title: 'Discover',
-				link: 'discover',
-			},
-			],
-		};
-	},
-	computed: {
-		welcomeMessage() {
-			const greeting = 'Hello';
-			const fullName = this.$store.state.currentUser.display_name;
-			const firstName = fullName.split(' ')[0];
-			return `${greeting} ${firstName}`;
-		},
-	},
+  data() {
+    return {
+      navigation: [{
+        title: 'Overview',
+        link: '',
+      },
+      {
+        title: 'Charts',
+        link: 'charts',
+      },
+      {
+        title: 'Genres & Moods',
+        link: 'genresandmoods',
+      },
+      {
+        title: 'New Releases',
+        link: 'newreleases',
+      },
+      {
+        title: 'Discover',
+        link: 'discover',
+      },
+      ],
+    };
+  },
+  computed: {
+    welcomeMessage() {
+      const greeting = 'Hello';
+      const fullName = this.$store.state.currentUser.display_name;
+      const firstName = fullName.split(' ')[0];
+      return `${greeting} ${firstName}`;
+    },
+  },
 };
 </script>

@@ -12,41 +12,41 @@ main.main-container
 
 <script>
 export default {
-	data() {
-		return {
-			history: [],
-		};
-	},
-	created() {
-		// fetch the data when the view is created and the data is
-		// already being observed
-		this.getRecentlyPlayed();
-	},
-	watch: {
-		// call again if route changes
-		$route: 'getRecentlyPlayed',
-	},
-	methods: {
-		// get recently played tracks from the api
-		getRecentlyPlayed() {
-			this.$startLoading('fetching data');
-			this.history = [];
-			this.axios({
-				method: 'get',
-				url: '/me/player/recently-played',
-				params: {
-					type: 'track',
-				},
-			}).then((res) => {
-				this.history = res.data.items;
-				this.$endLoading('fetching data');
-			}).catch((err) => {
-				this.history = [];
-				this.$router.go(-1);
-				this.$endLoading('fetching data');
-				this.$store.commit('ADD_NOTICE', `Your recently played tracks could not be fetched, please try again later. ${err}`);
-			});
-		},
-	},
+  data() {
+    return {
+      history: [],
+    };
+  },
+  created() {
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.getRecentlyPlayed();
+  },
+  watch: {
+    // call again if route changes
+    $route: 'getRecentlyPlayed',
+  },
+  methods: {
+    // get recently played tracks from the api
+    getRecentlyPlayed() {
+      this.$startLoading('fetching data');
+      this.history = [];
+      this.axios({
+        method: 'get',
+        url: '/me/player/recently-played',
+        params: {
+          type: 'track',
+        },
+      }).then((res) => {
+        this.history = res.data.items;
+        this.$endLoading('fetching data');
+      }).catch((err) => {
+        this.history = [];
+        this.$router.go(-1);
+        this.$endLoading('fetching data');
+        this.$store.commit('ADD_NOTICE', `Your recently played tracks could not be fetched, please try again later. ${err}`);
+      });
+    },
+  },
 };
 </script>

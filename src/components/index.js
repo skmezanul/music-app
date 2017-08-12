@@ -14,7 +14,6 @@ import list from './list.vue';
 import item from './item.vue';
 import spinner from './spinner.vue';
 import notice from './notice.vue';
-import eventCard from './eventcard.vue';
 
 // register components
 Vue.component('ma-slider', slider);
@@ -27,7 +26,6 @@ Vue.component('ma-list', list);
 Vue.component('ma-item', item);
 Vue.component('ma-spinner', spinner);
 Vue.component('ma-notice', notice);
-Vue.component('ma-event', eventCard);
 
 // register plugins
 Vue.use(tooltip);

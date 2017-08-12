@@ -11,7 +11,7 @@ nav.navigation-container
 				router-link(to='/radio')
 					i.material-icons radio
 					| Radio
-					
+
 		// my library
 		.navigation-section
 			li
@@ -53,106 +53,107 @@ nav.navigation-container
 
 <script>
 export default {
-	data() {
-	return {
-		playlists: [],
-	};
-	},
-	created() {
-	// fetch the data when the view is created and the data is
-	// already being observed
-	this.getMyPlaylists();
-	},
-	methods: {
-	// get current user's playlists from the api
-	getMyPlaylists() {
-		this.axios({
-		method: 'get',
-		url: '/me/playlists',
-		params: {
-			limit: 10,
-		},
-		}).then((res) => {
-		this.playlists = res.data.items;
-		}).catch((err) => {
-		this.$store.commit('ADD_NOTICE', `Playlists could not be fetched, please try again later. ${err}`);
-		this.playlists = [];
-		});
-	},
-	},
+  data() {
+    return {
+      playlists: [],
+    };
+  },
+  created() {
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.getMyPlaylists();
+  },
+  methods: {
+    // get current user's playlists from the api
+    getMyPlaylists() {
+      this.axios({
+        method: 'get',
+        url: '/me/playlists',
+        params: {
+          limit: 10,
+        },
+      }).then((res) => {
+        this.playlists = res.data.items;
+      }).catch((err) => {
+        this.$store.commit('ADD_NOTICE', `Playlists could not be fetched, please try again later. ${err}`);
+        this.playlists = [];
+      });
+    },
+  },
 };
 </script>
 
 <style lang="scss">
 .navigation-container {
-	position: fixed;
-	left: 0;
-	top: 0;
-	bottom: 0;
-	z-index: 999;
-	width: 200px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 999;
+    width: 200px;
+    -webkit-font-smoothing: subpixel-antialiased;
 
-	ul {
-		display: flex;
-		flex-direction: column;
-		padding-top: 50px;
-		padding-bottom: 81px;
-		background-color: $dark-blue;
-		border-right: 1px solid $border-color;
-		height: 100%;
-		box-sizing: border-box;
+    ul {
+        display: flex;
+        flex-direction: column;
+        padding-top: 50px;
+        padding-bottom: 81px;
+        background-color: $dark-blue;
+        border-right: 1px solid $border-color;
+        height: 100%;
+        box-sizing: border-box;
 
-		.navigation-section {
-			margin: 15px;
-			&:last-child {
-				border-top: 1px solid $border-color;
-				margin: auto 0 0;
+        .navigation-section {
+            margin: 15px;
+            &:last-child {
+                border-top: 1px solid $border-color;
+                margin: auto 0 0;
 
-				li {
-					padding: 15px;
-				}
-			}
+                li {
+                    padding: 15px;
+                }
+            }
 
-			li {
-				display: flex;
+            li {
+                display: flex;
 
-				h4 {
-					text-transform: uppercase;
-					color: rgba($white, 0.7);
-					font-weight: 300;
-					font-size: 0.9em;
-					padding: 5px 10px;
-				}
+                h4 {
+                    text-transform: uppercase;
+                    color: rgba($white, 0.7);
+                    font-weight: 300;
+                    font-size: 0.9em;
+                    padding: 5px 10px;
+                }
 
-				a {
-					font-size: 0.85em;
-					transition: background-color 0.1s;
-					padding: 10px;
-					border-radius: 5px;
-					width: 100%;
-					display: flex;
-					align-items: center;
-					overflow: hidden;
-					@include item-hover;
+                a {
+                    font-size: 0.85em;
+                    transition: background-color 0.1s;
+                    padding: 10px;
+                    border-radius: 5px;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    overflow: hidden;
+                    @include item-hover;
 
-					i {
-						font-size: 1.3em;
-						margin-right: 7px;
-					}
+                    i {
+                        font-size: 1.3em;
+                        margin-right: 7px;
+                    }
 
-					span {
-						text-overflow: ellipsis;
-						overflow: hidden;
-						white-space: nowrap;
-					}
+                    span {
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
 
-					&.router-link-active {
-						background-color: $accent-color;
-						color: $white;
-					}
-				}
-			}
-		}
-	}
+                    &.router-link-active {
+                        background-color: $accent-color;
+                        color: $white;
+                    }
+                }
+            }
+        }
+    }
 }
 </style>
