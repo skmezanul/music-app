@@ -1,0 +1,52 @@
+<template lang="pug">
+main.main-container
+	// stage
+	ma-stage(:type='playlist.type', :image='playlist.images[0].url', :title='playlist.name', :meta='playlist.description')
+
+	.page-container
+		// tracks
+		ma-section
+			ol.flex-table
+				ma-list(v-for='(playlist, index) in playlist.tracks.items', :key='playlist.track.id', :type='playlist.track.type', :image='playlist.track.album.images[0].url', :title='playlist.track.name', :artists='playlist.track.artists', :album='playlist.track.album', :duration='playlist.track.duration_ms', :index='index')
+</template>
+
+<script>
+export default {
+	data() {
+		return {
+			playlist: [],
+		};
+	},
+	created() {
+		// fetch the data when the view is created and the data is
+		// already being observed
+		this.getSinglePlaylist();
+	},
+	watch: {
+		// call again if route changes
+		$route: 'getSinglePlaylist',
+	},
+	methods: {
+		// get playlist from the api
+		getSinglePlaylist() {
+			this.$startLoading('fetching data');
+			this.playlist = [];
+			this.axios({
+				method: 'get',
+				url: `/users/${this.$route.params.user}/playlists/${this.$route.params.id}`,
+				params: {
+					market: this.$store.state.currentUser.country,
+				},
+			}).then((res) => {
+				this.playlist = res.data;
+				this.$endLoading('fetching data');
+			}).catch((err) => {
+				this.playlist = [];
+				this.$router.go(-1);
+				this.$endLoading('fetching data');
+				this.$store.commit('ADD_NOTICE', `Playlist could not be fetched, please try again later. ${err}`);
+			});
+		},
+	},
+};
+</script>

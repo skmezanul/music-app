@@ -10,13 +10,13 @@ Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 const i18n = new VueI18n({
-  locale: 'en',
+	locale: 'en',
 });
 
 new Vue({
-  el: '#app',
-  router,
-  store,
-  i18n,
-  render: h => h(app),
+	el: '#app',
+	router,
+	store,
+	i18n,
+	render: h => h(app),
 });
