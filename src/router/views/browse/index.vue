@@ -4,7 +4,8 @@ main.main-container
 	ma-stage(type='browse', :image='$store.state.currentUser.images[0].url', :navigation='navigation', :title='welcomeMessage')
 
 	// router view
-	router-view
+	keep-alive
+		router-view
 </template>
 
 <script>

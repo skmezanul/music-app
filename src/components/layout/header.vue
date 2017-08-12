@@ -35,11 +35,16 @@ export default {
       searchQuery: null,
     };
   },
+  watch: {
+    searchQuery: 'fireSearch',
+  },
   methods: {
     fireSearch() {
-      this.$router.push({
-        path: `/search/${this.searchQuery}`,
-      });
+      if (this.searchQuery.length > 0) {
+        this.$router.push({
+          path: `/search/${this.searchQuery}`,
+        });
+      }
     },
     goBack() {
       this.$router.go(-1);

@@ -1,24 +1,24 @@
 // Components for "browse"
-const browseIndex = require('./views/browse/index.vue');
-const browseOverview = require('./views/browse/_overview.vue');
+const browseIndex = require('./views/browse/index.vue').default;
+const browseOverview = require('./views/browse/_overview.vue').default;
 
 // Components for "artist"
-const artistIndex = require('./views/artist/index.vue');
-const artistOverview = require('./views/artist/_overview.vue');
-const artistSimilar = require('./views/artist/_similar.vue');
-const artistInformation = require('./views/artist/_information.vue');
+const artistIndex = require('./views/artist/index.vue').default;
+const artistOverview = require('./views/artist/_overview.vue').default;
+const artistSimilar = require('./views/artist/_similar.vue').default;
+const artistInformation = require('./views/artist/_information.vue').default;
 
 // Components for "mymusic"
-const mymusicHistory = require('./views/mymusic/history.vue');
+const mylibraryHistory = require('./views/mylibrary/history.vue').default;
 
 // Component for single album
-const album = require('./views/album.vue');
+const album = require('./views/album.vue').default;
 
 // Component for single playlist
-const playlist = require('./views/playlist.vue');
+const playlist = require('./views/playlist.vue').default;
 
 // Component for search
-const search = require('./views/search.vue');
+const search = require('./views/search.vue').default;
 
 export default [{
   path: '/browse',
@@ -88,10 +88,10 @@ export default [{
 },
 {
   path: '/history',
-  name: 'mymusicHistory',
+  name: 'mylibraryHistory',
   meta: {
     stage: 'full',
   },
-  component: mymusicHistory,
+  component: mylibraryHistory,
 },
 ];
