@@ -1,7 +1,7 @@
 <template lang="pug">
 main.main-container
 	// stage
-	ma-stage(type='search', :image='results.albums.items[0].images[0].url', :title="`Results for '${$route.params.query}'`")
+	ma-stage(type='search', :image='results.tracks.items[0].album.images[0].url', :title="`Results for '${$route.params.query}'`")
 
 	.page-container
 		// tracks
