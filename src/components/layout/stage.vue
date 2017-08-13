@@ -145,6 +145,7 @@ export default {
             }
             .meta-container {
                 margin-top: 10px;
+								width: 80%;
                 a {
                     line-height: 1.3em;
                     font-size: 1.2em;

@@ -50,8 +50,9 @@ export default {
       }).then((res) => {
         this.toptracks = res.data.tracks;
       }).catch((err) => {
-        this.$store.commit('ADD_NOTICE', `This artists top tracks could not be fetched, please try again later. ${err}`);
         this.toptracks = [];
+        this.$router.go(-1);
+        this.$store.commit('ADD_NOTICE', `This artists top tracks could not be fetched, please try again later. ${err}`);
       });
     },
 
@@ -67,8 +68,9 @@ export default {
       }).then((res) => {
         this.albums = res.data.items;
       }).catch((err) => {
-        this.$store.commit('ADD_NOTICE', `Albums could not be fetched, please try again later. ${err}`);
         this.albums = [];
+        this.$router.go(-1);
+        this.$store.commit('ADD_NOTICE', `Albums could not be fetched, please try again later. ${err}`);
       });
     },
 
@@ -86,6 +88,8 @@ export default {
       }).catch((err) => {
         this.$store.commit('ADD_NOTICE', `Singles could not be fetched, please try again later. ${err}`);
         this.singles = [];
+        this.$router.go(-1);
+        this.$store.commit('ADD_NOTICE', `Singles could not be fetched, please try again later. ${err}`);
       });
     },
 
@@ -101,8 +105,9 @@ export default {
       }).then((res) => {
         this.appearson = res.data.items;
       }).catch((err) => {
-        this.$store.commit('ADD_NOTICE', `Albums this artist appears on could not be fetched, please try again later. ${err}`);
         this.appearson = [];
+        this.$router.go(-1);
+        this.$store.commit('ADD_NOTICE', `Albums this artist appears on could not be fetched, please try again later. ${err}`);
       });
     },
   },

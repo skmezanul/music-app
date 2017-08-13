@@ -2,11 +2,11 @@
 .section-item(:class='type')
 	.section-item-inner(@click='toTarget(type, primaryid, secondaryid)')
 		// overlay
-		.item-overlay(v-if="type != 'artist'")
+		.item-overlay(v-if="type == 'album' || type == 'playlist'")
 			.overlay-inner
 				i.favorite.material-icons favorite
-				i.play.material-icons(v-if='playing == false', @click='playing = true') play_circle_filled
-				i.play.material-icons(v-if='playing == true', @click='playing = false') pause_circle_filled
+				i.play.material-icons(v-if='!playing', @click='playing = true') play_circle_filled
+				i.play.material-icons(v-if='playing', @click='playing = false') pause_circle_filled
 				i.more.material-icons more_horiz
 
 		// image
@@ -68,11 +68,10 @@ export default {
         flex-basis: 50% !important;
         max-width: 50% !important;
     }
-    &.artist {
+    &.artist, &.category {
       flex-basis: 25%;
       max-width: 25%;
         .section-item-inner {
-            height: 300px;
             .meta-container {
                 position: absolute;
                 bottom: 0;
@@ -82,7 +81,6 @@ export default {
                 box-sizing: border-box;
                 justify-content: center;
                 align-items: flex-end;
-                background: linear-gradient(to top, rgba($black,0.7), rgba($black,0));
                 padding-bottom: 40px;
                 height: 100%;
                 .meta-container-inner {
@@ -93,7 +91,6 @@ export default {
                 img {
                     transition: transform 0.7s, filter 0.3s;
                     will-change: transform;
-                    filter: brightness(70%) contrast(110%);
                     height: 100%;
                     width: auto;
                 }
@@ -101,13 +98,32 @@ export default {
             &:hover {
                 .image-container {
                     img {
-                        filter: brightness(100%) contrast(100%);
                         transform: scale(1.07);
                     }
                 }
             }
         }
     }
+		&.artist {
+			.section-item-inner {
+					height: 300px;
+          .meta-container {
+              background: linear-gradient(to top, rgba($black,0.7), rgba($black,0));
+          }
+					.image-container {
+							img {
+									filter: brightness(70%) contrast(110%);
+							}
+					}
+					&:hover {
+							.image-container {
+									img {
+											filter: brightness(100%) contrast(100%);
+									}
+							}
+					}
+			}
+		}
     &.playlist {
         .section-item-inner {
             .meta-container {

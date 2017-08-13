@@ -33,8 +33,9 @@ export default {
       }).then((res) => {
         this.biography = res.data.artist.bio.content;
       }).catch((err) => {
-        this.$store.commit('ADD_NOTICE', `Biography could not be fetched, please try again later. ${err}`);
         this.biography = null;
+        this.$router.go(-1);
+        this.$store.commit('ADD_NOTICE', `Biography could not be fetched, please try again later. ${err}`);
       });
     },
   },

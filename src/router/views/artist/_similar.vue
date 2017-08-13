@@ -26,8 +26,9 @@ export default {
       }).then((res) => {
         this.similar = res.data.artists;
       }).catch((err) => {
-        this.$store.commit('ADD_NOTICE', `Similar artists could not be fetched, please try again later. ${err}`);
         this.similar = [];
+        this.$router.go(-1);
+        this.$store.commit('ADD_NOTICE', `Similar artists could not be fetched, please try again later. ${err}`);
       });
     },
   },

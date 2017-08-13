@@ -3,7 +3,7 @@
 	// featured playlists
 	ma-section(:title='featured.message', :collapsible='true')
 		.section-items-container
-			ma-item(v-for='featured in featured.playlists.items', :key='featured.id', :type='featured.type', :primaryid='featured.id', :secondaryid='featured.owner.id', :image='featured.images[0].url', :title='featured.name')
+			ma-item(v-for='playlist in featured.playlists.items', :key='playlist.id', :type='playlist.type', :primaryid='playlist.id', :secondaryid='playlist.owner.id', :image='playlist.images[0].url', :title='playlist.name')
 </template>
 
 <script>

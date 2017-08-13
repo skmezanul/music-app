@@ -1,6 +1,8 @@
 // Components for "browse"
 const browseIndex = require('./views/browse/index.vue').default;
 const browseOverview = require('./views/browse/_overview.vue').default;
+const browseCharts = require('./views/browse/_charts.vue').default;
+const browseCategories = require('./views/browse/_categories.vue').default;
 
 // Components for "artist"
 const artistIndex = require('./views/artist/index.vue').default;
@@ -30,6 +32,22 @@ export default [{
       stage: 'compact',
     },
     component: browseOverview,
+  },
+  {
+    path: 'charts',
+    name: 'browseCharts',
+    meta: {
+      stage: 'compact',
+    },
+    component: browseCharts,
+  },
+  {
+    path: 'categories',
+    name: 'browseCategories',
+    meta: {
+      stage: 'compact',
+    },
+    component: browseCategories,
   },
   ],
 },

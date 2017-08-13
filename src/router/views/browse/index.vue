@@ -21,8 +21,8 @@ export default {
         link: 'charts',
       },
       {
-        title: 'Genres & Moods',
-        link: 'genresandmoods',
+        title: 'Categories',
+        link: 'categories',
       },
       {
         title: 'New Releases',
