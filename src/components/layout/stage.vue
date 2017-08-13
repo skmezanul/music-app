@@ -53,20 +53,20 @@ export default {
     align-items: flex-end;
     justify-content: center;
     width: 100%;
-    transition: margin-top 0.3s;
-    will-change: margin-top;
     margin-bottom: 20px;
     margin-top: 0;
     padding-top: 65px;
-    min-height: 400px;
+    min-height: 300px;
     height: 550px;
     overflow: hidden;
+    transition: height 0.5s;
+    will-change: height;
 
     &.compact {
-        margin-top: -250px;
+        height: 300px;
         .stage-background {
             img {
-                filter: saturate(300%) blur(20px);
+                filter: saturate(200%) blur(20px);
             }
         }
         .stage-inner {
@@ -97,10 +97,10 @@ export default {
         justify-content: center;
 
         img {
-            will-change: filter;
             filter: saturate(150%);
-            transition: filter 0.3s;
             width: 100%;
+            transition: filter 0.5s;
+            will-change: filter;
         }
     }
     &:after {
@@ -137,15 +137,15 @@ export default {
             flex-direction: column;
 
             h1 {
-                will-change: font-size;
-                transition: font-size 0.3s;
                 font-size: 5.5em;
                 margin-top: 5px;
                 margin-left: -3px;
+                transition: font-size 0.5s;
+                will-change: font-size;
             }
             .meta-container {
                 margin-top: 10px;
-								width: 80%;
+                width: 80%;
                 a {
                     line-height: 1.3em;
                     font-size: 1.2em;
@@ -154,7 +154,7 @@ export default {
 
                     a {
                         font-size: inherit;
-                        transition: color 0.3s;
+                        transition: color 0.5s;
                         &:hover {
                             color: $white;
                         }
@@ -198,12 +198,12 @@ nav {
                 a {
                     letter-spacing: 2px;
                     text-transform: uppercase;
-                    transition: color 0.3s;
+                    transition: color 0.5s;
                     color: rgba($white, 0.5);
                     font-weight: 300;
                     font-size: 0.9em;
 
-                    &.router-link-exact-active {
+                    &.active {
                         color: $white;
                         &:after {
                             display: block;
@@ -216,7 +216,7 @@ nav {
                             content: "";
                         }
                     }
-                    &:not(.router-link-exact-active):hover {
+                    &:not(.active):hover {
                         cursor: pointer;
                         color: rgba($white, 0.7);
                     }

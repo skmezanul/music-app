@@ -1,7 +1,7 @@
 <template lang="pug">
 main.main-container
 	// stage
-	ma-stage(:type='artist.type', :navigation='navigation', :image='artist.images[0].url', :title='artist.name')
+	ma-stage(:navigation='navigation', :type='artist.type',:image='artist.images[0].url', :title='artist.name')
 
 	// router view
 	keep-alive
@@ -18,12 +18,12 @@ export default {
         link: '',
       },
       {
-        title: 'Similar Artists',
-        link: 'similar',
+        title: 'Related Artists',
+        link: 'related',
       },
       {
-        title: 'Information',
-        link: 'information',
+        title: 'About',
+        link: 'about',
       },
       ],
     };

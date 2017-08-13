@@ -147,7 +147,7 @@ export default {
                         white-space: nowrap;
                     }
 
-                    &.router-link-active {
+                    &.active {
                         background-color: $accent-color;
                         color: $white;
                     }

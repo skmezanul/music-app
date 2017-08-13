@@ -1,6 +1,6 @@
 <template lang="pug">
 .page-container
-	// biography
+	// about this artist
 	ma-section(:title='`About ${$parent.artist.name}`')
 		p.biography(v-html='biography')
 </template>
@@ -28,6 +28,7 @@ export default {
           artist: this.$parent.artist.name,
           limit: 1,
           autocorrect: 1,
+          lang: this.$store.state.currentUser.country,
           format: 'json',
         },
       }).then((res) => {

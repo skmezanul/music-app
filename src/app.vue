@@ -129,6 +129,7 @@ h2 {
     letter-spacing: 2px;
     text-transform: uppercase;
     color: rgba($white, 0.7);
+		font-weight: 300;
 }
 
 a {

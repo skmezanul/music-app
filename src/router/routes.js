@@ -1,26 +1,26 @@
 // Components for "browse"
-const browseIndex = require('./views/browse/index.vue').default;
-const browseOverview = require('./views/browse/_overview.vue').default;
-const browseCharts = require('./views/browse/_charts.vue').default;
-const browseCategories = require('./views/browse/_categories.vue').default;
+const browseIndex = () => import(/* webpackChunkName: "browse" */ './views/browse/index.vue');
+const browseOverview = () => import(/* webpackChunkName: "browse" */ './views/browse/_overview.vue');
+const browseCharts = () => import(/* webpackChunkName: "browse" */ './views/browse/_charts.vue');
+const browseCategories = () => import(/* webpackChunkName: "browse" */ './views/browse/_categories.vue');
 
 // Components for "artist"
-const artistIndex = require('./views/artist/index.vue').default;
-const artistOverview = require('./views/artist/_overview.vue').default;
-const artistSimilar = require('./views/artist/_similar.vue').default;
-const artistInformation = require('./views/artist/_information.vue').default;
+const artistIndex = () => import(/* webpackChunkName: "artist" */ './views/artist/index.vue');
+const artistOverview = () => import(/* webpackChunkName: "artist" */ './views/artist/_overview.vue');
+const artistRelated = () => import(/* webpackChunkName: "artist" */ './views/artist/_related.vue');
+const artistAbout = () => import(/* webpackChunkName: "artist" */ './views/artist/_about.vue');
 
 // Components for "mylibrary"
-const mylibraryHistory = require('./views/mylibrary/history.vue').default;
+const mylibraryHistory = () => import(/* webpackChunkName: "mylibrary" */ './views/mylibrary/history.vue');
 
 // Component for single album
-const album = require('./views/album.vue').default;
+const album = () => import(/* webpackChunkName: "album" */ './views/album.vue');
 
 // Component for single playlist
-const playlist = require('./views/playlist.vue').default;
+const playlist = () => import(/* webpackChunkName: "playlist" */ './views/playlist.vue');
 
 // Component for search
-const search = require('./views/search.vue').default;
+const search = () => import(/* webpackChunkName: "search" */ './views/search.vue');
 
 export default [{
   path: '/browse',
@@ -63,20 +63,20 @@ export default [{
     component: artistOverview,
   },
   {
-    path: 'similar',
-    name: 'artistSimilar',
+    path: 'related',
+    name: 'artistRelated',
     meta: {
       stage: 'compact',
     },
-    component: artistSimilar,
+    component: artistRelated,
   },
   {
-    path: 'information',
-    name: 'artistInformation',
+    path: 'about',
+    name: 'artistAbout',
     meta: {
       stage: 'compact',
     },
-    component: artistInformation,
+    component: artistAbout,
   },
   ],
 },
