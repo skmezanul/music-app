@@ -24,22 +24,28 @@ const store = new Vuex.Store({
   },
   mutations: {
     CURRENT_PLAYBACK(state, data) {
-      state.currentPlayback = data;
+      const thisState = state;
+      thisState.currentPlayback = data;
     },
     CURRENT_USER(state, data) {
-      state.currentUser = data;
+      const thisState = state;
+      thisState.currentUser = data;
     },
     DEVICE_ID(state, data) {
-      state.deviceID = data;
+      const thisState = state;
+      thisState.deviceID = data;
     },
     ADD_NOTICE(state, data) {
-      state.notices.unshift(data);
+      const thisState = state;
+      thisState.notices.unshift(data);
     },
     REMOVE_NOTICE(state, index) {
-      state.notices.splice(index, 1);
+      const thisState = state;
+      thisState.notices.splice(index, 1);
     },
     SCROLL_POSITION(state, position) {
-      state.scrollPosition = position;
+      const thisState = state;
+      thisState.scrollPosition = position;
     },
   },
   plugins: [VuexLoading.Store],
