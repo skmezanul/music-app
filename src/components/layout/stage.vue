@@ -149,7 +149,6 @@ export default {
                 a {
                     line-height: 1.3em;
                     font-size: 1.2em;
-                    letter-spacing: 1.7px;
                     color: rgba($white, 0.7);
 
                     a {
@@ -200,7 +199,6 @@ nav {
                     text-transform: uppercase;
                     transition: color 0.5s;
                     color: rgba($white, 0.5);
-                    font-weight: 300;
                     font-size: 0.9em;
 
                     &.active {

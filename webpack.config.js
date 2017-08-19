@@ -23,7 +23,6 @@ module.exports = {
             use: 'css-loader!sass-loader?data=@import "./static/stylesheets/globals";',
             fallback: 'vue-style-loader',
           }),
-          i18n: '@kazupon/vue-i18n-loader',
         },
         // other vue-loader options go here
       },
@@ -58,6 +57,7 @@ module.exports = {
     alias: {
       vue$: 'vue/dist/vue.esm.js',
     },
+    extensions: ['.vue'],
   },
   devServer: {
     historyApiFallback: true,

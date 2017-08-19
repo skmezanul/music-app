@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 
 /* eslint-disable no-new */
 
-const router = new VueRouter({
+export default new VueRouter({
   mode: 'history',
   routes,
   linkActiveClass: '',
@@ -18,5 +18,3 @@ const router = new VueRouter({
     };
   },
 });
-
-export default router;

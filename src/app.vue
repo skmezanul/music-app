@@ -40,7 +40,7 @@ export default {
 
     // show development notice
     showDevNotice() {
-      this.$store.commit('ADD_NOTICE', 'This app is still work in progress. Contact me (microeinhundert) on github if you want to contribute to the development.');
+      this.$store.commit('ADD_NOTICE', 'This app is still work in progress. Contact microeinhundert on github if you want to contribute to the development.');
     },
 
     // get the current user's info
@@ -121,7 +121,6 @@ h4 {
 h1 {
     font-family: 'Ubuntu', sans-serif;
     font-weight: 700;
-    letter-spacing: 3px;
 }
 
 h2 {
@@ -129,7 +128,6 @@ h2 {
     letter-spacing: 2px;
     text-transform: uppercase;
     color: rgba($white, 0.7);
-		font-weight: 300;
 }
 
 a {
