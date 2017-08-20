@@ -9,7 +9,7 @@ header
 		// search
 		.header.center
 			i.material-icons.search-icon search
-			input(type='text', @keyup.enter='fireSearch', v-model='searchQuery', placeholder='Search')
+			input(type='text', @keyup.enter='fireSearch', v-model='searchQuery', :placeholder='$t("search")')
 
 		// current user
 		.header.right
@@ -18,9 +18,9 @@ header
 			i.toggle.material-icons(@click='toggleDropdown') keyboard_arrow_down
 			// user dropdown
 			ul.dropdown(v-if='userDropdown', v-on-clickaway='toggleDropdown')
-				li My Account
-				li Settings
-				li Log Out
+				li {{ $t("myaccount") }}
+				li {{ $t("settings") }}
+				li {{ $t("logout") }}
 </template>
 
 <script>

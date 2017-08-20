@@ -6,38 +6,38 @@ nav.navigation-container
 			li
 				router-link(to='/browse')
 					i.material-icons book
-					| Browse
+					| {{ $t("browse") }}
 			li
 				router-link(to='/radio')
 					i.material-icons radio
-					| Radio
+					| {{ $t("radio") }}
 
 		// my library
 		.navigation-section
 			li
-				h4 My Library
+				h4 {{ $t("mylibrary") }}
 			li
 				router-link(to='/history')
 					i.material-icons history
-					| Recently Played
+					| {{ $t("recentlyplayed") }}
 			li
 				router-link(to='/songs')
 					i.material-icons music_note
-					| Songs
+					| {{ $t("songs") }}
 			li
 				router-link(to='/albums')
 					i.material-icons album
-					| Albums
+					| {{ $t("albums") }}
 			li
 				router-link(to='/artists')
 					i.material-icons person
-					| Artists
+					| {{ $t("artists") }}
 
 		// playlists
 		transition(name='fade')
 			.navigation-section(v-if='playlists.length > 0')
 				li
-					h4 My Playlists
+					h4 {{ $t("myplaylists") }}
 				li(v-for='playlist in playlists', :key='playlist.id')
 					router-link(:to='`/${playlist.type}/${playlist.owner.id}/${playlist.id}`')
 						i.material-icons playlist_play
@@ -48,7 +48,7 @@ nav.navigation-container
 			li
 				a
 					i.material-icons playlist_add
-					span New Playlist
+					span {{ $t("newplaylist") }}
 </template>
 
 <script>

@@ -37,7 +37,6 @@ export default {
     this.showDevNotice();
   },
   methods: {
-
     // show development notice
     showDevNotice() {
       this.$store.commit(

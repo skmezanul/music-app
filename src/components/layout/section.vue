@@ -8,10 +8,10 @@ transition(name='fade')
 			// show more/less
 			.section-actions(@click='toggleCollapse', v-if='collapsible')
 				span(v-if='!collapsed')
-					| Show Less
+					| {{ $t("showless") }}
 					i.material-icons keyboard_arrow_up
 				span(v-if='collapsed')
-					| Show More
+					| {{ $t("showmore") }}
 					i.material-icons keyboard_arrow_down
 
 		// section slot
