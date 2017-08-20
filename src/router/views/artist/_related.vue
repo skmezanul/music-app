@@ -28,7 +28,10 @@ export default {
       }).catch((err) => {
         this.related = [];
         this.$router.go(-1);
-        this.$store.commit('ADD_NOTICE', `Related artists could not be fetched, please try again later. ${err}`);
+        this.$store.commit(
+          'ADD_NOTICE',
+          `Related artists could not be fetched, please try again later. ${err}`
+        );
       });
     },
   },

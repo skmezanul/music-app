@@ -73,7 +73,7 @@ header {
     top: 0;
     right: 0;
     left: 0;
-    z-index: 999;
+    z-index: 998;
     padding: 13px 0;
     transition: background-color 0.3s, border-color 0.3s;
     -webkit-app-region: drag;
@@ -118,7 +118,6 @@ header {
                     border: none;
                     transition: background-color 0.3s, box-shadow 0.3s;
                     padding: 12px 12px 12px 50px;
-                    box-sizing: border-box;
                     background-color: rgba($white,0.1);
                     z-index: 1;
                     width: 100%;
@@ -143,21 +142,6 @@ header {
                     left: 17px;
                     top: 9px;
                     z-index: 2;
-                }
-                .search-dropdown {
-                    position: absolute;
-                    top: 42px;
-                    left: 0;
-                    right: 0;
-                    z-index: 999;
-                    max-height: 500px;
-                    padding: 20px;
-                    box-sizing: border-box;
-                    border: 1px solid $border-color;
-                    background-color: lighten($dark-blue, 3%);
-                    box-shadow: $shadow;
-                    border-radius: 0 0 5px 5px;
-                    overflow-y: auto;
                 }
             }
 

@@ -40,7 +40,10 @@ export default {
         this.categories = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');
-        this.$store.commit('ADD_NOTICE', `Categories could not be fetched, please try again later. ${err}`);
+        this.$store.commit(
+          'ADD_NOTICE',
+          `Categories could not be fetched, please try again later. ${err}`
+        );
       });
     },
   },

@@ -35,9 +35,9 @@ const store = new Vuex.Store({
       const thisState = state;
       thisState.deviceID = data;
     },
-    ADD_NOTICE(state, data) {
+    ADD_NOTICE(state, message) {
       const thisState = state;
-      thisState.notices.unshift(data);
+      thisState.notices.unshift(message);
     },
     REMOVE_NOTICE(state, index) {
       const thisState = state;

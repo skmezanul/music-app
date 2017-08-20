@@ -44,7 +44,10 @@ export default {
         this.playlist = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');
-        this.$store.commit('ADD_NOTICE', `Playlist could not be fetched, please try again later. ${err}`);
+        this.$store.commit(
+          'ADD_NOTICE',
+          `Playlist could not be fetched, please try again later. ${err}`
+        );
       });
     },
   },

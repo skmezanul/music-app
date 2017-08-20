@@ -44,7 +44,10 @@ export default {
         this.history = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');
-        this.$store.commit('ADD_NOTICE', `Your recently played tracks could not be fetched, please try again later. ${err}`);
+        this.$store.commit(
+          'ADD_NOTICE',
+          `Your recently played tracks could not be fetched, please try again later. ${err}`
+        );
       });
     },
   },

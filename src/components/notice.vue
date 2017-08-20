@@ -33,7 +33,6 @@ export default {
     left: 0;
     right: 0;
     z-index: 999;
-    margin-left: 200px;
     .notice-inner {
         display: flex;
         justify-content: space-between;

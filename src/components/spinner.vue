@@ -10,17 +10,15 @@ $duration: 1.4s;
 
 .loading {
     position: fixed;
-    top: 0;
     left: 0;
     right: 0;
     z-index: 996;
-    background-color: $main-bg-color;
     height: 100%;
+    background-color: $main-bg-color;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-left: 200px;
-    padding-bottom: 81px;
+    margin-bottom: 81px;
     .spinner {
         animation: rotate $duration linear infinite;
         width: 65px;

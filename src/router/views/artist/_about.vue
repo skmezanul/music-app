@@ -38,7 +38,10 @@ export default {
       }).catch((err) => {
         this.biography = null;
         this.$router.go(-1);
-        this.$store.commit('ADD_NOTICE', `Biography could not be fetched, please try again later. ${err}`);
+        this.$store.commit(
+          'ADD_NOTICE',
+          `Biography could not be fetched, please try again later. ${err}`
+        );
       });
     },
   },

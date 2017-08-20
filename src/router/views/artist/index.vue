@@ -14,17 +14,17 @@ export default {
     return {
       artist: [],
       navigation: [{
-        title: 'Overview',
-        link: '',
-      },
-      {
-        title: 'Related Artists',
-        link: 'related',
-      },
-      {
-        title: 'About',
-        link: 'about',
-      },
+          title: 'Overview',
+          link: '',
+        },
+        {
+          title: 'Related Artists',
+          link: 'related',
+        },
+        {
+          title: 'About',
+          link: 'about',
+        },
       ],
     };
   },
@@ -52,7 +52,10 @@ export default {
         this.artist = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');
-        this.$store.commit('ADD_NOTICE', `Artist info could not be fetched, please try again later. ${err}`);
+        this.$store.commit(
+          'ADD_NOTICE',
+          `Artist info could not be fetched, please try again later. ${err}`
+        );
       });
     },
   },

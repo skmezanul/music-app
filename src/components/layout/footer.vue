@@ -67,7 +67,10 @@ export default {
         this.$store.commit('CURRENT_PLAYBACK', res.data);
       }).catch((err) => {
         this.$store.commit('CURRENT_PLAYBACK', []);
-        this.$store.commit('ADD_NOTICE', `Could not fetch your current playback, please try again later. ${err}`);
+        this.$store.commit(
+          'ADD_NOTICE',
+          `Could not fetch your current playback, please try again later. ${err}`
+        );
       });
     },
 
@@ -82,7 +85,10 @@ export default {
       }).then(() => {
         this.getCurrentPlayback();
       }).catch((err) => {
-        this.$store.commit('ADD_NOTICE', `Could not skip to previous track, please try again later. ${err}`);
+        this.$store.commit(
+          'ADD_NOTICE',
+          `Could not skip to previous track, please try again later. ${err}`
+        );
       });
     },
 
@@ -97,7 +103,10 @@ export default {
       }).then(() => {
         this.getCurrentPlayback();
       }).catch((err) => {
-        this.$store.commit('ADD_NOTICE', `Could not skip to next track, please try again later. ${err}`);
+        this.$store.commit(
+          'ADD_NOTICE',
+          `Could not skip to next track, please try again later. ${err}`
+        );
       });
     },
 
@@ -110,7 +119,10 @@ export default {
           device_id: this.$store.state.deviceID,
         },
       }).catch((err) => {
-        this.$store.commit('ADD_NOTICE', `Could not pause playback, please try again later. ${err}`);
+        this.$store.commit(
+          'ADD_NOTICE',
+          `Could not pause playback, please try again later. ${err}`
+        );
       });
     },
 
@@ -123,7 +135,10 @@ export default {
           device_id: this.$store.state.deviceID,
         },
       }).catch((err) => {
-        this.$store.commit('ADD_NOTICE', `Could not resume playback, please try again later. ${err}`);
+        this.$store.commit(
+          'ADD_NOTICE',
+          `Could not resume playback, please try again later. ${err}`
+        );
       });
     },
 
@@ -137,7 +152,10 @@ export default {
           device_id: this.$store.state.deviceID,
         },
       }).catch((err) => {
-        this.$store.commit('ADD_NOTICE', `Could not toggle repeat, please try again later. ${err}`);
+        this.$store.commit(
+          'ADD_NOTICE',
+          `Could not toggle repeat, please try again later. ${err}`
+        );
       });
     },
 
@@ -151,7 +169,10 @@ export default {
           device_id: this.$store.state.deviceID,
         },
       }).catch((err) => {
-        this.$store.commit('ADD_NOTICE', `Could not toggle shuffle, please try again later. ${err}`);
+        this.$store.commit(
+          'ADD_NOTICE',
+          `Could not toggle shuffle, please try again later. ${err}`
+        );
       });
     },
 
@@ -165,7 +186,10 @@ export default {
           device_id: this.$store.state.deviceID,
         },
       }).catch((err) => {
-        this.$store.commit('ADD_NOTICE', `Volume could not be changed, please try again later. ${err}`);
+        this.$store.commit(
+          'ADD_NOTICE',
+          `Volume could not be changed, please try again later. ${err}`
+        );
       });
     },
   },
@@ -182,7 +206,7 @@ footer {
     align-items: center;
     padding: 15px 20px;
     background-color: $dark-blue;
-    z-index: 999;
+    z-index: 998;
     border-top: 1px solid $border-color;
     -webkit-font-smoothing: subpixel-antialiased;
 

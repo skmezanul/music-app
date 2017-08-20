@@ -75,7 +75,10 @@ export default {
       }).then((res) => {
         this.playlists = res.data.items;
       }).catch((err) => {
-        this.$store.commit('ADD_NOTICE', `Playlists could not be fetched, please try again later. ${err}`);
+        this.$store.commit(
+          'ADD_NOTICE',
+          `Playlists could not be fetched, please try again later. ${err}`
+        );
         this.playlists = [];
       });
     },
@@ -87,9 +90,8 @@ export default {
 .navigation-container {
     position: fixed;
     left: 0;
-    top: 0;
-    bottom: 0;
-    z-index: 999;
+    height: 100%;
+    z-index: 997;
     width: 200px;
     -webkit-font-smoothing: subpixel-antialiased;
 
@@ -101,7 +103,6 @@ export default {
         background-color: $dark-blue;
         border-right: 1px solid $border-color;
         height: 100%;
-        box-sizing: border-box;
 
         .navigation-section {
             margin: 15px;

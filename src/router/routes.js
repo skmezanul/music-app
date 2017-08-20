@@ -1,26 +1,26 @@
 // Components for "browse"
-const browseIndex = () => import(/* webpackChunkName: "browse" */ './views/browse/index.vue');
-const browseOverview = () => import(/* webpackChunkName: "browse" */ './views/browse/_overview.vue');
-const browseCharts = () => import(/* webpackChunkName: "browse" */ './views/browse/_charts.vue');
-const browseCategories = () => import(/* webpackChunkName: "browse" */ './views/browse/_categories.vue');
+const browseIndex = () => import(/* webpackChunkName: "browse" */ './views/browse/index');
+const browseOverview = () => import(/* webpackChunkName: "browse" */ './views/browse/_overview');
+const browseCharts = () => import(/* webpackChunkName: "browse" */ './views/browse/_charts');
+const browseCategories = () => import(/* webpackChunkName: "browse" */ './views/browse/_categories');
 
 // Components for "artist"
-const artistIndex = () => import(/* webpackChunkName: "artist" */ './views/artist/index.vue');
-const artistOverview = () => import(/* webpackChunkName: "artist" */ './views/artist/_overview.vue');
-const artistRelated = () => import(/* webpackChunkName: "artist" */ './views/artist/_related.vue');
-const artistAbout = () => import(/* webpackChunkName: "artist" */ './views/artist/_about.vue');
+const artistIndex = () => import(/* webpackChunkName: "artist" */ './views/artist/index');
+const artistOverview = () => import(/* webpackChunkName: "artist" */ './views/artist/_overview');
+const artistRelated = () => import(/* webpackChunkName: "artist" */ './views/artist/_related');
+const artistAbout = () => import(/* webpackChunkName: "artist" */ './views/artist/_about');
 
 // Components for "mylibrary"
-const mylibraryHistory = () => import(/* webpackChunkName: "mylibrary" */ './views/mylibrary/history.vue');
+const mylibraryHistory = () => import(/* webpackChunkName: "mylibrary" */ './views/mylibrary/history');
 
 // Component for single album
-const album = () => import(/* webpackChunkName: "album" */ './views/album.vue');
+const album = () => import(/* webpackChunkName: "album" */ './views/album');
 
 // Component for single playlist
-const playlist = () => import(/* webpackChunkName: "playlist" */ './views/playlist.vue');
+const playlist = () => import(/* webpackChunkName: "playlist" */ './views/playlist');
 
 // Component for search
-const search = () => import(/* webpackChunkName: "search" */ './views/search.vue');
+const search = () => import(/* webpackChunkName: "search" */ './views/search');
 
 export default [{
   path: '/browse',

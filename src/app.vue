@@ -40,7 +40,10 @@ export default {
 
     // show development notice
     showDevNotice() {
-      this.$store.commit('ADD_NOTICE', 'This app is still work in progress. Contact microeinhundert on github if you want to contribute to the development.');
+      this.$store.commit(
+        'ADD_NOTICE',
+        'This app is still wip. Contact microeinhundert on github to contribute to the development.'
+      );
     },
 
     // get the current user's info
@@ -52,7 +55,10 @@ export default {
         this.$store.commit('CURRENT_USER', res.data);
       }).catch((err) => {
         this.$store.commit('CURRENT_USER', []);
-        this.$store.commit('ADD_NOTICE', `Current user could not be fetched, please try again later. ${err}`);
+        this.$store.commit(
+          'ADD_NOTICE',
+          `Current user could not be fetched, please try again later. ${err}`
+        );
       });
     },
 
@@ -65,7 +71,10 @@ export default {
         this.$store.commit('DEVICE_ID', res.data.devices[0].id);
       }).catch((err) => {
         this.$store.commit('DEVICE_ID', null);
-        this.$store.commit('ADD_NOTICE', `Available devices could not be fetched, please try again later. ${err}`);
+        this.$store.commit(
+          'ADD_NOTICE',
+          `Available devices could not be fetched, please try again later. ${err}`
+        );
       });
     },
 
@@ -89,7 +98,7 @@ export default {
 
 <style lang="scss">
 * {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
@@ -99,12 +108,10 @@ body {
     color: $white;
     min-width: 611px;
     user-select: none;
-    -webkit-user-select: none;
 }
 
 input {
     user-select: text;
-    -webkit-user-select: text;
 }
 
 ol,
@@ -181,17 +188,19 @@ a {
     margin: 0 5px 10px 0;
     padding: 13px;
     border-radius: 3px;
-    background-color: $light-blue;
-    font-size: 0.9em !important;
+    font-size: 0.9em;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     transition: background-color 0.3s, color 0.3s;
     &:hover {
         cursor: pointer;
     }
-    &:not(.btn-transparent):hover {
-        background-color: $white;
-        color: $black;
+    &:not(.btn-transparent) {
+        background-color: $light-blue;
+        &:hover {
+            background-color: $white;
+            color: $black;
+        }
     }
     &:not(.btn-icon) {
         i {
@@ -206,11 +215,6 @@ a {
 
     &.btn-accent {
         background-color: $accent-color;
-    }
-
-    &.btn-transparent {
-        background-color: transparent;
-        box-shadow: none;
     }
 }
 
@@ -251,6 +255,8 @@ a {
     }
 }
 .main-container,
+.notice,
+.loading,
 header {
     margin-left: 200px;
 }
@@ -288,6 +294,7 @@ header {
 .slide-leave-to {
     transform: translateY(-100%);
 }
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -297,6 +304,7 @@ header {
         opacity: 1;
     }
 }
+
 @keyframes zoomOut {
     0% {
         opacity: 0;
@@ -311,6 +319,7 @@ header {
         transform: scale(1);
     }
 }
+
 @keyframes fadeInBottom {
     from {
         transform: translateY(25px);
@@ -322,10 +331,11 @@ header {
         opacity: 1;
     }
 }
+
 @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
     .scrolled header,
     footer {
-        background-color: rgba($dark-blue, 0.7) !important;
+        background-color: rgba($dark-blue, 0.7);
         backdrop-filter: saturate(200%) blur(20px);
         -webkit-backdrop-filter: saturate(200%) blur(20px);
     }

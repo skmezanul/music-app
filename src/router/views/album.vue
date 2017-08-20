@@ -43,7 +43,10 @@ export default {
         this.album = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');
-        this.$store.commit('ADD_NOTICE', `Album could not be fetched, please try again later. ${err}`);
+        this.$store.commit(
+          'ADD_NOTICE',
+          `Album could not be fetched, please try again later. ${err}`
+        );
       });
     },
   },
