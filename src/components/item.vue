@@ -60,7 +60,6 @@ export default {
 <style lang="scss">
 .section-item {
     padding: 7px;
-    box-sizing: border-box;
     flex: 1;
     flex-basis: 20%;
     max-width: 20%;
@@ -78,7 +77,6 @@ export default {
                 top: 0;
                 left: 0;
                 right: 0;
-                box-sizing: border-box;
                 justify-content: center;
                 align-items: flex-end;
                 padding-bottom: 40px;

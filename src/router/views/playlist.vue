@@ -6,7 +6,7 @@ main.main-container
 	.page-container
 		// tracks
 		ma-section
-			ol.flex-table
+			ol.list
 				ma-list(v-for='(playlist, index) in playlist.tracks.items', :key='playlist.track.id', :type='playlist.track.type', :image='playlist.track.album.images[0].url', :title='playlist.track.name', :artists='playlist.track.artists', :album='playlist.track.album', :duration='playlist.track.duration_ms', :index='index')
 </template>
 

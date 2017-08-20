@@ -6,8 +6,8 @@ main.main-container
 	.page-container
 		// tracks
 		ma-section(v-if='results.tracks.items.length > 0', :title='`Tracks (${results.tracks.items.length})`', :collapsible='true')
-			ol.flex-table
-				ma-list(v-for='(track, index) in results.tracks.items', :key='track.id', :primaryID='track.id', :type='track.type', :image='track.album.images[0].url', :title='track.name', :duration='track.duration_ms', :index='index')
+			ol.list
+				ma-list(v-for='(track, index) in results.tracks.items', :key='track.id', :primaryid='track.id', :type='track.type', :image='track.album.images[0].url', :title='track.name', :duration='track.duration_ms', :index='index')
 
 		// albums
 		ma-section(v-if='results.albums.items.length > 0', :title='`Albums (${results.albums.items.length})`', :collapsible='true')

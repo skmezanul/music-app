@@ -6,7 +6,7 @@ main.main-container
 	.page-container
 		// tracks
 		ma-section(:collapsible='false')
-			ol.flex-table
+			ol.list
 				ma-list(v-for='(history, index) in history', :key='history.track.id', :type='history.track.type', :image='history.track.album.images[0].url', :title='history.track.name', :artists='history.track.artists', :album='history.track.album', :duration='history.track.duration_ms', :index='index')
 </template>
 

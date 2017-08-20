@@ -12,7 +12,7 @@
 			h2 {{ type }}
 			h1 {{ title }}
 			.meta-container.mobile-hidden(v-if='meta != null')
-				a(v-html='meta')
+				a(v-html='formattedMeta')
 			.button-container(v-if="type != 'browse'")
 				.button-group
 					a.btn.btn-accent
@@ -43,6 +43,13 @@ export default {
     'title',
     'meta',
   ],
+  computed: {
+    formattedMeta() {
+      const meta = this.meta;
+      const formattedMeta = meta.split('Cover')[0];
+      return formattedMeta;
+    },
+  },
 };
 </script>
 
@@ -56,14 +63,14 @@ export default {
     margin-bottom: 20px;
     margin-top: 0;
     padding-top: 65px;
-    min-height: 300px;
+    min-height: 350px;
     height: 550px;
     overflow: hidden;
     transition: height 0.5s;
     will-change: height;
 
     &.compact {
-        height: 300px;
+        height: 350px;
         .stage-background {
             img {
                 filter: saturate(200%) blur(20px);
@@ -150,14 +157,6 @@ export default {
                     line-height: 1.3em;
                     font-size: 1.2em;
                     color: rgba($white, 0.7);
-
-                    a {
-                        font-size: inherit;
-                        transition: color 0.5s;
-                        &:hover {
-                            color: $white;
-                        }
-                    }
                 }
             }
             .button-container {

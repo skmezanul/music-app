@@ -1,5 +1,5 @@
 <template lang="pug">
-li.table-row(@dblclick='playTrack', :class="{ 'playing': playing }")
+li.row(@dblclick='playTrack', :class="{ 'playing': playing }")
 	// image
 	.image-container(v-if='image != null')
 		i.material-icons(v-if='playing == false', @click='playTrack') play_circle_filled
@@ -43,6 +43,13 @@ export default {
     'primaryid',
     'image',
   ],
+  created() {
+    // check if currently playing when the view is created
+    this.isPlaying();
+  },
+  watch: {
+    '$store.state.currentPlayback.item.id': 'isPlaying',
+  },
   methods: {
     // play track (WIP)
     playTrack() {
@@ -60,8 +67,8 @@ export default {
     // check if track is playing
     isPlaying() {
       if (this.$store.state.currentPlayback.item.id === this.primaryid) {
-        console.log('true');
-      }
+        this.playing = true;
+      };
     },
   },
   computed: {
@@ -81,8 +88,8 @@ export default {
 </script>
 
 <style lang="scss">
-.flex-table {
-    .table-row {
+.list {
+    .row {
         display: flex;
         align-items: center;
         transition: background-color 0.3s, margin 0.3s, box-shadow 0.3s, transform 0.3s;

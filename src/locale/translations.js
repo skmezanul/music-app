@@ -1,4 +1,4 @@
-const translations = {
+export default {
   en: {
     myaccount: 'My Account',
   },
@@ -6,5 +6,3 @@ const translations = {
     myaccount: 'Mein Konto',
   },
 };
-
-export default translations;

@@ -32,7 +32,9 @@ export default {
           format: 'json',
         },
       }).then((res) => {
-        this.biography = res.data.artist.bio.content;
+        const bio = res.data.artist.bio.content;
+        const formattedBio = bio.split('<a')[0];
+        this.biography = formattedBio;
       }).catch((err) => {
         this.biography = null;
         this.$router.go(-1);

@@ -88,6 +88,10 @@ export default {
 </script>
 
 <style lang="scss">
+* {
+	box-sizing: border-box;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     letter-spacing: 1px;

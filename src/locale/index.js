@@ -6,9 +6,7 @@ Vue.use(VueI18n);
 
 /* eslint-disable no-new */
 
-const i18n = new VueI18n({
+export default new VueI18n({
   locale: 'en',
   translations,
 });
-
-export default i18n;
