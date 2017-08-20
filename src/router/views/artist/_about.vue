@@ -4,6 +4,7 @@
 	ma-section(:title='`About ${$parent.artist.name}`')
 		p.biography(v-html='biography')
 </template>
+
 <script>
 export default {
   data() {

@@ -24,7 +24,7 @@
 
 	// notices
 	transition-group(name='slide', tag='notices')
-		ma-notice(v-for='(notice, index) in $store.state.notices', :key='index', :message='notice', @remove="$store.commit('REMOVE_NOTICE', index)")
+		ma-notice(v-for='(notice, index) in $store.state.notices', :key='index', :message='notice', @remove="removeNotice(index)")
 </template>
 
 <script>
@@ -44,6 +44,11 @@ export default {
         'ADD_NOTICE',
         'This app is still wip. Contact microeinhundert on github to contribute to the development.'
       );
+    },
+
+    // remove notice
+    removeNotice(index) {
+      this.$store.commit('REMOVE_NOTICE', index);
     },
 
     // get the current user's info

@@ -20,6 +20,7 @@
 		.section-items-container
 			ma-item(v-for='album in appearson', :key='album.id', :type='album.type', :primaryid='album.id', :secondaryid='album.artists[0].id', :image='album.images[0].url', :title='album.name', :artist='album.artists')
 </template>
+
 <script>
 export default {
   data() {

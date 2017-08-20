@@ -13,11 +13,6 @@ export default {
   props: [
     'message',
   ],
-  methods: {
-    closeNotice() {
-      this.$store.commit('notice', []);
-    },
-  },
 };
 </script>
 
