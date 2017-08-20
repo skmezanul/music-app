@@ -59,9 +59,9 @@ export default {
 
 <style lang="scss">
 .section-item {
-    padding: 7px;
     flex: 1;
     flex-basis: 20%;
+    padding: 7px;
     max-width: 20%;
     @media screen and (max-width: 955px) {
         flex-basis: 50% !important;
@@ -73,12 +73,12 @@ export default {
         .section-item-inner {
             .meta-container {
                 position: absolute;
-                bottom: 0;
                 top: 0;
-                left: 0;
                 right: 0;
-                justify-content: center;
+                bottom: 0;
+                left: 0;
                 align-items: flex-end;
+                justify-content: center;
                 padding-bottom: 40px;
                 height: 100%;
                 .meta-container-inner {
@@ -87,10 +87,10 @@ export default {
             }
             .image-container {
                 img {
+                    width: auto;
+                    height: 100%;
                     transition: transform 0.7s, filter 0.3s;
                     will-change: transform;
-                    height: 100%;
-                    width: auto;
                 }
             }
             &:hover {
@@ -130,15 +130,15 @@ export default {
         }
     }
     .section-item-inner {
-        display: flex;
-        justify-content: space-between;
-        flex-direction: column;
         position: relative;
-        background-color: $blue;
-        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         overflow: hidden;
-        transition: box-shadow 0.3s;
+        height: 100%;
+        background-color: $blue;
         box-shadow: $shadow;
+        transition: box-shadow 0.3s;
         &:hover {
             box-shadow: $shadow-highlight;
             cursor: pointer;
@@ -148,38 +148,38 @@ export default {
         }
         .image-container {
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            overflow: hidden;
             width: 100%;
             height: auto;
-            overflow: hidden;
             img {
                 width: 100%;
                 height: auto;
             }
         }
         .item-overlay {
-            display: flex;
             position: absolute;
             top: 0;
             right: 0;
             bottom: 0;
             left: 0;
+            z-index: 1;
+            display: flex;
             justify-content: center;
             background: linear-gradient(to top, $accent-color 25%, rgba($blue,0.5));
             opacity: 0;
             transition: opacity 0.3s;
-            z-index: 1;
             .overlay-inner {
                 display: flex;
+                flex: 0.8;
                 align-items: center;
                 justify-content: space-around;
-                flex: 0.8;
                 i {
                     transition: color 0.3s;
                     &:not(.play):hover {
-                        cursor: pointer;
                         color: rgba($white, 0.7);
+                        cursor: pointer;
                     }
                     &.play {
                         font-size: 4.5em;
@@ -198,9 +198,9 @@ export default {
             .meta-container-inner {
                 z-index: 2;
                 overflow: hidden;
-                white-space: nowrap;
                 text-align: center;
                 text-overflow: ellipsis;
+                white-space: nowrap;
                 line-height: 1.4em;
                 .artist-container {
                     a {

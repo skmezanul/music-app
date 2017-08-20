@@ -102,11 +102,11 @@ export default {
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    letter-spacing: 1px;
+    min-width: 611px;
     background-color: $main-bg-color;
     color: $white;
-    min-width: 611px;
+    letter-spacing: 1px;
+    font-family: 'Roboto', sans-serif;
     user-select: none;
 }
 
@@ -116,8 +116,8 @@ input {
 
 ol,
 ul {
-    padding: 0;
     margin: 0;
+    padding: 0;
     list-style: none;
 }
 
@@ -130,15 +130,15 @@ h4 {
 }
 
 h1 {
-    font-family: 'Ubuntu', sans-serif;
     font-weight: 700;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 h2 {
-    font-size: 1.2em;
-    letter-spacing: 2px;
-    text-transform: uppercase;
     color: rgba($white, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1.2em;
 }
 
 a {
@@ -162,18 +162,18 @@ a {
 
 .dropdown {
     position: absolute;
-    width: 150px;
     top: 58px;
     right: 0;
     z-index: 999;
-    border-radius: 5px;
     overflow: hidden;
+    width: 150px;
+    border-radius: 5px;
     background-color: $dark-blue;
 
     li {
         padding: 15px;
-        transition: background-color 0.3s;
         font-size: 0.9em;
+        transition: background-color 0.3s;
         &:hover {
             background-color: $blue;
             cursor: pointer;
@@ -182,15 +182,15 @@ a {
 }
 
 .btn {
-    font-family: 'Ubuntu', sans-serif;
-    font-weight: 700;
     display: inline-flex;
     margin: 0 5px 10px 0;
     padding: 13px;
     border-radius: 3px;
-    font-size: 0.9em;
-    letter-spacing: 1.5px;
     text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    font-size: 0.9em;
+    font-family: 'Ubuntu', sans-serif;
     transition: background-color 0.3s, color 0.3s;
     &:hover {
         cursor: pointer;
@@ -220,16 +220,16 @@ a {
 
 .tooltip-container {
     .tooltip {
-        display: block !important;
-        font-family: 'Roboto', sans-serif;
-        letter-spacing: 1px;
         z-index: 999;
+        display: block !important;
+        letter-spacing: 1px;
+        font-family: 'Roboto', sans-serif;
         transition: opacity 0.3s, visibility 0.3s;
 
         .tooltip-inner {
-            background: $dark-blue;
-            border-radius: 3px;
             padding: 5px 7px;
+            border-radius: 3px;
+            background: $dark-blue;
         }
 
         &[aria-hidden='true'] {
@@ -246,8 +246,8 @@ a {
 
 .scrolled {
     header {
-        background-color: $dark-blue;
         border-color: $border-color;
+        background-color: $dark-blue;
 
         .header-inner {
             width: $small-width;
@@ -322,13 +322,13 @@ header {
 
 @keyframes fadeInBottom {
     from {
-        transform: translateY(25px);
         opacity: 0;
+        transform: translateY(25px);
     }
 
     to {
-        transform: translateY(0);
         opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -336,8 +336,8 @@ header {
     .scrolled header,
     footer {
         background-color: rgba($dark-blue, 0.7);
-        backdrop-filter: saturate(200%) blur(20px);
         -webkit-backdrop-filter: saturate(200%) blur(20px);
+        backdrop-filter: saturate(200%) blur(20px);
     }
 }
 
@@ -345,8 +345,8 @@ header {
 .notice-inner,
 .page-section,
 .stage-inner {
-    width: $large-width;
     max-width: 1440px;
+    width: $large-width;
     @media screen and (max-width: 1500px) {
         width: $small-width;
     }

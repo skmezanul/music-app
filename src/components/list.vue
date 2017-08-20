@@ -92,14 +92,14 @@ export default {
     .row {
         display: flex;
         align-items: center;
-        transition: background-color 0.3s, margin 0.3s, box-shadow 0.3s, transform 0.3s;
         margin-bottom: 2px;
-        background-color: $blue;
         height: 65px;
+        background-color: $blue;
         box-shadow: $shadow;
+        transition: background-color 0.3s, margin 0.3s, box-shadow 0.3s, transform 0.3s;
         &.playing {
-            background-color: $dark-blue;
             margin: 10px 0;
+            background-color: $dark-blue;
             box-shadow: $shadow-highlight;
             transform: scale(1.02);
             .image-container {
@@ -112,27 +112,27 @@ export default {
             }
         }
         .image-container {
-            height: 65px;
-            width: 65px;
             position: relative;
             overflow: hidden;
+            width: 65px;
+            height: 65px;
             img {
-                transition: filter 0.3s;
-                height: 100%;
                 width: auto;
+                height: 100%;
+                transition: filter 0.3s;
             }
             i {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 2.5em;
-                opacity: 0;
                 position: absolute;
                 top: 0;
+                right: 0;
                 bottom: 0;
                 left: 0;
-                right: 0;
                 z-index: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2.5em;
+                opacity: 0;
             }
         }
         &:hover {
@@ -151,8 +151,8 @@ export default {
             }
         }
         i {
-            transition: color 0.3s, opacity 0.3s;
             flex: 0.13;
+            transition: color 0.3s, opacity 0.3s;
             @media screen and (max-width: 955px) {
                 padding: 0 15px;
             }
@@ -162,18 +162,18 @@ export default {
             }
         }
         .index {
-            font-weight: 300;
-            text-align: center;
             margin: 0 20px;
+            text-align: center;
+            font-weight: 300;
             font-size: 1.3em;
         }
         .meta-container {
             flex: 1.5;
-            line-height: 1.3em;
-            margin-right: 20px;
-            white-space: nowrap;
             overflow: hidden;
+            margin-right: 20px;
             text-overflow: ellipsis;
+            white-space: nowrap;
+            line-height: 1.3em;
             @media screen and (max-width: 955px) {
                 padding: 0 15px;
             }
@@ -189,9 +189,9 @@ export default {
         }
         .album {
             flex: 1;
-            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            white-space: nowrap;
             a {
                 @include comma-separated(1em, 300);
             }

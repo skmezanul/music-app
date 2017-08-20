@@ -64,17 +64,16 @@ export default {
 
 <style lang="scss">
 header {
-    display: flex;
-    justify-content: center;
-    border-bottom: 1px solid;
-    border-color: transparent;
-    background-color: transparent;
     position: fixed;
     top: 0;
     right: 0;
     left: 0;
     z-index: 998;
+    display: flex;
+    justify-content: center;
     padding: 13px 0;
+    border-bottom: 1px solid;
+    border-color: transparent;
     transition: background-color 0.3s, border-color 0.3s;
     -webkit-app-region: drag;
     -webkit-font-smoothing: subpixel-antialiased;
@@ -82,12 +81,12 @@ header {
     .header-inner {
         display: flex;
         justify-content: space-between;
+        height: 42px;
+        transition: width 0.3s;
+        will-change: width;
         @media screen and (max-width: 955px) {
             width: 95%;
         }
-        transition: width 0.3s;
-        will-change: width;
-        height: 42px;
 
         .header {
             display: flex;
@@ -95,19 +94,19 @@ header {
 
             &.left {
                 @media screen and (min-width: 955px) {
-                    justify-content: flex-start;
                     flex: 1;
+                    justify-content: flex-start;
                 }
 
                 i {
-                    font-size: 2.2em;
                     @include item-hover;
+                    font-size: 2.2em;
                 }
             }
 
             &.center {
-                margin: 0 10px;
                 position: relative;
+                margin: 0 10px;
                 @media screen and (max-width: 955px) {
                     width: 100%;
                 }
@@ -115,16 +114,16 @@ header {
                     flex: 2;
                 }
                 input {
-                    border: none;
-                    transition: background-color 0.3s, box-shadow 0.3s;
-                    padding: 12px 12px 12px 50px;
-                    background-color: rgba($white,0.1);
                     z-index: 1;
+                    padding: 12px 12px 12px 50px;
                     width: 100%;
-                    color: $white;
-                    border-radius: 5px;
-                    letter-spacing: 1.3px;
                     outline: 0;
+                    border: none;
+                    border-radius: 5px;
+                    background-color: rgba($white,0.1);
+                    color: $white;
+                    letter-spacing: 1.3px;
+                    transition: background-color 0.3s, box-shadow 0.3s;
                     -webkit-app-region: no-drag;
                     -webkit-font-smoothing: subpixel-antialiased;
                     &:focus {
@@ -137,25 +136,25 @@ header {
                     }
                 }
                 .search-icon {
-                    color: rgba($white, 0.5);
                     position: absolute;
-                    left: 17px;
                     top: 9px;
+                    left: 17px;
                     z-index: 2;
+                    color: rgba($white, 0.5);
                 }
             }
 
             &.right {
                 position: relative;
                 @media screen and (min-width: 955px) {
-                    justify-content: flex-end;
                     flex: 1;
+                    justify-content: flex-end;
                 }
 
                 .user-avatar {
-                    border-radius: 100%;
-                    height: 34px;
                     width: 34px;
+                    height: 34px;
+                    border-radius: 100%;
                 }
 
                 .user-name {

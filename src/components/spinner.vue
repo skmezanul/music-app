@@ -10,19 +10,19 @@ $duration: 1.4s;
 
 .loading {
     position: fixed;
-    left: 0;
     right: 0;
+    left: 0;
     z-index: 996;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 81px;
     height: 100%;
     background-color: $main-bg-color;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 81px;
     .spinner {
-        animation: rotate $duration linear infinite;
         width: 65px;
         height: 65px;
+        animation: rotate $duration linear infinite;
         .path {
             fill: none;
             stroke-width: 4px;
@@ -43,20 +43,20 @@ $duration: 1.4s;
         stroke-dashoffset: $offset;
     }
     50% {
-        stroke-dashoffset: $offset/4;
         transform: rotate(135deg);
+        stroke-dashoffset: $offset/4;
     }
     100% {
-        stroke-dashoffset: $offset;
         transform: rotate(450deg);
+        stroke-dashoffset: $offset;
     }
 }
 
 .path {
-    stroke-dasharray: $offset;
-    stroke-dashoffset: 0;
-    stroke: $accent-color;
     transform-origin: center;
     animation: dash $duration ease-in-out infinite;
+    stroke: $accent-color;
+    stroke-dasharray: $offset;
+    stroke-dashoffset: 0;
 }
 </style>

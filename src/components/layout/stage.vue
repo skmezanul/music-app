@@ -55,17 +55,17 @@ export default {
 
 <style lang="scss">
 .stage {
-    display: flex;
     position: relative;
+    display: flex;
     align-items: flex-end;
     justify-content: center;
-    width: 100%;
-    margin-bottom: 20px;
+    overflow: hidden;
     margin-top: 0;
+    margin-bottom: 20px;
     padding-top: 65px;
     min-height: 350px;
+    width: 100%;
     height: 550px;
-    overflow: hidden;
     transition: height 0.5s;
     will-change: height;
 
@@ -95,17 +95,17 @@ export default {
     .stage-background {
         position: absolute;
         top: 0;
-        left: 0;
         right: 0;
         bottom: 0;
-        animation: zoomOut 0.7s 0.2s both;
+        left: 0;
         display: flex;
         align-items: center;
         justify-content: center;
+        animation: zoomOut 0.7s 0.2s both;
 
         img {
-            filter: saturate(150%);
             width: 100%;
+            filter: saturate(150%);
             transition: filter 0.5s;
             will-change: filter;
         }
@@ -121,17 +121,17 @@ export default {
     }
 
     .stage-inner {
+        z-index: 996;
         display: flex;
         flex-direction: column;
-        z-index: 996;
 
         .cover-container {
-            height: 250px;
-            width: 250px;
-            min-width: 250px;
             overflow: hidden;
-            border-radius: 10px;
             margin-right: 35px;
+            min-width: 250px;
+            width: 250px;
+            height: 250px;
+            border-radius: 10px;
             box-shadow: $shadow;
             img {
                 width: 100%;
@@ -144,9 +144,9 @@ export default {
             flex-direction: column;
 
             h1 {
-                font-size: 5.5em;
                 margin-top: 5px;
                 margin-left: -3px;
+                font-size: 5.5em;
                 transition: font-size 0.5s;
                 will-change: font-size;
             }
@@ -154,25 +154,25 @@ export default {
                 margin-top: 10px;
                 width: 80%;
                 a {
-                    line-height: 1.3em;
-                    font-size: 1.2em;
                     color: rgba($white, 0.7);
+                    font-size: 1.2em;
+                    line-height: 1.3em;
                 }
             }
             .button-container {
-                margin-top: 15px;
                 display: flex;
                 align-items: center;
+                margin-top: 15px;
 
                 .button-group {
                     display: flex;
+                    overflow: hidden;
                     margin: 0 5px 10px 0;
                     border-radius: 5px;
-                    overflow: hidden;
 
                     a {
-                        border-radius: 0;
                         margin: 0;
+                        border-radius: 0;
                         &:nth-child(3) {
                             border-left: 1px solid $blue;
                         }
@@ -191,31 +191,31 @@ nav {
             display: flex;
 
             li {
-                padding: 15px 0;
                 margin-right: 50px;
+                padding: 15px 0;
                 a {
-                    letter-spacing: 2px;
-                    text-transform: uppercase;
-                    transition: color 0.5s;
                     color: rgba($white, 0.5);
+                    text-transform: uppercase;
+                    letter-spacing: 2px;
                     font-size: 0.9em;
+                    transition: color 0.5s;
 
                     &.active {
                         color: $white;
                         &:after {
-                            display: block;
                             position: relative;
                             top: 0.9em;
+                            display: block;
+                            margin: 0 auto;
                             width: 40px;
                             height: 3px;
-                            margin: 0 auto;
                             background-color: $accent-color;
                             content: "";
                         }
                     }
                     &:not(.active):hover {
-                        cursor: pointer;
                         color: rgba($white, 0.7);
+                        cursor: pointer;
                     }
                 }
             }

@@ -90,9 +90,9 @@ export default {
 .navigation-container {
     position: fixed;
     left: 0;
-    height: 100%;
     z-index: 997;
     width: 200px;
+    height: 100%;
     -webkit-font-smoothing: subpixel-antialiased;
 
     ul {
@@ -100,15 +100,15 @@ export default {
         flex-direction: column;
         padding-top: 50px;
         padding-bottom: 81px;
-        background-color: $dark-blue;
-        border-right: 1px solid $border-color;
         height: 100%;
+        border-right: 1px solid $border-color;
+        background-color: $dark-blue;
 
         .navigation-section {
             margin: 15px;
             &:last-child {
-                border-top: 1px solid $border-color;
                 margin: auto 0 0;
+                border-top: 1px solid $border-color;
 
                 li {
                     padding: 15px;
@@ -119,32 +119,32 @@ export default {
                 display: flex;
 
                 h4 {
-                    text-transform: uppercase;
+                    padding: 5px 10px;
                     color: rgba($white, 0.7);
+                    text-transform: uppercase;
                     font-weight: 300;
                     font-size: 0.9em;
-                    padding: 5px 10px;
                 }
 
                 a {
-                    font-size: 0.85em;
-                    transition: background-color 0.1s;
-                    padding: 10px;
-                    border-radius: 5px;
-                    width: 100%;
+                    @include item-hover;
                     display: flex;
                     align-items: center;
                     overflow: hidden;
-                    @include item-hover;
+                    padding: 10px;
+                    width: 100%;
+                    border-radius: 5px;
+                    font-size: 0.85em;
+                    transition: background-color 0.1s;
 
                     i {
-                        font-size: 1.3em;
                         margin-right: 7px;
+                        font-size: 1.3em;
                     }
 
                     span {
-                        text-overflow: ellipsis;
                         overflow: hidden;
+                        text-overflow: ellipsis;
                         white-space: nowrap;
                     }
 

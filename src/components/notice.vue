@@ -23,24 +23,24 @@ export default {
 
 <style lang="scss">
 .notice {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 999;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: $accent-color;
-    position: fixed;
     height: 69px;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 999;
+    background-color: $accent-color;
     .notice-inner {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
         p {
-            font-size: 1.1em;
-            font-weight: 300;
             margin: 0;
+            font-weight: 300;
+            font-size: 1.1em;
         }
         i {
             @include item-hover;

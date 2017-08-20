@@ -198,16 +198,16 @@ export default {
 
 <style lang="scss">
 footer {
-    display: flex;
     position: fixed;
     right: 0;
     bottom: 0;
     left: 0;
+    z-index: 998;
+    display: flex;
     align-items: center;
     padding: 15px 20px;
-    background-color: $dark-blue;
-    z-index: 998;
     border-top: 1px solid $border-color;
+    background-color: $dark-blue;
     -webkit-font-smoothing: subpixel-antialiased;
 
     .footer {
@@ -220,9 +220,9 @@ footer {
             justify-content: flex-start;
 
             img {
-                height: 50px;
-                width: 50px;
                 margin-right: 10px;
+                width: 50px;
+                height: 50px;
                 border-radius: 3px;
                 box-shadow: $shadow;
             }
@@ -233,8 +233,8 @@ footer {
                 }
 
                 .artist-container {
-                    font-size: 0.9em;
                     font-weight: 300;
+                    font-size: 0.9em;
 
                     a {
                         color: rgba($white, 0.7);
@@ -265,14 +265,14 @@ footer {
 
         &.center {
             flex: 0.7;
+            justify-content: space-between;
             @media screen and (max-width: 955px) {
                 flex: 1;
             }
-            justify-content: space-between;
 
             .toggle {
-                font-size: 3.3em;
                 color: $white;
+                font-size: 3.3em;
                 transition: transform 0.3s;
                 &:hover {
                     transform: scale(1.15);

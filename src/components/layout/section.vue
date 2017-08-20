@@ -52,11 +52,11 @@ export default {
     }
 
     .biography {
-        font-weight: 300;
-        line-height: 1.5em;
-        color: rgba($white, 0.9);
-        font-size: 1.1em;
         margin: 0;
+        color: rgba($white, 0.9);
+        font-weight: 300;
+        font-size: 1.1em;
+        line-height: 1.5em;
     }
 
     .section-header {
@@ -66,9 +66,9 @@ export default {
         margin-bottom: 25px;
         .section-actions {
             span {
+                @include item-hover;
                 display: flex;
                 align-items: center;
-                @include item-hover;
             }
         }
     }
