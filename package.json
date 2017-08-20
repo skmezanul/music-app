@@ -1,6 +1,6 @@
 {
   "name": "music-app",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Music app built with webpack and vue.js.",
   "author": "microeinhundert <contact@micro100.de>",
   "private": true,
