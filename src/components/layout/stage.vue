@@ -14,7 +14,7 @@
 			h1 {{ title }}
 			.meta-container.mobile-hidden(v-if='meta')
 				a(v-html='formattedMeta')
-			.button-container(v-if='this.$route.name != "browse"')
+			.button-container(v-if='this.$route.name != "browseOverview"')
 				.button-group
 					a.btn.btn-accent
 						i.material-icons play_circle_filled
