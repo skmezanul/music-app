@@ -6,12 +6,12 @@
 			ma-list(v-for='(track, index) in toptracks', :key='track.id', :primaryid='track.id', :type='track.type', :image='track.album.images[0].url', :title='track.name', :duration='track.duration_ms', :index='index')
 
 	// albums
-	ma-section(v-if='albums.length > 0', :title='$t("albums")', :collapsible='true')
+	ma-section(v-if='albums.length > 0', :title='$tc("album", 0)', :collapsible='true')
 		.section-items-container
 			ma-item(v-for='album in albums', :key='album.id', :type='album.type', :primaryid='album.id', :secondaryid='album.artists[0].id', :image='album.images[0].url', :title='album.name', :artist='album.artists')
 
 	// singles
-	ma-section(v-if='singles.length > 0', :title='$t("singles")', :collapsible='true')
+	ma-section(v-if='singles.length > 0', :title='$tc("single", 0)', :collapsible='true')
 		.section-items-container
 			ma-item(v-for='single in singles', :key='single.id', :type='single.type', :primaryid='single.id', :secondaryid='single.artists[0].id', :image='single.images[0].url', :title='single.name', :artist='single.artists')
 

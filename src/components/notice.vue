@@ -5,7 +5,7 @@
 		p {{ message }}
 
 		// close
-		i.material-icons(@click="$emit('remove')") close
+		i.material-icons(@click='$emit("remove")') close
 </template>
 
 <script>

@@ -1,7 +1,7 @@
 <template lang="pug">
 main.main-container
 	// stage
-	ma-stage(:type='playlist.type', :image='playlist.images[0].url', :title='playlist.name', :meta='playlist.description')
+	ma-stage(:subtitle='$tc("playlist", 1)', :image='playlist.images[0].url', :title='playlist.name', :meta='playlist.description')
 
 	.page-container
 		// tracks

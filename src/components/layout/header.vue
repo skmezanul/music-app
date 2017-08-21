@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 header
 	.header-inner
 		// navigation
@@ -9,7 +9,7 @@ header
 		// search
 		.header.center
 			i.material-icons.search-icon search
-			input(type='text', @keyup.enter='fireSearch', v-model='searchQuery', :placeholder='$t("search")')
+			input(type='text', @keyup.enter='fireSearch', v-model='searchQuery', :placeholder='$tc("search", 0)')
 
 		// current user
 		.header.right
@@ -18,9 +18,9 @@ header
 			i.toggle.material-icons(@click='toggleDropdown') keyboard_arrow_down
 			// user dropdown
 			ul.dropdown(v-if='userDropdown', v-on-clickaway='toggleDropdown')
-				li {{ $t("myaccount") }}
-				li {{ $t("settings") }}
-				li {{ $t("logout") }}
+				li {{ $t('myaccount') }}
+				li {{ $t('settings') }}
+				li {{ $t('logout') }}
 </template>
 
 <script>
@@ -62,7 +62,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 header {
     position: fixed;
     top: 0;

@@ -1,43 +1,44 @@
 <template lang="pug">
-.stage(:class="{ 'with-cover' : type == 'album' || type == 'playlist', 'compact': $route.meta.stage == 'compact'}")
+.stage(:class='{ "with-cover" : $route.name == "album" || $route.name == "playlist", "compact": $route.meta.stage == "compact"}')
+
 	// background
 	.stage-background
 		img(v-parallax='0.5', :src='image', :alt='title')
 	.stage-inner
-		.cover-container.mobile-hidden(v-if="type == 'album' || type == 'playlist'")
+		.cover-container.mobile-hidden(v-if="hasCover")
 			img(:src='image', :alt='title')
 
 		// content
 		.stage-container
-			h2 {{ type }}
+			h2 {{ subtitle }}
 			h1 {{ title }}
-			.meta-container.mobile-hidden(v-if='meta != null')
+			.meta-container.mobile-hidden(v-if='meta')
 				a(v-html='formattedMeta')
-			.button-container(v-if="type != 'browse'")
+			.button-container(v-if='this.$route.name != "browse"')
 				.button-group
 					a.btn.btn-accent
 						i.material-icons play_circle_filled
-						| Play All
-					a.btn(v-if="type == 'artist' || type == 'playlist'")
+						| {{ $t('play') }}
+					a.btn(v-if='this.$route.name === "artist" || this.$route.name === "playlist"')
 						i.material-icons add_circle
-						| Follow
+						| {{ $t('follow') }}
 					a.btn.btn-icon
 						i.material-icons favorite
 				a.btn.btn-transparent
 					i.material-icons share
-					| Share
+					| {{ $t('share') }}
 
 		// navigation
-		nav.subnav.mobile-hidden(v-if='navigation != null')
+		nav.subnav.mobile-hidden(v-if='navigation')
 			ul
 				li(v-for='navitem in navigation')
-					router-link(:to='`/${type}/${$route.params.id}/${navitem.link}`') {{ navitem.title }}
+					router-link(:to='`/artist/${$route.params.id}/${navitem.link}`') {{ navitem.title }}
 </template>
 
 <script>
 export default {
   props: [
-    'type',
+    'subtitle',
     'navigation',
     'image',
     'title',
@@ -48,6 +49,12 @@ export default {
       const meta = this.meta;
       const formattedMeta = meta.split('Cover')[0];
       return formattedMeta;
+    },
+    hasCover() {
+      if (this.$route.name === 'album' || this.$route.name === 'playlist') {
+        return true;
+      }
+      return false;
     },
   },
 };
@@ -65,7 +72,7 @@ export default {
     padding-top: 65px;
     min-height: 350px;
     width: 100%;
-    height: 550px;
+    height: 600px;
     transition: height 0.5s;
     will-change: height;
 

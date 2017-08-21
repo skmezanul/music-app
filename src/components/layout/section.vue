@@ -1,8 +1,8 @@
 <template lang="pug">
-transition(name='fade')
-	section.page-section(:class="{ 'collapsed' : collapsible && collapsed }")
+transition(name='fade', appear)
+	section.page-section(:class='{ "collapsed" : collapsible && collapsed }')
 		// section header
-		.section-header(v-if='title != null')
+		.section-header(v-if='title')
 			h1 {{ title }}
 
 			// show more/less

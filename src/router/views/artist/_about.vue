@@ -1,7 +1,7 @@
 <template lang="pug">
 .page-container
 	// about this artist
-	ma-section(:title='`About ${$parent.artist.name}`')
+	ma-section(:title='`${$t("about")} ${$parent.artist.name}`')
 		p.biography(v-html='biography')
 </template>
 

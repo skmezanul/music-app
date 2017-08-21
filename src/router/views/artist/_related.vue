@@ -1,7 +1,7 @@
 <template lang="pug">
 .page-container
 	// related artists
-	ma-section(:title='`Related to ${$parent.artist.name}`', :collapsible='true')
+	ma-section(:title='`${$t("relatedto")} ${$parent.artist.name}`', :collapsible='true')
 		.section-items-container
 			ma-item(v-for='artist in related', :type='artist.type', :key='artist.id', :image='artist.images[1].url', :title='artist.name', :primaryid='artist.id')
 </template>

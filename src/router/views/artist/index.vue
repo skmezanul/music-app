@@ -1,7 +1,7 @@
 <template lang="pug">
 main.main-container
 	// stage
-	ma-stage(:navigation='navigation', :type='artist.type',:image='artist.images[0].url', :title='artist.name')
+	ma-stage(:subtitle='$tc("artist", 1)', :navigation='navigation', :image='artist.images[0].url', :title='artist.name')
 
 	// router view
 	keep-alive
@@ -14,15 +14,15 @@ export default {
     return {
       artist: [],
       navigation: [{
-          title: 'Overview',
+          title: this.$t('overview'),
           link: '',
         },
         {
-          title: 'Related Artists',
+          title: this.$t('relatedartists'),
           link: 'related',
         },
         {
-          title: 'About',
+          title: this.$t('about'),
           link: 'about',
         },
       ],

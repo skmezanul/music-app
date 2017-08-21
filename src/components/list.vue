@@ -1,29 +1,29 @@
 <template lang="pug">
 li.row(@dblclick='playTrack', :class="{ 'playing': playing }")
 	// image
-	.image-container(v-if='image != null')
-		i.material-icons(v-if='playing == false', @click='playTrack') play_circle_filled
-		i.material-icons.playing(v-if='playing == true') volume_up
-		i.material-icons(v-if='playing == true') pause_circle_filled
+	.image-container(v-if='image')
+		i.material-icons(v-if='!playing', @click='playTrack') play_circle_filled
+		i.material-icons.playing(v-if='playing') volume_up
+		i.material-icons(v-if='playing') pause_circle_filled
 		img(:src='image', :alt='title')
 	span.index.mobile-hidden(v-if='index != null') {{ formattedIndex }}
 
 	// meta
 	.meta-container
 		span {{ title }}
-		.artist-container(v-if='artists != null')
-			router-link(v-for='artist in artists', :key='artist.id', :to='`/${artist.type}/${artist.id}`') {{ artist.name }}
+		.artist-container(v-if='artists')
+			router-link(v-for='artist in artists', :key='artist.id', :to='`/artist/${artist.id}`') {{ artist.name }}
 
 	// album name
-	.album(v-if='album != null')
+	.album(v-if='album')
 		router-link(:to='`/${album.type}/${album.id}`') {{ album.name }}
 
 	// duration
 	span.duration {{ formattedDuration }}
 
 	// actions
-	i.material-icons(v-tooltip="{ content: 'Add to playlist', container: '.tooltip-container' }") playlist_add
-	i.material-icons(v-tooltip="{ content: 'More', container: '.tooltip-container' }") more_horiz
+	i.material-icons(v-tooltip='{ content: $t("addtoplaylist"), container: ".tooltip-container" }') playlist_add
+	i.material-icons(v-tooltip='{ content: $t("more"), container: ".tooltip-container" }') more_horiz
 </template>
 
 <script>

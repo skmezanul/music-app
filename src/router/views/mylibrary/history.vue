@@ -1,7 +1,7 @@
 <template lang="pug">
 main.main-container
 	// stage
-	ma-stage(type='My Library', title='Recently Played', :image='history[0].track.album.images[0].url')
+	ma-stage(:subtitle='$t("library")', :title='$t("recentlyplayed")', :image='history[0].track.album.images[0].url')
 
 	.page-container
 		// tracks

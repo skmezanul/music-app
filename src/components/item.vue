@@ -2,7 +2,7 @@
 .section-item(:class='type')
 	.section-item-inner(@click='toTarget(type, primaryid, secondaryid)')
 		// overlay
-		.item-overlay(v-if="type == 'album' || type == 'playlist'")
+		.item-overlay(v-if='type == "album" || type == "playlist"')
 			.overlay-inner
 				i.favorite.material-icons favorite
 				i.play.material-icons(v-if='!playing', @click='playing = true') play_circle_filled
@@ -10,14 +10,14 @@
 				i.more.material-icons more_horiz
 
 		// image
-		.image-container(v-if="image != null")
+		.image-container(v-if='image')
 			img(:src='image', :alt='title')
 
 		// meta
 		.meta-container
 			.meta-container-inner
 				span {{ title }}
-				.artist-container(v-if='artist != null')
+				.artist-container(v-if='artist')
 					a.artist(v-for='item in artist', @click='toArtist(item.type, item.id)') {{ item.name }}
 </template>
 

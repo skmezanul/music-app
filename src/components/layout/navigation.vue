@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 nav.navigation-container
 	ul
 		// browse
@@ -6,38 +6,38 @@ nav.navigation-container
 			li
 				router-link(to='/browse')
 					i.material-icons book
-					| {{ $t("browse") }}
+					| {{ $t('browse') }}
 			li
 				router-link(to='/radio')
 					i.material-icons radio
-					| {{ $t("radio") }}
+					| {{ $t('radio') }}
 
 		// my library
 		.navigation-section
 			li
-				h4 {{ $t("mylibrary") }}
+				h4 {{ $t('library') }}
 			li
 				router-link(to='/history')
 					i.material-icons history
-					| {{ $t("recentlyplayed") }}
+					| {{ $t('recentlyplayed') }}
 			li
 				router-link(to='/songs')
 					i.material-icons music_note
-					| {{ $t("songs") }}
+					| {{ $tc('track', 0) }}
 			li
 				router-link(to='/albums')
 					i.material-icons album
-					| {{ $t("albums") }}
+					| {{ $tc('album', 0) }}
 			li
 				router-link(to='/artists')
 					i.material-icons person
-					| {{ $t("artists") }}
+					| {{ $tc('artist', 0) }}
 
 		// playlists
 		transition(name='fade')
 			.navigation-section(v-if='playlists.length > 0')
 				li
-					h4 {{ $t("myplaylists") }}
+					h4 {{ $tc('playlist', 0) }}
 				li(v-for='playlist in playlists', :key='playlist.id')
 					router-link(:to='`/${playlist.type}/${playlist.owner.id}/${playlist.id}`')
 						i.material-icons playlist_play
@@ -48,7 +48,7 @@ nav.navigation-container
 			li
 				a
 					i.material-icons playlist_add
-					span {{ $t("newplaylist") }}
+					span {{ $t('newplaylist') }}
 </template>
 
 <script>
