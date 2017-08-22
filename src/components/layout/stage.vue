@@ -1,5 +1,5 @@
 <template lang="pug">
-.stage(:class='{ "with-cover" : $route.name == "album" || $route.name == "playlist", "compact": $route.meta.stage == "compact"}')
+.stage(:class='{ "has-cover" : hasCover, "compact": isCompact }')
 
 	// background
 	.stage-background
@@ -14,12 +14,12 @@
 			h1 {{ title }}
 			.meta-container.mobile-hidden(v-if='meta')
 				a(v-html='formattedMeta')
-			.button-container(v-if='this.$route.name != "browseOverview"')
+			.button-container(v-if='hasButtons')
 				.button-group
 					a.btn.btn-accent
 						i.material-icons play_circle_filled
 						| {{ $t('play') }}
-					a.btn(v-if='this.$route.name === "artist" || this.$route.name === "playlist"')
+					a.btn(v-if='canFollow')
 						i.material-icons add_circle
 						| {{ $t('follow') }}
 					a.btn.btn-icon
@@ -32,7 +32,7 @@
 		nav.subnav.mobile-hidden(v-if='navigation')
 			ul
 				li(v-for='navitem in navigation')
-					router-link(:to='`/artist/${$route.params.id}/${navitem.link}`') {{ navitem.title }}
+					router-link(:to='toTarget("artist", $route.params.id, navitem.link)') {{ navitem.title }}
 </template>
 
 <script>
@@ -44,14 +44,46 @@ export default {
     'title',
     'meta',
   ],
+  methods: {
+    toTarget(type, id, link) {
+      return `/${type}/${id}/${link}`;
+    },
+  },
   computed: {
+    // remove "Cover" mesage from meta on playlist
     formattedMeta() {
       const meta = this.meta;
       const formattedMeta = meta.split('Cover')[0];
       return formattedMeta;
     },
+
+    // check if can follow
+    canFollow() {
+      if (this.$route.name.includes("artist") || this.$route.name.includes("playlist")) {
+        return true;
+      }
+      return false;
+    },
+
+    // check if stage has cover
     hasCover() {
-      if (this.$route.name === 'album' || this.$route.name === 'playlist') {
+      if (this.$route.meta.cover) {
+        return true;
+      }
+      return false;
+    },
+
+    // check if stage has buttons
+    hasButtons() {
+      if (this.$route.meta.buttons) {
+        return true;
+      }
+      return false;
+    },
+
+    // check if stage is compact
+    isCompact() {
+      if (this.$route.meta.compact) {
         return true;
       }
       return false;
@@ -92,7 +124,7 @@ export default {
         }
     }
 
-    &.with-cover {
+    &.has-cover {
         .stage-inner {
             flex-direction: row;
             align-items: center;

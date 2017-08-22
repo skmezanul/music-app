@@ -1,6 +1,6 @@
 <template lang="pug">
 transition(name='fade', appear)
-	section.page-section(:class='{ "collapsed" : collapsible && collapsed }')
+	section.page-section(:class='{ "collapsed" : isCollapsed }')
 		// section header
 		.section-header(v-if='title')
 			h1 {{ title }}
@@ -30,10 +30,20 @@ export default {
     'collapsible',
   ],
   methods: {
+    // toggle collapse
     toggleCollapse() {
       this.collapsed = !this.collapsed;
     },
   },
+  computed: {
+    // check if section is collapsed
+    isCollapsed() {
+      if (this.collapsible && this.collapsed) {
+        return true;
+      }
+      return false;
+    },
+  }
 };
 </script>
 

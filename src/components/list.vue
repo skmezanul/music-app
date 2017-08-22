@@ -12,11 +12,11 @@ li.row(@dblclick='playTrack', :class="{ 'playing': playing }")
 	.meta-container
 		span {{ title }}
 		.artist-container(v-if='artists')
-			router-link(v-for='artist in artists', :key='artist.id', :to='`/artist/${artist.id}`') {{ artist.name }}
+			router-link(v-for='artist in artists', :key='artist.id', :to='toArtist(artist.id)') {{ artist.name }}
 
 	// album name
 	.album(v-if='album')
-		router-link(:to='`/${album.type}/${album.id}`') {{ album.name }}
+		router-link(:to='toAlbum(album.id)') {{ album.name }}
 
 	// duration
 	span.duration {{ formattedDuration }}
@@ -48,9 +48,27 @@ export default {
     this.isPlaying();
   },
   watch: {
+    // update playing state when playback is changing
     '$store.state.currentPlayback.item.id': 'isPlaying',
   },
   methods: {
+    // check if track is playing
+    isPlaying() {
+      if (this.$store.state.currentPlayback.item.id === this.primaryid) {
+        this.playing = true;
+      };
+    },
+
+    // to artist
+    toArtist(artistid) {
+      return `/artist/${artistid}`;
+    },
+
+    // to album
+    toAlbum(albumid) {
+      return `/album/${albumid}`;
+    },
+
     // play track (WIP)
     playTrack() {
       this.axios({
@@ -62,13 +80,6 @@ export default {
       }).catch(() => {
         this.$store.commit('notice', 'Track could not be played, please try again later.');
       });
-    },
-
-    // check if track is playing
-    isPlaying() {
-      if (this.$store.state.currentPlayback.item.id === this.primaryid) {
-        this.playing = true;
-      };
     },
   },
   computed: {

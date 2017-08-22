@@ -6,14 +6,14 @@ footer
 		.currently-playing
 			span.title {{ $store.state.currentPlayback.item.name }}
 			.artist-container
-				a.artist(v-for='artist in $store.state.currentPlayback.item.artists', :key='artist.id', @click='toArtist(artist.type, artist.id)') {{ artist.name }}
+				router-link.artist(v-for='artist in $store.state.currentPlayback.item.artists', :key='artist.id', :to='toArtist(artist.id)') {{ artist.name }}
 
 	// playback controls
 	.footer.center
 		i.shuffle.material-icons(@click='toggleShuffle', :class='{ "active": $store.state.currentPlayback.shuffle_state == true }', v-tooltip='{ content: $t("shuffle"), container: ".tooltip-container" }') shuffle
 		i.skip.material-icons(@click='previousTrack') skip_previous
-		i.toggle.play.material-icons(v-show='$store.state.currentPlayback.is_playing == false', @click='resumePlayback') play_circle_filled
-		i.toggle.pause.material-icons(v-show='$store.state.currentPlayback.is_playing == true', @click='pausePlayback') pause_circle_filled
+		i.toggle.play.material-icons(v-show='!isPlaying', @click='resumePlayback') play_circle_filled
+		i.toggle.pause.material-icons(v-show='isPlaying', @click='pausePlayback') pause_circle_filled
 		i.skip.material-icons(@click='nextTrack') skip_next
 		i.repeat.material-icons(v-show='$store.state.currentPlayback.repeat_state != "track"', @click='toggleRepeat', :class='{ "active": $store.state.currentPlayback.repeat_state == "context" }', v-tooltip='{ content: $t("repeat"), container: ".tooltip-container" }') repeat
 		i.repeat.material-icons.active(v-show='$store.state.currentPlayback.repeat_state == "track"', @click='toggleRepeat', v-tooltip='{ content: $t("repeat"), container: ".tooltip-container" }') repeat_one
@@ -23,7 +23,7 @@ footer
 		i.volume.material-icons(v-if='volume == 0') volume_mute
 		i.volume.material-icons(v-if='volume <= 50 && volume > 0') volume_down
 		i.volume.material-icons(v-if='volume > 50') volume_up
-		ma-slider(ref='slider', v-model='volume', width='100px', :bgStyle='bgStyle', :sliderStyle='sliderStyle', :processStyle='sliderStyle', tooltip='false')
+		ma-slider(ref='slider', v-model='volume', width='100px', :bgStyle='bgStyle', :sliderStyle='sliderStyle', :processStyle='sliderStyle', :tooltip='false')
 </template>
 
 <script>
@@ -50,10 +50,9 @@ export default {
     $route: 'getCurrentPlayback',
   },
   methods: {
-    toArtist(type, artistID) {
-      this.$router.push({
-        path: `/${type}/${artistID}`,
-      });
+    // to artist
+    toArtist(artistid) {
+      return `/artist/${artistid}`;
     },
 
     // get the current playback
@@ -189,6 +188,22 @@ export default {
           `Volume could not be changed, please try again later. ${err}`
         );
       });
+    },
+
+    isPlaying() {
+      if (this.$store.state.currentPlayback.is_playing) {
+        return true;
+      }
+      return false;
+    },
+  },
+  computed: {
+    // check if playback is active
+    isPlaying() {
+      if (this.$store.state.currentPlayback.is_playing) {
+        return true;
+      }
+      return false;
     },
   },
 };

@@ -1,24 +1,24 @@
 <template lang="pug">
 .section-item(:class='type')
-	.section-item-inner(@click='toTarget(type, primaryid, secondaryid)')
-		// overlay
-		.item-overlay(v-if='type == "album" || type == "playlist"')
-			.overlay-inner
-				i.favorite.material-icons favorite
-				i.play.material-icons(v-if='!playing', @click='playing = true') play_circle_filled
-				i.play.material-icons(v-if='playing', @click='playing = false') pause_circle_filled
-				i.more.material-icons more_horiz
+  router-link.section-item-inner(tag='div', :to='toTarget(type, primaryid, secondaryid)')
+    // overlay
+    .item-overlay(v-if='hasOverlay')
+      .overlay-inner
+        i.favorite.material-icons favorite
+        i.play.material-icons(v-if='!playing', @click='togglePlaying') play_circle_filled
+        i.play.material-icons(v-if='playing', @click='togglePlaying') pause_circle_filled
+        i.more.material-icons more_horiz
 
-		// image
-		.image-container(v-if='image')
-			img(:src='image', :alt='title')
+    // image
+    .image-container(v-if='image')
+      img(:src='image', :alt='title')
 
-		// meta
-		.meta-container
-			.meta-container-inner
-				span {{ title }}
-				.artist-container(v-if='artist')
-					a.artist(v-for='item in artist', @click='toArtist(item.type, item.id)') {{ item.name }}
+    // meta
+    .meta-container
+      .meta-container-inner
+        span {{ title }}
+        .artist-container(v-if='artist')
+          router-link.artist(v-for='item in artist', :key='item.id', :to='toArtist(item.id)') {{ item.name }}
 </template>
 
 <script>
@@ -37,21 +37,30 @@ export default {
     'image',
   ],
   methods: {
+    // to target
     toTarget(type, primaryid, secondaryid) {
       if (type === 'playlist') {
-        this.$router.push({
-          path: `/${type}/${secondaryid}/${primaryid}`,
-        });
-      } else {
-        this.$router.push({
-          path: `/${type}/${primaryid}`,
-        });
-      }
+        return `/${type}/${secondaryid}/${primaryid}`;
+      };
+      return `/${type}/${primaryid}`;
     },
-    toArtist(type, artistID) {
-      this.$router.push({
-        path: `/${type}/${artistID}`,
-      });
+
+    // to artist
+    toArtist(artistid) {
+      return `/artist/${artistid}`;
+    },
+
+    // toggle playing state
+    togglePlaying() {
+      this.playing = !this.playing;
+    },
+  },
+  computed: {
+    hasOverlay() {
+      if (this.type === 'album' || this.type === 'playlist') {
+        return true;
+      }
+      return false;
     },
   },
 };
@@ -102,26 +111,26 @@ export default {
             }
         }
     }
-		&.artist {
-			.section-item-inner {
-					height: 300px;
+    &.artist {
+      .section-item-inner {
+          height: 300px;
           .meta-container {
               background: linear-gradient(to top, rgba($black,0.7), rgba($black,0));
           }
-					.image-container {
-							img {
-									filter: brightness(70%) contrast(110%);
-							}
-					}
-					&:hover {
-							.image-container {
-									img {
-											filter: brightness(100%) contrast(100%);
-									}
-							}
-					}
-			}
-		}
+          .image-container {
+              img {
+                  filter: brightness(70%) contrast(110%);
+              }
+          }
+          &:hover {
+              .image-container {
+                  img {
+                      filter: brightness(100%) contrast(100%);
+                  }
+              }
+          }
+      }
+    }
     &.playlist {
         .section-item-inner {
             .meta-container {

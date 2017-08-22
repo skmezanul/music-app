@@ -9,7 +9,7 @@ header
 		// search
 		.header.center
 			i.material-icons.search-icon search
-			input(type='text', @keyup.enter='fireSearch', v-model='searchQuery', :placeholder='$tc("search", 0)')
+			input(type='text', @keyup.enter='startSearch', v-model='searchQuery', :placeholder='$tc("search", 0)')
 
 		// current user
 		.header.right
@@ -36,22 +36,29 @@ export default {
     };
   },
   watch: {
-    searchQuery: 'fireSearch',
+    searchQuery: 'startSearch',
   },
   methods: {
-    fireSearch() {
+    // start the search
+    startSearch() {
       if (this.searchQuery.length > 0) {
         this.$router.push({
           path: `/search/${this.searchQuery}`,
         });
       }
     },
+
+    // go one route back
     goBack() {
       this.$router.go(-1);
     },
+
+    // go one route forward
     goForward() {
       this.$router.go(1);
     },
+
+    // toggle user dropdown
     toggleDropdown() {
       this.userDropdown = !this.userDropdown;
     },
