@@ -13,7 +13,7 @@
 			h2 {{ subtitle }}
 			h1 {{ title }}
 			.meta-container.mobile-hidden(v-if='meta')
-				a(v-html='formattedMeta')
+				a {{ formattedMeta }}
 			.button-container(v-if='hasButtons')
 				.button-group
 					a.btn.btn-accent

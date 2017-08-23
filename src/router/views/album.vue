@@ -30,7 +30,6 @@ export default {
     // get album from the api
     getSingleAlbum() {
       this.$startLoading('fetching data');
-      this.album = [];
       this.axios({
         method: 'get',
         url: `/albums/${this.$route.params.id}`,
@@ -41,7 +40,6 @@ export default {
         this.album = res.data;
         this.$endLoading('fetching data');
       }).catch((err) => {
-        this.album = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');
         this.$store.commit(

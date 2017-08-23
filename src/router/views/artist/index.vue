@@ -41,7 +41,6 @@ export default {
     // get artist information from the api
     getArtist() {
       this.$startLoading('fetching data');
-      this.artist = [];
       this.axios({
         method: 'get',
         url: `/artists/${this.$route.params.id}`,
@@ -49,7 +48,6 @@ export default {
         this.artist = res.data;
         this.$endLoading('fetching data');
       }).catch((err) => {
-        this.artist = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');
         this.$store.commit(

@@ -51,7 +51,6 @@ export default {
       }).then((res) => {
         this.toptracks = res.data.tracks;
       }).catch((err) => {
-        this.toptracks = [];
         this.$router.go(-1);
         this.$store.commit(
           'ADD_NOTICE',
@@ -72,7 +71,6 @@ export default {
       }).then((res) => {
         this.albums = res.data.items;
       }).catch((err) => {
-        this.albums = [];
         this.$router.go(-1);
         this.$store.commit(
           'ADD_NOTICE',
@@ -97,7 +95,6 @@ export default {
           'ADD_NOTICE',
           `Singles could not be fetched, please try again later. ${err}`
         );
-        this.singles = [];
         this.$router.go(-1);
         this.$store.commit(
           'ADD_NOTICE',
@@ -118,7 +115,6 @@ export default {
       }).then((res) => {
         this.appearson = res.data.items;
       }).catch((err) => {
-        this.appearson = [];
         this.$router.go(-1);
         this.$store.commit(
           'ADD_NOTICE',

@@ -58,7 +58,6 @@ export default {
       }).then((res) => {
         this.$store.commit('CURRENT_USER', res.data);
       }).catch((err) => {
-        this.$store.commit('CURRENT_USER', []);
         this.$store.commit(
           'ADD_NOTICE',
           `Current user could not be fetched, please try again later. ${err}`
@@ -74,7 +73,6 @@ export default {
       }).then((res) => {
         this.$store.commit('DEVICE_ID', res.data.devices[0].id);
       }).catch((err) => {
-        this.$store.commit('DEVICE_ID', null);
         this.$store.commit(
           'ADD_NOTICE',
           `Available devices could not be fetched, please try again later. ${err}`

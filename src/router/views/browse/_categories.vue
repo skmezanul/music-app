@@ -26,7 +26,6 @@ export default {
     // get categories from the api
     getCategories() {
       this.$startLoading('fetching data');
-      this.categories = [];
       this.axios({
         method: 'get',
         url: '/browse/categories',
@@ -37,7 +36,6 @@ export default {
         this.categories = res.data.categories;
         this.$endLoading('fetching data');
       }).catch((err) => {
-        this.categories = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');
         this.$store.commit(

@@ -37,7 +37,6 @@ export default {
         const formattedBio = bio.split('<a')[0];
         this.biography = formattedBio;
       }).catch((err) => {
-        this.biography = null;
         this.$router.go(-1);
         this.$store.commit(
           'ADD_NOTICE',

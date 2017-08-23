@@ -39,7 +39,6 @@ export default {
     // get search results from the api
     getResults() {
       this.$startLoading('fetching data');
-      this.results = [];
       this.axios({
         method: 'get',
         url: '/search',
@@ -51,7 +50,6 @@ export default {
         this.results = res.data;
         this.$endLoading('fetching data');
       }).catch((err) => {
-        this.results = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');
         this.$store.commit(

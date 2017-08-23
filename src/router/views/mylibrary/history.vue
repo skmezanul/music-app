@@ -30,7 +30,6 @@ export default {
     // get recently played tracks from the api
     getRecentlyPlayed() {
       this.$startLoading('fetching data');
-      this.history = [];
       this.axios({
         method: 'get',
         url: '/me/player/recently-played',
@@ -41,7 +40,6 @@ export default {
         this.history = res.data.items;
         this.$endLoading('fetching data');
       }).catch((err) => {
-        this.history = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');
         this.$store.commit(

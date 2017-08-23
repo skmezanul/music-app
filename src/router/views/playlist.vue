@@ -30,7 +30,6 @@ export default {
     // get playlist from the api
     getSinglePlaylist() {
       this.$startLoading('fetching data');
-      this.playlist = [];
       this.axios({
         method: 'get',
         url: `/users/${this.$route.params.user}/playlists/${this.$route.params.id}`,
@@ -41,7 +40,6 @@ export default {
         this.playlist = res.data;
         this.$endLoading('fetching data');
       }).catch((err) => {
-        this.playlist = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');
         this.$store.commit(

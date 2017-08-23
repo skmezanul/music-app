@@ -27,7 +27,6 @@ export default {
       }).then((res) => {
         this.related = res.data.artists;
       }).catch((err) => {
-        this.related = [];
         this.$router.go(-1);
         this.$store.commit(
           'ADD_NOTICE',

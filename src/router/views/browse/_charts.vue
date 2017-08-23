@@ -26,7 +26,6 @@ export default {
     // get charts from the api
     getCharts() {
       this.$startLoading('fetching data');
-      this.charts = [];
       this.axios({
         method: 'get',
         url: '/users/spotifycharts/playlists/37i9dQZEVXbMDoHDwVN2tF',
@@ -34,7 +33,6 @@ export default {
         this.charts = res.data.tracks.items;
         this.$endLoading('fetching data');
       }).catch((err) => {
-        this.charts = [];
         this.$router.go(-1);
         this.$endLoading('fetching data');
         this.$store.commit(
