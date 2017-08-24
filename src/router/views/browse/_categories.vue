@@ -18,10 +18,6 @@ export default {
     // already being observed
     this.getCategories();
   },
-  watch: {
-    // call again if route changes
-    $route: 'getCategories',
-  },
   methods: {
     // get categories from the api
     getCategories() {
@@ -35,13 +31,10 @@ export default {
       }).then((res) => {
         this.categories = res.data.categories;
         this.$endLoading('fetching data');
-      }).catch((err) => {
+      }).catch(() => {
         this.$router.go(-1);
         this.$endLoading('fetching data');
-        this.$store.commit(
-          'ADD_NOTICE',
-          `Categories could not be fetched, please try again later. ${err}`
-        );
+        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchcategories'));
       });
     },
   },

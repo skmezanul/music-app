@@ -27,6 +27,8 @@ footer
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   data() {
     return {
@@ -42,33 +44,19 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.getCurrentPlayback();
+    this.GET_CURRENT_PLAYBACK();
   },
   watch: {
     // call again if value changes
     volume: 'setVolume',
-    $route: 'getCurrentPlayback',
+    $route: 'GET_CURRENT_PLAYBACK',
   },
   methods: {
+    ...mapActions(['GET_CURRENT_PLAYBACK']),
+
     // to artist
     toArtist(artistid) {
       return `/artist/${artistid}`;
-    },
-
-    // get the current playback
-    getCurrentPlayback() {
-      this.axios({
-        method: 'get',
-        url: '/me/player',
-      }).then((res) => {
-        this.$store.commit('CURRENT_PLAYBACK', res.data);
-      }).catch((err) => {
-        this.$store.commit('CURRENT_PLAYBACK', []);
-        this.$store.commit(
-          'ADD_NOTICE',
-          `Could not fetch your current playback, please try again later. ${err}`
-        );
-      });
     },
 
     // go to previous track
@@ -81,11 +69,8 @@ export default {
         },
       }).then(() => {
         this.getCurrentPlayback();
-      }).catch((err) => {
-        this.$store.commit(
-          'ADD_NOTICE',
-          `Could not skip to previous track, please try again later. ${err}`
-        );
+      }).catch(() => {
+        this.$store.commit('ADD_NOTICE', this.$t('errors.skipprev'));
       });
     },
 
@@ -99,11 +84,8 @@ export default {
         },
       }).then(() => {
         this.getCurrentPlayback();
-      }).catch((err) => {
-        this.$store.commit(
-          'ADD_NOTICE',
-          `Could not skip to next track, please try again later. ${err}`
-        );
+      }).catch(() => {
+        this.$store.commit('ADD_NOTICE', this.$t('errors.skipnext'));
       });
     },
 
@@ -115,11 +97,8 @@ export default {
         params: {
           device_id: this.$store.state.deviceID,
         },
-      }).catch((err) => {
-        this.$store.commit(
-          'ADD_NOTICE',
-          `Could not pause playback, please try again later. ${err}`
-        );
+      }).catch(() => {
+        this.$store.commit('ADD_NOTICE', this.$t('errors.pauseplayback'));
       });
     },
 
@@ -131,11 +110,8 @@ export default {
         params: {
           device_id: this.$store.state.deviceID,
         },
-      }).catch((err) => {
-        this.$store.commit(
-          'ADD_NOTICE',
-          `Could not resume playback, please try again later. ${err}`
-        );
+      }).catch(() => {
+        this.$store.commit('ADD_NOTICE', this.$t('errors.resumeplayback'));
       });
     },
 
@@ -148,11 +124,8 @@ export default {
           state: 'context',
           device_id: this.$store.state.deviceID,
         },
-      }).catch((err) => {
-        this.$store.commit(
-          'ADD_NOTICE',
-          `Could not toggle repeat, please try again later. ${err}`
-        );
+      }).catch(() => {
+        this.$store.commit('ADD_NOTICE', this.$t('errors.togglerepeat'));
       });
     },
 
@@ -165,11 +138,8 @@ export default {
           state: !this.playing.shuffle_state,
           device_id: this.$store.state.deviceID,
         },
-      }).catch((err) => {
-        this.$store.commit(
-          'ADD_NOTICE',
-          `Could not toggle shuffle, please try again later. ${err}`
-        );
+      }).catch(() => {
+        this.$store.commit('ADD_NOTICE', this.$t('errors.toggleshuffle'));
       });
     },
 
@@ -182,11 +152,8 @@ export default {
           volume_percent: this.volume,
           device_id: this.$store.state.deviceID,
         },
-      }).catch((err) => {
-        this.$store.commit(
-          'ADD_NOTICE',
-          `Volume could not be changed, please try again later. ${err}`
-        );
+      }).catch(() => {
+        this.$store.commit('ADD_NOTICE', this.$t('errors.changevolume'));
       });
     },
 

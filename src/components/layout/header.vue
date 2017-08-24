@@ -1,26 +1,29 @@
 <template lang='pug'>
 header
-	.header-inner
-		// navigation
-		.header.left
-			i.material-icons(@click='goBack') keyboard_arrow_left
+  .header-inner
+    // navigation
+    .header.left
+      i.material-icons(@click='goBack') keyboard_arrow_left
 
-			i.material-icons(@click='goForward') keyboard_arrow_right
-		// search
-		.header.center
-			i.material-icons.search-icon search
-			input(type='text', @keyup.enter='startSearch', v-model='searchQuery', :placeholder='$tc("search", 0)')
+      i.material-icons(@click='goForward') keyboard_arrow_right
+    // search
+    .header.center
+      i.material-icons.search-icon search
+      input(type='text', @keyup.enter='startSearch', v-model='searchQuery', :placeholder='$tc("search", 0)')
 
-		// current user
-		.header.right
-			img.user-avatar.mobile-hidden(:src='$store.state.currentUser.images[0].url', :alt='$store.state.currentUser.display_name')
-			router-link.user-name.mobile-hidden(to='/') {{ $store.state.currentUser.display_name }}
-			i.toggle.material-icons(@click='toggleDropdown') keyboard_arrow_down
-			// user dropdown
-			ul.dropdown(v-if='userDropdown', v-on-clickaway='toggleDropdown')
-				li {{ $t('myaccount') }}
-				li {{ $t('settings') }}
-				li {{ $t('logout') }}
+    // current user
+    .header.right
+      img.user-avatar.mobile-hidden(:src='$store.state.currentUser.images[0].url', :alt='$store.state.currentUser.display_name')
+      router-link.user-name.mobile-hidden(to='/') {{ $store.state.currentUser.display_name }}
+      i.toggle.material-icons(@click='toggleDropdown') keyboard_arrow_down
+      // user dropdown
+      ul.dropdown(v-if='userDropdown', v-on-clickaway='toggleDropdown')
+        li
+          a {{ $t('myaccount') }}
+        li
+          a {{ $t('settings') }}
+        li
+          a {{ $t('logout') }}
 </template>
 
 <script>
@@ -32,7 +35,7 @@ export default {
   data() {
     return {
       userDropdown: false,
-      searchQuery: null,
+      searchQuery: '',
     };
   },
   watch: {

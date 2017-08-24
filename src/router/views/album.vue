@@ -22,10 +22,6 @@ export default {
     // already being observed
     this.getSingleAlbum();
   },
-  watch: {
-    // call again if route changes
-    $route: 'getSingleAlbum',
-  },
   methods: {
     // get album from the api
     getSingleAlbum() {
@@ -39,13 +35,10 @@ export default {
       }).then((res) => {
         this.album = res.data;
         this.$endLoading('fetching data');
-      }).catch((err) => {
+      }).catch(() => {
         this.$router.go(-1);
         this.$endLoading('fetching data');
-        this.$store.commit(
-          'ADD_NOTICE',
-          `Album could not be fetched, please try again later. ${err}`
-        );
+        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchalbum'));
       });
     },
   },

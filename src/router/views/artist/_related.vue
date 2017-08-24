@@ -26,12 +26,9 @@ export default {
         url: `/artists/${this.$route.params.id}/related-artists`,
       }).then((res) => {
         this.related = res.data.artists;
-      }).catch((err) => {
+      }).catch(() => {
         this.$router.go(-1);
-        this.$store.commit(
-          'ADD_NOTICE',
-          `Related artists could not be fetched, please try again later. ${err}`
-        );
+        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchrelatedartists'));
       });
     },
   },

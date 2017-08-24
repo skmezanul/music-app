@@ -32,9 +32,6 @@ export default {
     // already being observed
     this.getResults();
   },
-  watch: {
-    $route: 'getResults',
-  },
   methods: {
     // get search results from the api
     getResults() {
@@ -49,13 +46,10 @@ export default {
       }).then((res) => {
         this.results = res.data;
         this.$endLoading('fetching data');
-      }).catch((err) => {
+      }).catch(() => {
         this.$router.go(-1);
         this.$endLoading('fetching data');
-        this.$store.commit(
-          'ADD_NOTICE',
-          `Playlist could not be fetched, please try again later. ${err}`
-        );
+        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchresults'));
       });
     },
   },

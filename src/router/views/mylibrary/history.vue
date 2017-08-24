@@ -22,10 +22,6 @@ export default {
     // already being observed
     this.getRecentlyPlayed();
   },
-  watch: {
-    // call again if route changes
-    $route: 'getRecentlyPlayed',
-  },
   methods: {
     // get recently played tracks from the api
     getRecentlyPlayed() {
@@ -39,13 +35,10 @@ export default {
       }).then((res) => {
         this.history = res.data.items;
         this.$endLoading('fetching data');
-      }).catch((err) => {
+      }).catch(() => {
         this.$router.go(-1);
         this.$endLoading('fetching data');
-        this.$store.commit(
-          'ADD_NOTICE',
-          `Your recently played tracks could not be fetched, please try again later. ${err}`
-        );
+        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchhistory'));
       });
     },
   },

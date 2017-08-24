@@ -18,10 +18,6 @@ export default {
     // already being observed
     this.getCharts();
   },
-  watch: {
-    // call again if route changes
-    $route: 'getCharts',
-  },
   methods: {
     // get charts from the api
     getCharts() {
@@ -32,13 +28,10 @@ export default {
       }).then((res) => {
         this.charts = res.data.tracks.items;
         this.$endLoading('fetching data');
-      }).catch((err) => {
+      }).catch(() => {
         this.$router.go(-1);
         this.$endLoading('fetching data');
-        this.$store.commit(
-          'ADD_NOTICE',
-          `Charts could not be fetched, please try again later. ${err}`
-        );
+        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchcharts'));
       });
     },
   },

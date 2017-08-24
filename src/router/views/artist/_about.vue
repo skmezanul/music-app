@@ -9,7 +9,7 @@
 export default {
   data() {
     return {
-      biography: null,
+      biography: '',
     };
   },
   created() {
@@ -38,10 +38,7 @@ export default {
         this.biography = formattedBio;
       }).catch((err) => {
         this.$router.go(-1);
-        this.$store.commit(
-          'ADD_NOTICE',
-          `Biography could not be fetched, please try again later. ${err}`
-        );
+        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchartistbio'));
       });
     },
   },

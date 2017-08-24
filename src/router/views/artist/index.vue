@@ -33,10 +33,6 @@ export default {
     // already being observed
     this.getArtist();
   },
-  watch: {
-    // call again if route changes
-    $route: 'getArtist',
-  },
   methods: {
     // get artist information from the api
     getArtist() {
@@ -47,13 +43,10 @@ export default {
       }).then((res) => {
         this.artist = res.data;
         this.$endLoading('fetching data');
-      }).catch((err) => {
+      }).catch(() => {
         this.$router.go(-1);
         this.$endLoading('fetching data');
-        this.$store.commit(
-          'ADD_NOTICE',
-          `Artist info could not be fetched, please try again later. ${err}`
-        );
+        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchartistinfo'));
       });
     },
   },

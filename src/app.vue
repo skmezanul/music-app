@@ -28,56 +28,27 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.getCurrentUser();
-    this.getMyDevices();
     this.showDevNotice();
+    this.GET_CURRENT_USER();
+    this.GET_MY_DEVICES();
   },
   methods: {
+    ...mapActions(['GET_CURRENT_USER', 'GET_MY_DEVICES']),
+
     // show development notice
     showDevNotice() {
-      this.$store.commit(
-        'ADD_NOTICE',
-        'This app is still wip. Contact microeinhundert on github to contribute to the development.'
-      );
+      this.$store.commit('ADD_NOTICE', this.$t('notices.wip'));
     },
 
     // remove notice
     removeNotice(index) {
       this.$store.commit('REMOVE_NOTICE', index);
-    },
-
-    // get the current user's info
-    getCurrentUser() {
-      this.axios({
-        method: 'get',
-        url: '/me',
-      }).then((res) => {
-        this.$store.commit('CURRENT_USER', res.data);
-      }).catch((err) => {
-        this.$store.commit(
-          'ADD_NOTICE',
-          `Current user could not be fetched, please try again later. ${err}`
-        );
-      });
-    },
-
-    // get the current device's ID
-    getMyDevices() {
-      this.axios({
-        method: 'get',
-        url: '/me/player/devices',
-      }).then((res) => {
-        this.$store.commit('DEVICE_ID', res.data.devices[0].id);
-      }).catch((err) => {
-        this.$store.commit(
-          'ADD_NOTICE',
-          `Available devices could not be fetched, please try again later. ${err}`
-        );
-      });
     },
 
     // get the current scroll position

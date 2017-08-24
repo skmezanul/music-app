@@ -22,10 +22,6 @@ export default {
     // already being observed
     this.getSinglePlaylist();
   },
-  watch: {
-    // call again if route changes
-    $route: 'getSinglePlaylist',
-  },
   methods: {
     // get playlist from the api
     getSinglePlaylist() {
@@ -39,13 +35,10 @@ export default {
       }).then((res) => {
         this.playlist = res.data;
         this.$endLoading('fetching data');
-      }).catch((err) => {
+      }).catch(() => {
         this.$router.go(-1);
         this.$endLoading('fetching data');
-        this.$store.commit(
-          'ADD_NOTICE',
-          `Playlist could not be fetched, please try again later. ${err}`
-        );
+        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchplaylist'));
       });
     },
   },
