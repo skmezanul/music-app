@@ -15,7 +15,7 @@ li.row(@dblclick='playTrack', :class="{ 'playing': playing }")
 			router-link(v-for='artist in artists', :key='artist.id', :to='toArtist(artist.id)') {{ artist.name }}
 
 	// album name
-	.album(v-if='album')
+	.album-container(v-if='album')
 		router-link(:to='toAlbum(album.id)') {{ album.name }}
 
 	// duration
@@ -83,11 +83,14 @@ export default {
     },
   },
   computed: {
+    // format duration
     formattedDuration() {
       const minutes = Math.floor(this.duration / 60000);
       const seconds = ((this.duration % 60000) / 1000).toFixed(0);
       return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     },
+
+    // format index
     formattedIndex() {
       if (this.index < 99) {
         return String(`0${this.index + 1}`).slice(-2);
@@ -104,10 +107,26 @@ export default {
         display: flex;
         align-items: center;
         margin-bottom: 2px;
-        height: 65px;
+        height: 75px;
         background-color: $blue;
         box-shadow: $shadow;
+        color: rgba($white, 0.7);
         transition: background-color 0.3s, margin 0.3s, box-shadow 0.3s, transform 0.3s;
+        &:hover {
+            background-color: rgba($white, 0.1);
+            cursor: pointer;
+            .image-container {
+                i {
+                    color: $white;
+                    &.playing {
+                        color: rgba($white, 0);
+                    }
+                }
+                img {
+                    filter: brightness(50%);
+                }
+            }
+        }
         &.playing {
             margin: 10px 0;
             background-color: $dark-blue;
@@ -118,15 +137,22 @@ export default {
                     filter: brightness(20%);
                 }
                 i.playing {
-                    opacity: 1;
+                    color: $white;
                 }
+            }
+        }
+        > i {
+            margin-right: 25px;
+            transition: color 0.3s;
+            &:hover {
+                color: $white;
             }
         }
         .image-container {
             position: relative;
             overflow: hidden;
-            width: 65px;
-            height: 65px;
+            width: 75px;
+            height: 75px;
             img {
                 width: auto;
                 height: 100%;
@@ -142,41 +168,17 @@ export default {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                color: rgba($white, 0);
                 font-size: 2.5em;
-                opacity: 0;
-            }
-        }
-        &:hover {
-            background-color: rgba($white, 0.1);
-            cursor: pointer;
-            .image-container {
-                i {
-                    opacity: 1;
-                    &.playing {
-                        opacity: 0;
-                    }
-                }
-                img {
-                    filter: brightness(50%);
-                }
-            }
-        }
-        i {
-            flex: 0.13;
-            transition: color 0.3s, opacity 0.3s;
-            @media screen and (max-width: 955px) {
-                padding: 0 15px;
-            }
-            &:hover {
-                color: rgba($white, 0.7);
-                cursor: pointer;
+                transition: color 0.3s;
             }
         }
         .index {
             margin: 0 20px;
+            color: $white;
             text-align: center;
             font-weight: 300;
-            font-size: 1.3em;
+            font-size: 1.4em;
         }
         .meta-container {
             flex: 1.5;
@@ -184,9 +186,13 @@ export default {
             margin-right: 20px;
             text-overflow: ellipsis;
             white-space: nowrap;
-            line-height: 1.3em;
+            line-height: 1.5em;
             @media screen and (max-width: 955px) {
                 padding: 0 15px;
+            }
+            span {
+                color: $white;
+                font-size: 1.2em;
             }
             .artist-container {
                 a {
@@ -194,18 +200,18 @@ export default {
                 }
             }
         }
-        .duration {
-            flex: 0.5;
-            text-align: center;
-        }
-        .album {
+        .album-container {
             flex: 1;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
             a {
-                @include comma-separated(1em, 300);
+                @include comma-separated(1em, 400);
             }
+        }
+        .duration {
+            flex: 0.5;
+            text-align: center;
         }
     }
 }

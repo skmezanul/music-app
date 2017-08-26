@@ -13,6 +13,11 @@ export default {
   props: [
     'message',
   ],
+  created() {
+    setInterval(() => {
+      this.$emit("remove");
+    }, 4000);
+  }
 };
 </script>
 

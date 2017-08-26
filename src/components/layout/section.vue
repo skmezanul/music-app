@@ -56,7 +56,7 @@ export default {
     &.collapsed {
         .section-item:nth-child(n+6),
         .section-item.artist:nth-child(n+5),
-        .row:nth-child(n+6) {
+        .row:nth-child(n+4) {
             display: none;
         }
     }
