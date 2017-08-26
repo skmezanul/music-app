@@ -9,7 +9,7 @@
     li
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .loader-container {
 	position: fixed;
 	right: 0;

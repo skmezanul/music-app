@@ -1,34 +1,37 @@
 <template lang="pug">
 #app(:class='{scrolled: $store.state.scrollPosition > 0}')
 
-	// header
-	ma-header
+  // header
+  ma-header
 
-	// navigation
-	ma-navigation
+  // navigation
+  ma-navigation
 
-	// router view
-	router-view(:key='$route.params.id')
+  // router view
+  router-view(:key='$route.params.id')
 
-	// footer
-	transition(name='fade')
-		ma-footer
+  // footer
+  transition(name='fade')
+    ma-footer
 
-	// tooltips
-	.tooltip-container
+  // tooltips
+  .tooltip-container
 
-	// loading spinner
-	ma-loading.loading-container(v-if='$isLoading("fetching data")')
-		template(slot='spinner')
-			ma-loader
+  // loading spinner
+  transition(name='fade')
+    ma-loading.loading-container(v-if='$isLoading("fetching data")')
+      template(slot='spinner')
+        ma-loader
 
-	// notices
-	transition-group(name='slide', tag='notices')
-		ma-notice(v-for='(notice, index) in $store.state.notices', :key='index', :message='notice', @remove="removeNotice(index)")
+  // notices
+  transition-group(name='slide', tag='notices')
+    ma-notice(v-for='(notice, index) in $store.state.notices', :key='index', :message='notice', @remove="removeNotice(index)")
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import {
+  mapActions
+} from 'vuex';
 
 export default {
   created() {
@@ -227,9 +230,9 @@ a {
         }
     }
 }
+.loading,
 .main-container,
 .notice,
-.loading,
 header {
     margin-left: 200px;
 }
@@ -267,7 +270,6 @@ header {
 .slide-leave-to {
     transform: translateY(-100%);
 }
-
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -277,7 +279,6 @@ header {
         opacity: 1;
     }
 }
-
 @keyframes zoomOut {
     0% {
         opacity: 0;
@@ -292,7 +293,6 @@ header {
         transform: scale(1);
     }
 }
-
 @keyframes fadeInBottom {
     from {
         opacity: 0;
@@ -304,7 +304,6 @@ header {
         transform: translateY(0);
     }
 }
-
 @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
     .scrolled header,
     footer {
