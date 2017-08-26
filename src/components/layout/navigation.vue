@@ -80,11 +80,7 @@ export default {
       }).then((res) => {
         this.playlists = res.data.items;
       }).catch((err) => {
-        this.$store.commit(
-          'ADD_NOTICE',
-          `Playlists could not be fetched, please try again later. ${err}`
-        );
-        this.playlists = [];
+        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchplaylists'));
       });
     },
   },

@@ -1,5 +1,5 @@
 <template lang="pug">
-.notice
+.notice-container
 	.notice-inner
 		// message
 		p {{ message }}
@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style lang="scss">
-.notice {
+.notice-container {
     position: fixed;
     top: 0;
     right: 0;

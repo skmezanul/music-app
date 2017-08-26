@@ -1,7 +1,7 @@
 <template lang="pug">
 footer
 	// current playback
-	.footer.left.mobile-hidden
+	.footer-container.left.mobile-hidden
 		img(:src='$store.state.currentPlayback.item.album.images[0].url', :alt='$store.state.currentPlayback.item.name')
 		.currently-playing
 			span.title {{ $store.state.currentPlayback.item.name }}
@@ -9,7 +9,7 @@ footer
 				router-link.artist(v-for='artist in $store.state.currentPlayback.item.artists', :key='artist.id', :to='toArtist(artist.id)') {{ artist.name }}
 
 	// playback controls
-	.footer.center
+	.footer-container.center
 		i.shuffle.material-icons(@click='toggleShuffle', :class='{ "active": $store.state.currentPlayback.shuffle_state == true }', v-tooltip='{ content: $t("shuffle"), container: ".tooltip-container" }') shuffle
 		i.skip.material-icons(@click='previousTrack') skip_previous
 		i.toggle.play.material-icons(v-show='!isPlaying', @click='resumePlayback') play_circle_filled
@@ -19,7 +19,7 @@ footer
 		i.repeat.material-icons.active(v-show='$store.state.currentPlayback.repeat_state == "track"', @click='toggleRepeat', v-tooltip='{ content: $t("repeat"), container: ".tooltip-container" }') repeat_one
 
 	// volume and other controls
-	.footer.right.mobile-hidden
+	.footer-container.right.mobile-hidden
 		i.volume.material-icons(v-if='volume == 0') volume_mute
 		i.volume.material-icons(v-if='volume <= 50 && volume > 0') volume_down
 		i.volume.material-icons(v-if='volume > 50') volume_up
@@ -27,7 +27,9 @@ footer
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import {
+  mapActions
+} from 'vuex';
 
 export default {
   data() {
@@ -44,12 +46,13 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.GET_CURRENT_PLAYBACK();
+    setInterval(() => {
+      this.GET_CURRENT_PLAYBACK();
+    }, 2000);
   },
   watch: {
     // call again if value changes
     volume: 'setVolume',
-    $route: 'GET_CURRENT_PLAYBACK',
   },
   methods: {
     ...mapActions(['GET_CURRENT_PLAYBACK']),
@@ -67,8 +70,6 @@ export default {
         params: {
           device_id: this.$store.state.deviceID,
         },
-      }).then(() => {
-        this.getCurrentPlayback();
       }).catch(() => {
         this.$store.commit('ADD_NOTICE', this.$t('errors.skipprev'));
       });
@@ -82,8 +83,6 @@ export default {
         params: {
           device_id: this.$store.state.deviceID,
         },
-      }).then(() => {
-        this.getCurrentPlayback();
       }).catch(() => {
         this.$store.commit('ADD_NOTICE', this.$t('errors.skipnext'));
       });
@@ -190,7 +189,7 @@ footer {
     background-color: $dark-blue;
     -webkit-font-smoothing: subpixel-antialiased;
 
-    .footer {
+    .footer-container {
         display: flex;
         align-items: center;
         height: 50px;

@@ -225,14 +225,14 @@ a {
         border-color: $border-color;
         background-color: $dark-blue;
 
-        .header-inner {
+        .header-container {
             width: $small-width;
         }
     }
 }
-.loading,
+.loading-container,
 .main-container,
-.notice,
+.notice-container,
 header {
     margin-left: 200px;
 }
@@ -313,7 +313,7 @@ header {
     }
 }
 
-.header-inner,
+.header-container,
 .notice-inner,
 .page-section,
 .stage-inner {

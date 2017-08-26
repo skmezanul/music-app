@@ -1,18 +1,18 @@
 <template lang='pug'>
 header
-  .header-inner
+  .header-container
     // navigation
-    .header.left
+    .header-inner.left
       i.material-icons(@click='goBack') keyboard_arrow_left
 
       i.material-icons(@click='goForward') keyboard_arrow_right
     // search
-    .header.center
+    .header-inner.center
       i.material-icons.search-icon search
       input(type='text', @keyup.enter='startSearch', v-model='searchQuery', :placeholder='$tc("search", 0)')
 
     // current user
-    .header.right
+    .header-inner.right
       img.user-avatar.mobile-hidden(:src='$store.state.currentUser.images[0].url', :alt='$store.state.currentUser.display_name')
       router-link.user-name.mobile-hidden(to='/') {{ $store.state.currentUser.display_name }}
       i.toggle.material-icons(@click='toggleDropdown') keyboard_arrow_down
@@ -88,7 +88,7 @@ header {
     -webkit-app-region: drag;
     -webkit-font-smoothing: subpixel-antialiased;
 
-    .header-inner {
+    .header-container {
         display: flex;
         justify-content: space-between;
         height: 42px;
@@ -98,7 +98,7 @@ header {
             width: 95%;
         }
 
-        .header {
+        .header-inner {
             display: flex;
             align-items: center;
 

@@ -144,7 +144,7 @@ export default {
 
         img {
             width: 100%;
-            filter: saturate(150%);
+            filter: saturate(130%);
             transition: filter 0.5s;
             will-change: filter;
         }

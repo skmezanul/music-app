@@ -47,6 +47,7 @@ export default {
     toggleshuffle: 'Could not toggle shuffle, please try again later.',
     changevolume: 'Could not toggle shuffle, please try again later.',
     fetchresults: 'Search results could not be fetched, please try again later.',
+    fetchplaylists: 'Your playlists could not be fetched, please try again later.',
     fetchplaylist: 'Playlist could not be fetched, please try again later.',
     fetchalbum: 'Album could not be fetched, please try again later.',
     fetchhistory: 'Your recently played tracks could not be fetched, please try again later.',
