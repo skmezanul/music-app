@@ -12,7 +12,7 @@ import footer from './layout/footer';
 import section from './layout/section';
 import list from './list';
 import item from './item';
-import spinner from './spinner';
+import loader from './loader';
 import notice from './notice';
 
 // register components
@@ -24,7 +24,7 @@ Vue.component('ma-footer', footer);
 Vue.component('ma-section', section);
 Vue.component('ma-list', list);
 Vue.component('ma-item', item);
-Vue.component('ma-spinner', spinner);
+Vue.component('ma-loader', loader);
 Vue.component('ma-notice', notice);
 
 // register plugins

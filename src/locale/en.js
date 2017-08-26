@@ -27,7 +27,7 @@ export default {
   relatedto: 'Related to',
   about: 'About',
   hello: 'Hello',
-  play: 'Play all',
+  playall: 'Play all',
   follow: 'Follow',
   share: 'Share',
   shuffle: 'Shuffle',

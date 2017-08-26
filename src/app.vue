@@ -18,9 +18,9 @@
 	.tooltip-container
 
 	// loading spinner
-	ma-loading.loading-container
+	ma-loading.loading-container(v-if='$isLoading("fetching data")')
 		template(slot='spinner')
-			ma-spinner
+			ma-loader
 
 	// notices
 	transition-group(name='slide', tag='notices')

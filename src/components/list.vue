@@ -22,8 +22,8 @@ li.row(@dblclick='playTrack', :class="{ 'playing': playing }")
 	span.duration {{ formattedDuration }}
 
 	// actions
-	i.material-icons(v-tooltip='{ content: $t("addtoplaylist"), container: ".tooltip-container" }') playlist_add
-	i.material-icons(v-tooltip='{ content: $t("more"), container: ".tooltip-container" }') more_horiz
+	i.material-icons.mobile-hidden(v-tooltip='{ content: $t("addtoplaylist"), container: ".tooltip-container" }') playlist_add
+	i.material-icons.mobile-hidden(v-tooltip='{ content: $t("more"), container: ".tooltip-container" }') more_horiz
 </template>
 
 <script>
@@ -192,7 +192,7 @@ export default {
             }
             span {
                 color: $white;
-                font-size: 1.2em;
+                font-size: 1.1em;
             }
             .artist-container {
                 a {

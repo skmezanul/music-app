@@ -140,7 +140,6 @@ export default {
                     width: 100%;
                     border-radius: 5px;
                     font-size: 0.85em;
-                    transition: background-color 0.1s;
 
                     i {
                         margin-right: 7px;

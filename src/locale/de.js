@@ -27,7 +27,7 @@ export default {
   relatedto: 'Ähnlich wie',
   about: 'Über',
   hello: 'Hallo',
-  play: 'Play',
+  playall: 'Alles wiedergeben',
   follow: 'Folgen',
   share: 'Teilen',
   shuffle: 'Zufällig',

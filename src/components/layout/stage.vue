@@ -18,7 +18,7 @@
 				.button-group
 					a.btn.btn-accent
 						i.material-icons play_circle_filled
-						| {{ $t('play') }}
+						| {{ $t('playall') }}
 					a.btn(v-if='canFollow')
 						i.material-icons add_circle
 						| {{ $t('follow') }}
@@ -50,7 +50,7 @@ export default {
     },
   },
   computed: {
-    // remove "Cover" mesage from meta on playlist
+    // remove "Cover" message from meta on playlist
     formattedMeta() {
       const meta = this.meta;
       const formattedMeta = meta.split('Cover')[0];

@@ -27,7 +27,7 @@ export default {
   relatedto: 'Relacionado con',
   about: 'Acerca de',
   hello: 'Hola',
-  play: 'Reproducir',
+  playall: 'Reproducir',
   follow: 'Seguir',
   share: 'Compartir',
   shuffle: 'Aleatoria',

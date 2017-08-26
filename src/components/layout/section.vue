@@ -54,10 +54,19 @@ export default {
     margin: 30px 0;
 
     &.collapsed {
-        .section-item:nth-child(n+6),
         .section-item.artist:nth-child(n+5),
         .row:nth-child(n+4) {
             display: none;
+        }
+        @media screen and (min-width: 955px) {
+          .section-item:nth-child(n+6) {
+              display: none;
+          }
+        }
+        @media screen and (max-width: 955px) {
+          .section-item:nth-child(n+5) {
+              display: none;
+          }
         }
     }
 
@@ -79,6 +88,7 @@ export default {
                 @include item-hover;
                 display: flex;
                 align-items: center;
+                white-space: nowrap;
             }
         }
     }
