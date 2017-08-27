@@ -32,6 +32,10 @@ export default {
     // already being observed
     this.getResults();
   },
+  watch: {
+    // update playing state when playback is changing
+    '$route.params.query': 'getResults',
+  },
   methods: {
     // get search results from the api
     getResults() {

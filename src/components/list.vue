@@ -27,6 +27,10 @@ li.row(@dblclick='playTrack', :class="{ 'playing': playing }")
 </template>
 
 <script>
+import {
+  mapActions
+} from 'vuex';
+
 export default {
   data() {
     return {
@@ -52,13 +56,7 @@ export default {
     '$store.state.currentPlayback.item.id': 'isPlaying',
   },
   methods: {
-    // check if track is playing
-    isPlaying() {
-      if (this.$store.state.currentPlayback.item.id === this.primaryid) {
-        this.playing = true;
-      };
-    },
-
+    ...mapActions(['GET_CURRENT_PLAYBACK']),
     // to artist
     toArtist(artistid) {
       return `/artist/${artistid}`;
@@ -69,16 +67,28 @@ export default {
       return `/album/${albumid}`;
     },
 
-    // play track (WIP)
+    isPlaying() {
+      if (this.$store.state.currentPlayback.item.id === this.primaryid) {
+        this.playing = true
+      } else {
+        this.playing = false;
+      };
+    },
+
+    // play track
     playTrack() {
+      this.playing = true;
       this.axios({
         method: 'put',
         url: '/me/player/play',
         data: {
-          context_uri: 'spotify:user:spotify:playlist:37i9dQZF1DWUW2bvSkjcJ6',
+          uris: [`spotify:track:${this.primaryid}`],
         },
+      }).then(() => {
+        this.GET_CURRENT_PLAYBACK();
       }).catch(() => {
-        this.$store.commit('notice', 'Track could not be played, please try again later.');
+        this.playing = false;
+        this.$store.commit('ADD_NOTICE', this.$t('errors.playtrack'));
       });
     },
   },
@@ -136,8 +146,6 @@ export default {
         }
         &.playing {
             margin: 10px 0;
-            background-color: $dark-blue;
-            box-shadow: $shadow-highlight;
             transform: scale(1.02);
             .image-container {
                 img {
