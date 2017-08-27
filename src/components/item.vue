@@ -197,7 +197,7 @@ export default {
             left: 0;
             z-index: 1;
             display: flex;
-            background: linear-gradient(to top, $accent-color 25%, rgba($blue,0.5));
+            background: linear-gradient(to top, $accent-color 25%, rgba(80, 80, 80, 0.5) 100%);
             justify-content: center;
             opacity: 0;
             transition: opacity 0.3s;
@@ -208,9 +208,8 @@ export default {
                 justify-content: space-around;
                 i {
                     transition: color 0.3s;
-                    &:not(.play):hover {
-                        color: rgba($white, 0.7);
-                        cursor: pointer;
+                    &:not(.play) {
+                        @include item-hover;
                     }
                     &.play {
                         font-size: 4.5em;

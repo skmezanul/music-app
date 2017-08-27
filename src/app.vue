@@ -230,7 +230,7 @@ a {
         }
     }
 }
-.loading-container,
+.loader-container,
 .main-container,
 .notice-container,
 header {

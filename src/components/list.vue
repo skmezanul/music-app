@@ -112,6 +112,13 @@ export default {
         box-shadow: $shadow;
         color: rgba($white, 0.7);
         transition: background-color 0.3s, margin 0.3s, box-shadow 0.3s, transform 0.3s;
+        > i {
+            margin-right: 25px;
+            transition: color 0.3s;
+            &:hover {
+                color: $white;
+            }
+        }
         &:hover {
             background-color: rgba($white, 0.1);
             cursor: pointer;
@@ -119,7 +126,7 @@ export default {
                 i {
                     color: $white;
                     &.playing {
-                        color: rgba($white, 0);
+                        visibility: hidden;
                     }
                 }
                 img {
@@ -139,13 +146,6 @@ export default {
                 i.playing {
                     color: $white;
                 }
-            }
-        }
-        > i {
-            margin-right: 25px;
-            transition: color 0.3s;
-            &:hover {
-                color: $white;
             }
         }
         .image-container {

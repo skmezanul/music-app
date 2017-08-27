@@ -48,7 +48,7 @@ export default {
     // already being observed
     setInterval(() => {
       this.GET_CURRENT_PLAYBACK();
-    }, 2000);
+    }, 3000);
   },
   watch: {
     // call again if value changes
@@ -70,6 +70,8 @@ export default {
         params: {
           device_id: this.$store.state.deviceID,
         },
+      }).then(() => {
+        this.GET_CURRENT_PLAYBACK();
       }).catch(() => {
         this.$store.commit('ADD_NOTICE', this.$t('errors.skipprev'));
       });
@@ -83,6 +85,8 @@ export default {
         params: {
           device_id: this.$store.state.deviceID,
         },
+      }).then(() => {
+        this.GET_CURRENT_PLAYBACK();
       }).catch(() => {
         this.$store.commit('ADD_NOTICE', this.$t('errors.skipnext'));
       });
@@ -96,6 +100,8 @@ export default {
         params: {
           device_id: this.$store.state.deviceID,
         },
+      }).then(() => {
+        this.GET_CURRENT_PLAYBACK();
       }).catch(() => {
         this.$store.commit('ADD_NOTICE', this.$t('errors.pauseplayback'));
       });
@@ -109,6 +115,8 @@ export default {
         params: {
           device_id: this.$store.state.deviceID,
         },
+      }).then(() => {
+        this.GET_CURRENT_PLAYBACK();
       }).catch(() => {
         this.$store.commit('ADD_NOTICE', this.$t('errors.resumeplayback'));
       });

@@ -74,7 +74,7 @@ export default [{
     path: 'related',
     name: 'artistRelated',
     meta: {
-      compact: true,
+      compact: false,
       cover: false,
       buttons: true,
     },
@@ -84,7 +84,7 @@ export default [{
     path: 'about',
     name: 'artistAbout',
     meta: {
-      compact: true,
+      compact: false,
       cover: false,
       buttons: true,
     },

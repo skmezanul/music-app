@@ -104,9 +104,7 @@ export default {
     padding-top: 65px;
     min-height: 350px;
     width: 100%;
-    height: 600px;
-    transition: height 0.5s;
-    will-change: height;
+    height: 550px;
 
     &.compact {
         height: 350px;
@@ -145,8 +143,6 @@ export default {
         img {
             width: 100%;
             filter: saturate(130%);
-            transition: filter 0.5s;
-            will-change: filter;
         }
     }
     &:after {
@@ -186,8 +182,6 @@ export default {
                 margin-top: 5px;
                 margin-left: -3px;
                 font-size: 5.5em;
-                transition: font-size 0.5s;
-                will-change: font-size;
             }
             .meta-container {
                 margin-top: 10px;
