@@ -1,14 +1,31 @@
 <template lang="pug">
 .page-container
 	// featured playlists
-	ma-section(:title='featured.message', :collapsible='true')
+	ma-section(
+    :title='featured.message',
+    :collapsible='true')
+
 		.section-items-container
-			ma-item(v-for='playlist in featured.playlists.items', :key='playlist.id', :type='playlist.type', :primaryid='playlist.id', :secondaryid='playlist.owner.id', :image='playlist.images[0].url', :title='playlist.name')
+			ma-item(
+        v-for='playlist in featured.playlists.items',
+        :key='playlist.id',
+        :type='playlist.type',
+        :primaryid='playlist.id',
+        :secondaryid='playlist.owner.id',
+        :image='playlist.images[0].url',
+        :title='playlist.name')
 
 	// featured playlists
 	ma-section(:title='$t("newreleases")', :collapsible='true')
+
 		.section-items-container
-			ma-item(v-for='album in releases.albums.items', :key='album.id', :type='album.type', :primaryid='album.id', :image='album.images[0].url', :title='album.name')
+			ma-item(
+        v-for='album in releases.albums.items',
+        :key='album.id',
+        :type='album.type',
+        :primaryid='album.id',
+        :image='album.images[0].url',
+        :title='album.name')
 </template>
 
 <script>

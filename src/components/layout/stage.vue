@@ -3,10 +3,16 @@
 
 	// background
 	.stage-background
-		img(v-parallax='0.5', :src='image', :alt='title')
+		img(
+    v-parallax='0.5',
+    :src='image',
+    :alt='title')
+    
 	.stage-inner
 		.cover-container.mobile-hidden(v-if="hasCover")
-			img(:src='image', :alt='title')
+			img(
+        :src='image',
+        :alt='title')
 
 		// content
 		.stage-container

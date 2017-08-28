@@ -9,15 +9,24 @@ header
     // search
     .header-inner.center
       i.material-icons.search-icon search
-      input(type='text', @keyup.enter='startSearch', v-model='searchQuery', :placeholder='$tc("search", 0)')
+      input(
+        type='text',
+        @keyup.enter='startSearch',
+        v-model='searchQuery',
+        :placeholder='$tc("search", 0)')
 
     // current user
     .header-inner.right
-      img.user-avatar.mobile-hidden(:src='$store.state.currentUser.images[0].url', :alt='$store.state.currentUser.display_name')
+      img.user-avatar.mobile-hidden(
+        :src='$store.state.currentUser.images[0].url',
+        :alt='$store.state.currentUser.display_name')
+
       router-link.user-name.mobile-hidden(to='/') {{ $store.state.currentUser.display_name }}
       i.toggle.material-icons(@click='toggleDropdown') keyboard_arrow_down
       // user dropdown
-      ul.dropdown(v-if='userDropdown', v-on-clickaway='toggleDropdown')
+      ul.dropdown(
+        v-if='userDropdown',
+        v-on-clickaway='toggleDropdown')
         li
           a {{ $t('myaccount') }}
         li

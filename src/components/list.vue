@@ -1,18 +1,30 @@
 <template lang="pug">
-li.row(@dblclick='playTrack', :class="{ 'playing': playing }")
+li.row(
+  @dblclick='playTrack',
+  :class="{ 'playing': playing }")
+
 	// image
 	.image-container(v-if='image')
-		i.material-icons(v-if='!playing', @click='playTrack') play_circle_filled
+		i.material-icons(
+      v-if='!playing',
+      @click='playTrack') play_circle_filled
+
 		i.material-icons.playing(v-if='playing') volume_up
 		i.material-icons(v-if='playing') pause_circle_filled
-		img(:src='image', :alt='title')
-	span.index.mobile-hidden(v-if='index != null') {{ formattedIndex }}
+		img(
+      :src='image',
+      :alt='title')
+
+	span.index.mobile-hidden(v-if='index') {{ formattedIndex }}
 
 	// meta
 	.meta-container
 		span {{ title }}
 		.artist-container(v-if='artists')
-			router-link(v-for='artist in artists', :key='artist.id', :to='toArtist(artist.id)') {{ artist.name }}
+			router-link(
+        v-for='artist in artists',
+        :key='artist.id',
+        :to='toArtist(artist.id)') {{ artist.name }}
 
 	// album name
 	.album-container(v-if='album')
@@ -22,8 +34,11 @@ li.row(@dblclick='playTrack', :class="{ 'playing': playing }")
 	span.duration {{ formattedDuration }}
 
 	// actions
-	i.material-icons.mobile-hidden(v-tooltip='{ content: $t("addtoplaylist"), container: ".tooltip-container" }') playlist_add
-	i.material-icons.mobile-hidden(v-tooltip='{ content: $t("more"), container: ".tooltip-container" }') more_horiz
+	i.material-icons.mobile-hidden(
+    v-tooltip='{ content: $t("addtoplaylist"), container: ".tooltip-container" }') playlist_add
+
+	i.material-icons.mobile-hidden(
+    v-tooltip='{ content: $t("more"), container: ".tooltip-container" }') more_horiz
 </template>
 
 <script>
@@ -44,7 +59,7 @@ export default {
     'artists',
     'album',
     'duration',
-    'primaryid',
+    'trackid',
     'image',
   ],
   created() {
@@ -68,7 +83,7 @@ export default {
     },
 
     isPlaying() {
-      if (this.$store.state.currentPlayback.item.id === this.primaryid) {
+      if (this.$store.state.currentPlayback.item.id === this.trackid) {
         this.playing = true
       } else {
         this.playing = false;
@@ -82,7 +97,7 @@ export default {
         method: 'put',
         url: '/me/player/play',
         data: {
-          uris: [`spotify:track:${this.primaryid}`],
+          uris: [`spotify:track:${this.trackid}`],
         },
       }).then(() => {
         this.GET_CURRENT_PLAYBACK();

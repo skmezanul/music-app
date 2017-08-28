@@ -1,24 +1,42 @@
 <template lang="pug">
 .section-item(:class='type')
-	router-link.section-item-inner(tag='div', :to='toTarget(type, primaryid, secondaryid)')
+	router-link.section-item-inner(
+    tag='div',
+    :to='toTarget(type, primaryid, secondaryid)')
+
 		// overlay
-		.item-overlay(v-if='hasOverlay', :style='{ background: color }')
+		.item-overlay(
+      v-if='hasOverlay',
+      :style='{ background: color }')
+
 			.overlay-inner
 				i.favorite.material-icons favorite
-				i.play.material-icons(v-if='!playing', @click='togglePlaying') play_circle_filled
-				i.play.material-icons(v-if='playing', @click='togglePlaying') pause_circle_filled
+
+				i.play.material-icons(
+          v-if='!playing',
+          @click='togglePlaying') play_circle_filled
+
+				i.play.material-icons(
+          v-if='playing',
+          @click='togglePlaying') pause_circle_filled
+
 				i.more.material-icons more_horiz
 
 		// image
 		.image-container(v-if='image')
-			img(:src='image', :alt='title')
+			img(
+        :src='image',
+        :alt='title')
 
 		// meta
 		.meta-container
 			.meta-container-inner
 				span {{ title }}
 				.artist-container(v-if='artist')
-					router-link.artist(v-for='item in artist', :key='item.id', :to='toArtist(item.id)') {{ item.name }}
+					router-link.artist(
+            v-for='item in artist',
+            :key='item.id',
+            :to='toArtist(item.id)') {{ item.name }}
 </template>
 
 <script>

@@ -1,7 +1,11 @@
 <template lang="pug">
 main.main-container
 	// stage
-	ma-stage(:subtitle='$t("browse")', :navigation='navigation', :image='$store.state.currentUser.images[0].url', :title='welcomeMessage')
+	ma-stage(
+    :subtitle='$t("browse")',
+    :navigation='navigation',
+    :image='$store.state.currentUser.images[0].url',
+    :title='welcomeMessage')
 
 	// router view
 	keep-alive

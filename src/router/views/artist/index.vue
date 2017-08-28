@@ -1,7 +1,11 @@
 <template lang="pug">
 main.main-container
 	// stage
-	ma-stage(:subtitle='$tc("artist", 1)', :navigation='navigation', :image='artist.images[0].url', :title='artist.name')
+	ma-stage(
+    :subtitle='$tc("artist", 1)',
+    :navigation='navigation',
+    :image='artist.images[0].url',
+    :title='artist.name')
 
 	// router view
 	keep-alive

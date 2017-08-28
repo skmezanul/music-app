@@ -1,23 +1,59 @@
 <template lang="pug">
 main.main-container
 	// stage
-	ma-stage(:subtitle='$tc("search", 1)', :image='results.tracks.items[0].album.images[0].url', :title="`${$t('resultsfor')} '${$route.params.query}'`")
+	ma-stage(
+    :subtitle='$tc("search", 1)',
+    :image='results.tracks.items[0].album.images[0].url',
+    :title="`${$t('resultsfor')} '${$route.params.query}'`")
 
 	.page-container
 		// tracks
-		ma-section(v-if='results.tracks.items.length > 0', :title='`${$tc("track", 0)} (${results.tracks.items.length})`', :collapsible='true')
+		ma-section(
+      v-if='results.tracks.items.length > 0',
+      :title='`${$tc("track", 0)} (${results.tracks.items.length})`',
+      :collapsible='true')
+
 			ol.list
-				ma-list(v-for='(track, index) in results.tracks.items', :key='track.id', :primaryid='track.id', :type='track.type', :image='track.album.images[0].url', :title='track.name', :duration='track.duration_ms', :index='index')
+				ma-list(
+          v-for='(track, index) in results.tracks.items',
+          :key='track.id',
+          :trackid='track.id',
+          :type='track.type',
+          :image='track.album.images[0].url',
+          :title='track.name',
+          :duration='track.duration_ms',
+          :index='index')
 
 		// albums
-		ma-section(v-if='results.albums.items.length > 0', :title='`${$tc("album", 0)} (${results.albums.items.length})`', :collapsible='true')
+		ma-section(
+      v-if='results.albums.items.length > 0',
+      :title='`${$tc("album", 0)} (${results.albums.items.length})`',
+      :collapsible='true')
+
 			.section-items-container
-				ma-item(v-for='album in results.albums.items', :key='album.id', :type='album.type', :primaryid='album.id', :secondaryid='album.artists[0].id', :image='album.images[0].url', :title='album.name', :artist='album.artists')
+				ma-item(
+          v-for='album in results.albums.items',
+          :key='album.id',
+          :type='album.type',
+          :trackid='album.id',
+          :secondaryid='album.artists[0].id',
+          :image='album.images[0].url',
+          :title='album.name',
+          :artist='album.artists')
 
 		// artists
-		ma-section(v-if='results.artists.items.length > 0', :title='`${$tc("artist", 0)} (${results.artists.items.length})`', :collapsible='true')
+		ma-section(
+      v-if='results.artists.items.length > 0',
+      :title='`${$tc("artist", 0)} (${results.artists.items.length})`',
+      :collapsible='true')
+
 			.section-items-container
-				ma-item(v-for='artist in results.artists.items', :type='artist.type', :key='artist.id', :title='artist.name', :primaryid='artist.id')
+				ma-item(
+          v-for='artist in results.artists.items',
+          :type='artist.type',
+          :key='artist.id',
+          :title='artist.name',
+          :trackid='artist.id')
 </template>
 
 <script>
