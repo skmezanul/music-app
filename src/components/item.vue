@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import * as Vibrant from 'node-vibrant'
+import * as Vibrant from 'node-vibrant';
 
 export default {
   data() {
