@@ -21,6 +21,7 @@ main.main-container
           :title='playlist.track.name',
           :artists='playlist.track.artists',
           :album='playlist.track.album',
+          :explicit='playlist.track.explicit',
           :duration='playlist.track.duration_ms',
           :index='index')
 </template>

@@ -21,6 +21,7 @@ main.main-container
           :type='track.type',
           :image='track.album.images[0].url',
           :title='track.name',
+          :explicit='track.explicit',
           :duration='track.duration_ms',
           :index='index')
 
@@ -35,7 +36,7 @@ main.main-container
           v-for='album in results.albums.items',
           :key='album.id',
           :type='album.type',
-          :trackid='album.id',
+          :primaryid='album.id',
           :secondaryid='album.artists[0].id',
           :image='album.images[0].url',
           :title='album.name',

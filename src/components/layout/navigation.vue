@@ -21,7 +21,7 @@ nav.navigation-container
 					i.material-icons history
 					| {{ $t('recentlyplayed') }}
 			li
-				router-link(to='/songs')
+				router-link(to='/tracks')
 					i.material-icons music_note
 					| {{ $tc('track', 0) }}
 			li

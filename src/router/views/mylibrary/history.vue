@@ -17,8 +17,10 @@ main.main-container
           :type='history.track.type',
           :image='history.track.album.images[0].url',
           :title='history.track.name',
+          :trackid='history.track.id',
           :artists='history.track.artists',
           :album='history.track.album',
+          :explicit='history.track.explicit',
           :duration='history.track.duration_ms',
           :index='index')
 </template>
@@ -33,11 +35,11 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.getRecentlyPlayed();
+    this.getHistory();
   },
   methods: {
-    // get recently played tracks from the api
-    getRecentlyPlayed() {
+    // get get this user's history from the api
+    getHistory() {
       this.$startLoading('fetching data');
       this.axios({
         method: 'get',

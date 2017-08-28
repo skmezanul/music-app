@@ -13,6 +13,7 @@
         :trackid='track.id',
         :type='track.type',
         :image='track.album.images[0].url',
+        :explicit='track.explicit',
         :title='track.name',
         :duration='track.duration_ms',
         :index='index')

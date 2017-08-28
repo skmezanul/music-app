@@ -1,30 +1,35 @@
 <template lang="pug">
 li.row(
-  @dblclick='playTrack',
-  :class="{ 'playing': playing }")
+	@dblclick='playTrack',
+	:class="{ 'playing': playing }")
 
 	// image
 	.image-container(v-if='image')
 		i.material-icons(
-      v-if='!playing',
-      @click='playTrack') play_circle_filled
+			v-if='!playing',
+			@click='playTrack') play_circle_filled
 
 		i.material-icons.playing(v-if='playing') volume_up
 		i.material-icons(v-if='playing') pause_circle_filled
 		img(
-      :src='image',
-      :alt='title')
+			:src='image',
+			:alt='title')
 
-	span.index.mobile-hidden(v-if='index') {{ formattedIndex }}
+	span.index.mobile-hidden {{ formattedIndex }}
 
 	// meta
 	.meta-container
 		span {{ title }}
 		.artist-container(v-if='artists')
 			router-link(
-        v-for='artist in artists',
-        :key='artist.id',
-        :to='toArtist(artist.id)') {{ artist.name }}
+				v-for='artist in artists',
+				:key='artist.id',
+				:to='toArtist(artist.id)') {{ artist.name }}
+
+	.explicit
+		span(
+      v-if='explicit',
+      v-tooltip='{ content: $t("explicit"), container: ".tooltip-container" }') E
 
 	// album name
 	.album-container(v-if='album')
@@ -35,10 +40,10 @@ li.row(
 
 	// actions
 	i.material-icons.mobile-hidden(
-    v-tooltip='{ content: $t("addtoplaylist"), container: ".tooltip-container" }') playlist_add
+		v-tooltip='{ content: $t("addtoplaylist"), container: ".tooltip-container" }') playlist_add
 
 	i.material-icons.mobile-hidden(
-    v-tooltip='{ content: $t("more"), container: ".tooltip-container" }') more_horiz
+		v-tooltip='{ content: $t("more"), container: ".tooltip-container" }') more_horiz
 </template>
 
 <script>
@@ -61,14 +66,11 @@ export default {
     'duration',
     'trackid',
     'image',
+    'explicit',
   ],
   created() {
     // check if currently playing when the view is created
     this.isPlaying();
-  },
-  watch: {
-    // update playing state when playback is changing
-    '$store.state.currentPlayback.item.id': 'isPlaying',
   },
   methods: {
     ...mapActions(['GET_CURRENT_PLAYBACK']),
@@ -80,14 +82,6 @@ export default {
     // to album
     toAlbum(albumid) {
       return `/album/${albumid}`;
-    },
-
-    isPlaying() {
-      if (this.$store.state.currentPlayback.item.id === this.trackid) {
-        this.playing = true
-      } else {
-        this.playing = false;
-      };
     },
 
     // play track
@@ -195,6 +189,21 @@ export default {
                 font-size: 2.5em;
                 transition: color 0.3s;
             }
+        }
+        .explicit {
+          flex: 0.15;
+          span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 2px;
+            padding-left: 1px;
+            width: 18px;
+            height: 18px;
+            border-radius: 5px;
+            background-color: rgba($white, 0.7);
+            color: $blue;
+          }
         }
         .index {
             margin: 0 20px;

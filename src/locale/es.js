@@ -32,6 +32,7 @@ export default {
   share: 'Compartir',
   shuffle: 'Aleatoria',
   repeat: 'Repetir',
+  explicit: 'Explicit',
   by: 'Por',
   addtoplaylist: 'Guardar en Tu lista',
   more: 'Más',

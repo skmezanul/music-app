@@ -18,6 +18,7 @@ main.main-container
           :type='track.type',
           :title='track.name',
           :trackid='track.id',
+          :explicit='track.explicit',
           :duration='track.duration_ms',
           :index='index')
 </template>

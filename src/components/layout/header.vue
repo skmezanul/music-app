@@ -47,9 +47,6 @@ export default {
       searchQuery: '',
     };
   },
-  watch: {
-    searchQuery: 'startSearch',
-  },
   methods: {
     // start the search
     startSearch() {

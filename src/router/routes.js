@@ -12,6 +12,7 @@ const artistAbout = () => import(/* webpackChunkName: "artist" */ './views/artis
 
 // Components for "mylibrary"
 const mylibraryHistory = () => import(/* webpackChunkName: "mylibrary" */ './views/mylibrary/history');
+const mylibraryTracks = () => import(/* webpackChunkName: "mylibrary" */ './views/mylibrary/tracks');
 
 // Component for single album
 const album = () => import(/* webpackChunkName: "album" */ './views/album');
@@ -131,5 +132,15 @@ export default [{
     buttons: true,
   },
   component: mylibraryHistory,
+},
+{
+  path: '/tracks',
+  name: 'mylibraryTracks',
+  meta: {
+    compact: false,
+    cover: false,
+    buttons: true,
+  },
+  component: mylibraryTracks,
 },
 ];
