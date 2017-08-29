@@ -17,7 +17,7 @@ export default {
     return {
       navigation: [{
         title: this.$t('overview'),
-        name: 'browseOverview',
+        name: 'browse',
       },
       {
         title: this.$t('charts'),
@@ -41,10 +41,8 @@ export default {
   computed: {
     welcomeMessage() {
       const that = this;
-      const currentUser = that.$store.state.currentUser.display_name;
-
       const greeting = that.$t('hello');
-      const fullName = currentUser;
+      const fullName = that.$store.state.currentUser.display_name;
       const firstName = fullName.split(' ')[0];
       return `${greeting} ${firstName}`;
     },

@@ -45,8 +45,8 @@ export default {
   methods: {
     // get featured playlists from the api
     getFeaturedPlaylists() {
-      const country = this.$store.state.currentUser.country;
       const that = this;
+      const country = that.$store.state.currentUser.country;
 
       that.$startLoading('fetching data');
       that.axios({
@@ -65,18 +65,21 @@ export default {
 
     // get new releases from the api
     getNewReleases() {
-      this.$startLoading('fetching data');
-      this.axios({
+      const that = this;
+      const country = that.$store.state.currentUser.country;
+
+      that.$startLoading('fetching data');
+      that.axios({
         method: 'get',
         url: '/browse/new-releases',
         params: {
-          country: this.$store.state.currentUser.country,
+          country,
         },
       }).then((res) => {
-        this.releases = res.data;
-        this.$endLoading('fetching data');
+        that.releases = res.data;
+        that.$endLoading('fetching data');
       }).catch(() => {
-        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchfeaturedplaylists'));
+        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchfeaturedplaylists'));
       });
     },
   },

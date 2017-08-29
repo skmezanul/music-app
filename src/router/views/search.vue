@@ -76,8 +76,8 @@ export default {
   methods: {
     // get search results from the api
     getResults() {
-      const q = this.$route.params.query;
       const that = this;
+      const q = that.$route.params.query;
 
       that.$startLoading('fetching data');
       that.axios({

@@ -36,7 +36,7 @@
 					router-link.artist(
             v-for='item in artist',
             :key='item.id',
-            :to='toTarget("artistOverview", item.id)') {{ item.name }}
+            :to='toTarget(item.type, item.id)') {{ item.name }}
 </template>
 
 <script>
@@ -80,16 +80,17 @@ export default {
 
     // get color from image
     getColor() {
-      Vibrant.from(this.image).getPalette()
+      const that = this;
+      Vibrant.from(that.image).getPalette()
         .then((palette) => {
         const r = Math.round(palette.Muted._rgb[0]);
         const g = Math.round(palette.Muted._rgb[1]);
         const b = Math.round(palette.Muted._rgb[2]);
         const a = 1;
         const color = `rgba(${r}, ${g}, ${b}, ${a})`;
-        this.color = `linear-gradient(to top, ${color} 25%, rgba(80, 80, 80, 0.5) 100%)`;
+        that.color = `linear-gradient(to top, ${color} 25%, rgba(80, 80, 80, 0.5) 100%)`;
       }).catch(() => {
-        this.color = '';
+        that.color = '';
       });
     },
   },

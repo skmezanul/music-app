@@ -34,7 +34,7 @@ export default {
 
       that.axios({
         method: 'get',
-        url: `/artists/${this.$route.params.id}/related-artists`,
+        url: `/artists/${that.$route.params.id}/related-artists`,
       }).then((res) => {
         that.related = res.data.artists;
       }).catch(() => {

@@ -23,13 +23,14 @@ export default {
       const that = this;
       const artist = that.$parent.artist.name;
       const lang = that.$store.state.currentUser.country;
+      const api_key = '5ee365767f401c005a08f2ef9a92b66c';
 
       that.axios({
         method: 'get',
         baseURL: 'http://ws.audioscrobbler.com/2.0/',
         params: {
           method: 'artist.getInfo',
-          api_key: '5ee365767f401c005a08f2ef9a92b66c',
+          api_key,
           artist,
           limit: 1,
           autocorrect: 1,

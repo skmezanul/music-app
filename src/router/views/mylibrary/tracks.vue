@@ -40,8 +40,8 @@ export default {
   methods: {
     // get this user's saved tracks from the api
     getSavedTracks() {
-      const market = this.$store.state.currentUser.country;
       const that = this;
+      const market = that.$store.state.currentUser.country;
 
       that.$startLoading('fetching data');
       that.axios({

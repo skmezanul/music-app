@@ -78,16 +78,18 @@ export default {
 
     // get current user's playlists from the api
     getMyPlaylists() {
-      this.axios({
+      const that = this;
+
+      that.axios({
         method: 'get',
         url: '/me/playlists',
         params: {
           limit: 10,
         },
       }).then((res) => {
-        this.playlists = res.data.items;
+        that.playlists = res.data.items;
       }).catch((err) => {
-        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchplaylists'));
+        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchplaylists'));
       });
     },
   },

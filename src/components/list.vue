@@ -24,7 +24,7 @@ li.row(
       router-link(
         v-for='artist in artists',
         :key='artist.id',
-        :to='toTarget("artistOverview", artist.id)') {{ artist.name }}
+        :to='toTarget(artist.type, artist.id)') {{ artist.name }}
 
   .explicit
     span(
@@ -33,7 +33,7 @@ li.row(
 
   // album name
   .album-container(v-if='album')
-    router-link(:to='toTarget("album", album.id)') {{ album.name }}
+    router-link(:to='toTarget(album.type, album.id)') {{ album.name }}
 
   // duration
   span.duration {{ formattedDuration }}
@@ -84,35 +84,39 @@ export default {
 
     // play track
     playTrack() {
-      this.playing = true;
-      this.axios({
+      const that = this;
+
+      that.playing = true;
+      that.axios({
         method: 'put',
         url: '/me/player/play',
         data: {
-          uris: [`spotify:track:${this.trackid}`],
+          uris: [`spotify:track:${that.trackid}`],
         },
       }).then(() => {
-        this.GET_CURRENT_PLAYBACK();
+        that.GET_CURRENT_PLAYBACK();
       }).catch(() => {
-        this.playing = false;
-        this.$store.commit('ADD_NOTICE', this.$t('errors.playtrack'));
+        that.playing = false;
+        that.$store.commit('ADD_NOTICE', that.$t('errors.playtrack'));
       });
     },
   },
   computed: {
     // format duration
     formattedDuration() {
-      const minutes = Math.floor(this.duration / 60000);
-      const seconds = ((this.duration % 60000) / 1000).toFixed(0);
+      const that = this;
+      const minutes = Math.floor(that.duration / 60000);
+      const seconds = ((that.duration % 60000) / 1000).toFixed(0);
       return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     },
 
     // format index
     formattedIndex() {
-      if (this.index < 99) {
-        return String(`0${this.index + 1}`).slice(-2);
+      const that = this;
+      if (that.index < 99) {
+        return String(`0${that.index + 1}`).slice(-2);
       }
-      return (this.index + 1);
+      return (that.index + 1);
     },
   },
 };

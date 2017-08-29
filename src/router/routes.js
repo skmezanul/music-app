@@ -4,6 +4,7 @@ const browseOverview = () => import(/* webpackChunkName: "browse" */ './views/br
 const browseCharts = () => import(/* webpackChunkName: "browse" */ './views/browse/_charts');
 const browseCategories = () => import(/* webpackChunkName: "browse" */ './views/browse/_categories');
 const browseReleases = () => import(/* webpackChunkName: "browse" */ './views/browse/_releases');
+const browseDiscover = () => import(/* webpackChunkName: "browse" */ './views/browse/_discover');
 
 // Components for "artist"
 const artistIndex = () => import(/* webpackChunkName: "artist" */ './views/artist/index');
@@ -29,7 +30,7 @@ export default [{
   component: browseIndex,
   children: [{
     path: '',
-    name: 'browseOverview',
+    name: 'browse',
     meta: {
       compact: true,
     },
@@ -59,6 +60,14 @@ export default [{
     },
     component: browseReleases,
   },
+  {
+    path: 'discover',
+    name: 'browseDiscover',
+    meta: {
+      compact: true,
+    },
+    component: browseDiscover,
+  },
   ],
 },
 {
@@ -66,7 +75,7 @@ export default [{
   component: artistIndex,
   children: [{
     path: '',
-    name: 'artistOverview',
+    name: 'artist',
     meta: {
       buttons: true,
     },

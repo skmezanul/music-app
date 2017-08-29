@@ -41,13 +41,13 @@ export default {
   methods: {
     // get playlist from the api
     getSinglePlaylist() {
-      const market = this.$store.state.currentUser.country;
       const that = this;
+      const market = that.$store.state.currentUser.country;
 
       that.$startLoading('fetching data');
       that.axios({
         method: 'get',
-        url: `/users/${this.$route.params.owner}/playlists/${this.$route.params.id}`,
+        url: `/users/${that.$route.params.owner}/playlists/${that.$route.params.id}`,
         params: {
           market,
         },

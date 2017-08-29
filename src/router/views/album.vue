@@ -38,13 +38,13 @@ export default {
   methods: {
     // get album from the api
     getSingleAlbum() {
-      const market = this.$store.state.currentUser.country;
       const that = this;
+      const market = that.$store.state.currentUser.country;
 
       that.$startLoading('fetching data');
       that.axios({
         method: 'get',
-        url: `/albums/${this.$route.params.id}`,
+        url: `/albums/${that.$route.params.id}`,
         params: {
           market,
         },

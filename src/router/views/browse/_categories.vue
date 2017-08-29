@@ -27,8 +27,8 @@ export default {
   methods: {
     // get categories from the api
     getCategories() {
-      const country = this.$store.state.currentUser.country;
       const that = this;
+      const country = that.$store.state.currentUser.country;
 
       that.$startLoading('fetching data');
       that.axios({
