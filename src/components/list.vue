@@ -1,49 +1,49 @@
 <template lang="pug">
 li.row(
-	@dblclick='playTrack',
-	:class="{ 'playing': playing }")
+  @dblclick='playTrack',
+  :class="{ 'playing': playing }")
 
-	// image
-	.image-container(v-if='image')
-		i.material-icons(
-			v-if='!playing',
-			@click='playTrack') play_circle_filled
+  // image
+  .image-container(v-if='image')
+    i.material-icons(
+      v-if='!playing',
+      @click='playTrack') play_circle_filled
 
-		i.material-icons.playing(v-if='playing') volume_up
-		i.material-icons(v-if='playing') pause_circle_filled
-		img(
-			:src='image',
-			:alt='title')
+    i.material-icons.playing(v-if='playing') volume_up
+    i.material-icons(v-if='playing') pause_circle_filled
+    img(
+      :src='image',
+      :alt='title')
 
-	span.index.mobile-hidden {{ formattedIndex }}
+  span.index.mobile-hidden {{ formattedIndex }}
 
-	// meta
-	.meta-container
-		span {{ title }}
-		.artist-container(v-if='artists')
-			router-link(
-				v-for='artist in artists',
-				:key='artist.id',
-				:to='toArtist(artist.id)') {{ artist.name }}
+  // meta
+  .meta-container
+    span {{ title }}
+    .artist-container(v-if='artists')
+      router-link(
+        v-for='artist in artists',
+        :key='artist.id',
+        :to='toTarget("artistOverview", artist.id)') {{ artist.name }}
 
-	.explicit
-		span(
+  .explicit
+    span(
       v-if='explicit',
       v-tooltip='{ content: $t("explicit"), container: ".tooltip-container" }') E
 
-	// album name
-	.album-container(v-if='album')
-		router-link(:to='toAlbum(album.id)') {{ album.name }}
+  // album name
+  .album-container(v-if='album')
+    router-link(:to='toTarget("album", album.id)') {{ album.name }}
 
-	// duration
-	span.duration {{ formattedDuration }}
+  // duration
+  span.duration {{ formattedDuration }}
 
-	// actions
-	i.material-icons.mobile-hidden(
-		v-tooltip='{ content: $t("addtoplaylist"), container: ".tooltip-container" }') playlist_add
+  // actions
+  i.material-icons.mobile-hidden(
+    v-tooltip='{ content: $t("addtoplaylist"), container: ".tooltip-container" }') playlist_add
 
-	i.material-icons.mobile-hidden(
-		v-tooltip='{ content: $t("more"), container: ".tooltip-container" }') more_horiz
+  i.material-icons.mobile-hidden(
+    v-tooltip='{ content: $t("more"), container: ".tooltip-container" }') more_horiz
 </template>
 
 <script>
@@ -68,20 +68,18 @@ export default {
     'image',
     'explicit',
   ],
-  created() {
-    // check if currently playing when the view is created
-    this.isPlaying();
-  },
   methods: {
     ...mapActions(['GET_CURRENT_PLAYBACK']),
-    // to artist
-    toArtist(artistid) {
-      return `/artist/${artistid}`;
-    },
 
-    // to album
-    toAlbum(albumid) {
-      return `/album/${albumid}`;
+    // to target
+    toTarget(name, id) {
+      const target = {
+        name,
+        params: {
+          id,
+        },
+      };
+      return target;
     },
 
     // play track
@@ -218,7 +216,6 @@ export default {
             margin-right: 20px;
             text-overflow: ellipsis;
             white-space: nowrap;
-            line-height: 1.5em;
             @media screen and (max-width: 955px) {
                 padding: 0 15px;
             }
@@ -227,6 +224,7 @@ export default {
                 font-size: 1.1em;
             }
             .artist-container {
+                margin-top: 5px;
                 a {
                     @include comma-separated(1em, 300);
                 }

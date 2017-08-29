@@ -40,20 +40,22 @@ export default {
   methods: {
     // get get this user's history from the api
     getHistory() {
-      this.$startLoading('fetching data');
-      this.axios({
+      const that = this;
+
+      that.$startLoading('fetching data');
+      that.axios({
         method: 'get',
         url: '/me/player/recently-played',
         params: {
           type: 'track',
         },
       }).then((res) => {
-        this.history = res.data.items;
-        this.$endLoading('fetching data');
+        that.history = res.data.items;
+        that.$endLoading('fetching data');
       }).catch(() => {
-        this.$router.go(-1);
-        this.$endLoading('fetching data');
-        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchhistory'));
+        that.$router.go(-1);
+        that.$endLoading('fetching data');
+        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchhistory'));
       });
     },
   },

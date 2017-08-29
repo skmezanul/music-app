@@ -8,8 +8,7 @@ main.main-container
     :title='artist.name')
 
 	// router view
-	keep-alive
-		router-view
+	router-view
 </template>
 
 <script>
@@ -19,15 +18,15 @@ export default {
       artist: [],
       navigation: [{
           title: this.$t('overview'),
-          link: '',
+          name: 'artistOverview',
         },
         {
           title: this.$t('relatedartists'),
-          link: 'related',
+          name: 'artistRelated',
         },
         {
           title: this.$t('about'),
-          link: 'about',
+          name: 'artistAbout',
         },
       ],
     };

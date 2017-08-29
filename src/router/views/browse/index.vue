@@ -8,8 +8,7 @@ main.main-container
     :title='welcomeMessage')
 
 	// router view
-	keep-alive
-		router-view
+	router-view
 </template>
 
 <script>
@@ -18,31 +17,34 @@ export default {
     return {
       navigation: [{
         title: this.$t('overview'),
-        link: '',
+        name: 'browseOverview',
       },
       {
         title: this.$t('charts'),
-        link: 'charts',
+        name: 'browseCharts',
       },
       {
         title: this.$tc('category', 0),
-        link: 'categories',
+        name: 'browseCategories',
       },
       {
         title: this.$t('newreleases'),
-        link: 'newreleases',
+        name: 'browseReleases',
       },
       {
         title: this.$t('discover'),
-        link: 'discover',
+        name: 'browseDiscover',
       },
       ],
     };
   },
   computed: {
     welcomeMessage() {
-      const greeting = this.$t('hello');
-      const fullName = this.$store.state.currentUser.display_name;
+      const that = this;
+      const currentUser = that.$store.state.currentUser.display_name;
+
+      const greeting = that.$t('hello');
+      const fullName = currentUser;
       const firstName = fullName.split(' ')[0];
       return `${greeting} ${firstName}`;
     },

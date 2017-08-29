@@ -3,6 +3,7 @@ const browseIndex = () => import(/* webpackChunkName: "browse" */ './views/brows
 const browseOverview = () => import(/* webpackChunkName: "browse" */ './views/browse/_overview');
 const browseCharts = () => import(/* webpackChunkName: "browse" */ './views/browse/_charts');
 const browseCategories = () => import(/* webpackChunkName: "browse" */ './views/browse/_categories');
+const browseReleases = () => import(/* webpackChunkName: "browse" */ './views/browse/_releases');
 
 // Components for "artist"
 const artistIndex = () => import(/* webpackChunkName: "artist" */ './views/artist/index');
@@ -31,8 +32,6 @@ export default [{
     name: 'browseOverview',
     meta: {
       compact: true,
-      cover: false,
-      buttons: false,
     },
     component: browseOverview,
   },
@@ -41,8 +40,6 @@ export default [{
     name: 'browseCharts',
     meta: {
       compact: true,
-      cover: false,
-      buttons: false,
     },
     component: browseCharts,
   },
@@ -51,10 +48,16 @@ export default [{
     name: 'browseCategories',
     meta: {
       compact: true,
-      cover: false,
-      buttons: false,
     },
     component: browseCategories,
+  },
+  {
+    path: 'releases',
+    name: 'browseReleases',
+    meta: {
+      compact: true,
+    },
+    component: browseReleases,
   },
   ],
 },
@@ -65,8 +68,6 @@ export default [{
     path: '',
     name: 'artistOverview',
     meta: {
-      compact: false,
-      cover: false,
       buttons: true,
     },
     component: artistOverview,
@@ -75,8 +76,6 @@ export default [{
     path: 'related',
     name: 'artistRelated',
     meta: {
-      compact: false,
-      cover: false,
       buttons: true,
     },
     component: artistRelated,
@@ -85,8 +84,6 @@ export default [{
     path: 'about',
     name: 'artistAbout',
     meta: {
-      compact: false,
-      cover: false,
       buttons: true,
     },
     component: artistAbout,
@@ -104,7 +101,7 @@ export default [{
   component: album,
 },
 {
-  path: '/playlist/:user/:id',
+  path: '/playlist/:owner/:id',
   name: 'playlist',
   meta: {
     compact: true,
@@ -118,8 +115,6 @@ export default [{
   name: 'search',
   meta: {
     compact: true,
-    cover: false,
-    buttons: false,
   },
   component: search,
 },
@@ -127,8 +122,6 @@ export default [{
   path: '/history',
   name: 'mylibraryHistory',
   meta: {
-    compact: false,
-    cover: false,
     buttons: true,
   },
   component: mylibraryHistory,
@@ -137,8 +130,6 @@ export default [{
   path: '/tracks',
   name: 'mylibraryTracks',
   meta: {
-    compact: false,
-    cover: false,
     buttons: true,
   },
   component: mylibraryTracks,

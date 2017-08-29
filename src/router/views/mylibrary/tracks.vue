@@ -40,20 +40,23 @@ export default {
   methods: {
     // get this user's saved tracks from the api
     getSavedTracks() {
-      this.$startLoading('fetching data');
-      this.axios({
+      const market = this.$store.state.currentUser.country;
+      const that = this;
+
+      that.$startLoading('fetching data');
+      that.axios({
         method: 'get',
         url: '/me/tracks',
         params: {
-          market: this.$store.state.currentUser.country,
+          market,
         },
       }).then((res) => {
-        this.tracks = res.data.items;
-        this.$endLoading('fetching data');
+        that.tracks = res.data.items;
+        that.$endLoading('fetching data');
       }).catch(() => {
-        this.$router.go(-1);
-        this.$endLoading('fetching data');
-        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchsavedtracks'));
+        that.$router.go(-1);
+        that.$endLoading('fetching data');
+        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchsavedtracks'));
       });
     },
   },

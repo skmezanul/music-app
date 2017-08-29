@@ -39,7 +39,7 @@ nav.navigation-container
 				li
 					h4 {{ $tc('playlist', 0) }}
 				li(v-for='playlist in playlists', :key='playlist.id')
-					router-link(:to='toPlaylist("playlist", playlist.owner.id, playlist.id)')
+					router-link(:to='toPlaylist(playlist.id, playlist.owner.id)')
 						i.material-icons playlist_play
 						span {{ playlist.name }}
 
@@ -65,8 +65,15 @@ export default {
   },
   methods: {
     // to playlist
-    toPlaylist(type, ownerid, playlistid) {
-      return `/${type}/${ownerid}/${playlistid}`;
+    toPlaylist(id, owner) {
+      const target = {
+        name: 'playlist',
+        params: {
+          id,
+          owner,
+        },
+      };
+      return target;
     },
 
     // get current user's playlists from the api

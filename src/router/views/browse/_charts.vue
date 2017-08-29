@@ -33,17 +33,19 @@ export default {
   methods: {
     // get charts from the api
     getCharts() {
-      this.$startLoading('fetching data');
-      this.axios({
+      const that = this;
+
+      that.$startLoading('fetching data');
+      that.axios({
         method: 'get',
         url: '/users/spotifycharts/playlists/37i9dQZEVXbMDoHDwVN2tF',
       }).then((res) => {
-        this.charts = res.data.tracks.items;
-        this.$endLoading('fetching data');
+        that.charts = res.data.tracks.items;
+        that.$endLoading('fetching data');
       }).catch(() => {
-        this.$router.go(-1);
-        this.$endLoading('fetching data');
-        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchcharts'));
+        that.$router.go(-1);
+        that.$endLoading('fetching data');
+        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchcharts'));
       });
     },
   },

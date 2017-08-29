@@ -76,21 +76,24 @@ export default {
   methods: {
     // get search results from the api
     getResults() {
-      this.$startLoading('fetching data');
-      this.axios({
+      const q = this.$route.params.query;
+      const that = this;
+
+      that.$startLoading('fetching data');
+      that.axios({
         method: 'get',
         url: '/search',
         params: {
-          q: this.$route.params.query,
+          q,
           type: 'album,artist,track',
         },
       }).then((res) => {
-        this.results = res.data;
-        this.$endLoading('fetching data');
+        that.results = res.data;
+        that.$endLoading('fetching data');
       }).catch(() => {
-        this.$router.go(-1);
-        this.$endLoading('fetching data');
-        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchresults'));
+        that.$router.go(-1);
+        that.$endLoading('fetching data');
+        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchresults'));
       });
     },
   },

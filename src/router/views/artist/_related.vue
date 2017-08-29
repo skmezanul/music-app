@@ -30,14 +30,16 @@ export default {
   methods: {
     // get artists related to this artist from the api
     getRelatedArtists() {
-      this.axios({
+      const that = this;
+
+      that.axios({
         method: 'get',
         url: `/artists/${this.$route.params.id}/related-artists`,
       }).then((res) => {
-        this.related = res.data.artists;
+        that.related = res.data.artists;
       }).catch(() => {
-        this.$router.go(-1);
-        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchrelatedartists'));
+        that.$router.go(-1);
+        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchrelatedartists'));
       });
     },
   },

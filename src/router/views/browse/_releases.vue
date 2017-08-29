@@ -1,49 +1,49 @@
 <template lang="pug">
 .page-container
-	// categories
-	ma-section(:title='$tc("category", 0)')
+	// new releases
+	ma-section(:title='$t("newreleases")')
 
 		.section-items-container
 			ma-item(
-        v-for='category in categories.items',
-        type="category",
-        :key='category.id',
-        :image='category.icons[0].url',
-        :title='category.name')
+        v-for='album in releases.albums.items',
+        :key='album.id',
+        :type='album.type',
+        :primaryid='album.id',
+        :image='album.images[0].url',
+        :title='album.name')
 </template>
 
 <script>
 export default {
   data() {
     return {
-      categories: [],
+      releases: [],
     };
   },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.getCategories();
+    this.getNewReleases();
   },
   methods: {
-    // get categories from the api
-    getCategories() {
+
+    // get new releases from the api
+    getNewReleases() {
       const country = this.$store.state.currentUser.country;
       const that = this;
 
       that.$startLoading('fetching data');
       that.axios({
         method: 'get',
-        url: '/browse/categories',
+        url: '/browse/new-releases',
         params: {
           country,
         },
       }).then((res) => {
-        that.categories = res.data.categories;
+        that.releases = res.data;
         that.$endLoading('fetching data');
       }).catch(() => {
-        that.$router.go(-1);
-        that.$endLoading('fetching data');
-        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchcategories'));
+        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchfeaturedplaylists'));
       });
     },
   },

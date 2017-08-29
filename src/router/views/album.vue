@@ -38,20 +38,23 @@ export default {
   methods: {
     // get album from the api
     getSingleAlbum() {
-      this.$startLoading('fetching data');
-      this.axios({
+      const market = this.$store.state.currentUser.country;
+      const that = this;
+
+      that.$startLoading('fetching data');
+      that.axios({
         method: 'get',
         url: `/albums/${this.$route.params.id}`,
         params: {
-          market: this.$store.state.currentUser.country,
+          market,
         },
       }).then((res) => {
-        this.album = res.data;
-        this.$endLoading('fetching data');
+        that.album = res.data;
+        that.$endLoading('fetching data');
       }).catch(() => {
-        this.$router.go(-1);
-        this.$endLoading('fetching data');
-        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchalbum'));
+        that.$router.go(-1);
+        that.$endLoading('fetching data');
+        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchalbum'));
       });
     },
   },

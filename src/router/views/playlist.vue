@@ -41,20 +41,23 @@ export default {
   methods: {
     // get playlist from the api
     getSinglePlaylist() {
-      this.$startLoading('fetching data');
-      this.axios({
+      const market = this.$store.state.currentUser.country;
+      const that = this;
+
+      that.$startLoading('fetching data');
+      that.axios({
         method: 'get',
-        url: `/users/${this.$route.params.user}/playlists/${this.$route.params.id}`,
+        url: `/users/${this.$route.params.owner}/playlists/${this.$route.params.id}`,
         params: {
-          market: this.$store.state.currentUser.country,
+          market,
         },
       }).then((res) => {
-        this.playlist = res.data;
-        this.$endLoading('fetching data');
+        that.playlist = res.data;
+        that.$endLoading('fetching data');
       }).catch(() => {
-        this.$router.go(-1);
-        this.$endLoading('fetching data');
-        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchplaylist'));
+        that.$router.go(-1);
+        that.$endLoading('fetching data');
+        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchplaylist'));
       });
     },
   },

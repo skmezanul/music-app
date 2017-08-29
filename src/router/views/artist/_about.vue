@@ -20,25 +20,29 @@ export default {
   methods: {
     // get this artist's biography
     getBiography() {
-      this.axios({
+      const that = this;
+      const artist = that.$parent.artist.name;
+      const lang = that.$store.state.currentUser.country;
+
+      that.axios({
         method: 'get',
         baseURL: 'http://ws.audioscrobbler.com/2.0/',
         params: {
           method: 'artist.getInfo',
           api_key: '5ee365767f401c005a08f2ef9a92b66c',
-          artist: this.$parent.artist.name,
+          artist,
           limit: 1,
           autocorrect: 1,
-          lang: this.$store.state.currentUser.country,
+          lang,
           format: 'json',
         },
       }).then((res) => {
         const bio = res.data.artist.bio.content;
         const formattedBio = bio.split('<a')[0];
-        this.biography = formattedBio;
+        that.biography = formattedBio;
       }).catch((err) => {
-        this.$router.go(-1);
-        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchartistbio'));
+        that.$router.go(-1);
+        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchartistbio'));
       });
     },
   },

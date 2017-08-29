@@ -15,7 +15,7 @@
         :image='playlist.images[0].url',
         :title='playlist.name')
 
-	// featured playlists
+	// new releases
 	ma-section(:title='$t("newreleases")', :collapsible='true')
 
 		.section-items-container
@@ -45,18 +45,21 @@ export default {
   methods: {
     // get featured playlists from the api
     getFeaturedPlaylists() {
-      this.$startLoading('fetching data');
-      this.axios({
+      const country = this.$store.state.currentUser.country;
+      const that = this;
+
+      that.$startLoading('fetching data');
+      that.axios({
         method: 'get',
         url: '/browse/featured-playlists',
         params: {
-          country: this.$store.state.currentUser.country,
+          country,
         },
       }).then((res) => {
-        this.featured = res.data;
-        this.$endLoading('fetching data');
+        that.featured = res.data;
+        that.$endLoading('fetching data');
       }).catch(() => {
-        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchfeaturedplaylists'));
+        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchfeaturedplaylists'));
       });
     },
 

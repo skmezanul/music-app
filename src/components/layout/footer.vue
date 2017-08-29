@@ -91,8 +91,14 @@ export default {
     ...mapActions(['GET_CURRENT_PLAYBACK']),
 
     // to artist
-    toArtist(artistid) {
-      return `/artist/${artistid}`;
+    toArtist(id) {
+      const target = {
+        name: 'artistOverview',
+        params: {
+          id,
+        },
+      };
+      return target;
     },
 
     // go to previous track
@@ -254,21 +260,10 @@ footer {
 
                 .artist-container {
                     font-weight: 300;
-                    font-size: 0.9em;
+                    margin-top: 2px;
 
                     a {
-                        color: rgba($white, 0.7);
-                        transition: color 0.3s;
-                        &:hover {
-                            color: $white;
-                            cursor: pointer;
-                        }
-                        &:after {
-                            content: ", ";
-                        }
-                        &:last-child:after {
-                            content: "";
-                        }
+                        @include comma-separated(0.9em, 300);
                     }
                 }
             }

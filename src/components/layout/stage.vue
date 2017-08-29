@@ -2,12 +2,12 @@
 .stage(:class='{ "has-cover" : hasCover, "compact": isCompact }')
 
 	// background
-	.stage-background
+	.stage-background(v-if='image')
 		img(
     v-parallax='0.5',
     :src='image',
     :alt='title')
-    
+
 	.stage-inner
 		.cover-container.mobile-hidden(v-if="hasCover")
 			img(
@@ -38,7 +38,7 @@
 		nav.subnav.mobile-hidden(v-if='navigation')
 			ul
 				li(v-for='navitem in navigation')
-					router-link(:to='toTarget("artist", $route.params.id, navitem.link)') {{ navitem.title }}
+					router-link(:to='toTarget(navitem.name)') {{ navitem.title }}
 </template>
 
 <script>
@@ -51,8 +51,16 @@ export default {
     'meta',
   ],
   methods: {
-    toTarget(type, id, link) {
-      return `/${type}/${id}/${link}`;
+    // to target
+    toTarget(name) {
+      const id = this.$route.params.id;
+      const target = {
+        name,
+        params: {
+          id,
+        },
+      };
+      return target;
     },
   },
   computed: {
@@ -239,7 +247,7 @@ nav {
                     font-size: 0.9em;
                     transition: color 0.5s;
 
-                    &.active {
+                    &.exact-active {
                         color: $white;
                         &:after {
                             position: relative;

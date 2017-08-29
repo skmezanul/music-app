@@ -36,7 +36,7 @@
 					router-link.artist(
             v-for='item in artist',
             :key='item.id',
-            :to='toArtist(item.id)') {{ item.name }}
+            :to='toTarget("artistOverview", item.id)') {{ item.name }}
 </template>
 
 <script>
@@ -62,16 +62,15 @@ export default {
   },
   methods: {
     // to target
-    toTarget(type, primaryid, secondaryid) {
-      if (type === 'playlist') {
-        return `/${type}/${secondaryid}/${primaryid}`;
+    toTarget(name, id, owner) {
+      const target = {
+        name,
+        params: {
+          id,
+          owner,
+        },
       };
-      return `/${type}/${primaryid}`;
-    },
-
-    // to artist
-    toArtist(artistid) {
-      return `/artist/${artistid}`;
+      return target;
     },
 
     // toggle playing state

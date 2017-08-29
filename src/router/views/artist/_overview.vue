@@ -91,68 +91,80 @@ export default {
   methods: {
     // Get this artist's top tracks from the api
     getTopTracks() {
-      this.axios({
+      const that = this;
+      const country = that.$store.state.currentUser.country;
+
+      that.axios({
         method: 'get',
-        url: `/artists/${this.$route.params.id}/top-tracks`,
+        url: `/artists/${that.$route.params.id}/top-tracks`,
         params: {
-          country: this.$store.state.currentUser.country,
+          country,
         },
       }).then((res) => {
-        this.toptracks = res.data.tracks;
+        that.toptracks = res.data.tracks;
       }).catch(() => {
-        this.$router.go(-1);
-        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchartisttoptracks'));
+        that.$router.go(-1);
+        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchartisttoptracks'));
       });
     },
 
     // Get this artist's albums from the api
     getAlbums() {
-      this.axios({
+      const that = this;
+      const market = that.$store.state.currentUser.market;
+
+      that.axios({
         method: 'get',
-        url: `/artists/${this.$route.params.id}/albums`,
+        url: `/artists/${that.$route.params.id}/albums`,
         params: {
-          market: this.$store.state.currentUser.country,
+          market,
           album_type: 'album',
         },
       }).then((res) => {
-        this.albums = res.data.items;
+        that.albums = res.data.items;
       }).catch(() => {
-        this.$router.go(-1);
-        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchartistalbums'));
+        that.$router.go(-1);
+        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchartistalbums'));
       });
     },
 
     // Get this artist's singles from the api
     getSingles() {
-      this.axios({
+      const that = this;
+      const market = that.$store.state.currentUser.market;
+
+      that.axios({
         method: 'get',
-        url: `/artists/${this.$route.params.id}/albums`,
+        url: `/artists/${that.$route.params.id}/albums`,
         params: {
-          market: this.$store.state.currentUser.country,
+          market,
           album_type: 'single',
         },
       }).then((res) => {
-        this.singles = res.data.items;
+        that.singles = res.data.items;
       }).catch(() => {
-        this.$router.go(-1);
-        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchartistsingles'));
+        that.$router.go(-1);
+        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchartistsingles'));
       });
     },
 
     // Get album's this artist appears on from the api
     getAppearsOn() {
-      this.axios({
+      const that = this;
+      const market = that.$store.state.currentUser.market;
+
+      that.axios({
         method: 'get',
-        url: `/artists/${this.$route.params.id}/albums`,
+        url: `/artists/${that.$route.params.id}/albums`,
         params: {
-          market: this.$store.state.currentUser.country,
+          market,
           album_type: 'appears_on',
         },
       }).then((res) => {
-        this.appearson = res.data.items;
+        that.appearson = res.data.items;
       }).catch(() => {
-        this.$router.go(-1);
-        this.$store.commit('ADD_NOTICE', this.$t('errors.fetchartistappearson'));
+        that.$router.go(-1);
+        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchartistappearson'));
       });
     },
   },

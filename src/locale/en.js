@@ -46,7 +46,7 @@ export default {
     resumeplayback: 'Could not resume playback, please try again later.',
     togglerepeat: 'Could not toggle repeat, please try again later.',
     toggleshuffle: 'Could not toggle shuffle, please try again later.',
-    changevolume: 'Could not toggle shuffle, please try again later.',
+    changevolume: 'Could not change volume, please try again later.',
     playtrack: 'Track could not be played, please try again later.',
     fetchresults: 'Search results could not be fetched, please try again later.',
     fetchplaylists: 'Your playlists could not be fetched, please try again later.',

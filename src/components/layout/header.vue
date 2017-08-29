@@ -50,11 +50,15 @@ export default {
   methods: {
     // start the search
     startSearch() {
-      if (this.searchQuery.length > 0) {
+      const query = this.searchQuery;
+      if (query.length > 0) {
         this.$router.push({
-          path: `/search/${this.searchQuery}`,
+          name: 'search',
+          params: {
+            query,
+          },
         });
-      }
+      };
     },
 
     // go one route back
