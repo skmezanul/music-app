@@ -25,7 +25,8 @@
         :type='album.type',
         :primaryid='album.id',
         :image='album.images[0].url',
-        :title='album.name')
+        :title='album.name',
+        :artist='album.artists')
 </template>
 
 <script>

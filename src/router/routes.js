@@ -17,13 +17,16 @@ const mylibraryHistory = () => import(/* webpackChunkName: "mylibrary" */ './vie
 const mylibraryTracks = () => import(/* webpackChunkName: "mylibrary" */ './views/mylibrary/tracks');
 
 // Component for single album
-const album = () => import(/* webpackChunkName: "album" */ './views/album');
+const album = () => import(/* webpackChunkName: "album" */ './views/single/album');
 
 // Component for single playlist
-const playlist = () => import(/* webpackChunkName: "playlist" */ './views/playlist');
+const playlist = () => import(/* webpackChunkName: "playlist" */ './views/single/playlist');
 
 // Component for search
 const search = () => import(/* webpackChunkName: "search" */ './views/search');
+
+// Component for general settings
+const settings = () => import(/* webpackChunkName: "search" */ './views/settings');
 
 export default [{
   path: '/browse',
@@ -142,5 +145,13 @@ export default [{
     buttons: true,
   },
   component: mylibraryTracks,
+},
+{
+  path: '/settings',
+  name: 'settings',
+  meta: {
+    compact: true,
+  },
+  component: settings,
 },
 ];

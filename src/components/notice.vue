@@ -4,8 +4,8 @@
 		// message
 		p {{ message }}
 
-		// close
-		i.material-icons(@click='$emit("remove")') close
+		// remove notice manually
+		i.material-icons(@click='removeNotice') close
 </template>
 
 <script>
@@ -14,9 +14,18 @@ export default {
     'message',
   ],
   created() {
+    // remove notice automatically after 4000ms
     setInterval(() => {
-      this.$emit("remove");
+      if (this.$store.state.notices.length > 0) {
+        this.removeNotice();
+      };
     }, 4000);
+  },
+  methods: {
+    // remove notice
+    removeNotice() {
+      this.$emit("remove");
+    }
   }
 };
 </script>

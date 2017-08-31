@@ -26,13 +26,11 @@ header
       // user dropdown
       ul.dropdown(
         v-if='userDropdown',
-        v-on-clickaway='toggleDropdown')
-        li
-          a {{ $t('myaccount') }}
-        li
-          a {{ $t('settings') }}
-        li
-          a {{ $t('logout') }}
+        v-on-clickaway='toggleDropdown',
+        @click='toggleDropdown')
+        router-link(tag='li', :to='toTarget("myaccount")') {{ $t('myaccount') }}
+        router-link(tag='li', :to='toTarget("settings")') {{ $t('settings') }}
+        router-link(tag='li', :to='toTarget("logout")') {{ $t('logout') }}
 </template>
 
 <script>
@@ -48,6 +46,14 @@ export default {
     };
   },
   methods: {
+    // to target
+    toTarget(name) {
+      const target = {
+        name,
+      };
+      return target;
+    },
+
     // start the search
     startSearch() {
       const query = this.searchQuery;
