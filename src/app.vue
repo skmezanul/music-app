@@ -8,7 +8,7 @@
   ma-navigation
 
   // router view
-  router-view(:key='$route.params.id')
+  router-view(:key='$route.path')
 
   // footer
   transition(name='fade')
