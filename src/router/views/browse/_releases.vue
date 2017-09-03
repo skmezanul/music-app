@@ -10,7 +10,8 @@
         :type='album.type',
         :primaryid='album.id',
         :image='album.images[0].url',
-        :title='album.name')
+        :title='album.name',
+        :artist='album.artists')
 </template>
 
 <script>
@@ -26,7 +27,6 @@ export default {
     this.getNewReleases();
   },
   methods: {
-
     // get new releases from the api
     getNewReleases() {
       const that = this;

@@ -98,7 +98,7 @@ export default {
     hasOverlay() {
       if (this.type === 'album' || this.type === 'playlist') {
         return true;
-      }
+      };
       return false;
     },
   },

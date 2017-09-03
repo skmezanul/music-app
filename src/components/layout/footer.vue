@@ -1,55 +1,56 @@
 <template lang="pug">
 footer
-	// current playback
-	.footer-container.left.mobile-hidden
-		img(
+  // current playback
+  .footer-container.left.mobile-hidden
+    img(
       :src='$store.state.currentPlayback.item.album.images[0].url',
       :alt='$store.state.currentPlayback.item.name')
 
-		.currently-playing
-			span.title {{ $store.state.currentPlayback.item.name }}
-			.artist-container
-				router-link.artist(
+    .currently-playing
+      span.title {{ $store.state.currentPlayback.item.name }}
+      .artist-container
+        router-link.artist(
           v-for='artist in $store.state.currentPlayback.item.artists',
           :key='artist.id',
           :to='toArtist(artist.type, artist.id)') {{ artist.name }}
 
-	// playback controls
-	.footer-container.center
-		i.shuffle.material-icons(
+  // playback controls
+  .footer-container.center
+
+    i.shuffle.material-icons(
       @click='toggleShuffle',
       :class='{ "active": $store.state.currentPlayback.shuffle_state == true }',
       v-tooltip='{ content: $t("shuffle"), container: ".tooltip-container" }') shuffle
 
-		i.skip.material-icons(@click='previousTrack') skip_previous
+    i.skip.material-icons(@click='previousTrack') skip_previous
 
-		i.toggle.play.material-icons(
-      v-show='!isPlaying',
+    i.toggle.play.material-icons(
+      v-show='!$store.state.currentPlayback.is_playing',
       @click='resumePlayback') play_circle_filled
 
-		i.toggle.pause.material-icons(
-      v-show='isPlaying',
+    i.toggle.pause.material-icons(
+      v-show='$store.state.currentPlayback.is_playing',
       @click='pausePlayback') pause_circle_filled
 
-		i.skip.material-icons(@click='nextTrack') skip_next
+    i.skip.material-icons(@click='nextTrack') skip_next
 
-		i.repeat.material-icons(
+    i.repeat.material-icons(
       v-show='$store.state.currentPlayback.repeat_state != "track"',
       @click='toggleRepeat',
       :class='{ "active": $store.state.currentPlayback.repeat_state == "context" }',
       v-tooltip='{ content: $t("repeat"), container: ".tooltip-container" }') repeat
 
-		i.repeat.material-icons.active(
+    i.repeat.material-icons.active(
       v-show='$store.state.currentPlayback.repeat_state == "track"',
       @click='toggleRepeat',
       v-tooltip='{ content: $t("repeat"), container: ".tooltip-container" }') repeat_one
 
-	// volume and other controls
-	.footer-container.right.mobile-hidden
-		i.volume.material-icons(v-if='volume == 0') volume_mute
-		i.volume.material-icons(v-if='volume <= 50 && volume > 0') volume_down
-		i.volume.material-icons(v-if='volume > 50') volume_up
-		ma-slider(
+  // volume and other controls
+  .footer-container.right.mobile-hidden
+    i.volume.material-icons(v-if='volume == 0') volume_mute
+    i.volume.material-icons(v-if='volume <= 50 && volume > 0') volume_down
+    i.volume.material-icons(v-if='volume > 50') volume_up
+    ma-slider(
       ref='slider',
       v-model='volume',
       width='100px',
@@ -57,6 +58,13 @@ footer
       :sliderStyle='sliderStyle',
       :processStyle='sliderStyle',
       :tooltip='false')
+    .time-container
+      span.track-progress {{ getDuration($store.state.currentPlayback.progress_ms) }}
+      span.track-duration {{ getDuration($store.state.currentPlayback.item.duration_ms) }}
+
+  // progress bar
+  .progress-container
+    .progress-bar(:style='getProgress()')
 </template>
 
 <script>
@@ -78,11 +86,11 @@ export default {
     };
   },
   created() {
-    // fetch the data when the view is created and the data is
-    // already being observed
+    // update current playback and progress every second
     setInterval(() => {
       this.GET_CURRENT_PLAYBACK();
-    }, 3000);
+      this.getProgress();
+    }, 1000);
   },
   watch: {
     // call again if value changes
@@ -100,6 +108,23 @@ export default {
         },
       };
       return target;
+    },
+
+    // get progress of the current track in percent
+    getProgress() {
+      const that = this;
+      const duration = that.$store.state.currentPlayback.item.duration_ms;
+      const progress = that.$store.state.currentPlayback.progress_ms;
+      const value = ((duration - progress) / duration) * 100;
+      const valueRounded = Math.round(value * 100) / 100;
+      return `width: ${valueRounded}%;`;
+    },
+
+    // get formattted duration
+    getDuration(duration) {
+      const minutes = Math.floor(duration / 60000);
+      const seconds = ((duration % 60000) / 1000).toFixed(0);
+      return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     },
 
     // go to previous track
@@ -243,8 +268,7 @@ footer {
     align-items: center;
     padding: 15px 20px;
     border-top: 1px solid $border-color;
-    background-color: $dark-blue;
-    -webkit-font-smoothing: subpixel-antialiased;
+    background: $dark-blue;
 
     .footer-container {
         display: flex;
@@ -269,8 +293,8 @@ footer {
                 }
 
                 .artist-container {
-                    font-weight: 300;
                     margin-top: 2px;
+                    font-weight: 300;
 
                     a {
                         @include comma-separated(0.9em, 300);
@@ -279,21 +303,10 @@ footer {
             }
         }
 
-        &.right {
-            flex: 1;
-            justify-content: flex-end;
-
-            i {
-                padding-left: 20px;
-            }
-        }
-
         &.center {
             flex: 0.7;
             justify-content: space-between;
-            @media screen and (max-width: 955px) {
-                flex: 1;
-            }
+            letter-spacing: 2px;
 
             .toggle {
                 color: $white;
@@ -305,6 +318,22 @@ footer {
             }
         }
 
+        &.right {
+            flex: 1;
+            justify-content: flex-end;
+            .time-container {
+                margin-left: 20px;
+                padding: 5px 10px;
+                border-radius: 5px;
+                background-color: $blue;
+                .track-progress {
+                  &:after {
+                    content: " / ";
+                  }
+                }
+            }
+        }
+
         i {
             @include item-hover;
             &.active {
@@ -312,6 +341,22 @@ footer {
                 opacity: 1;
             }
         }
+    }
+    .progress-container {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      background-color: $accent-color;
+      .progress-bar {
+          position: absolute;
+          right: 0;
+          width: 100%;
+          height: 100%;
+          background: $dark-blue;
+          transition: width 1s linear;
+      }
     }
 }
 </style>

@@ -1,4 +1,4 @@
-// Components for "browse"
+// components for "browse"
 const browseIndex = () => import(/* webpackChunkName: "browse" */ './views/browse/index');
 const browseOverview = () => import(/* webpackChunkName: "browse" */ './views/browse/_overview');
 const browseCharts = () => import(/* webpackChunkName: "browse" */ './views/browse/_charts');
@@ -6,27 +6,30 @@ const browseCategories = () => import(/* webpackChunkName: "browse" */ './views/
 const browseReleases = () => import(/* webpackChunkName: "browse" */ './views/browse/_releases');
 const browseDiscover = () => import(/* webpackChunkName: "browse" */ './views/browse/_discover');
 
-// Components for "artist"
+// components for "artist"
 const artistIndex = () => import(/* webpackChunkName: "artist" */ './views/artist/index');
 const artistOverview = () => import(/* webpackChunkName: "artist" */ './views/artist/_overview');
 const artistRelated = () => import(/* webpackChunkName: "artist" */ './views/artist/_related');
 const artistAbout = () => import(/* webpackChunkName: "artist" */ './views/artist/_about');
 
-// Components for "mylibrary"
+// components for "mylibrary"
 const mylibraryHistory = () => import(/* webpackChunkName: "mylibrary" */ './views/mylibrary/history');
 const mylibraryTracks = () => import(/* webpackChunkName: "mylibrary" */ './views/mylibrary/tracks');
 
-// Component for single album
+// component for single album
 const album = () => import(/* webpackChunkName: "album" */ './views/single/album');
 
-// Component for single playlist
+// component for single playlist
 const playlist = () => import(/* webpackChunkName: "playlist" */ './views/single/playlist');
 
-// Component for search
+// component for search
 const search = () => import(/* webpackChunkName: "search" */ './views/search');
 
-// Component for general settings
+// component for general settings
 const settings = () => import(/* webpackChunkName: "search" */ './views/settings');
+
+// callback route after auth with spotify
+const callback = () => import(/* webpackChunkName: "search" */ './views/callback');
 
 export default [{
   path: '/browse',
@@ -153,5 +156,10 @@ export default [{
     compact: true,
   },
   component: settings,
+},
+{
+  path: '/callback',
+  name: 'callback',
+  component: callback,
 },
 ];

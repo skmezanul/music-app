@@ -11,8 +11,9 @@
   router-view(:key='$route.path')
 
   // footer
-  transition(name='fade')
-    ma-footer
+  keep-alive
+    transition(name='fade')
+      ma-footer
 
   // tooltips
   .tooltip-container
@@ -37,17 +38,12 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.showDevNotice();
+    this.CHECK_TOKEN();
     this.GET_CURRENT_USER();
     this.GET_MY_DEVICES();
   },
   methods: {
-    ...mapActions(['GET_CURRENT_USER', 'GET_MY_DEVICES']),
-
-    // show development notice
-    showDevNotice() {
-      this.$store.commit('ADD_NOTICE', this.$t('notices.wip'));
-    },
+    ...mapActions(['GET_CURRENT_USER', 'GET_MY_DEVICES', 'CHECK_TOKEN']),
 
     // remove notice
     removeNotice(index) {

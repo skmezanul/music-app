@@ -96,8 +96,8 @@ header {
     border-bottom: 1px solid;
     border-color: transparent;
     transition: background-color 0.3s, border-color 0.3s;
+    transform: translateZ(0);
     -webkit-app-region: drag;
-    -webkit-font-smoothing: subpixel-antialiased;
 
     .header-container {
         display: flex;

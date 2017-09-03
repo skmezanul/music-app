@@ -99,11 +99,12 @@ export default {
 <style lang="scss">
 .navigation-container {
     position: fixed;
+		top: 0;
+		bottom: 0;
     left: 0;
     z-index: 997;
     width: 200px;
-    height: 100%;
-    -webkit-font-smoothing: subpixel-antialiased;
+		transform: translateZ(0);
 
     ul {
         display: flex;

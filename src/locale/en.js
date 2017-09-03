@@ -37,7 +37,7 @@ export default {
   addtoplaylist: 'Add to playlist',
   more: 'More',
   notices: {
-    wip: 'This app is still work in progress. Contact me (microeinhundert) on github if you want to contribute to the development.',
+    loggedin: 'Successfully logged in.',
   },
   errors: {
     skipprev: 'Could not skip to previous track, please try again later.',
