@@ -4,11 +4,8 @@ import axios from 'axios';
 
 Vue.use(VueAxios, axios);
 
-// your api token goes here:
-const token = '';
-// you can get it from
-// https://developer.spotify.com/web-api/console/post-next/
-// remember to grant all permissions for the app to work properly.
+// set api token
+const token = localStorage.getItem('spotify_token');
 
 // set default baseURL
 Vue.axios.defaults.baseURL = 'https://api.spotify.com/v1/';
