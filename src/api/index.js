@@ -4,11 +4,11 @@ import axios from 'axios';
 
 Vue.use(VueAxios, axios);
 
-// set api token
+// get api token from local storage
 const token = localStorage.getItem('spotify_token');
-
-// set default baseURL
-Vue.axios.defaults.baseURL = 'https://api.spotify.com/v1/';
 
 // set default authorization header
 Vue.axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+
+// set default baseURL
+Vue.axios.defaults.baseURL = 'https://api.spotify.com/v1/';

@@ -3,7 +3,7 @@ export default {
   created() {
     // get the access token when the view is created and the data is
     // already being observed
-    this.getTokenFromUrl();
+    this.checkToken();
   },
   methods: {
     checkToken() {
