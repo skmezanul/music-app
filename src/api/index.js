@@ -48,6 +48,7 @@ router.beforeEach((to, from, next) => {
     // store token in local storage
     localStorage.setItem('spotify_token', tokenFromUrl);
     next();
+  } else {
+    next();
   }
-  next();
 });
