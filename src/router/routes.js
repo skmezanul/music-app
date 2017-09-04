@@ -28,9 +28,6 @@ const search = () => import(/* webpackChunkName: "search" */ './views/search');
 // component for general settings
 const settings = () => import(/* webpackChunkName: "settings" */ './views/settings');
 
-// callback route after auth with spotify
-const callback = () => import(/* webpackChunkName: "callback" */ './views/callback');
-
 export default [{
   path: '/browse',
   component: browseIndex,
@@ -170,10 +167,5 @@ export default [{
     compact: true,
   },
   component: settings,
-},
-{
-  path: '/callback',
-  name: 'callback',
-  component: callback,
 },
 ];

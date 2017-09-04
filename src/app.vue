@@ -38,12 +38,11 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.CHECK_TOKEN();
     this.GET_CURRENT_USER();
     this.GET_MY_DEVICES();
   },
   methods: {
-    ...mapActions(['GET_CURRENT_USER', 'GET_MY_DEVICES', 'CHECK_TOKEN']),
+    ...mapActions(['GET_CURRENT_USER', 'GET_MY_DEVICES']),
 
     // remove notice
     removeNotice(index) {

@@ -6,22 +6,12 @@ Vue.use(VueRouter);
 
 /* eslint-disable no-new */
 
-const router = new VueRouter({
+export default new VueRouter({
   mode: 'history',
   routes,
   linkActiveClass: 'active',
   linkExactActiveClass: 'exact-active',
-  scrollBehavior() {
-    return {
-      x: 0,
-      y: 0,
-    };
-  },
+  scrollBehavior: () => ({
+    y: 0,
+  }),
 });
-
-router.beforeEach((to, from, next) => {
-  document.title = `${to.meta.title}`;
-  next();
-});
-
-export default router;
