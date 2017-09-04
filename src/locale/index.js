@@ -15,7 +15,7 @@ const messages = {
 /* eslint-disable no-new */
 
 export default new VueI18n({
-  locale: 'EN',
+  locale: localStorage.getItem('app_language'),
   fallbackLocale: 'EN',
   silentTranslationWarn: true,
   messages,

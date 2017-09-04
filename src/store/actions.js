@@ -36,6 +36,9 @@ export default {
       url: '/me',
     }).then((res) => {
       store.commit('CURRENT_USER', res.data);
+      if (!localStorage.getItem('app_language')) {
+        localStorage.setItem('app_language', res.data.country);
+      }
     }).catch(() => {
       store.commit('ADD_NOTICE', this.$t('errors.currentuser'));
     });
