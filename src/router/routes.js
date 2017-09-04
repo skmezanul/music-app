@@ -26,10 +26,10 @@ const playlist = () => import(/* webpackChunkName: "playlist" */ './views/single
 const search = () => import(/* webpackChunkName: "search" */ './views/search');
 
 // component for general settings
-const settings = () => import(/* webpackChunkName: "search" */ './views/settings');
+const settings = () => import(/* webpackChunkName: "settings" */ './views/settings');
 
 // callback route after auth with spotify
-const callback = () => import(/* webpackChunkName: "search" */ './views/callback');
+const callback = () => import(/* webpackChunkName: "callback" */ './views/callback');
 
 export default [{
   path: '/browse',
@@ -38,6 +38,7 @@ export default [{
     path: '',
     name: 'browse',
     meta: {
+      title: 'Browse',
       compact: true,
     },
     component: browseOverview,
@@ -46,6 +47,7 @@ export default [{
     path: 'charts',
     name: 'browseCharts',
     meta: {
+      title: 'Charts',
       compact: true,
     },
     component: browseCharts,
@@ -54,6 +56,7 @@ export default [{
     path: 'categories',
     name: 'browseCategories',
     meta: {
+      title: 'Categories',
       compact: true,
     },
     component: browseCategories,
@@ -62,6 +65,7 @@ export default [{
     path: 'releases',
     name: 'browseReleases',
     meta: {
+      title: 'New Releases',
       compact: true,
     },
     component: browseReleases,
@@ -70,6 +74,7 @@ export default [{
     path: 'discover',
     name: 'browseDiscover',
     meta: {
+      title: 'Discover',
       compact: true,
     },
     component: browseDiscover,
@@ -83,6 +88,7 @@ export default [{
     path: '',
     name: 'artist',
     meta: {
+      title: 'Artist',
       buttons: true,
     },
     component: artistOverview,
@@ -91,6 +97,7 @@ export default [{
     path: 'related',
     name: 'artistRelated',
     meta: {
+      title: 'Related Artists',
       buttons: true,
     },
     component: artistRelated,
@@ -99,6 +106,7 @@ export default [{
     path: 'about',
     name: 'artistAbout',
     meta: {
+      title: 'About',
       buttons: true,
     },
     component: artistAbout,
@@ -109,6 +117,7 @@ export default [{
   path: '/album/:id',
   name: 'album',
   meta: {
+    title: 'Album',
     compact: true,
     cover: true,
     buttons: true,
@@ -119,6 +128,7 @@ export default [{
   path: '/playlist/:owner/:id',
   name: 'playlist',
   meta: {
+    title: 'Playlist',
     compact: true,
     cover: true,
     buttons: true,
@@ -129,6 +139,7 @@ export default [{
   path: '/search/:query',
   name: 'search',
   meta: {
+    title: 'Search',
     compact: true,
   },
   component: search,
@@ -137,6 +148,7 @@ export default [{
   path: '/history',
   name: 'mylibraryHistory',
   meta: {
+    title: 'Recently Played',
     buttons: true,
   },
   component: mylibraryHistory,
@@ -145,6 +157,7 @@ export default [{
   path: '/tracks',
   name: 'mylibraryTracks',
   meta: {
+    title: 'Tracks',
     buttons: true,
   },
   component: mylibraryTracks,
@@ -153,6 +166,7 @@ export default [{
   path: '/settings',
   name: 'settings',
   meta: {
+    title: 'Settings',
     compact: true,
   },
   component: settings,

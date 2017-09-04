@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 
 /* eslint-disable no-new */
 
-export default new VueRouter({
+const router = new VueRouter({
   mode: 'history',
   routes,
   linkActiveClass: 'active',
@@ -18,3 +18,10 @@ export default new VueRouter({
     };
   },
 });
+
+router.beforeEach((to, from, next) => {
+  document.title = `${to.meta.title}`;
+  next();
+});
+
+export default router;
