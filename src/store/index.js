@@ -22,7 +22,6 @@ const store = new Vuex.Store({
     currentUser: [],
     deviceID: '',
     notices: [],
-    scrollPosition: '',
   },
   mutations,
   actions,

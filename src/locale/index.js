@@ -12,11 +12,15 @@ const messages = {
   ES,
 };
 
-/* eslint-disable no-new */
+// get language from local storage
+const locale = localStorage.getItem('app_language');
 
-export default new VueI18n({
-  locale: localStorage.getItem('app_language'),
+/* eslint-disable no-new */
+const i18n = new VueI18n({
+  locale,
   fallbackLocale: 'EN',
   silentTranslationWarn: true,
   messages,
 });
+
+export default i18n;

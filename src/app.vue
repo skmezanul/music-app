@@ -1,5 +1,5 @@
 <template lang="pug">
-#app(:class='{scrolled: $store.state.scrollPosition > 0}')
+#app(:class='{ "scrolled" : scrollPosition > 0 }')
 
   // header
   ma-header
@@ -35,6 +35,11 @@ import {
 } from 'vuex';
 
 export default {
+  data() {
+    return {
+      scrollPosition: null,
+    }
+  },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
@@ -49,9 +54,9 @@ export default {
       this.$store.commit('REMOVE_NOTICE', index);
     },
 
-    // get the current scroll position
+    // update scroll position
     updateScroll() {
-      this.$store.commit('SCROLL_POSITION', window.scrollY);
+      this.scrollPosition = window.scrollY;
     },
   },
   mounted() {

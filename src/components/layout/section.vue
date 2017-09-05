@@ -38,10 +38,8 @@ export default {
   computed: {
     // check if section is collapsed
     isCollapsed() {
-      if (this.collapsible && this.collapsed) {
-        return true;
-      }
-      return false;
+      const cond = this.collapsible && this.collapsed;
+      return cond;
     },
   }
 };

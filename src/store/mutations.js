@@ -19,8 +19,4 @@ export default {
     const thisState = state;
     thisState.notices.splice(index, 1);
   },
-  SCROLL_POSITION(state, position) {
-    const thisState = state;
-    thisState.scrollPosition = position;
-  },
 };

@@ -3,6 +3,7 @@
 module.exports = {
   plugins: {
     // to edit target browsers: use 'browserslist' field in package.json
-    'autoprefixer': {}
+    'postcss-easing-gradients': {},
+    'autoprefixer': {},
   }
 }

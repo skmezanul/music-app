@@ -1,5 +1,5 @@
 <template lang="pug">
-.stage(:class='{ "has-cover" : hasCover, "compact": isCompact }')
+.stage(:class='{ "has-cover" : hasCover, "compact" : isCompact }')
 
 	// background
 	.stage-background(v-if='image')
@@ -64,7 +64,7 @@ export default {
     },
   },
   computed: {
-    // remove "Cover" message from meta on playlist
+    // remove "Cover:" message from meta on playlist
     formattedMeta() {
       const meta = this.meta;
       const formattedMeta = meta.split('Cover')[0];
@@ -73,34 +73,24 @@ export default {
 
     // check if can follow
     canFollow() {
-      if (this.$route.name.includes("artist") || this.$route.name.includes("playlist")) {
-        return true;
-      }
-      return false;
+      const routeName = this.$route.name;
+      const cond = routeName.includes("artist") || routeName.includes("playlist");
+      return cond;
     },
 
     // check if stage has cover
     hasCover() {
-      if (this.$route.meta.cover) {
-        return true;
-      }
-      return false;
+      return this.$route.meta.cover;
     },
 
     // check if stage has buttons
     hasButtons() {
-      if (this.$route.meta.buttons) {
-        return true;
-      }
-      return false;
+      return this.$route.meta.buttons;
     },
 
     // check if stage is compact
     isCompact() {
-      if (this.$route.meta.compact) {
-        return true;
-      }
-      return false;
+      return this.$route.meta.compact;
     },
   },
 };
@@ -165,7 +155,7 @@ export default {
         right: 0;
         bottom: 0;
         left: 0;
-        background: radial-gradient(circle, rgba($main-bg-color, 0), $main-bg-color), linear-gradient(to top, $main-bg-color, rgba($main-bg-color, 0));
+        background: ease-in-out-sine-gradient(to top, $main-bg-color, rgba($main-bg-color, 0)), radial-gradient(circle, rgba($main-bg-color, 0), $main-bg-color);
         content: "";
     }
 
