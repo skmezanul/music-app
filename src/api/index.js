@@ -6,6 +6,10 @@ import router from '../router';
 
 Vue.use(VueAxios, axios);
 
+// your spotify api client id
+// https://developer.spotify.com/my-applications
+const clientId = '';
+
 // get api token from local storage
 const token = localStorage.getItem('spotify_token');
 
@@ -16,13 +20,10 @@ Vue.axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 Vue.axios.defaults.baseURL = 'https://api.spotify.com/v1/';
 
 router.beforeEach((to, from, next) => {
-  // check for spotify access token and get it if not already in local storage
-  // redirect to spotify login if no access token stored in local storage
   const url = window.location;
   const req = {
-    // your spotify api client id
-    // get it from https://developer.spotify.com/my-applications/
-    client_id: '',
+    // client id
+    client_id: clientId,
 
     // url the user gets redirected to after logged in with spotify
     redirect_uri: `${url.protocol}//${url.host}/callback`,
@@ -36,19 +37,23 @@ router.beforeEach((to, from, next) => {
 
   // convert request to string
   const str = queryString.stringify(req);
+
   const storedToken = localStorage.getItem('spotify_token');
 
+  // check for spotify access token and get it if not already in local storage
+  // redirect to spotify login if no access token stored in local storage
   if (!storedToken && to.path !== '/callback') {
     // redirect to spotify login page
     url.href = `https://accounts.spotify.com/authorize?${str}`;
   } else if (!storedToken && to.path === '/callback') {
     // get token from url
     const tokenFromUrl = url.href.split('&token_type')[0].split('access_token=')[1];
-
     // store token in local storage
     localStorage.setItem('spotify_token', tokenFromUrl);
+    // call next
     next();
   } else {
+    // call next
     next();
   }
 });
