@@ -1,7 +1,6 @@
 import { stringify } from 'query-string';
 import { clientId, scope } from './';
 
-
 /**
  * Global toLogin() function.
  * Redirects user to spotify login page with given scopes and redirect url.
