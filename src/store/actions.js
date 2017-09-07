@@ -1,44 +1,43 @@
 import Vue from 'vue';
-import store from './';
 
 export default {
 
   // get the current user's info
-  GET_CURRENT_USER() {
+  GET_CURRENT_USER({ commit }) {
     Vue.axios({
       method: 'get',
       url: '/me',
     }).then((res) => {
-      store.commit('CURRENT_USER', res.data);
+      commit('CURRENT_USER', res.data);
       if (!localStorage.getItem('app_language')) {
         localStorage.setItem('app_language', res.data.country);
       }
     }).catch(() => {
-      store.commit('ADD_NOTICE', this.$t('errors.currentuser'));
+      commit('ADD_NOTICE', this.$t('errors.currentuser'));
     });
   },
 
   // get my devices
-  GET_MY_DEVICES() {
+  GET_MY_DEVICES({ commit }) {
     Vue.axios({
       method: 'get',
       url: '/me/player/devices',
     }).then((res) => {
-      store.commit('DEVICE_ID', res.data.devices[0].id);
+      commit('DEVICE_ID', res.data.devices[0].id);
     }).catch(() => {
-      store.commit('ADD_NOTICE', this.$t('errors.devices'));
+      commit('ADD_NOTICE', this.$t('errors.devices'));
     });
   },
 
   // get the current playback
-  GET_CURRENT_PLAYBACK() {
+  GET_CURRENT_PLAYBACK({ commit }) {
     Vue.axios({
       method: 'get',
       url: '/me/player',
     }).then((res) => {
-      store.commit('CURRENT_PLAYBACK', res.data);
+      commit('CURRENT_PLAYBACK', res.data);
     }).catch(() => {
-      store.commit('ADD_NOTICE', this.$t('errors.currentplayback'));
+      commit('ADD_NOTICE', this.$t('errors.currentplayback'));
     });
   },
 };

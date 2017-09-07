@@ -196,26 +196,6 @@ export default {
                     line-height: 1.3em;
                 }
             }
-            .button-container {
-                display: flex;
-                align-items: center;
-                margin-top: 15px;
-
-                .button-group {
-                    display: flex;
-                    overflow: hidden;
-                    margin: 0 5px 10px 0;
-                    border-radius: 5px;
-
-                    a {
-                        margin: 0;
-                        border-radius: 0;
-                        &:nth-child(3) {
-                            border-left: 1px solid $blue;
-                        }
-                    }
-                }
-            }
         }
     }
 }

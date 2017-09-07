@@ -157,40 +157,61 @@ a {
     }
 }
 
-.btn {
-    display: inline-flex;
-    margin: 0 5px 10px 0;
-    padding: 13px;
-    border-radius: 3px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-weight: 700;
-    font-size: 0.9em;
-    font-family: 'Ubuntu', sans-serif;
-    transition: background-color 0.3s, color 0.3s;
-    &:hover {
-        cursor: pointer;
-    }
-    &:not(.btn-transparent) {
-        background-color: $light-blue;
+.button-container {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+
+    .btn {
+        display: inline-flex;
+        margin: 0 5px 10px 0;
+        padding: 13px;
+        border-radius: 3px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-weight: 700;
+        font-size: 0.9em;
+        font-family: 'Ubuntu', sans-serif;
+        transition: background-color 0.3s, color 0.3s;
         &:hover {
-            background-color: $white;
-            color: $black;
+            cursor: pointer;
         }
-    }
-    &:not(.btn-icon) {
+        &:not(.btn-transparent) {
+            background-color: $light-blue;
+            &:hover {
+                background-color: $white;
+                color: $black;
+            }
+        }
+        &:not(.btn-icon) {
+            i {
+                margin-right: 5px;
+            }
+        }
+
         i {
-            margin-right: 5px;
+            font-size: 1em;
+            line-height: inherit;
+        }
+
+        &.btn-accent {
+            background-color: $accent-color;
         }
     }
 
-    i {
-        font-size: 1em;
-        line-height: inherit;
-    }
+    .button-group {
+        display: flex;
+        overflow: hidden;
+        margin: 0 5px 10px 0;
+        border-radius: 5px;
 
-    &.btn-accent {
-        background-color: $accent-color;
+        a {
+            margin: 0;
+            border-radius: 0;
+            &:nth-child(3) {
+                border-left: 1px solid $blue;
+            }
+        }
     }
 }
 
