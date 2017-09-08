@@ -166,6 +166,7 @@ export default [{
   meta: {
     title: 'Albums',
     buttons: true,
+    compact: true,
   },
   component: mylibraryAlbums,
 },

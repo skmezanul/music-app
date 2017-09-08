@@ -13,7 +13,7 @@ export default {
         localStorage.setItem('app_language', res.data.country);
       }
     }).catch(() => {
-      commit('ADD_NOTICE', this.$t('errors.currentuser'));
+      commit('ADD_NOTICE', this.$t('errors.fetchuser'));
     });
   },
 
@@ -25,7 +25,7 @@ export default {
     }).then((res) => {
       commit('DEVICE_ID', res.data.devices[0].id);
     }).catch(() => {
-      commit('ADD_NOTICE', this.$t('errors.devices'));
+      commit('ADD_NOTICE', this.$t('errors.fetchdevices'));
     });
   },
 
@@ -37,7 +37,7 @@ export default {
     }).then((res) => {
       commit('CURRENT_PLAYBACK', res.data);
     }).catch(() => {
-      commit('ADD_NOTICE', this.$t('errors.currentplayback'));
+      commit('ADD_NOTICE', this.$t('errors.fetchplayback'));
     });
   },
 };

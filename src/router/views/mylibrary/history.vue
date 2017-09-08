@@ -8,7 +8,7 @@ main.main-container
 
 	.page-container
 		// tracks
-		ma-section(:collapsible='false')
+		ma-section
 
 			ol.list
 				ma-list(

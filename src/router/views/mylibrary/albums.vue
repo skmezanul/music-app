@@ -1,7 +1,59 @@
 <template lang="pug">
 main.main-container
-  ma-splash(
-    icon='album',
-    title='You dont have any albums in your library.',
-    background='http://az616578.vo.msecnd.net/files/2016/05/09/635983505329496433385654456_concert-audience.jpg')
+  // stage
+  ma-stage(
+    :subtitle='$t("library")',
+    :title='$tc("album", 0)',
+    :image='albums[0].album.images[0].url')
+
+  .page-container
+    // tracks
+    ma-section
+
+      .section-items-container
+        ma-item(
+          v-for='item in albums',
+          :key='item.album.id',
+          :type='item.album.type',
+          :primaryid='item.album.id',
+          :image='item.album.images[0].url',
+          :title='item.album.name')
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      albums: [],
+    };
+  },
+  created() {
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.getSavedAlbums();
+  },
+  methods: {
+    // get this user's saved tracks from the api
+    getSavedAlbums() {
+      const that = this;
+      const market = that.$store.state.currentUser.country;
+
+      that.$startLoading('fetching data');
+      that.axios({
+        method: 'get',
+        url: '/me/albums',
+        params: {
+          market,
+        },
+      }).then((res) => {
+        that.albums = res.data.items;
+        that.$endLoading('fetching data');
+      }).catch(() => {
+        that.$router.go(-1);
+        that.$endLoading('fetching data');
+        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchsavedalbums'));
+      });
+    },
+  },
+};
+</script>
