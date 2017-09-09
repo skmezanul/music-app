@@ -1,79 +1,56 @@
 <template lang="pug">
-.splash-container
-  .splash-inner
-    i.material-icons {{ icon }}
-    h1(v-if='title') {{ title }}
-    h2(v-if='subtitle') {{ subtitle }}
-    .button-container
-      a.btn.btn-accent(v-if='cta') {{ cta }}
-  .background-container(v-if='background')
-    img(:src='background', :alt='title')
+transition(name='fade', appear)
+  .splash-container
+    .splash-inner
+      .image-container
+        slot(name='image')
+      h1(v-if='title') {{ title }}
+      .button-container
+        slot(name='button')
 </template>
 
 <script>
 export default {
-  data() {
-  },
   props: [
-    'icon',
     'title',
-    'subtitle',
-    'background',
-    'cta',
   ],
 }
 </script>
 
 <style lang="scss">
 .splash-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
   width: 100%;
   height: 100vh;
+  background: $main-bg-color url('/static/images/concert_bg.jpg') no-repeat;
+  background-size: cover;
+  animation: zoomOut 0.7s 0.2s both;
+  &:before {
+    @include position(absolute, -1);
+    background-color: rgba($main-bg-color, 0.8);
+    content: "";
+  }
   .splash-inner {
-    display: flex;
+    @include flex-center;
     flex-direction: column;
-    align-items: center;
-    max-width: 40%;
+    max-width: 500px;
+    width: 100%;
     text-align: center;
     transform: translateY(-15%);
     i {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       font-size: 5em;
     }
     h1 {
-      margin-bottom: 15px;
-      font-size: 2.5em;
+      margin: 40px 0 10px;
+      font-weight: 300;
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.4em;
     }
-    h2 {
-      margin-bottom: 20px;
-    }
-  }
-  .background-container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    img {
-      width: auto;
-      height: 100%;
-      filter: grayscale(100%) contrast(200%);
-    }
-    &:after {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background-color: rgba($main-bg-color, 0.95);
-      content: "";
+    .image-container {
+      img {
+        max-width: 300px;
+      }
     }
   }
 }

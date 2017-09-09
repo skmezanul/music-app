@@ -36,14 +36,14 @@ export default {
   by: 'By',
   addtoplaylist: 'Add to playlist',
   more: 'More',
+  loginwithspotify: 'Please login with your Spotify account.',
+  continuetospotify: 'Continue to Spotify',
   notices: {
     loggedin: 'Successfully logged in.',
   },
   errors: {
-    skipprev: 'Could not skip to previous track, please try again later.',
-    skipnext: 'Could not skip to next track, please try again later.',
-    pauseplayback: 'Could not pause playback, please try again later.',
-    resumeplayback: 'Could not resume playback, please try again later.',
+    skiptrack: 'Could not skip to track, please try again later.',
+    toggleplayback: 'Could not toggle playback, please try again later.',
     togglerepeat: 'Could not toggle repeat, please try again later.',
     toggleshuffle: 'Could not toggle shuffle, please try again later.',
     changevolume: 'Could not change volume, please try again later.',

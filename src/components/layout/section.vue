@@ -51,6 +51,10 @@ export default {
     flex-direction: column;
     margin: 30px 0;
 
+    &:last-child {
+      padding-bottom: 81px;
+    }
+
     &.collapsed {
         .section-item.artist:nth-child(n+5),
         .row:nth-child(n+4) {

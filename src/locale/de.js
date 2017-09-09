@@ -36,4 +36,6 @@ export default {
   by: 'Von',
   addtoplaylist: 'Zu Playlist hinzufügen',
   more: 'Mehr',
+  loginwithspotify: 'Bitte logge dich mit deinem Spotify Konto ein.',
+  continuetospotify: 'Weiter zu Spotify',
 };

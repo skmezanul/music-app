@@ -121,11 +121,7 @@ export default {
         max-width: 25%;
         .section-item-inner {
             .meta-container {
-                position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
+                @include position(absolute, 1);
                 align-items: flex-end;
                 justify-content: center;
                 padding-bottom: 40px;
@@ -136,7 +132,6 @@ export default {
             }
             .image-container {
                 img {
-                    width: auto;
                     height: 100%;
                     transition: transform 0.7s, filter 0.3s;
                     will-change: transform;
@@ -160,6 +155,7 @@ export default {
             .image-container {
                 img {
                     filter: brightness(70%) contrast(110%);
+                    width: auto;
                 }
             }
             &:hover {
@@ -204,16 +200,10 @@ export default {
             height: auto;
             img {
                 width: 100%;
-                height: auto;
             }
         }
         .item-overlay {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            z-index: 1;
+            @include position(absolute, 1);
             display: flex;
             background: linear-gradient(to top, $accent-color 25%, rgba(80, 80, 80, 0.5) 100%);
             justify-content: center;

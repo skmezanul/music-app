@@ -22,17 +22,17 @@ footer
       :class='{ "active": $store.state.currentPlayback.shuffle_state == true }',
       v-tooltip='{ content: $t("shuffle"), container: ".tooltip-container" }') shuffle
 
-    i.skip.material-icons(@click='previousTrack') skip_previous
+    i.skip.material-icons(@click='skip("previous")') skip_previous
 
     i.toggle.play.material-icons(
       v-show='!$store.state.currentPlayback.is_playing',
-      @click='resumePlayback') play_circle_filled
+      @click='togglePlayback("play")') play_circle_filled
 
     i.toggle.pause.material-icons(
       v-show='$store.state.currentPlayback.is_playing',
-      @click='pausePlayback') pause_circle_filled
+      @click='togglePlayback("pause")') pause_circle_filled
 
-    i.skip.material-icons(@click='nextTrack') skip_next
+    i.skip.material-icons(@click='skip("next")') skip_next
 
     i.repeat.material-icons(
       v-show='$store.state.currentPlayback.repeat_state != "track"',
@@ -127,50 +127,32 @@ export default {
       return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     },
 
-    // go to previous track
-    previousTrack() {
+    // skip to previous/next track
+    skip(direction) {
       const that = this;
       const device_id = that.$store.state.deviceID;
 
       that.axios({
         method: 'post',
-        url: '/me/player/previous',
+        url: `/me/player/${direction}`,
         params: {
           device_id,
         },
       }).then(() => {
         that.GET_CURRENT_PLAYBACK();
       }).catch(() => {
-        that.$store.commit('ADD_NOTICE', that.$t('errors.skipprev'));
+        that.$store.commit('ADD_NOTICE', that.$t('errors.skiptrack'));
       });
     },
 
-    // go to next track
-    nextTrack() {
-      const that = this;
-      const device_id = that.$store.state.deviceID;
-
-      that.axios({
-        method: 'post',
-        url: '/me/player/next',
-        params: {
-          device_id,
-        },
-      }).then(() => {
-        that.GET_CURRENT_PLAYBACK();
-      }).catch(() => {
-        that.$store.commit('ADD_NOTICE', that.$t('errors.skipnext'));
-      });
-    },
-
-    // pause current playback
-    pausePlayback() {
+    // resume/pause current playback
+    togglePlayback(state) {
       const that = this;
       const device_id = that.$store.state.deviceID;
 
       that.axios({
         method: 'put',
-        url: '/me/player/pause',
+        url: `/me/player/${state}`,
         params: {
           device_id,
         },
@@ -178,26 +160,7 @@ export default {
         that.GET_CURRENT_PLAYBACK();
         that.isPlaying = false;
       }).catch(() => {
-        that.$store.commit('ADD_NOTICE', that.$t('errors.pauseplayback'));
-      });
-    },
-
-    // resume playback
-    resumePlayback() {
-      const that = this;
-      const device_id = that.$store.state.deviceID;
-
-      that.axios({
-        method: 'put',
-        url: '/me/player/play',
-        params: {
-          device_id,
-        },
-      }).then(() => {
-        that.GET_CURRENT_PLAYBACK();
-        that.isPlaying = true;
-      }).catch(() => {
-        that.$store.commit('ADD_NOTICE', that.$t('errors.resumeplayback'));
+        that.$store.commit('ADD_NOTICE', that.$t('errors.toggleplayback'));
       });
     },
 

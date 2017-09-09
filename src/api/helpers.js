@@ -11,7 +11,7 @@ export function toLogin() {
   const req = {
     // change the clientID and scope in index.js
     client_id: clientId,
-    redirect_uri: `${url.protocol}//${url.host}/callback`,
+    redirect_uri: `${url.protocol}//${url.host}/login`,
     scope,
     response_type: 'token',
   };

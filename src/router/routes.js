@@ -23,13 +23,27 @@ const album = () => import(/* webpackChunkName: "album" */ './views/single/album
 // component for single playlist
 const playlist = () => import(/* webpackChunkName: "playlist" */ './views/single/playlist');
 
+// component for single user profile
+const user = () => import(/* webpackChunkName: "user" */ './views/single/user');
+
 // component for search
 const search = () => import(/* webpackChunkName: "search" */ './views/search');
 
 // component for general settings
 const settings = () => import(/* webpackChunkName: "settings" */ './views/settings');
 
+// component for login
+const login = () => import(/* webpackChunkName: "login" */ './views/login');
+
 export default [{
+  path: '/login',
+  name: 'login',
+  meta: {
+    title: 'Login',
+  },
+  component: login,
+},
+{
   path: '/browse',
   component: browseIndex,
   children: [{
@@ -38,6 +52,7 @@ export default [{
     meta: {
       title: 'Browse',
       compact: true,
+      requiresAuth: true,
     },
     component: browseOverview,
   },
@@ -47,6 +62,7 @@ export default [{
     meta: {
       title: 'Charts',
       compact: true,
+      requiresAuth: true,
     },
     component: browseCharts,
   },
@@ -56,6 +72,7 @@ export default [{
     meta: {
       title: 'Categories',
       compact: true,
+      requiresAuth: true,
     },
     component: browseCategories,
   },
@@ -65,6 +82,7 @@ export default [{
     meta: {
       title: 'New Releases',
       compact: true,
+      requiresAuth: true,
     },
     component: browseReleases,
   },
@@ -74,6 +92,7 @@ export default [{
     meta: {
       title: 'Discover',
       compact: true,
+      requiresAuth: true,
     },
     component: browseDiscover,
   },
@@ -88,6 +107,7 @@ export default [{
     meta: {
       title: 'Artist',
       buttons: true,
+      requiresAuth: true,
     },
     component: artistOverview,
   },
@@ -97,6 +117,7 @@ export default [{
     meta: {
       title: 'Related Artists',
       buttons: true,
+      requiresAuth: true,
     },
     component: artistRelated,
   },
@@ -106,6 +127,7 @@ export default [{
     meta: {
       title: 'About',
       buttons: true,
+      requiresAuth: true,
     },
     component: artistAbout,
   },
@@ -119,6 +141,7 @@ export default [{
     compact: true,
     cover: true,
     buttons: true,
+    requiresAuth: true,
   },
   component: album,
 },
@@ -130,6 +153,7 @@ export default [{
     compact: true,
     cover: true,
     buttons: true,
+    requiresAuth: true,
   },
   component: playlist,
 },
@@ -139,6 +163,7 @@ export default [{
   meta: {
     title: 'Search',
     compact: true,
+    requiresAuth: true,
   },
   component: search,
 },
@@ -148,6 +173,7 @@ export default [{
   meta: {
     title: 'Recently Played',
     buttons: true,
+    requiresAuth: true,
   },
   component: mylibraryHistory,
 },
@@ -157,6 +183,7 @@ export default [{
   meta: {
     title: 'Tracks',
     buttons: true,
+    requiresAuth: true,
   },
   component: mylibraryTracks,
 },
@@ -167,6 +194,7 @@ export default [{
     title: 'Albums',
     buttons: true,
     compact: true,
+    requiresAuth: true,
   },
   component: mylibraryAlbums,
 },
@@ -176,7 +204,17 @@ export default [{
   meta: {
     title: 'Settings',
     compact: true,
+    requiresAuth: true,
   },
   component: settings,
+},
+{
+  path: '/user/:id',
+  name: 'user',
+  meta: {
+    title: 'User',
+    requiresAuth: true,
+  },
+  component: user,
 },
 ];

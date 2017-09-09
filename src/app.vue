@@ -19,7 +19,7 @@
   .tooltip-container
 
   // loading spinner
-  transition(name='fade')
+  transition(name='fade', appear)
     ma-loading.loading-container(v-if='$isLoading("fetching data")')
       template(slot='spinner')
         ma-loader
@@ -126,10 +126,6 @@ a {
     }
 }
 
-.main-container {
-    padding-bottom: 81px;
-}
-
 .page-container {
     display: flex;
     flex-direction: column;
@@ -164,7 +160,7 @@ a {
 
     .btn {
         display: inline-flex;
-        margin: 0 5px 10px 0;
+        margin-bottom: 10px;
         padding: 13px;
         border-radius: 3px;
         text-transform: uppercase;

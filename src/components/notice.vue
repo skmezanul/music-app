@@ -32,14 +32,8 @@ export default {
 
 <style lang="scss">
 .notice-container {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include position(fixed, 999);
+    @include flex-center;
     height: 69px;
     background-color: $accent-color;
     .notice-inner {

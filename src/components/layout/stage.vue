@@ -134,14 +134,8 @@ export default {
     }
 
     .stage-background {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        @include position(absolute, 1);
+        @include flex-center;
         animation: zoomOut 0.7s 0.2s both;
 
         img {
@@ -150,11 +144,7 @@ export default {
         }
     }
     &:after {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        @include position(absolute, 1);
         background: ease-in-out-sine-gradient(to top, $main-bg-color, rgba($main-bg-color, 0)), radial-gradient(circle, rgba($main-bg-color, 0), $main-bg-color);
         content: "";
     }

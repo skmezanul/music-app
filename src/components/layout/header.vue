@@ -21,7 +21,7 @@ header
         :src='$store.state.currentUser.images[0].url',
         :alt='$store.state.currentUser.display_name')
 
-      router-link.user-name.mobile-hidden(to='/') {{ $store.state.currentUser.display_name }}
+      router-link.user-name.mobile-hidden(:to='toTarget("user", $store.state.currentUser.id)') {{ $store.state.currentUser.display_name }}
       i.toggle.material-icons(@click='toggleDropdown') keyboard_arrow_down
       // user dropdown
       ul.dropdown(
@@ -47,9 +47,12 @@ export default {
   },
   methods: {
     // to target
-    toTarget(name) {
+    toTarget(name, id) {
       const target = {
         name,
+        params: {
+          id,
+        },
       };
       return target;
     },

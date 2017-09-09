@@ -21,6 +21,8 @@ main.main-container
           :type='track.type',
           :image='track.album.images[0].url',
           :title='track.name',
+          :artists='track.artists',
+          :album='track.album',
           :explicit='track.explicit',
           :duration='track.duration_ms',
           :index='index')

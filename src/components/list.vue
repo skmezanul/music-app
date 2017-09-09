@@ -178,15 +178,8 @@ export default {
                 transition: filter 0.3s;
             }
             i {
-                position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                z-index: 1;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                @include position(absolute, 1);
+                @include flex-center;
                 color: rgba($white, 0);
                 font-size: 2.5em;
                 transition: color 0.3s;
@@ -195,9 +188,7 @@ export default {
         .explicit {
           flex: 0.15;
           span {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            @include flex-center;
             padding-top: 2px;
             padding-left: 1px;
             width: 18px;
