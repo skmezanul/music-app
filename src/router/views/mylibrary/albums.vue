@@ -48,10 +48,6 @@ export default {
       }).then((res) => {
         that.albums = res.data.items;
         that.$endLoading('fetching data');
-      }).catch(() => {
-        that.$router.go(-1);
-        that.$endLoading('fetching data');
-        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchsavedalbums'));
       });
     },
   },

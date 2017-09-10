@@ -12,8 +12,6 @@ export default {
       if (!localStorage.getItem('app_language')) {
         localStorage.setItem('app_language', res.data.country);
       }
-    }).catch(() => {
-      commit('ADD_NOTICE', this.$t('errors.fetchuser'));
     });
   },
 
@@ -24,8 +22,6 @@ export default {
       url: '/me/player/devices',
     }).then((res) => {
       commit('DEVICE_ID', res.data.devices[0].id);
-    }).catch(() => {
-      commit('ADD_NOTICE', this.$t('errors.fetchdevices'));
     });
   },
 
@@ -36,8 +32,6 @@ export default {
       url: '/me/player',
     }).then((res) => {
       commit('CURRENT_PLAYBACK', res.data);
-    }).catch(() => {
-      commit('ADD_NOTICE', this.$t('errors.fetchplayback'));
     });
   },
 };

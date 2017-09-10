@@ -88,8 +88,6 @@ export default {
         },
       }).then((res) => {
         that.playlists = res.data.items;
-      }).catch((err) => {
-        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchplaylists'));
       });
     },
   },

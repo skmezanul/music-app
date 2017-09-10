@@ -36,4 +36,6 @@ export default {
   by: 'Por',
   addtoplaylist: 'Guardar en Tu lista',
   more: 'Más',
+  loginwithspotify: 'Inicia sesión con Spotify.',
+  continuetospotify: 'Continuar a spotify',
 };

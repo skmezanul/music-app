@@ -41,9 +41,6 @@ export default {
         const bio = res.data.artist.bio.content;
         const formattedBio = bio.split('<a')[0];
         that.biography = formattedBio;
-      }).catch((err) => {
-        that.$router.go(-1);
-        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchartistbio'));
       });
     },
   },

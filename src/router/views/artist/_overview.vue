@@ -102,9 +102,6 @@ export default {
         },
       }).then((res) => {
         that.toptracks = res.data.tracks;
-      }).catch(() => {
-        that.$router.go(-1);
-        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchartisttoptracks'));
       });
     },
 
@@ -122,9 +119,6 @@ export default {
         },
       }).then((res) => {
         that.albums = res.data.items;
-      }).catch(() => {
-        that.$router.go(-1);
-        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchartistalbums'));
       });
     },
 
@@ -142,9 +136,6 @@ export default {
         },
       }).then((res) => {
         that.singles = res.data.items;
-      }).catch(() => {
-        that.$router.go(-1);
-        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchartistsingles'));
       });
     },
 
@@ -162,9 +153,6 @@ export default {
         },
       }).then((res) => {
         that.appearson = res.data.items;
-      }).catch(() => {
-        that.$router.go(-1);
-        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchartistappearson'));
       });
     },
   },

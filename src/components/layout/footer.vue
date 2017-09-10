@@ -141,8 +141,6 @@ export default {
         },
       }).then(() => {
         that.GET_CURRENT_PLAYBACK();
-      }).catch(() => {
-        that.$store.commit('ADD_NOTICE', that.$t('errors.skiptrack'));
       });
     },
 
@@ -159,8 +157,6 @@ export default {
         },
       }).then(() => {
         that.GET_CURRENT_PLAYBACK();
-      }).catch(() => {
-        that.$store.commit('ADD_NOTICE', that.$t('errors.toggleplayback'));
       });
     },
 
@@ -176,8 +172,6 @@ export default {
           state: 'context',
           device_id,
         },
-      }).catch(() => {
-        that.$store.commit('ADD_NOTICE', that.$t('errors.togglerepeat'));
       });
     },
 
@@ -194,8 +188,6 @@ export default {
           state,
           device_id,
         },
-      }).catch(() => {
-        that.$store.commit('ADD_NOTICE', that.$t('errors.toggleshuffle'));
       });
     },
 
@@ -212,8 +204,6 @@ export default {
           volume_percent,
           device_id,
         },
-      }).catch(() => {
-        that.$store.commit('ADD_NOTICE', that.$t('errors.changevolume'));
       });
     },
   },

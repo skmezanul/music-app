@@ -22,8 +22,8 @@ export default {
 
     .btn {
         display: inline-flex;
-        margin-bottom: 10px;
         padding: 13px;
+        margin-right: 5px;
         border-radius: 3px;
         text-transform: uppercase;
         letter-spacing: 1.5px;
@@ -60,7 +60,7 @@ export default {
     .button-group {
         display: flex;
         overflow: hidden;
-        margin: 0 5px 10px 0;
+        margin-right: 5px;
         border-radius: 5px;
 
         a {

@@ -59,8 +59,6 @@ export default {
       }).then((res) => {
         that.featured = res.data;
         that.$endLoading('fetching data');
-      }).catch(() => {
-        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchfeaturedplaylists'));
       });
     },
 
@@ -79,8 +77,6 @@ export default {
       }).then((res) => {
         that.releases = res.data;
         that.$endLoading('fetching data');
-      }).catch(() => {
-        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchfeaturedplaylists'));
       });
     },
   },

@@ -37,9 +37,6 @@ export default {
         url: `/artists/${that.$route.params.id}/related-artists`,
       }).then((res) => {
         that.related = res.data.artists;
-      }).catch(() => {
-        that.$router.go(-1);
-        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchrelatedartists'));
       });
     },
   },

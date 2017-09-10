@@ -33,30 +33,7 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.getSingleAlbum();
-  },
-  methods: {
-    // get album from the api
-    getSingleAlbum() {
-      const that = this;
-      const market = that.$store.state.currentUser.country;
-
-      that.$startLoading('fetching data');
-      that.axios({
-        method: 'get',
-        url: `/albums/${that.$route.params.id}`,
-        params: {
-          market,
-        },
-      }).then((res) => {
-        that.album = res.data;
-        that.$endLoading('fetching data');
-      }).catch(() => {
-        that.$router.go(-1);
-        that.$endLoading('fetching data');
-        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchalbum'));
-      });
-    },
+    this.$spotify('get', 'album');
   },
 };
 </script>
