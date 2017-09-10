@@ -1,36 +1,37 @@
 <template lang='pug'>
 header
-  .header-container
-    // navigation
-    .header-inner.left
-      i.material-icons(@click='routerGo(-1)') keyboard_arrow_left
+	.header-container
+		// navigation
+		.header-inner.left
+			i.material-icons(@click='routerGo(-1)') keyboard_arrow_left
 
-      i.material-icons(@click='routerGo(1)') keyboard_arrow_right
-    // search
-    .header-inner.center
-      i.material-icons.search-icon search
-      input(
-        type='text',
-        @keyup.enter='startSearch',
-        v-model='searchQuery',
-        :placeholder='$tc("search", 0)')
+			i.material-icons(@click='routerGo(1)') keyboard_arrow_right
+		// search
+		.header-inner.center
+			i.material-icons.search-icon search
+			input(
+				type='text',
+				@keyup.enter='startSearch',
+				v-model='searchQuery',
+				:placeholder='$tc("search", 0)')
 
-    // current user
-    .header-inner.right
-      img.user-avatar.mobile-hidden(
-        :src='$store.state.currentUser.images[0].url',
-        :alt='$store.state.currentUser.display_name')
+		// current user
+		.header-inner.right
+			.avatar-container.mobile-hidden
+				img(
+					:src='$store.state.currentUser.images[0].url',
+					:alt='$store.state.currentUser.display_name')
 
-      router-link.user-name.mobile-hidden(:to='toTarget("user", $store.state.currentUser.id)') {{ $store.state.currentUser.display_name }}
-      i.toggle.material-icons(@click='toggleDropdown') keyboard_arrow_down
-      // user dropdown
-      ul.dropdown(
-        v-if='userDropdown',
-        v-on-clickaway='toggleDropdown',
-        @click='toggleDropdown')
-        router-link(tag='li', :to='toTarget("myaccount")') {{ $t('myaccount') }}
-        router-link(tag='li', :to='toTarget("settings")') {{ $t('settings') }}
-        router-link(tag='li', :to='toTarget("logout")') {{ $t('logout') }}
+			router-link.user-name.mobile-hidden(:to='toTarget("user", $store.state.currentUser.id)') {{ $store.state.currentUser.display_name }}
+			i.toggle.material-icons(@click='toggleDropdown') keyboard_arrow_down
+			// user dropdown
+			ul.dropdown(
+				v-if='userDropdown',
+				v-on-clickaway='toggleDropdown',
+				@click='toggleDropdown')
+				router-link(tag='li', :to='toTarget("myaccount")') {{ $t('myaccount') }}
+				router-link(tag='li', :to='toTarget("settings")') {{ $t('settings') }}
+				router-link(tag='li', :to='toTarget("logout")') {{ $t('logout') }}
 </template>
 
 <script>
@@ -108,7 +109,7 @@ header {
         height: 42px;
         transition: width 0.3s;
         will-change: width;
-        @media screen and (max-width: 955px) {
+        @media screen and (max-width: $breakpoint-mobile) {
             width: 95%;
         }
 
@@ -117,7 +118,7 @@ header {
             align-items: center;
 
             &.left {
-                @media screen and (min-width: 955px) {
+                @media screen and (min-width: $breakpoint-mobile) {
                     flex: 1;
                     justify-content: flex-start;
                 }
@@ -131,10 +132,10 @@ header {
             &.center {
                 position: relative;
                 margin: 0 10px;
-                @media screen and (max-width: 955px) {
+                @media screen and (max-width: $breakpoint-mobile) {
                     width: 100%;
                 }
-                @media screen and (min-width: 955px) {
+                @media screen and (min-width: $breakpoint-mobile) {
                     flex: 2;
                 }
                 input {
@@ -170,15 +171,20 @@ header {
 
             &.right {
                 position: relative;
-                @media screen and (min-width: 955px) {
+                @media screen and (min-width: $breakpoint-mobile) {
                     flex: 1;
                     justify-content: flex-end;
                 }
 
-                .user-avatar {
+                .avatar-container {
                     width: 34px;
                     height: 34px;
                     border-radius: 100%;
+                    overflow: hidden;
+                    img {
+                        height: 100%;
+                        width: auto;
+                    }
                 }
 
                 .user-name {

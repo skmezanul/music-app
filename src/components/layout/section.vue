@@ -50,25 +50,29 @@ export default {
     display: flex;
     flex-direction: column;
     margin: 30px 0;
-
     &:last-child {
-      padding-bottom: 81px;
+        @media screen and (min-width: $breakpoint-mobile) {
+            padding-bottom: 81px;
+        }
+        @media screen and (max-width: $breakpoint-mobile) {
+            padding-bottom: 141px;
+        }
     }
 
     &.collapsed {
-        .section-item.artist:nth-child(n+5),
-        .row:nth-child(n+4) {
+        .row:nth-child(n+4),
+        .section-item.artist:nth-child(n+5) {
             display: none;
         }
-        @media screen and (min-width: 955px) {
-          .section-item:nth-child(n+6) {
-              display: none;
-          }
+        @media screen and (min-width: $breakpoint-mobile) {
+            .section-item:nth-child(n+6) {
+                display: none;
+            }
         }
-        @media screen and (max-width: 955px) {
-          .section-item:nth-child(n+5) {
-              display: none;
-          }
+        @media screen and (max-width: $breakpoint-mobile) {
+            .section-item:nth-child(n+5) {
+                display: none;
+            }
         }
     }
 
@@ -101,7 +105,7 @@ export default {
         margin: 0 -7px;
 
         &.is-collapsed {
-            @media screen and (max-width: 955px) {
+            @media screen and (max-width: $breakpoint-mobile) {
                 .section-item:nth-child(n+3) {
                     display: none;
                 }

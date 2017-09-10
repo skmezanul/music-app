@@ -1,44 +1,37 @@
 <template lang="pug">
 .stage(:class='{ "has-cover" : hasCover, "compact" : isCompact }')
 
-	// background
-	.stage-background(v-if='image')
-		img(
+  // background
+  .background-container(v-if='image')
+    img(
     v-parallax='0.5',
     :src='image',
     :alt='title')
 
-	.stage-inner
-		.cover-container.mobile-hidden(v-if="hasCover")
-			img(
+  .stage-inner
+    .cover-container.mobile-hidden(v-if="hasCover")
+      img(
         :src='image',
         :alt='title')
 
-		// content
-		.stage-container
-			h2 {{ subtitle }}
-			h1 {{ title }}
-			.meta-container.mobile-hidden(v-if='meta')
-				a {{ formattedMeta }}
-			.button-container(v-if='hasButtons')
-				.button-group
-					a.btn.btn-accent
-						i.material-icons play_circle_filled
-						| {{ $t('playall') }}
-					a.btn(v-if='canFollow')
-						i.material-icons add_circle
-						| {{ $t('follow') }}
-					a.btn.btn-icon
-						i.material-icons favorite
-				a.btn.btn-transparent
-					i.material-icons share
-					| {{ $t('share') }}
+    // content
+    .stage-container
+      h2 {{ subtitle }}
+      h1 {{ title }}
+      .meta-container.mobile-hidden(v-if='meta')
+        a {{ formattedMeta }}
+      .button-container(v-if='hasButtons')
+        .button-group
+          ma-button(type='accent', icon='play_circle_filled', title='playall')
+          ma-button(v-if='canFollow', icon='add_circle', title='follow')
+          ma-button(type='icon', icon='favorite')
+        ma-button(type='transparent', icon='share', title='share')
 
-		// navigation
-		nav.subnav.mobile-hidden(v-if='navigation')
-			ul
-				li(v-for='navitem in navigation')
-					router-link(:to='toTarget(navitem.name)') {{ navitem.title }}
+    // navigation
+    nav.subnav.mobile-hidden(v-if='navigation')
+      ul
+        li(v-for='navitem in navigation')
+          router-link(:to='toTarget(navitem.name)') {{ navitem.title }}
 </template>
 
 <script>
@@ -112,7 +105,7 @@ export default {
 
     &.compact {
         height: 350px;
-        .stage-background {
+        .background-container {
             img {
                 filter: saturate(200%) blur(20px);
             }
@@ -133,7 +126,7 @@ export default {
         }
     }
 
-    .stage-background {
+    .background-container {
         @include position(absolute, 1);
         @include flex-center;
         animation: zoomOut 0.7s 0.2s both;

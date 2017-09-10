@@ -2,7 +2,7 @@
 main.main-container
   ma-splash(:title='$t("loginwithspotify")')
     img(slot='image', src='/static/images/spotify_logo.png', draggable='false')
-    a.btn.btn-accent(slot='button', @click='login') {{ $t("continuetospotify") }}
+    ma-button(slot='button', @click.native='login', type='accent', title='continuetospotify')
 </template>
 
 <script>

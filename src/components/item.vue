@@ -1,32 +1,35 @@
 <template lang="pug">
 .section-item(:class='type')
 	router-link.section-item-inner(
-    tag='div',
-    :to='toTarget(type, primaryid, secondaryid)')
+		tag='div',
+    @mouseover.native='overlay = true',
+    @mouseleave.native='overlay = false',
+		:to='toTarget(type, primaryid, secondaryid)')
 
 		// overlay
-		.item-overlay(
-      v-if='hasOverlay',
-      :style='{ background: color }')
+		transition(name='fade')
+			.item-overlay(
+				v-if='hasOverlay && overlay',
+				:style='{ background: color }')
 
-			.overlay-inner
-				i.favorite.material-icons favorite
+				.overlay-inner
+					i.favorite.material-icons favorite
 
-				i.play.material-icons(
-          v-if='!playing',
-          @click='togglePlaying') play_circle_filled
+					i.play.material-icons(
+						v-if='!playing',
+						@click.prevent='togglePlaying') play_circle_filled
 
-				i.play.material-icons(
-          v-if='playing',
-          @click='togglePlaying') pause_circle_filled
+					i.play.material-icons(
+						v-if='playing',
+						@click.prevent='togglePlaying') pause_circle_filled
 
-				i.more.material-icons more_horiz
+					i.more.material-icons more_horiz
 
 		// image
 		.image-container(v-if='image')
 			img(
-        :src='image',
-        :alt='title')
+				:src='image',
+				:alt='title')
 
 		// meta
 		.meta-container
@@ -34,9 +37,9 @@
 				span {{ title }}
 				.artist-container(v-if='artist')
 					router-link.artist(
-            v-for='item in artist',
-            :key='item.id',
-            :to='toTarget(item.type, item.id)') {{ item.name }}
+						v-for='item in artist',
+						:key='item.id',
+						:to='toTarget(item.type, item.id)') {{ item.name }}
 </template>
 
 <script>
@@ -46,6 +49,7 @@ export default {
   data() {
     return {
       playing: false,
+      overlay: false,
       color: '',
     };
   },
@@ -57,8 +61,8 @@ export default {
     'artist',
     'image',
   ],
-  mounted() {
-    this.getColor();
+  watch: {
+    'overlay': 'getColor',
   },
   methods: {
     // to target
@@ -81,20 +85,23 @@ export default {
     // get color from image
     getColor() {
       const that = this;
-      Vibrant.from(that.image).getPalette()
-        .then((palette) => {
-        const r = Math.round(palette.Muted._rgb[0]);
-        const g = Math.round(palette.Muted._rgb[1]);
-        const b = Math.round(palette.Muted._rgb[2]);
-        const a = 1;
-        const color = `rgba(${r}, ${g}, ${b}, ${a})`;
-        that.color = `linear-gradient(to top, ${color} 25%, rgba(80, 80, 80, 0.5) 100%)`;
-      }).catch(() => {
-        that.color = '';
-      });
+      if (that.color === '') {
+        Vibrant.from(that.image).getPalette()
+          .then((palette) => {
+            const r = Math.round(palette.Muted._rgb[0]);
+            const g = Math.round(palette.Muted._rgb[1]);
+            const b = Math.round(palette.Muted._rgb[2]);
+            const a = 1;
+            const color = `rgba(${r}, ${g}, ${b}, ${a})`;
+            that.color = `linear-gradient(to top, ${color} 25%, rgba(80, 80, 80, 0.5) 100%)`;
+          }).catch(() => {
+            that.color = '';
+          });
+      }
     },
   },
   computed: {
+    // check if has overlay
     hasOverlay() {
       if (this.type === 'album' || this.type === 'playlist') {
         return true;
@@ -111,7 +118,7 @@ export default {
     flex-basis: 20%;
     padding: 7px;
     max-width: 20%;
-    @media screen and (max-width: 955px) {
+    @media screen and (max-width: $breakpoint-mobile) {
         flex-basis: 50% !important;
         max-width: 50% !important;
     }
@@ -187,9 +194,6 @@ export default {
         &:hover {
             box-shadow: $shadow-highlight;
             cursor: pointer;
-            .item-overlay {
-                opacity: 1;
-            }
         }
         .image-container {
             display: flex;
@@ -207,8 +211,6 @@ export default {
             display: flex;
             background: linear-gradient(to top, $accent-color 25%, rgba(80, 80, 80, 0.5) 100%);
             justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s;
             .overlay-inner {
                 display: flex;
                 flex: 0.8;

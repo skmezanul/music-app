@@ -12,6 +12,7 @@ import footer from './layout/footer';
 import section from './layout/section';
 import list from './list';
 import item from './item';
+import button from './button';
 import loader from './loader';
 import splash from './splash';
 import notice from './notice';
@@ -25,13 +26,18 @@ Vue.component('ma-footer', footer);
 Vue.component('ma-section', section);
 Vue.component('ma-list', list);
 Vue.component('ma-item', item);
+Vue.component('ma-button', button);
 Vue.component('ma-loader', loader);
 Vue.component('ma-splash', splash);
 Vue.component('ma-notice', notice);
 
 // register plugins
-Vue.use(tooltip);
 Vue.use(parallax);
+Vue.use(tooltip, {
+  defaultClass: '',
+  defaultTemplate: '<div class="tooltip" role="tooltip"><div class="tooltip-inner"></div></div>',
+  defaultContainer: '.tooltip-container',
+});
 
 // register directives
 Vue.directive('in-viewport', viewport);

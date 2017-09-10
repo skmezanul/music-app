@@ -1,70 +1,71 @@
 <template lang="pug">
 footer
-  // current playback
-  .footer-container.left.mobile-hidden
-    img(
-      :src='$store.state.currentPlayback.item.album.images[0].url',
-      :alt='$store.state.currentPlayback.item.name')
+	// current playback
+	.footer-container.left
+		.cover-container.mobile-hidden
+			img(
+				:src='$store.state.currentPlayback.item.album.images[0].url',
+				:alt='$store.state.currentPlayback.item.name')
 
-    .currently-playing
-      span.title {{ $store.state.currentPlayback.item.name }}
-      .artist-container
-        router-link.artist(
-          v-for='artist in $store.state.currentPlayback.item.artists',
-          :key='artist.id',
-          :to='toArtist(artist.type, artist.id)') {{ artist.name }}
+		.currently-playing
+			span.title {{ $store.state.currentPlayback.item.name }}
+			.artist-container
+				router-link.artist(
+					v-for='artist in $store.state.currentPlayback.item.artists',
+					:key='artist.id',
+					:to='toArtist(artist.type, artist.id)') {{ artist.name }}
 
-  // playback controls
-  .footer-container.center
+	// playback controls
+	.footer-container.center
 
-    i.shuffle.material-icons(
-      @click='toggleShuffle',
-      :class='{ "active": $store.state.currentPlayback.shuffle_state == true }',
-      v-tooltip='{ content: $t("shuffle"), container: ".tooltip-container" }') shuffle
+		i.shuffle.material-icons(
+			@click='toggleShuffle',
+			:class='{ "active": $store.state.currentPlayback.shuffle_state == true }',
+			v-tooltip='{ content: $t("shuffle") }') shuffle
 
-    i.skip.material-icons(@click='skip("previous")') skip_previous
+		i.skip.material-icons(@click='skip("previous")') skip_previous
 
-    i.toggle.play.material-icons(
-      v-show='!$store.state.currentPlayback.is_playing',
-      @click='togglePlayback("play")') play_circle_filled
+		i.toggle.play.material-icons(
+			v-show='!$store.state.currentPlayback.is_playing',
+			@click='togglePlayback("play")') play_circle_filled
 
-    i.toggle.pause.material-icons(
-      v-show='$store.state.currentPlayback.is_playing',
-      @click='togglePlayback("pause")') pause_circle_filled
+		i.toggle.pause.material-icons(
+			v-show='$store.state.currentPlayback.is_playing',
+			@click='togglePlayback("pause")') pause_circle_filled
 
-    i.skip.material-icons(@click='skip("next")') skip_next
+		i.skip.material-icons(@click='skip("next")') skip_next
 
-    i.repeat.material-icons(
-      v-show='$store.state.currentPlayback.repeat_state != "track"',
-      @click='toggleRepeat',
-      :class='{ "active": $store.state.currentPlayback.repeat_state == "context" }',
-      v-tooltip='{ content: $t("repeat"), container: ".tooltip-container" }') repeat
+		i.repeat.material-icons(
+			v-show='$store.state.currentPlayback.repeat_state != "track"',
+			@click='toggleRepeat',
+			:class='{ "active": $store.state.currentPlayback.repeat_state == "context" }',
+			v-tooltip='{ content: $t("repeat") }') repeat
 
-    i.repeat.material-icons.active(
-      v-show='$store.state.currentPlayback.repeat_state == "track"',
-      @click='toggleRepeat',
-      v-tooltip='{ content: $t("repeat"), container: ".tooltip-container" }') repeat_one
+		i.repeat.material-icons.active(
+			v-show='$store.state.currentPlayback.repeat_state == "track"',
+			@click='toggleRepeat',
+			v-tooltip='{ content: $t("repeat") }') repeat_one
 
-  // volume and other controls
-  .footer-container.right.mobile-hidden
-    i.volume.material-icons(v-if='volume == 0') volume_mute
-    i.volume.material-icons(v-if='volume <= 50 && volume > 0') volume_down
-    i.volume.material-icons(v-if='volume > 50') volume_up
-    ma-slider(
-      ref='slider',
-      v-model='volume',
-      width='100px',
-      :bgStyle='bgStyle',
-      :sliderStyle='sliderStyle',
-      :processStyle='sliderStyle',
-      :tooltip='false')
-    .time-container
-      span.track-progress {{ getDuration($store.state.currentPlayback.progress_ms) }}
-      span.track-duration {{ getDuration($store.state.currentPlayback.item.duration_ms) }}
+	// volume and other controls
+	.footer-container.right.mobile-hidden
+		i.volume.material-icons(v-if='volume == 0') volume_mute
+		i.volume.material-icons(v-if='volume <= 50 && volume > 0') volume_down
+		i.volume.material-icons(v-if='volume > 50') volume_up
+		ma-slider(
+			ref='slider',
+			v-model='volume',
+			width='100px',
+			:bgStyle='bgStyle',
+			:sliderStyle='sliderStyle',
+			:processStyle='sliderStyle',
+			:tooltip='false')
+		.time-container
+			span.track-progress {{ getDuration($store.state.currentPlayback.progress_ms) }}
+			span.track-duration {{ getDuration($store.state.currentPlayback.item.duration_ms) }}
 
-  // progress bar
-  .progress-container
-    .progress-bar(:style='getProgress()')
+	// progress bar
+	.progress-container
+		.progress-bar(:style='getProgress()')
 </template>
 
 <script>
@@ -158,7 +159,6 @@ export default {
         },
       }).then(() => {
         that.GET_CURRENT_PLAYBACK();
-        that.isPlaying = false;
       }).catch(() => {
         that.$store.commit('ADD_NOTICE', that.$t('errors.toggleplayback'));
       });
@@ -184,7 +184,7 @@ export default {
     // toggle shuffle for the current playback
     toggleShuffle() {
       const that = this;
-      const state = !that.playing.shuffle_state;
+      const state = !that.$store.state.currentPlayback.shuffle_state;
       const device_id = that.$store.state.deviceID;
 
       that.axios({
@@ -232,6 +232,10 @@ footer {
     padding: 15px 20px;
     border-top: 1px solid $border-color;
     background: $dark-blue;
+    transform: translateZ(0);
+    @media screen and (max-width: $breakpoint-mobile) {
+        flex-direction: column;
+    }
 
     .footer-container {
         display: flex;
@@ -242,22 +246,29 @@ footer {
             flex: 1;
             justify-content: flex-start;
 
-            img {
+            .cover-container {
                 margin-right: 10px;
                 width: 50px;
                 height: 50px;
                 border-radius: 3px;
                 box-shadow: $shadow;
+                overflow: hidden;
+                img {
+                    width: 100%;
+                    height: auto;
+                }
             }
 
             .currently-playing {
+                @media screen and (max-width: $breakpoint-mobile) {
+                    text-align: center;
+                }
                 .title {
                     font-size: 1.2em;
                 }
-
                 .artist-container {
-                    margin-top: 2px;
                     font-weight: 300;
+                    margin-top: 2px;
 
                     a {
                         @include comma-separated(0.9em, 300);
@@ -270,6 +281,11 @@ footer {
             flex: 0.7;
             justify-content: space-between;
             letter-spacing: 2px;
+            @media screen and (max-width: $breakpoint-mobile) {
+                flex: 1 !important;
+                width: 100%;
+                margin-top: 10px;
+            }
 
             .toggle {
                 color: $white;
@@ -290,9 +306,9 @@ footer {
                 border-radius: 5px;
                 background-color: $blue;
                 .track-progress {
-                  &:after {
-                    content: " / ";
-                  }
+                    &:after {
+                        content: " / ";
+                    }
                 }
             }
         }
@@ -306,20 +322,20 @@ footer {
         }
     }
     .progress-container {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      height: 4px;
-      background-color: $accent-color;
-      .progress-bar {
-          position: absolute;
-          right: 0;
-          width: 100%;
-          height: 100%;
-          background: $dark-blue;
-          transition: width 1s linear;
-      }
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 4px;
+        background-color: $accent-color;
+        .progress-bar {
+            position: absolute;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: $dark-blue;
+            transition: width 1s linear;
+        }
     }
 }
 </style>

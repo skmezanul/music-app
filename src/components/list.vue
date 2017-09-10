@@ -29,7 +29,7 @@ li.row(
   .explicit
     span(
       v-if='explicit',
-      v-tooltip='{ content: $t("explicit"), container: ".tooltip-container" }') E
+      v-tooltip='{ content: $t("explicit") }') E
 
   // album name
   .album-container(v-if='album')
@@ -40,10 +40,10 @@ li.row(
 
   // actions
   i.material-icons.mobile-hidden(
-    v-tooltip='{ content: $t("addtoplaylist"), container: ".tooltip-container" }') playlist_add
+    v-tooltip='{ content: $t("addtoplaylist") }') playlist_add
 
   i.material-icons.mobile-hidden(
-    v-tooltip='{ content: $t("more"), container: ".tooltip-container" }') more_horiz
+    v-tooltip='{ content: $t("more") }') more_horiz
 </template>
 
 <script>
@@ -211,7 +211,7 @@ export default {
             margin-right: 20px;
             text-overflow: ellipsis;
             white-space: nowrap;
-            @media screen and (max-width: 955px) {
+            @media screen and (max-width: $breakpoint-mobile) {
                 padding: 0 15px;
             }
             span {

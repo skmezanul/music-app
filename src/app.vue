@@ -1,32 +1,32 @@
 <template lang="pug">
 #app(:class='{ "scrolled" : scrollPosition > 0 }')
 
-  // header
-  ma-header
+	// header
+	ma-header
 
-  // navigation
-  ma-navigation
+	// navigation
+	ma-navigation.mobile-hidden
 
-  // router view
-  router-view(:key='$route.path')
+	// router view
+	router-view(:key='$route.path')
 
-  // footer
-  keep-alive
-    transition(name='fade')
-      ma-footer
+	// footer
+	keep-alive
+		transition(name='fade')
+			ma-footer
 
-  // tooltips
-  .tooltip-container
+	// tooltips
+	.tooltip-container
 
-  // loading spinner
-  transition(name='fade', appear)
-    ma-loading.loading-container(v-if='$isLoading("fetching data")')
-      template(slot='spinner')
-        ma-loader
+	// loading spinner
+	transition(name='fade', appear)
+		ma-loading.loading-container(v-if='$isLoading("fetching data")')
+			template(slot='spinner')
+				ma-loader
 
-  // notices
-  transition-group(name='slide', tag='notices')
-    ma-notice(v-for='(notice, index) in $store.state.notices', :key='index', :message='notice', @remove="removeNotice(index)")
+	// notices
+	transition-group(name='slide', tag='notices')
+		ma-notice(v-for='(notice, index) in $store.state.notices', :key='index', :message='notice', @remove="removeNotice(index)")
 </template>
 
 <script>
@@ -153,76 +153,27 @@ a {
     }
 }
 
-.button-container {
-    display: flex;
-    align-items: center;
-    margin-top: 15px;
-
-    .btn {
-        display: inline-flex;
-        margin-bottom: 10px;
-        padding: 13px;
-        border-radius: 3px;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        font-weight: 700;
-        font-size: 0.9em;
-        font-family: 'Ubuntu', sans-serif;
-        transition: background-color 0.3s, color 0.3s;
-        &:hover {
-            cursor: pointer;
-        }
-        &:not(.btn-transparent) {
-            background-color: $light-blue;
-            &:hover {
-                background-color: $white;
-                color: $black;
-            }
-        }
-        &:not(.btn-icon) {
-            i {
-                margin-right: 5px;
-            }
-        }
-
-        i {
-            font-size: 1em;
-            line-height: inherit;
-        }
-
-        &.btn-accent {
-            background-color: $accent-color;
-        }
-    }
-
-    .button-group {
-        display: flex;
-        overflow: hidden;
-        margin: 0 5px 10px 0;
-        border-radius: 5px;
-
-        a {
-            margin: 0;
-            border-radius: 0;
-            &:nth-child(3) {
-                border-left: 1px solid $blue;
-            }
-        }
-    }
-}
-
 .tooltip-container {
     .tooltip {
         z-index: 999;
         display: block !important;
-        letter-spacing: 1px;
+        letter-spacing: 1.5px;
         font-family: 'Roboto', sans-serif;
         transition: opacity 0.3s, visibility 0.3s;
+        margin-bottom: 12px;
 
         .tooltip-inner {
-            padding: 5px 7px;
+            padding: 7px 10px;
             border-radius: 3px;
-            background: $dark-blue;
+            background: $accent-color;
+            &:after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: calc(50% - 8px);
+                border: 8px solid;
+                border-color: $accent-color transparent transparent transparent;
+            }
         }
 
         &[aria-hidden='true'] {
@@ -247,13 +198,15 @@ a {
         }
     }
 }
-.loader-container,
-.main-container,
-.notice-container,
-header {
-    margin-left: 200px;
+@media screen and (min-width: $breakpoint-mobile) {
+    .loader-container,
+    .main-container,
+    .notice-container,
+    header {
+        margin-left: 200px;
+    }
 }
-@media screen and (max-width: 955px) {
+@media screen and (max-width: $breakpoint-mobile) {
     .mobile-hidden {
         display: none !important;
     }
