@@ -1,45 +1,45 @@
 <template lang="pug">
 .section-item(:class='type')
-	router-link.section-item-inner(
-		tag='div',
+  router-link.section-item-inner(
+    tag='div',
     @mouseover.native='overlay = true',
     @mouseleave.native='overlay = false',
-		:to='toTarget(type, primaryid, secondaryid)')
+    :to='toTarget(type, primaryid, secondaryid)')
 
-		// overlay
-		transition(name='fade')
-			.item-overlay(
-				v-if='hasOverlay && overlay',
-				:style='{ background: color }')
+    // overlay
+    transition(name='fade')
+      .item-overlay(
+        v-if='hasOverlay && overlay',
+        :style='{ background: color }')
 
-				.overlay-inner
-					i.favorite.material-icons favorite
+        .overlay-inner
+          i.favorite.material-icons favorite
 
-					i.play.material-icons(
-						v-if='!playing',
-						@click.prevent='togglePlaying') play_circle_filled
+          i.play.material-icons(
+            v-if='!playing',
+            @click.prevent='togglePlaying') play_circle_filled
 
-					i.play.material-icons(
-						v-if='playing',
-						@click.prevent='togglePlaying') pause_circle_filled
+          i.play.material-icons(
+            v-if='playing',
+            @click.prevent='togglePlaying') pause_circle_filled
 
-					i.more.material-icons more_horiz
+          i.more.material-icons more_horiz
 
-		// image
-		.image-container(v-if='image')
-			img(
-				:src='image',
-				:alt='title')
+    // image
+    .image-container(v-if='image')
+      img(
+        :src='image',
+        :alt='title')
 
-		// meta
-		.meta-container
-			.meta-container-inner
-				span {{ title }}
-				.artist-container(v-if='artist')
-					router-link.artist(
-						v-for='item in artist',
-						:key='item.id',
-						:to='toTarget(item.type, item.id)') {{ item.name }}
+    // meta
+    .meta-container
+      .meta-container-inner
+        span {{ title }}
+        .artist-container(v-if='artist')
+          router-link.artist(
+            v-for='item in artist',
+            :key='item.id',
+            :to='toTarget(item.type, item.id)') {{ item.name }}
 </template>
 
 <script>
@@ -124,8 +124,6 @@ export default {
     }
     &.artist,
     &.category {
-        flex-basis: 25%;
-        max-width: 25%;
         .section-item-inner {
             .meta-container {
                 @include position(absolute, 1);
@@ -154,6 +152,8 @@ export default {
         }
     }
     &.artist {
+        flex-basis: 25%;
+        max-width: 25%;
         .section-item-inner {
             height: 300px;
             .meta-container {
@@ -173,6 +173,17 @@ export default {
                 }
             }
         }
+    }
+    &.category {
+      flex-basis: 20%;
+      max-width: 20%;
+      .section-item-inner {
+        .image-container {
+          img {
+            transform: scale(1.02);
+          }
+        }
+      }
     }
     &.playlist {
         .section-item-inner {

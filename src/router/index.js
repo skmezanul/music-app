@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import { hasToken } from '@/api/helpers';
+import { hasToken } from '@/api';
 import routes from './routes';
 
 Vue.use(VueRouter);

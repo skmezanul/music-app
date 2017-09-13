@@ -95,9 +95,6 @@ export default {
         },
       }).then(() => {
         that.GET_CURRENT_PLAYBACK();
-      }).catch(() => {
-        that.playing = false;
-        that.$store.commit('ADD_NOTICE', that.$t('errors.playtrack'));
       });
     },
   },

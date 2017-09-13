@@ -28,14 +28,15 @@ export default {
     // get categories from the api
     getCategories() {
       const that = this;
-      const country = that.$store.state.currentUser.country;
+      const locale = that.$store.state.currentUser.country;
 
       that.$startLoading('fetching data');
       that.axios({
         method: 'get',
         url: '/browse/categories',
         params: {
-          country,
+          limit: 50,
+          locale,
         },
       }).then((res) => {
         that.categories = res.data.categories;

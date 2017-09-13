@@ -36,7 +36,26 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.$spotify('get', 'playlist');
+    this.getSinglePlaylist();
+  },
+  methods: {
+    // get playlist from the api
+    getSinglePlaylist() {
+      const that = this;
+      const market = that.$store.state.currentUser.country;
+
+      that.$startLoading('fetching data');
+      that.axios({
+        method: 'get',
+        url: `/users/${that.$route.params.owner}/playlists/${that.$route.params.id}`,
+        params: {
+          market,
+        },
+      }).then((res) => {
+        that.playlist = res.data;
+        that.$endLoading('fetching data');
+      });
+    },
   },
 };
 </script>
