@@ -29,7 +29,6 @@ export default {
         letter-spacing: 1.5px;
         font-weight: 700;
         font-size: 0.9em;
-        font-family: 'Ubuntu', sans-serif;
         transition: background-color 0.3s, color 0.3s;
         &:hover {
             cursor: pointer;

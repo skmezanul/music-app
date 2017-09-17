@@ -21,14 +21,10 @@ const router = new VueRouter({
  * Redirect to spotify login if no access token stored in local storage.
  */
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth) {
-    if (!hasToken() && to.name !== 'login') {
-      next({
-        name: 'login',
-      });
-    } else {
-      next();
-    }
+  if (to.meta.requiresAuth && !hasToken() && to.name !== 'login') {
+    next({
+      name: 'login',
+    });
   } else {
     next();
   }

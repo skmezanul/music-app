@@ -73,6 +73,48 @@ export default {
 </script>
 
 <style lang="scss">
+/** Ultra Light */
+@font-face {
+    font-family: 'San Francisco';
+    font-weight: 100;
+    src: url('../static/fonts/sanfranciscodisplay-ultralight-webfont.woff');
+}
+
+/** Thin */
+@font-face {
+    font-family: 'San Francisco';
+    font-weight: 200;
+    src: url('../static/fonts/sanfranciscodisplay-thin-webfont.woff');
+}
+
+/** Regular */
+@font-face {
+    font-family: 'San Francisco';
+    font-weight: 400;
+    src: url('../static/fonts/sanfranciscodisplay-regular-webfont.woff');
+}
+
+/** Medium */
+@font-face {
+    font-family: 'San Francisco';
+    font-weight: 500;
+    src: url('../static/fonts/sanfranciscodisplay-medium-webfont.woff');
+}
+
+/** Semi Bold */
+@font-face {
+    font-family: 'San Francisco';
+    font-weight: 600;
+    src: url('../static/fonts/sanfranciscodisplay-semibold-webfont.woff');
+}
+
+/** Bold */
+@font-face {
+    font-family: 'San Francisco';
+    font-weight: 700;
+    src: url('../static/fonts/sanfranciscodisplay-bold-webfont.woff');
+}
+
 * {
     box-sizing: border-box;
 }
@@ -82,7 +124,7 @@ body {
     background-color: $main-bg-color;
     color: $white;
     letter-spacing: 1px;
-    font-family: 'Roboto', sans-serif;
+    font-family: $font-family;
     user-select: none;
 }
 
@@ -107,7 +149,7 @@ h4 {
 
 h1 {
     font-weight: 700;
-    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 2.5px;
 }
 
 h2 {
@@ -158,7 +200,7 @@ a {
         z-index: 999;
         display: block !important;
         letter-spacing: 1.5px;
-        font-family: 'Roboto', sans-serif;
+        font-family: $font-family;
         transition: opacity 0.3s, visibility 0.3s;
         margin-bottom: 12px;
 

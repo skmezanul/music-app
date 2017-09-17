@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
-import store from 'vuex';
+import store from '@/store';
 import { stringify } from 'query-string';
 import { clientId, scope } from './config';
 

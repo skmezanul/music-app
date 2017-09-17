@@ -200,10 +200,8 @@ export default {
         overflow: hidden;
         height: 100%;
         background-color: $blue;
-        box-shadow: $shadow;
         transition: box-shadow 0.3s;
         &:hover {
-            box-shadow: $shadow-highlight;
             cursor: pointer;
         }
         .image-container {

@@ -6,7 +6,7 @@ main.main-container
 </template>
 
 <script>
-import { toLogin, getToken} from '@/api';
+import { toLogin, getToken } from '@/api';
 
 export default {
   created() {

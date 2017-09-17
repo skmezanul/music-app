@@ -127,9 +127,8 @@ export default {
         margin-bottom: 2px;
         height: 75px;
         background-color: $blue;
-        box-shadow: $shadow;
         color: rgba($white, 0.7);
-        transition: background-color 0.3s, margin 0.3s, box-shadow 0.3s, transform 0.3s;
+        transition: background-color 0.3s, margin 0.3s, transform 0.3s;
         > i {
             margin-right: 25px;
             transition: color 0.3s;

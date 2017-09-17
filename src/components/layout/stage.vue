@@ -166,12 +166,10 @@ export default {
             flex-direction: column;
 
             h1 {
-                margin-top: 5px;
-                margin-left: -3px;
                 font-size: 5.5em;
             }
             .meta-container {
-                margin-top: 10px;
+                margin-top: 5px;
                 width: 80%;
                 a {
                     color: rgba($white, 0.7);
