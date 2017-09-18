@@ -295,9 +295,13 @@ footer {
                 padding: 5px 10px;
                 border-radius: 5px;
                 background-color: $blue;
+                width: 110px;
+                display: flex;
+                justify-content: center;
                 .track-progress {
+                  margin-right: 5px;
                     &:after {
-                        content: " / ";
+                        content: " /";
                     }
                 }
             }
