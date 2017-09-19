@@ -167,6 +167,7 @@ export default {
 
             h1 {
                 font-size: 5.5em;
+                margin-left: -3px;
             }
             .meta-container {
                 margin-top: 5px;
