@@ -109,7 +109,7 @@ header {
         height: 42px;
         transition: width 0.3s;
         will-change: width;
-        @media screen and (max-width: $breakpoint-mobile) {
+        @media (max-width: $breakpoint-mobile) {
             width: 95%;
         }
 
@@ -118,7 +118,7 @@ header {
             align-items: center;
 
             &.left {
-                @media screen and (min-width: $breakpoint-mobile) {
+                @media (min-width: $breakpoint-mobile) {
                     flex: 1;
                     justify-content: flex-start;
                 }
@@ -132,10 +132,10 @@ header {
             &.center {
                 position: relative;
                 margin: 0 10px;
-                @media screen and (max-width: $breakpoint-mobile) {
+                @media (max-width: $breakpoint-mobile) {
                     width: 100%;
                 }
-                @media screen and (min-width: $breakpoint-mobile) {
+                @media (min-width: $breakpoint-mobile) {
                     flex: 2;
                 }
                 input {
@@ -171,7 +171,7 @@ header {
 
             &.right {
                 position: relative;
-                @media screen and (min-width: $breakpoint-mobile) {
+                @media (min-width: $breakpoint-mobile) {
                     flex: 1;
                     justify-content: flex-end;
                 }

@@ -2,10 +2,11 @@
 main.main-container
 	// stage
 	ma-stage(
-	subtitle='User',
+	:subtitle='$tc("user", 1)',
+  :navigation='navigation',
 	:image='user.images[0].url',
 	:title='user.display_name',
-	:meta='`${user.followers.total} Followers`')
+	:meta='`${user.followers.total} ${$tc("follower", 0)}`')
 </template>
 
 <script>
@@ -13,6 +14,19 @@ export default {
   data() {
     return {
       user: [],
+      navigation: [{
+          title: this.$t('overview'),
+          name: 'user',
+        },
+        {
+          title: this.$tc('playlist', 0),
+          name: 'userPlaylists',
+        },
+        {
+          title: `${this.$t('following')} (2)`,
+          name: 'userFollowing',
+        },
+      ],
     };
   },
   created() {

@@ -103,7 +103,8 @@ export default {
   computed: {
     // check if has overlay
     hasOverlay() {
-      if (this.type === 'album' || this.type === 'playlist') {
+      const hasOverlay = this.type === 'album' || this.type === 'playlist';
+      if (hasOverlay) {
         return true;
       };
       return false;
@@ -118,9 +119,9 @@ export default {
     flex-basis: 20%;
     padding: 7px;
     max-width: 20%;
-    @media screen and (max-width: $breakpoint-mobile) {
-        flex-basis: 50% !important;
-        max-width: 50% !important;
+    @media (max-width: $breakpoint-mobile) {
+        flex-basis: 50%;
+        max-width: 50%;
     }
     &.artist,
     &.category {

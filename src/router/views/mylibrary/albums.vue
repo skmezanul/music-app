@@ -7,7 +7,7 @@ main.main-container
     :image='albums[0].album.images[0].url')
 
   .page-container
-    // tracks
+    // albums
     ma-section
 
       .section-items-container

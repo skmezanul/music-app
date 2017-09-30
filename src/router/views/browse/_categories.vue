@@ -8,6 +8,7 @@
         v-for='category in categories.items',
         type="category",
         :key='category.id',
+        :primaryid='category.id',
         :image='category.icons[0].url',
         :title='category.name')
 </template>

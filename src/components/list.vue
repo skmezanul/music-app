@@ -207,7 +207,7 @@ export default {
             margin-right: 20px;
             text-overflow: ellipsis;
             white-space: nowrap;
-            @media screen and (max-width: $breakpoint-mobile) {
+            @media (max-width: $breakpoint-mobile) {
                 padding: 0 15px;
             }
             span {

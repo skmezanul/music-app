@@ -12,6 +12,12 @@ const artistOverview = () => import(/* webpackChunkName: "artist" */ './views/ar
 const artistRelated = () => import(/* webpackChunkName: "artist" */ './views/artist/_related');
 const artistAbout = () => import(/* webpackChunkName: "artist" */ './views/artist/_about');
 
+// components for "user"
+const userIndex = () => import(/* webpackChunkName: "user" */ './views/user/index');
+const userOverview = () => import(/* webpackChunkName: "user" */ './views/user/_overview');
+const userPlaylists = () => import(/* webpackChunkName: "user" */ './views/user/_playlists');
+const userFollowing = () => import(/* webpackChunkName: "user" */ './views/user/_following');
+
 // components for "mylibrary"
 const mylibraryHistory = () => import(/* webpackChunkName: "mylibrary" */ './views/mylibrary/history');
 const mylibraryTracks = () => import(/* webpackChunkName: "mylibrary" */ './views/mylibrary/tracks');
@@ -23,8 +29,8 @@ const album = () => import(/* webpackChunkName: "album" */ './views/single/album
 // component for single playlist
 const playlist = () => import(/* webpackChunkName: "playlist" */ './views/single/playlist');
 
-// component for single user profile
-const user = () => import(/* webpackChunkName: "user" */ './views/single/user');
+// component for single category
+const category = () => import(/* webpackChunkName: "category" */ './views/single/category');
 
 // component for search
 const search = () => import(/* webpackChunkName: "search" */ './views/search');
@@ -134,6 +140,38 @@ export default [{
   ],
 },
 {
+  path: '/user/:id',
+  component: userIndex,
+  children: [{
+    path: '',
+    name: 'user',
+    meta: {
+      title: 'User',
+      requiresAuth: true,
+    },
+    component: userOverview,
+  },
+  {
+    path: 'playlists',
+    name: 'userPlaylists',
+    meta: {
+      title: 'Playlists',
+      requiresAuth: true,
+    },
+    component: userPlaylists,
+  },
+  {
+    path: 'following',
+    name: 'userFollowing',
+    meta: {
+      title: 'Following',
+      requiresAuth: true,
+    },
+    component: userFollowing,
+  },
+  ],
+},
+{
   path: '/album/:id',
   name: 'album',
   meta: {
@@ -156,6 +194,16 @@ export default [{
     requiresAuth: true,
   },
   component: playlist,
+},
+{
+  path: '/category/:id',
+  name: 'category',
+  meta: {
+    title: 'category',
+    compact: true,
+    requiresAuth: true,
+  },
+  component: category,
 },
 {
   path: '/search/:query',
@@ -207,14 +255,5 @@ export default [{
     requiresAuth: true,
   },
   component: settings,
-},
-{
-  path: '/user/:id',
-  name: 'user',
-  meta: {
-    title: 'User',
-    requiresAuth: true,
-  },
-  component: user,
 },
 ];

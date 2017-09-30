@@ -240,7 +240,7 @@ a {
         }
     }
 }
-@media screen and (min-width: $breakpoint-mobile) {
+@media (min-width: $breakpoint-mobile) {
     .loader-container,
     .main-container,
     .notice-container,
@@ -248,7 +248,7 @@ a {
         margin-left: 200px;
     }
 }
-@media screen and (max-width: $breakpoint-mobile) {
+@media (max-width: $breakpoint-mobile) {
     .mobile-hidden {
         display: none !important;
     }
@@ -331,7 +331,7 @@ a {
 .stage-inner {
     max-width: 1440px;
     width: $large-width;
-    @media screen and (max-width: 1500px) {
+    @media (max-width: 1500px) {
         width: $small-width;
     }
 }

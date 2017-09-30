@@ -19,7 +19,7 @@
       h2 {{ subtitle }}
       h1 {{ title }}
       .meta-container.mobile-hidden(v-if='meta')
-        a {{ formattedMeta }}
+        a(v-html='formattedMeta')
       .button-container(v-if='hasButtons')
         .button-group
           ma-button(type='accent', icon='play_circle_filled', title='playall')
@@ -60,30 +60,48 @@ export default {
     // remove "Cover:" message from meta on playlist
     formattedMeta() {
       const meta = this.meta;
-      const formattedMeta = meta.split('Cover')[0];
-      return formattedMeta;
+      if (meta) {
+        const formattedMeta = meta.split('Cover')[0];
+        return formattedMeta;
+      }
+      return false;
     },
 
     // check if can follow
     canFollow() {
       const routeName = this.$route.name;
-      const cond = routeName.includes("artist") || routeName.includes("playlist");
-      return cond;
+      const canFollow = routeName.includes("artist") || routeName.includes("playlist");
+      if (canFollow) {
+        return true;
+      }
+      return false;
     },
 
     // check if stage has cover
     hasCover() {
-      return this.$route.meta.cover;
+      const hasCover = this.$route.meta.cover;
+      if (hasCover) {
+        return true;
+      }
+      return false;
     },
 
     // check if stage has buttons
     hasButtons() {
-      return this.$route.meta.buttons;
+      const hasButtons = this.$route.meta.buttons;
+      if (hasButtons) {
+        return true;
+      }
+      return false;
     },
 
     // check if stage is compact
     isCompact() {
-      return this.$route.meta.compact;
+      const isCompact = this.$route.meta.compact;
+      if (isCompact) {
+        return true;
+      }
+      return false;
     },
   },
 };
@@ -107,7 +125,7 @@ export default {
         height: 350px;
         .background-container {
             img {
-                filter: saturate(200%) blur(20px);
+                filter: saturate(150%) blur(40px);
             }
         }
         .stage-inner {
@@ -168,14 +186,25 @@ export default {
             h1 {
                 font-size: 5.5em;
                 margin-left: -3px;
+                line-height: 0.95em;
+            }
+            h2 {
+              margin-bottom: 5px;
             }
             .meta-container {
-                margin-top: 5px;
+                margin-top: 10px;
                 width: 80%;
                 a {
                     color: rgba($white, 0.7);
                     font-size: 1.2em;
                     line-height: 1.3em;
+                    &:link {
+                      font-size: inherit;
+                      transition: color 0.3s;
+                      &:hover {
+                        color: $white;
+                      }
+                    }
                 }
             }
         }

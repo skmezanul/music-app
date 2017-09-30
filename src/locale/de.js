@@ -38,4 +38,7 @@ export default {
   more: 'Mehr',
   loginwithspotify: 'Bitte logge dich mit deinem Spotify Konto ein.',
   continuetospotify: 'Weiter zu Spotify',
+  user: 'Benutzer | Benutzer',
+  follower: 'Follower | Follower',
+  following: 'Folgt',
 };

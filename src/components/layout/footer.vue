@@ -223,7 +223,7 @@ footer {
     border-top: 1px solid $border-color;
     background: $dark-blue;
     transform: translateZ(0);
-    @media screen and (max-width: $breakpoint-mobile) {
+    @media (max-width: $breakpoint-mobile) {
         flex-direction: column;
     }
 
@@ -250,7 +250,7 @@ footer {
             }
 
             .currently-playing {
-                @media screen and (max-width: $breakpoint-mobile) {
+                @media (max-width: $breakpoint-mobile) {
                     text-align: center;
                 }
                 .title {
@@ -271,7 +271,7 @@ footer {
             flex: 0.7;
             justify-content: space-between;
             letter-spacing: 2px;
-            @media screen and (max-width: $breakpoint-mobile) {
+            @media (max-width: $breakpoint-mobile) {
                 flex: 1 !important;
                 width: 100%;
                 margin-top: 10px;

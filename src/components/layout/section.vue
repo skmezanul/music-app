@@ -38,8 +38,11 @@ export default {
   computed: {
     // check if section is collapsed
     isCollapsed() {
-      const cond = this.collapsible && this.collapsed;
-      return cond;
+      const isCollapsed = this.collapsible && this.collapsed;
+      if (isCollapsed) {
+        return true;
+      }
+      return false;
     },
   }
 };
@@ -51,10 +54,10 @@ export default {
     flex-direction: column;
     margin: 30px 0;
     &:last-child {
-        @media screen and (min-width: $breakpoint-mobile) {
+        @media (min-width: $breakpoint-mobile) {
             padding-bottom: 81px;
         }
-        @media screen and (max-width: $breakpoint-mobile) {
+        @media (max-width: $breakpoint-mobile) {
             padding-bottom: 141px;
         }
     }
@@ -64,12 +67,12 @@ export default {
         .section-item.artist:nth-child(n+5) {
             display: none;
         }
-        @media screen and (min-width: $breakpoint-mobile) {
+        @media (min-width: $breakpoint-mobile) {
             .section-item:nth-child(n+6) {
                 display: none;
             }
         }
-        @media screen and (max-width: $breakpoint-mobile) {
+        @media (max-width: $breakpoint-mobile) {
             .section-item:nth-child(n+5) {
                 display: none;
             }
@@ -105,7 +108,7 @@ export default {
         margin: 0 -7px;
 
         &.is-collapsed {
-            @media screen and (max-width: $breakpoint-mobile) {
+            @media (max-width: $breakpoint-mobile) {
                 .section-item:nth-child(n+3) {
                     display: none;
                 }

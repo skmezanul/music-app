@@ -16,7 +16,8 @@ export default {
   created() {
     // remove notice automatically after 4000ms
     setInterval(() => {
-      if (this.$store.state.notices.length > 0) {
+      const notices = this.$store.state.notices;
+      if (notices.length > 0) {
         this.removeNotice();
       };
     }, 4000);
