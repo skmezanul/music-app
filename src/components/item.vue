@@ -4,7 +4,7 @@
     tag='div',
     @mouseover.native='overlay = true',
     @mouseleave.native='overlay = false',
-    :to='toTarget(type, primaryid, secondaryid)')
+    :to='$toTarget(type, primaryid, secondaryid)')
 
     // overlay
     transition(name='fade')
@@ -39,7 +39,7 @@
           router-link.artist(
             v-for='item in artist',
             :key='item.id',
-            :to='toTarget(item.type, item.id)') {{ item.name }}
+            :to='$toTarget(item.type, item.id)') {{ item.name }}
 </template>
 
 <script>
@@ -65,18 +65,6 @@ export default {
     'overlay': 'getColor',
   },
   methods: {
-    // to target
-    toTarget(name, id, owner) {
-      const target = {
-        name,
-        params: {
-          id,
-          owner,
-        },
-      };
-      return target;
-    },
-
     // toggle playing state
     togglePlaying() {
       this.playing = !this.playing;

@@ -8,19 +8,19 @@ footer
 				:alt='$store.state.currentPlayback.item.name')
 
 		.currently-playing
-			span.title {{ $store.state.currentPlayback.item.name }}
+			router-link.title(:to='$toTarget("album", $store.state.currentPlayback.item.album.id)') {{ $store.state.currentPlayback.item.name }}
 			.artist-container
 				router-link.artist(
 					v-for='artist in $store.state.currentPlayback.item.artists',
 					:key='artist.id',
-					:to='toArtist(artist.type, artist.id)') {{ artist.name }}
+					:to='$toTarget(artist.type, artist.id)') {{ artist.name }}
 
 	// playback controls
 	.footer-container.center
 
 		i.shuffle.material-icons(
 			@click='toggleShuffle',
-			:class='{ "active": $store.state.currentPlayback.shuffle_state == true }',
+			:class='{ "active": $store.state.currentPlayback.shuffle_state}',
 			v-tooltip='{ content: $t("shuffle") }') shuffle
 
 		i.skip.material-icons(@click='skip("previous")') skip_previous
@@ -99,17 +99,6 @@ export default {
   },
   methods: {
     ...mapActions(['GET_CURRENT_PLAYBACK']),
-
-    // to artist
-    toArtist(name, id) {
-      const target = {
-        name,
-        params: {
-          id,
-        },
-      };
-      return target;
-    },
 
     // get progress of the current track in percent
     getProgress() {

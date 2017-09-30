@@ -22,16 +22,16 @@ header
 					:src='$store.state.currentUser.images[0].url',
 					:alt='$store.state.currentUser.display_name')
 
-			router-link.user-name.mobile-hidden(:to='toTarget("user", $store.state.currentUser.id)') {{ $store.state.currentUser.display_name }}
+			router-link.user-name.mobile-hidden(:to='$toTarget("user", $store.state.currentUser.id)') {{ $store.state.currentUser.display_name }}
 			i.toggle.material-icons(@click='toggleDropdown') keyboard_arrow_down
 			// user dropdown
 			ul.dropdown(
 				v-if='userDropdown',
 				v-on-clickaway='toggleDropdown',
 				@click='toggleDropdown')
-				router-link(tag='li', :to='toTarget("myaccount")') {{ $t('myaccount') }}
-				router-link(tag='li', :to='toTarget("settings")') {{ $t('settings') }}
-				router-link(tag='li', :to='toTarget("logout")') {{ $t('logout') }}
+				router-link(tag='li', :to='$toTarget("myaccount")') {{ $t('myaccount') }}
+				router-link(tag='li', :to='$toTarget("settings")') {{ $t('settings') }}
+				router-link(tag='li', :to='$toTarget("logout")') {{ $t('logout') }}
 </template>
 
 <script>
@@ -47,17 +47,6 @@ export default {
     };
   },
   methods: {
-    // to target
-    toTarget(name, id) {
-      const target = {
-        name,
-        params: {
-          id,
-        },
-      };
-      return target;
-    },
-
     // start the search
     startSearch() {
       const query = this.searchQuery;

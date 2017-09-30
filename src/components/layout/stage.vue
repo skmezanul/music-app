@@ -31,7 +31,7 @@
     nav.subnav.mobile-hidden(v-if='navigation')
       ul
         li(v-for='navitem in navigation')
-          router-link(:to='toTarget(navitem.name)') {{ navitem.title }}
+          router-link(:to='$toTarget(navitem.name, $route.params.id)') {{ navitem.title }}
 </template>
 
 <script>
@@ -43,19 +43,6 @@ export default {
     'title',
     'meta',
   ],
-  methods: {
-    // to target
-    toTarget(name) {
-      const id = this.$route.params.id;
-      const target = {
-        name,
-        params: {
-          id,
-        },
-      };
-      return target;
-    },
-  },
   computed: {
     // remove "Cover:" message from meta on playlist
     formattedMeta() {

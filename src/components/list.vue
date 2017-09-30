@@ -24,7 +24,7 @@ li.row(
       router-link(
         v-for='artist in artists',
         :key='artist.id',
-        :to='toTarget(artist.type, artist.id)') {{ artist.name }}
+        :to='$toTarget(artist.type, artist.id)') {{ artist.name }}
 
   .explicit
     span(
@@ -33,7 +33,7 @@ li.row(
 
   // album name
   .album-container(v-if='album')
-    router-link(:to='toTarget(album.type, album.id)') {{ album.name }}
+    router-link(:to='$toTarget(album.type, album.id)') {{ album.name }}
 
   // duration
   span.duration {{ formattedDuration }}
@@ -70,17 +70,6 @@ export default {
   ],
   methods: {
     ...mapActions(['GET_CURRENT_PLAYBACK']),
-
-    // to target
-    toTarget(name, id) {
-      const target = {
-        name,
-        params: {
-          id,
-        },
-      };
-      return target;
-    },
 
     // play track
     playTrack() {
