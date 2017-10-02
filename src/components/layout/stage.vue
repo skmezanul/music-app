@@ -9,7 +9,10 @@
     :alt='title')
 
   .stage-inner
-    .cover-container.mobile-hidden(v-if="hasCover")
+    .cover-container.mobile-hidden(
+      v-if="hasCover",
+      :class='{ "small" : hasSmallCover }')
+
       img(
         :src='image',
         :alt='title')
@@ -57,7 +60,7 @@ export default {
     // check if can follow
     canFollow() {
       const routeName = this.$route.name;
-      const canFollow = routeName.includes("artist") || routeName.includes("playlist");
+      const canFollow = routeName.includes('artist') || routeName.includes('playlist');
       if (canFollow) {
         return true;
       }
@@ -68,6 +71,16 @@ export default {
     hasCover() {
       const hasCover = this.$route.meta.cover;
       if (hasCover) {
+        return true;
+      }
+      return false;
+    },
+
+    // check if stage has small cover
+    hasSmallCover() {
+      const routeName = this.$route.name;
+      const smallCover = this.hasCover && routeName.includes('user');
+      if (smallCover) {
         return true;
       }
       return false;
@@ -128,6 +141,10 @@ export default {
         .stage-inner {
             flex-direction: row;
             align-items: center;
+            flex-wrap: wrap;
+            .subnav {
+              flex-basis: 100%;
+            }
         }
     }
 
@@ -160,6 +177,11 @@ export default {
             height: 250px;
             border-radius: 10px;
             box-shadow: $shadow;
+            &.small {
+              min-width: 180px;
+              width: 180px;
+              height: 180px;
+            }
             img {
                 width: 100%;
                 height: auto;
@@ -173,7 +195,6 @@ export default {
             h1 {
                 font-size: 5.5em;
                 margin-left: -3px;
-                line-height: 0.95em;
             }
             h2 {
               margin-bottom: 5px;

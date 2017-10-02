@@ -62,6 +62,12 @@ export default {
         }
     }
 
+    .section-items-container {
+        display: flex;
+        flex-flow: row wrap;
+        margin: 0 -7px;
+    }
+
     &.collapsed {
         .row:nth-child(n+4),
         .section-item.artist:nth-child(n+5) {
@@ -98,23 +104,6 @@ export default {
                 display: flex;
                 align-items: center;
                 white-space: nowrap;
-            }
-        }
-    }
-
-    .section-items-container {
-        display: flex;
-        flex-flow: row wrap;
-        margin: 0 -7px;
-
-        &.is-collapsed {
-            @media (max-width: $breakpoint-mobile) {
-                .section-item:nth-child(n+3) {
-                    display: none;
-                }
-            }
-            .section-item:nth-child(n+5) {
-                display: none;
             }
         }
     }

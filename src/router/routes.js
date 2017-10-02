@@ -147,6 +147,8 @@ export default [{
     name: 'user',
     meta: {
       title: 'User',
+      compact: true,
+      cover: true,
       requiresAuth: true,
     },
     component: userOverview,
@@ -156,6 +158,8 @@ export default [{
     name: 'userPlaylists',
     meta: {
       title: 'Playlists',
+      compact: true,
+      cover: true,
       requiresAuth: true,
     },
     component: userPlaylists,
@@ -165,6 +169,8 @@ export default [{
     name: 'userFollowing',
     meta: {
       title: 'Following',
+      compact: true,
+      cover: true,
       requiresAuth: true,
     },
     component: userFollowing,

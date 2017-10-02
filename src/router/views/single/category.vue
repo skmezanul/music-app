@@ -41,7 +41,6 @@ export default {
       const locale = that.$store.state.currentUser.country;
       const country = that.$store.state.currentUser.country;
 
-      that.$startLoading('fetching data');
       that.axios({
         method: 'get',
         url: `/browse/categories/${that.$route.params.id}`,
@@ -51,7 +50,6 @@ export default {
         },
       }).then((res) => {
         that.category = res.data;
-        that.$endLoading('fetching data');
       });
     },
 
@@ -61,6 +59,7 @@ export default {
       const locale = that.$store.state.currentUser.country;
       const country = that.$store.state.currentUser.country;
 
+      that.$startLoading('fetching data');
       that.axios({
         method: 'get',
         url: `/browse/categories/${that.$route.params.id}/playlists`,
@@ -70,6 +69,7 @@ export default {
         },
       }).then((res) => {
         that.playlists = res.data.playlists.items;
+        that.$endLoading('fetching data');
       });
     },
   },
