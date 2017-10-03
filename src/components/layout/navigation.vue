@@ -115,7 +115,7 @@ export default {
             margin: 15px;
 
             &.playlists {
-              overflow: auto;
+              overflow-y: auto;
               height: 100%;
             }
 
