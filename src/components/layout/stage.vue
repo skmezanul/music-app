@@ -1,40 +1,51 @@
 <template lang="pug">
 .stage(:class='{ "has-cover" : hasCover, "compact" : isCompact }')
 
-  // background
-  .background-container(v-if='image')
-    img(
-    v-parallax='0.5',
-    :src='image',
-    :alt='title')
+	// background
+	.background-container(v-if='image')
+		img(
+		v-parallax='0.5',
+		:src='image',
+		:alt='title')
 
-  .stage-inner
-    .cover-container.mobile-hidden(
-      v-if="hasCover",
-      :class='{ "small" : hasSmallCover }')
+	.stage-inner
+		.cover-container.mobile-hidden(
+			v-if="hasCover",
+			:class='{ "small" : hasSmallCover }')
 
-      img(
-        :src='image',
-        :alt='title')
+			img(
+				:src='image',
+				:alt='title')
 
-    // content
-    .stage-container
-      h2 {{ subtitle }}
-      h1 {{ title }}
-      .meta-container.mobile-hidden(v-if='meta')
-        a(v-html='formattedMeta')
-      .button-container(v-if='hasButtons')
-        .button-group
-          ma-button(type='accent', icon='play_circle_filled', title='playall')
-          ma-button(v-if='canFollow', icon='add_circle', title='follow')
-          ma-button(type='icon', icon='favorite')
-        ma-button(type='transparent', icon='share', title='share')
+		// content
+		.stage-container
+			h2 {{ subtitle }}
+			h1 {{ title }}
+			.meta-container.mobile-hidden(v-if='meta')
+				a(v-html='formattedMeta')
+			.button-container(v-if='hasButtons')
+				.button-group
+					ma-button(
+            type='accent',
+            icon='play_circle_filled',
+            title='playall')
+					ma-button(
+            v-if='canFollow',
+            icon='add_circle',
+            title='follow')
+					ma-button(
+            type='icon',
+            icon='favorite')
+				ma-button(
+          type='transparent',
+          icon='share',
+          title='share')
 
-    // navigation
-    nav.subnav.mobile-hidden(v-if='navigation')
-      ul
-        li(v-for='navitem in navigation')
-          router-link(:to='$toTarget(navitem.name, $route.params.id)') {{ navitem.title }}
+		// navigation
+		nav.subnav.mobile-hidden(v-if='navigation')
+			ul
+				li(v-for='navitem in navigation')
+					router-link(:to='$toTarget(navitem.name, $route.params.id)') {{ navitem.title }}
 </template>
 
 <script>
@@ -140,10 +151,10 @@ export default {
     &.has-cover {
         .stage-inner {
             flex-direction: row;
-            align-items: center;
             flex-wrap: wrap;
+            align-items: center;
             .subnav {
-              flex-basis: 100%;
+                flex-basis: 100%;
             }
         }
     }
@@ -177,11 +188,13 @@ export default {
             height: 250px;
             border-radius: 10px;
             box-shadow: $shadow;
+
             &.small {
-              min-width: 180px;
-              width: 180px;
-              height: 180px;
+                min-width: 180px;
+                width: 180px;
+                height: 180px;
             }
+
             img {
                 width: 100%;
                 height: auto;
@@ -191,14 +204,17 @@ export default {
         .stage-container {
             display: flex;
             flex-direction: column;
+            width: inherit;
 
             h1 {
-                font-size: 5.5em;
                 margin-left: -3px;
+                font-size: 5.5em;
             }
+
             h2 {
-              margin-bottom: 5px;
+                margin-bottom: 5px;
             }
+
             .meta-container {
                 margin-top: 10px;
                 width: 80%;
@@ -207,11 +223,11 @@ export default {
                     font-size: 1.2em;
                     line-height: 1.3em;
                     &:link {
-                      font-size: inherit;
-                      transition: color 0.3s;
-                      &:hover {
-                        color: $white;
-                      }
+                        font-size: inherit;
+                        transition: color 0.3s;
+                        &:hover {
+                            color: $white;
+                        }
                     }
                 }
             }

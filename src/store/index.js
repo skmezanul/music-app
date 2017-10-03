@@ -22,6 +22,7 @@ const store = new Vuex.Store({
     currentUser: [],
     deviceID: '',
     notices: [],
+    largeCover: false,
   },
   mutations,
   actions,

@@ -62,7 +62,7 @@ $breakpoint-mobile: 955px;
 }
 @mixin item-hover() {
   color: rgba($white, 0.7);
-  transition: color 0.2s;
+  transition: color 0.3s;
 
   &:hover {
     color: $white;

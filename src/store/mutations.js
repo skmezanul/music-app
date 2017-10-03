@@ -7,6 +7,10 @@ export default {
     const thisState = state;
     thisState.currentUser = data;
   },
+  TOGGLE_LARGE_COVER(state) {
+    const thisState = state;
+    thisState.largeCover = !thisState.largeCover;
+  },
   DEVICE_ID(state, data) {
     const thisState = state;
     thisState.deviceID = data;

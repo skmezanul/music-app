@@ -1,71 +1,75 @@
 <template lang="pug">
 footer
-	// current playback
-	.footer-container.left
-		.cover-container.mobile-hidden
-			img(
-				:src='$store.state.currentPlayback.item.album.images[0].url',
-				:alt='$store.state.currentPlayback.item.name')
+  // current playback
+  .footer-container.left(:class='{ "cover-hidden" : $store.state.largeCover }')
+    transition(name='fade')
+      router-link.cover-container.mobile-hidden(
+        tag='div',
+        :to='$toTarget("artist", $store.state.currentPlayback.item.artists[0].id)')
+        i.cover-toggle.material-icons(@click.prevent='$store.commit("TOGGLE_LARGE_COVER")') keyboard_arrow_up
+        img(
+          :src='$store.state.currentPlayback.item.album.images[0].url',
+          :alt='$store.state.currentPlayback.item.name')
 
-		.currently-playing
-			router-link.title(:to='$toTarget("album", $store.state.currentPlayback.item.album.id)') {{ $store.state.currentPlayback.item.name }}
-			.artist-container
-				router-link.artist(
-					v-for='artist in $store.state.currentPlayback.item.artists',
-					:key='artist.id',
-					:to='$toTarget(artist.type, artist.id)') {{ artist.name }}
+    .currently-playing
+      router-link.title(:to='$toTarget("album", $store.state.currentPlayback.item.album.id)') {{ $store.state.currentPlayback.item.name }}
+      .artist-container
+        router-link.artist(
+          v-for='artist in $store.state.currentPlayback.item.artists',
+          :key='artist.id',
+          :to='$toTarget(artist.type, artist.id)') {{ artist.name }}
 
-	// playback controls
-	.footer-container.center
+  // playback controls
+  .footer-container.center
 
-		i.shuffle.material-icons(
-			@click='toggleShuffle',
-			:class='{ "active": $store.state.currentPlayback.shuffle_state}',
-			v-tooltip='{ content: $t("shuffle") }') shuffle
+    i.shuffle.material-icons(
+      @click='toggleShuffle',
+      :class='{ "active": $store.state.currentPlayback.shuffle_state}',
+      v-tooltip='{ content: $t("shuffle") }') shuffle
 
-		i.skip.material-icons(@click='skip("previous")') skip_previous
+    i.skip.material-icons(@click='skip("previous")') skip_previous
 
-		i.toggle.play.material-icons(
-			v-show='!$store.state.currentPlayback.is_playing',
-			@click='togglePlayback("play")') play_circle_filled
+    i.toggle.play.material-icons(
+      v-show='!$store.state.currentPlayback.is_playing',
+      @click='togglePlayback("play")') play_circle_filled
 
-		i.toggle.pause.material-icons(
-			v-show='$store.state.currentPlayback.is_playing',
-			@click='togglePlayback("pause")') pause_circle_filled
+    i.toggle.pause.material-icons(
+      v-show='$store.state.currentPlayback.is_playing',
+      @click='togglePlayback("pause")') pause_circle_filled
 
-		i.skip.material-icons(@click='skip("next")') skip_next
+    i.skip.material-icons(@click='skip("next")') skip_next
 
-		i.repeat.material-icons(
-			v-show='$store.state.currentPlayback.repeat_state != "track"',
-			@click='toggleRepeat',
-			:class='{ "active": $store.state.currentPlayback.repeat_state == "context" }',
-			v-tooltip='{ content: $t("repeat") }') repeat
+    i.repeat.material-icons(
+      v-show='$store.state.currentPlayback.repeat_state != "track"',
+      @click='toggleRepeat',
+      :class='{ "active": $store.state.currentPlayback.repeat_state == "context" }',
+      v-tooltip='{ content: $t("repeat") }') repeat
 
-		i.repeat.material-icons.active(
-			v-show='$store.state.currentPlayback.repeat_state == "track"',
-			@click='toggleRepeat',
-			v-tooltip='{ content: $t("repeat") }') repeat_one
+    i.repeat.material-icons.active(
+      v-show='$store.state.currentPlayback.repeat_state == "track"',
+      @click='toggleRepeat',
+      v-tooltip='{ content: $t("repeat") }') repeat_one
 
-	// volume and other controls
-	.footer-container.right.mobile-hidden
-		i.volume.material-icons(v-if='volume == 0') volume_mute
-		i.volume.material-icons(v-if='volume <= 50 && volume > 0') volume_down
-		i.volume.material-icons(v-if='volume > 50') volume_up
-		ma-slider(
-			ref='slider',
-			v-model='volume',
-			width='100px',
-			:bgStyle='bgStyle',
-			:sliderStyle='sliderStyle',
-			:processStyle='sliderStyle',
-			:tooltip='false')
-		.time-container
-			span.track-progress {{ getDuration($store.state.currentPlayback.progress_ms) }}
-			span.track-duration {{ getDuration($store.state.currentPlayback.item.duration_ms) }}
+  // volume and other controls
+  .footer-container.right.mobile-hidden
+    i.volume.material-icons(v-if='volume == 0') volume_mute
+    i.volume.material-icons(v-if='volume <= 50 && volume > 0') volume_down
+    i.volume.material-icons(v-if='volume > 50') volume_up
+    ma-slider(
+      ref='slider',
+      v-model='volume',
+      width='100px',
+      :bgStyle='bgStyle',
+      :sliderStyle='sliderStyle',
+      :processStyle='sliderStyle',
+      :tooltip='false')
+    .time-container
+      span.track-progress {{ getDuration($store.state.currentPlayback.progress_ms) }}
+      span.track-duration {{ getDuration($store.state.currentPlayback.item.duration_ms) }}
 
-	// progress bar
-	.progress-container
-		.progress-bar(:style='getProgress()')
+  // progress bar
+  .progress-container
+    .progress-bar(:style='getProgress()')
 </template>
 
 <script>
@@ -224,14 +228,40 @@ footer {
         &.left {
             flex: 1;
             justify-content: flex-start;
+            transition: transform 0.3s;
+            will-change: transform;
+
+            &.cover-hidden {
+              transform: translateX(-60px);
+              .cover-container {
+                opacity: 0;
+              }
+            }
 
             .cover-container {
+                position: relative;
+                overflow: hidden;
                 margin-right: 10px;
                 width: 50px;
                 height: 50px;
                 border-radius: 3px;
                 box-shadow: $shadow;
-                overflow: hidden;
+                transition: opacity 0.3s;
+                &:hover {
+                  .cover-toggle {
+                    opacity: 1;
+                  }
+                }
+                .cover-toggle {
+                  @include item-hover;
+                  position: absolute;
+                  top: 2px;
+                  right: 2px;
+                  padding: 2px;
+                  border-radius: 50%;
+                  background-color: rgba($black, 0.5);
+                  opacity: 0;
+                }
                 img {
                     width: 100%;
                     height: auto;
@@ -246,8 +276,8 @@ footer {
                     font-size: 1.2em;
                 }
                 .artist-container {
-                    font-weight: 300;
                     margin-top: 2px;
+                    font-weight: 300;
 
                     a {
                         @include comma-separated(0.9em, 300);
@@ -262,8 +292,8 @@ footer {
             letter-spacing: 2px;
             @media (max-width: $breakpoint-mobile) {
                 flex: 1 !important;
-                width: 100%;
                 margin-top: 10px;
+                width: 100%;
             }
 
             .toggle {
@@ -280,13 +310,13 @@ footer {
             flex: 1;
             justify-content: flex-end;
             .time-container {
-                margin-left: 20px;
-                padding: 5px 10px;
-                border-radius: 5px;
-                background-color: $blue;
-                width: 110px;
                 display: flex;
                 justify-content: center;
+                margin-left: 20px;
+                padding: 5px 10px;
+                width: 110px;
+                border-radius: 5px;
+                background-color: $blue;
                 .track-progress {
                   margin-right: 5px;
                     &:after {

@@ -1,5 +1,5 @@
 <template lang='pug'>
-header
+header(:class='{ "scrolled" : scrollPosition > 0 }')
 	.header-container
 		// navigation
 		.header-inner.left
@@ -44,9 +44,15 @@ export default {
     return {
       userDropdown: false,
       searchQuery: '',
+      scrollPosition: null,
     };
   },
   methods: {
+    // update scroll position
+    updateScroll() {
+      this.scrollPosition = window.scrollY;
+    },
+
     // start the search
     startSearch() {
       const query = this.searchQuery;
@@ -70,6 +76,16 @@ export default {
       this.userDropdown = !this.userDropdown;
     },
   },
+  mounted() {
+    window.addEventListener('scroll', this.updateScroll, {
+      passive: true,
+    });
+  },
+  destroy() {
+    window.removeEventListener('scroll', this.updateScroll, {
+      passive: true,
+    });
+  },
   directives: {
     onClickaway,
   },
@@ -91,6 +107,14 @@ header {
     transition: background-color 0.3s, border-color 0.3s;
     transform: translateZ(0);
     -webkit-app-region: drag;
+
+    &.scrolled {
+      border-color: $border-color;
+      background-color: $dark-blue;
+        .header-container {
+          width: $small-width;
+        }
+    }
 
     .header-container {
         display: flex;

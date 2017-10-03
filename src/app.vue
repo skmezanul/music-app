@@ -1,5 +1,5 @@
 <template lang="pug">
-#app(:class='{ "scrolled" : scrollPosition > 0 }')
+#app
 
 	// header
 	ma-header
@@ -25,7 +25,7 @@
 				ma-loader
 
 	// notices
-	transition-group(name='slide', tag='notices')
+	transition-group(name='slide-down-transform', tag='notices')
 		ma-notice(v-for='(notice, index) in $store.state.notices', :key='index', :message='notice', @remove="removeNotice(index)")
 </template>
 
@@ -53,21 +53,6 @@ export default {
     removeNotice(index) {
       this.$store.commit('REMOVE_NOTICE', index);
     },
-
-    // update scroll position
-    updateScroll() {
-      this.scrollPosition = window.scrollY;
-    },
-  },
-  mounted() {
-    window.addEventListener('scroll', this.updateScroll, {
-      passive: true,
-    });
-  },
-  destroy() {
-    window.removeEventListener('scroll', this.updateScroll, {
-      passive: true,
-    });
   },
 };
 </script>
@@ -168,12 +153,14 @@ a {
     }
 }
 
+// page-container containing stacked sections
 .page-container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+// dropdown styling
 .dropdown {
     position: absolute;
     top: 58px;
@@ -195,6 +182,7 @@ a {
     }
 }
 
+// tooltip styling
 .tooltip-container {
     .tooltip {
         z-index: 999;
@@ -230,16 +218,7 @@ a {
     }
 }
 
-.scrolled {
-    header {
-        border-color: $border-color;
-        background-color: $dark-blue;
-
-        .header-container {
-            width: $small-width;
-        }
-    }
-}
+// spacing for navigation sidebar
 @media (min-width: $breakpoint-mobile) {
     .loader-container,
     .main-container,
@@ -248,12 +227,27 @@ a {
         margin-left: 200px;
     }
 }
+
+// set page elements width
+.header-container,
+.notice-inner,
+.page-section,
+.stage-inner {
+    max-width: 1440px;
+    width: $large-width;
+    @media (max-width: 1440px) {
+        width: $small-width;
+    }
+}
+
+// global class to hide element on mobile
 @media (max-width: $breakpoint-mobile) {
     .mobile-hidden {
         display: none !important;
     }
 }
 
+// fade transition with opacity
 .fade-enter-active,
 .fade-leave-active {
     transition: opacity 0.3s;
@@ -264,24 +258,35 @@ a {
     opacity: 0;
 }
 
-.slide-enter-active,
-.slide-leave-active {
+// slide down transition with transform (notices)
+.slide-down-transform-enter-active,
+.slide-down-transform-leave-active {
     transition: transform 0.3s;
 }
 
-.slide-enter {
+.slide-down-transform-enter {
     transform: translateY(-100%);
 }
-.slide-enter-to {
-    transform: translateY(0);
+.slide-down-transform-leave-to {
+    transform: translateY(-100%);
 }
 
-.slide-leave {
-    transform: translateY(0);
+// slide up transition with margin (cover)
+.slide-up-margin-enter-active,
+.slide-up-margin-leave-active {
+    transition: margin 0.3s;
 }
-.slide-leave-to {
-    transform: translateY(-100%);
+
+.slide-up-margin-enter {
+    margin-bottom: -199px;
 }
+.slide-up-margin-leave-to {
+    margin-bottom: -199px;
+}
+
+// keyframe animations
+
+// fadeIn
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -291,6 +296,8 @@ a {
         opacity: 1;
     }
 }
+
+// zoomOut
 @keyframes zoomOut {
     0% {
         opacity: 0;
@@ -305,6 +312,8 @@ a {
         transform: scale(1);
     }
 }
+
+// fadeInBottom
 @keyframes fadeInBottom {
     from {
         opacity: 0;
@@ -316,23 +325,14 @@ a {
         transform: translateY(0);
     }
 }
+
+// enable backdrop-filter in supported browsers
 @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
     .scrolled header,
     footer {
         background-color: rgba($dark-blue, 0.8) !important;
         -webkit-backdrop-filter: saturate(200%) blur(20px);
         backdrop-filter: saturate(200%) blur(20px);
-    }
-}
-
-.header-container,
-.notice-inner,
-.page-section,
-.stage-inner {
-    max-width: 1440px;
-    width: $large-width;
-    @media (max-width: 1500px) {
-        width: $small-width;
     }
 }
 </style>
