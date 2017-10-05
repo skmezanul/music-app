@@ -14,7 +14,7 @@ const messages = {
 };
 
 // get language from vuex store
-const locale = store.state.currentUser.country;
+const locale = store.getters.getCountry;
 
 /* eslint-disable no-new */
 const i18n = new VueI18n({
