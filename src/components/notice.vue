@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   props: [
     'message',
@@ -16,7 +18,7 @@ export default {
   created() {
     // remove notice automatically after 4000ms
     setInterval(() => {
-      const notices = this.$store.state.notices;
+      const notices = this.notices;
       if (notices.length > 0) {
         this.removeNotice();
       };
@@ -27,7 +29,12 @@ export default {
     removeNotice() {
       this.$emit("remove");
     }
-  }
+  },
+  computed: {
+    ...mapGetters({
+      notices: 'getNotices',
+    }),
+  },
 };
 </script>
 

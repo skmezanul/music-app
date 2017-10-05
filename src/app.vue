@@ -26,33 +26,30 @@
 
 	// notices
 	transition-group(name='slide-down-transform', tag='notices')
-		ma-notice(v-for='(notice, index) in $store.state.notices', :key='index', :message='notice', @remove="removeNotice(index)")
+		ma-notice(v-for='(notice, index) in notices', :key='index', :message='notice', @remove="removeNotice(index)")
 </template>
 
 <script>
-import {
-  mapActions
-} from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  data() {
-    return {
-      scrollPosition: null,
-    }
-  },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
     this.GET_CURRENT_USER();
-    this.GET_MY_DEVICES();
   },
   methods: {
-    ...mapActions(['GET_CURRENT_USER', 'GET_MY_DEVICES']),
+    ...mapActions(['GET_CURRENT_USER']),
 
     // remove notice
     removeNotice(index) {
       this.$store.commit('REMOVE_NOTICE', index);
     },
+  },
+  computed: {
+    ...mapGetters({
+      notices: 'getNotices',
+    }),
   },
 };
 </script>
@@ -142,6 +139,10 @@ h2 {
     text-transform: uppercase;
     letter-spacing: 2px;
     font-size: 1.2em;
+}
+
+pre {
+    overflow-x: auto;
 }
 
 a {

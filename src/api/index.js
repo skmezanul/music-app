@@ -7,6 +7,10 @@ import { clientId, scope } from './config';
 
 Vue.use(VueAxios, axios);
 
+// get api token from vuex store
+// eslint-disable-next-line
+const token = store.getters.getAccessToken;
+
 /**
  * Global toLogin() function.
  * Redirects user to spotify login page with given scopes and redirect url.
@@ -34,7 +38,7 @@ export function toLogin() {
  * Checks if token is in local storage and returns a boolean.
  */
 export function hasToken() {
-  const storedToken = localStorage.getItem('spotify_token');
+  const storedToken = token && token !== 'undefined';
   return storedToken;
 }
 
@@ -51,11 +55,8 @@ export function getToken() {
   const tokenFromurl = url.split('&token_type')[0].split('access_token=')[1];
 
   // store token in local storage
-  localStorage.setItem('spotify_token', tokenFromurl);
+  store.commit('SET_TOKEN', tokenFromurl);
 }
-
-// get api token from local storage
-const token = localStorage.getItem('spotify_token');
 
 // set default authorization header
 Vue.axios.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -68,6 +69,8 @@ Vue.axios.interceptors.response.use(null, (err) => {
   let message = `Error: ${err.message}.`;
   if (err.response.status === 401) {
     message = `Error: ${err.message}. - It is likely your access token has expired.`;
+    // remove expired access token
+    store.commit('SET_TOKEN', '');
   }
   if (err.response.status === 403) {
     message = `Error: ${err.message}. - This action requires a Spotify Premium subscription.`;

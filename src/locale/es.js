@@ -3,6 +3,7 @@ export default {
   resultsfor: 'Resultados para',
   myaccount: 'Mi cuenta',
   settings: 'Configuración',
+  debug: 'Depurar',
   logout: 'Cerrar sesión',
   browse: 'Explorar',
   radio: 'Radio',

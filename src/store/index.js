@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { createVuexLoader } from 'vuex-loading';
+import createPersistedState from 'vuex-persistedstate';
 import mutations from './mutations';
 import actions from './actions';
+import getters from './getters';
 
 const VuexLoading = createVuexLoader({
   moduleName: 'loading',
@@ -20,13 +22,14 @@ const store = new Vuex.Store({
   state: {
     currentPlayback: '',
     currentUser: [],
-    deviceID: '',
     notices: [],
     largeCover: false,
+    accessToken: '',
   },
   mutations,
   actions,
-  plugins: [VuexLoading.Store],
+  getters,
+  plugins: [VuexLoading.Store, createPersistedState()],
 });
 
 export default store;

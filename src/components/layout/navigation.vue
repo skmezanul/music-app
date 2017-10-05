@@ -53,15 +53,17 @@ nav.navigation-container
     transition(name='slide-up-margin')
       router-link.cover-container(
         tag='div',
-        :to='$toTarget("artist", $store.state.currentPlayback.item.artists[0].id)',
+        :to='$toTarget("artist", currentPlayback.item.artists[0].id)',
         v-if='$store.state.largeCover')
         i.cover-toggle.material-icons(@click.prevent='$store.commit("TOGGLE_LARGE_COVER")') close
         img(
-          :src='$store.state.currentPlayback.item.album.images[0].url',
-          :alt='$store.state.currentPlayback.item.name')
+          :src='currentPlayback.item.album.images[0].url',
+          :alt='currentPlayback.item.name')
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
@@ -88,6 +90,11 @@ export default {
         that.playlists = res.data.items;
       });
     },
+  },
+  computed: {
+    ...mapGetters({
+      currentPlayback: 'getCurrentPlayback',
+    }),
   },
 };
 </script>

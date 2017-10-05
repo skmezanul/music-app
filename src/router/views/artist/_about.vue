@@ -22,7 +22,7 @@ export default {
     getBiography() {
       const that = this;
       const artist = that.$parent.artist.name;
-      const lang = that.$store.state.currentUser.country;
+      const lang = that.$store.getters.getCountry;
       const api_key = '5ee365767f401c005a08f2ef9a92b66c';
 
       that.axios({

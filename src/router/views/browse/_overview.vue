@@ -62,7 +62,7 @@ export default {
     // get featured playlists from the api
     getFeaturedPlaylists() {
       const that = this;
-      const country = that.$store.state.currentUser.country;
+      const country = that.$store.getters.getCountry;
 
       that.$startLoading('fetching data');
       that.axios({
@@ -80,7 +80,7 @@ export default {
     // get new releases from the api
     getNewReleases() {
       const that = this;
-      const country = that.$store.state.currentUser.country;
+      const country = that.$store.getters.getCountry;
 
       that.$startLoading('fetching data');
       that.axios({
@@ -98,7 +98,7 @@ export default {
     // get categories from the api
     getCategories() {
       const that = this;
-      const locale = that.$store.state.currentUser.country;
+      const locale = that.$store.getters.getLocale;
 
       that.$startLoading('fetching data');
       that.axios({

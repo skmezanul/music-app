@@ -30,7 +30,7 @@ export default {
     // get new releases from the api
     getNewReleases() {
       const that = this;
-      const country = that.$store.state.currentUser.country;
+      const country = that.$store.getters.getCountry;
 
       that.$startLoading('fetching data');
       that.axios({

@@ -38,8 +38,8 @@ export default {
     // get category info from the api
     getCategoryInfo() {
       const that = this;
-      const locale = that.$store.state.currentUser.country;
-      const country = that.$store.state.currentUser.country;
+      const locale = that.$store.getters.getLocale;
+      const country = that.$store.getters.getCountry;
 
       that.axios({
         method: 'get',
@@ -56,8 +56,8 @@ export default {
     // get categories playlists from the api
     getCategoriesPlaylists() {
       const that = this;
-      const locale = that.$store.state.currentUser.country;
-      const country = that.$store.state.currentUser.country;
+      const locale = that.$store.getters.getLocale;
+      const country = that.$store.getters.getCountry;
 
       that.$startLoading('fetching data');
       that.axios({

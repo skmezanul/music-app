@@ -4,7 +4,7 @@ main.main-container
 	ma-stage(
     :subtitle='$t("browse")',
     :navigation='navigation',
-    :image='$store.state.currentUser.images[0].url',
+    :image='currentUser.images[0].url',
     :title='welcomeMessage')
 
 	// router view
@@ -12,6 +12,8 @@ main.main-container
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
@@ -39,10 +41,13 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      currentUser: 'getCurrentUser',
+    }),
     welcomeMessage() {
       const that = this;
       const greeting = that.$t('hello');
-      const fullName = that.$store.state.currentUser.display_name;
+      const fullName = that.currentUser.display_name;
       const firstName = fullName.split(' ')[0];
       return `${greeting} ${firstName}`;
     },

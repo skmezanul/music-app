@@ -92,7 +92,7 @@ export default {
     // Get this artist's top tracks from the api
     getTopTracks() {
       const that = this;
-      const country = that.$store.state.currentUser.country;
+      const country = that.$store.getters.getCountry;
 
       that.axios({
         method: 'get',
@@ -108,7 +108,7 @@ export default {
     // Get this artist's albums from the api
     getAlbums() {
       const that = this;
-      const market = that.$store.state.currentUser.market;
+      const market = that.$store.getters.getMarket;
 
       that.axios({
         method: 'get',
@@ -125,7 +125,7 @@ export default {
     // Get this artist's singles from the api
     getSingles() {
       const that = this;
-      const market = that.$store.state.currentUser.market;
+      const market = that.$store.getters.getMarket;
 
       that.axios({
         method: 'get',
@@ -142,7 +142,7 @@ export default {
     // Get album's this artist appears on from the api
     getAppearsOn() {
       const that = this;
-      const market = that.$store.state.currentUser.market;
+      const market = that.$store.getters.getMarket;
 
       that.axios({
         method: 'get',

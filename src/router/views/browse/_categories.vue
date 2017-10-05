@@ -29,7 +29,7 @@ export default {
     // get categories from the api
     getCategories() {
       const that = this;
-      const locale = that.$store.state.currentUser.country;
+      const locale = that.$store.getters.getLocale;
 
       that.$startLoading('fetching data');
       that.axios({

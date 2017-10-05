@@ -9,19 +9,6 @@ export default {
       url: '/me',
     }).then((res) => {
       commit('CURRENT_USER', res.data);
-      if (!localStorage.getItem('app_language')) {
-        localStorage.setItem('app_language', res.data.country);
-      }
-    });
-  },
-
-  // get my devices
-  GET_MY_DEVICES({ commit }) {
-    Vue.axios({
-      method: 'get',
-      url: '/me/player/devices',
-    }).then((res) => {
-      commit('DEVICE_ID', res.data.devices[0].id);
     });
   },
 

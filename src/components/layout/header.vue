@@ -1,43 +1,43 @@
 <template lang='pug'>
 header(:class='{ "scrolled" : scrollPosition > 0 }')
-	.header-container
-		// navigation
-		.header-inner.left
-			i.material-icons(@click='routerGo(-1)') keyboard_arrow_left
+  .header-container
+    // navigation
+    .header-inner.left
+      i.material-icons(@click='routerGo(-1)') keyboard_arrow_left
 
-			i.material-icons(@click='routerGo(1)') keyboard_arrow_right
-		// search
-		.header-inner.center
-			i.material-icons.search-icon search
-			input(
-				type='text',
-				@keyup.enter='startSearch',
-				v-model='searchQuery',
-				:placeholder='$tc("search", 0)')
+      i.material-icons(@click='routerGo(1)') keyboard_arrow_right
+    // search
+    .header-inner.center
+      i.material-icons.search-icon search
+      input(
+        type='text',
+        @keyup.enter='doSearch',
+        v-model='searchQuery',
+        :placeholder='$tc("search", 0)')
 
-		// current user
-		.header-inner.right
-			.avatar-container.mobile-hidden
-				img(
-					:src='$store.state.currentUser.images[0].url',
-					:alt='$store.state.currentUser.display_name')
+    // current user
+    .header-inner.right
+      .avatar-container.mobile-hidden
+        img(
+          :src='currentUser.images[0].url',
+          :alt='currentUser.display_name')
 
-			router-link.user-name.mobile-hidden(:to='$toTarget("user", $store.state.currentUser.id)') {{ $store.state.currentUser.display_name }}
-			i.toggle.material-icons(@click='toggleDropdown') keyboard_arrow_down
-			// user dropdown
-			ul.dropdown(
-				v-if='userDropdown',
-				v-on-clickaway='toggleDropdown',
-				@click='toggleDropdown')
-				router-link(tag='li', :to='$toTarget("myaccount")') {{ $t('myaccount') }}
-				router-link(tag='li', :to='$toTarget("settings")') {{ $t('settings') }}
-				router-link(tag='li', :to='$toTarget("logout")') {{ $t('logout') }}
+      router-link.user-name.mobile-hidden(:to='$toTarget("user", currentUser.id)') {{ currentUser.display_name }}
+      i.toggle.material-icons(@click='toggleDropdown') keyboard_arrow_down
+      // user dropdown
+      ul.dropdown(
+        v-if='userDropdown',
+        v-on-clickaway='toggleDropdown',
+        @click='toggleDropdown')
+        router-link(tag='li', :to='$toTarget("myaccount")') {{ $t('myaccount') }}
+        router-link(tag='li', :to='$toTarget("settings")') {{ $t('settings') }}
+        router-link(tag='li', :to='$toTarget("debug")') {{ $t('debug') }}
+        li(@click='logout') {{ $t('logout') }}
 </template>
 
 <script>
-import {
-  directive as onClickaway,
-} from 'vue-clickaway';
+import { mapGetters } from 'vuex';
+import { directive as onClickaway } from 'vue-clickaway';
 
 export default {
   data() {
@@ -53,8 +53,12 @@ export default {
       this.scrollPosition = window.scrollY;
     },
 
-    // start the search
-    startSearch() {
+    logout() {
+      this.$store.commit('SET_TOKEN', '');
+    },
+
+    // do the search
+    doSearch() {
       const query = this.searchQuery;
       if (query.length > 0) {
         this.$router.push({
@@ -75,6 +79,11 @@ export default {
     toggleDropdown() {
       this.userDropdown = !this.userDropdown;
     },
+  },
+  computed: {
+    ...mapGetters({
+      currentUser: 'getCurrentUser',
+    }),
   },
   mounted() {
     window.addEventListener('scroll', this.updateScroll, {

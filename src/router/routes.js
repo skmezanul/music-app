@@ -38,18 +38,10 @@ const search = () => import(/* webpackChunkName: "search" */ './views/search');
 // component for general settings
 const settings = () => import(/* webpackChunkName: "settings" */ './views/settings');
 
-// component for login
-const login = () => import(/* webpackChunkName: "login" */ './views/login');
+// component for debugging
+const debug = () => import(/* webpackChunkName: "debug" */ './views/debug');
 
 export default [{
-  path: '/login',
-  name: 'login',
-  meta: {
-    title: 'Login',
-  },
-  component: login,
-},
-{
   path: '/browse',
   component: browseIndex,
   children: [{
@@ -261,5 +253,14 @@ export default [{
     requiresAuth: true,
   },
   component: settings,
+},
+{
+  path: '/debug',
+  name: 'debug',
+  meta: {
+    title: 'Debug',
+    compact: true,
+  },
+  component: debug,
 },
 ];

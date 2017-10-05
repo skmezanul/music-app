@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
+import store from '@/store';
 import EN from './en';
 import DE from './de';
 import ES from './es';
@@ -12,8 +13,8 @@ const messages = {
   ES,
 };
 
-// get language from local storage
-const locale = localStorage.getItem('app_language');
+// get language from vuex store
+const locale = store.state.currentUser.country;
 
 /* eslint-disable no-new */
 const i18n = new VueI18n({

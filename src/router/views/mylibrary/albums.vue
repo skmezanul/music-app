@@ -36,7 +36,7 @@ export default {
     // get this user's saved tracks from the api
     getSavedAlbums() {
       const that = this;
-      const market = that.$store.state.currentUser.country;
+      const market = that.$store.getters.getMarket;
 
       that.$startLoading('fetching data');
       that.axios({

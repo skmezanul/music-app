@@ -1,4 +1,8 @@
 export default {
+  SET_TOKEN(state, token) {
+    const thisState = state;
+    thisState.accessToken = token;
+  },
   CURRENT_PLAYBACK(state, data) {
     const thisState = state;
     thisState.currentPlayback = data;
@@ -10,10 +14,6 @@ export default {
   TOGGLE_LARGE_COVER(state) {
     const thisState = state;
     thisState.largeCover = !thisState.largeCover;
-  },
-  DEVICE_ID(state, data) {
-    const thisState = state;
-    thisState.deviceID = data;
   },
   ADD_NOTICE(state, message) {
     const thisState = state;

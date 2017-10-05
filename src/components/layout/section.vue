@@ -83,6 +83,9 @@ export default {
                 display: none;
             }
         }
+        p, pre {
+          display: none;
+        }
     }
 
     .biography {

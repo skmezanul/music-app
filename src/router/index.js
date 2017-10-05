@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import { hasToken } from '@/api';
+import { hasToken, getToken, toLogin } from '@/api';
 import routes from './routes';
 
 Vue.use(VueRouter);
@@ -17,17 +17,19 @@ const router = new VueRouter({
 });
 
 /**
- * Check for spotify access token on each route change and get it if not already in local storage.
- * Redirect to spotify login if no access token stored in local storage.
+ * Check for spotify access token on each route change and get it if not already in vuex store.
+ * Redirect to spotify login if no access token stored in vuex store.
  */
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth && !hasToken() && to.name !== 'login') {
-    next({
-      name: 'login',
-    });
-  } else {
+  if (!hasToken() && to.path !== '/login') {
+    // redirect to spotify login page
+    toLogin();
+  } else if (!hasToken() && to.path === '/login') {
+    // get token from url
+    getToken();
     next();
   }
+  next();
 });
 
 export default router;
