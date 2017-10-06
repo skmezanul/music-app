@@ -188,6 +188,9 @@ export default {
             height: 250px;
             border-radius: 10px;
             box-shadow: $shadow;
+            &:not(.small) {
+              flex: 1;
+            }
 
             &.small {
                 min-width: 180px;
@@ -203,8 +206,8 @@ export default {
 
         .stage-container {
             display: flex;
+            flex: 4;
             flex-direction: column;
-            width: inherit;
 
             h1 {
                 margin-left: -3px;

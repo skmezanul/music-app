@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
@@ -22,7 +24,7 @@ export default {
     getBiography() {
       const that = this;
       const artist = that.$parent.artist.name;
-      const lang = that.$store.getters.getCountry;
+      const lang = that.country;
       const api_key = '5ee365767f401c005a08f2ef9a92b66c';
 
       that.axios({
@@ -43,6 +45,11 @@ export default {
         that.biography = formattedBio;
       });
     },
+  },
+  computed: {
+    ...mapGetters({
+      country: 'getCountry',
+    }),
   },
 };
 </script>

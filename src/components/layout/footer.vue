@@ -122,7 +122,7 @@ export default {
     // skip to previous/next track
     skip(direction) {
       const that = this;
-      const device_id = that.$store.getters.getDeviceId;
+      const device_id = that.deviceId;
 
       that.axios({
         method: 'post',
@@ -138,7 +138,7 @@ export default {
     // resume/pause current playback
     togglePlayback(state) {
       const that = this;
-      const device_id = that.$store.getters.getDeviceId;
+      const device_id = that.deviceId;
 
       that.axios({
         method: 'put',
@@ -154,7 +154,7 @@ export default {
     // toggle repeat for the current playback
     toggleRepeat() {
       const that = this;
-      const device_id = that.$store.getters.getDeviceId;
+      const device_id = that.deviceId;
 
       that.axios({
         method: 'put',
@@ -170,7 +170,7 @@ export default {
     toggleShuffle() {
       const that = this;
       const state = !that.currentPlayback.shuffle_state;
-      const device_id = that.$store.getters.getDeviceId;
+      const device_id = that.deviceId;
 
       that.axios({
         method: 'put',
@@ -186,7 +186,7 @@ export default {
     setVolume() {
       const that = this;
       const volume_percent = that.volume;
-      const device_id = that.$store.getters.getDeviceId;
+      const device_id = that.deviceId;
 
       that.axios({
         method: 'put',
@@ -201,6 +201,7 @@ export default {
   computed: {
     ...mapGetters({
       currentPlayback: 'getCurrentPlayback',
+      deviceId: 'getDeviceId',
     }),
   },
 };

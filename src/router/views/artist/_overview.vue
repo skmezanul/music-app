@@ -71,6 +71,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
@@ -92,7 +94,7 @@ export default {
     // Get this artist's top tracks from the api
     getTopTracks() {
       const that = this;
-      const country = that.$store.getters.getCountry;
+      const country = that.country;
 
       that.axios({
         method: 'get',
@@ -108,7 +110,7 @@ export default {
     // Get this artist's albums from the api
     getAlbums() {
       const that = this;
-      const market = that.$store.getters.getMarket;
+      const market = that.market;
 
       that.axios({
         method: 'get',
@@ -125,7 +127,7 @@ export default {
     // Get this artist's singles from the api
     getSingles() {
       const that = this;
-      const market = that.$store.getters.getMarket;
+      const market = that.market;
 
       that.axios({
         method: 'get',
@@ -142,7 +144,7 @@ export default {
     // Get album's this artist appears on from the api
     getAppearsOn() {
       const that = this;
-      const market = that.$store.getters.getMarket;
+      const market = that.market;
 
       that.axios({
         method: 'get',
@@ -155,6 +157,12 @@ export default {
         that.appearson = res.data.items;
       });
     },
+  },
+  computed: {
+    ...mapGetters({
+      country: 'getCountry',
+      market: 'getMarket',
+    }),
   },
 };
 </script>

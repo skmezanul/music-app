@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
@@ -62,7 +64,7 @@ export default {
     // get featured playlists from the api
     getFeaturedPlaylists() {
       const that = this;
-      const country = that.$store.getters.getCountry;
+      const country = that.country;
 
       that.$startLoading('fetching data');
       that.axios({
@@ -80,7 +82,7 @@ export default {
     // get new releases from the api
     getNewReleases() {
       const that = this;
-      const country = that.$store.getters.getCountry;
+      const country = that.country;
 
       that.$startLoading('fetching data');
       that.axios({
@@ -98,7 +100,7 @@ export default {
     // get categories from the api
     getCategories() {
       const that = this;
-      const locale = that.$store.getters.getLocale;
+      const locale = that.locale;
 
       that.$startLoading('fetching data');
       that.axios({
@@ -113,6 +115,12 @@ export default {
         that.$endLoading('fetching data');
       });
     },
+  },
+  computed: {
+    ...mapGetters({
+      country: 'getCountry',
+      locale: 'getLocale',
+    }),
   },
 };
 </script>

@@ -21,6 +21,8 @@ main.main-container
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
@@ -38,8 +40,8 @@ export default {
     // get category info from the api
     getCategoryInfo() {
       const that = this;
-      const locale = that.$store.getters.getLocale;
-      const country = that.$store.getters.getCountry;
+      const locale = that.locale;
+      const country = that.country;
 
       that.axios({
         method: 'get',
@@ -56,8 +58,8 @@ export default {
     // get categories playlists from the api
     getCategoriesPlaylists() {
       const that = this;
-      const locale = that.$store.getters.getLocale;
-      const country = that.$store.getters.getCountry;
+      const locale = that.locale;
+      const country = that.country;
 
       that.$startLoading('fetching data');
       that.axios({
@@ -72,6 +74,12 @@ export default {
         that.$endLoading('fetching data');
       });
     },
+  },
+  computed: {
+    ...mapGetters({
+      country: 'getCountry',
+      locale: 'getLocale',
+    }),
   },
 };
 </script>

@@ -21,6 +21,8 @@ main.main-container
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
@@ -36,7 +38,7 @@ export default {
     // get this user's saved tracks from the api
     getSavedAlbums() {
       const that = this;
-      const market = that.$store.getters.getMarket;
+      const market = that.market;
 
       that.$startLoading('fetching data');
       that.axios({
@@ -50,6 +52,11 @@ export default {
         that.$endLoading('fetching data');
       });
     },
+  },
+  computed: {
+    ...mapGetters({
+      market: 'getMarket',
+    }),
   },
 };
 </script>
