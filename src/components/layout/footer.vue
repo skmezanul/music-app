@@ -220,9 +220,7 @@ footer {
     border-top: 1px solid $border-color;
     background: $dark-blue;
     transform: translateZ(0);
-    @media (max-width: $breakpoint-mobile) {
-        flex-direction: column;
-    }
+    flex-wrap: wrap;
 
     .footer-container {
         display: flex;
@@ -234,11 +232,16 @@ footer {
             justify-content: flex-start;
             transition: transform 0.3s;
             will-change: transform;
+            @media (max-width: $breakpoint-mobile) {
+                flex-basis: 100%;
+            }
 
-            &.cover-hidden {
-              transform: translateX(-60px);
-              .cover-container {
-                opacity: 0;
+            @media (min-width: $breakpoint-mobile) {
+              &.cover-hidden {
+                transform: translateX(-60px);
+                .cover-container {
+                  opacity: 0;
+                }
               }
             }
 
@@ -275,6 +278,7 @@ footer {
             .currently-playing {
                 @media (max-width: $breakpoint-mobile) {
                     text-align: center;
+                    width: 100%;
                 }
                 .title {
                     font-size: 1.2em;
@@ -295,9 +299,8 @@ footer {
             justify-content: space-between;
             letter-spacing: 2px;
             @media (max-width: $breakpoint-mobile) {
-                flex: 1 !important;
+                flex: 1;
                 margin-top: 10px;
-                width: 100%;
             }
 
             .toggle {

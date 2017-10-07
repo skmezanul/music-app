@@ -1,60 +1,60 @@
 <template lang="pug">
 li.row(
-  @dblclick='playTrack',
-  :class="{ 'playing': playing }")
+	@dblclick='playTrack',
+	:class='{ "playing" : playing, "not-visible" : !isVisible }',
+	v-observe-visibility='visibilityChanged')
 
-  // image
-  .image-container(v-if='image')
-    i.material-icons(
-      v-if='!playing',
-      @click='playTrack') play_circle_filled
+	// image
+	.image-container(v-if='image')
+		i.material-icons(
+			v-if='!playing',
+			@click='playTrack') play_circle_filled
 
-    i.material-icons.playing(v-if='playing') volume_up
-    i.material-icons(v-if='playing') pause_circle_filled
-    img(
-      :src='image',
-      :alt='title')
+		i.material-icons.playing(v-if='playing') volume_up
+		i.material-icons(v-if='playing') pause_circle_filled
+		img(
+			:src='image',
+			:alt='title')
 
-  span.index.mobile-hidden {{ formattedIndex }}
+	span.index.mobile-hidden {{ formattedIndex }}
 
-  // meta
-  .meta-container
-    span {{ title }}
-    .artist-container(v-if='artists')
-      router-link(
-        v-for='artist in artists',
-        :key='artist.id',
-        :to='$toTarget(artist.type, artist.id)') {{ artist.name }}
+	// meta
+	.meta-container
+		span {{ title }}
+		.artist-container(v-if='artists')
+			router-link(
+				v-for='artist in artists',
+				:key='artist.id',
+				:to='$toTarget(artist.type, artist.id)') {{ artist.name }}
 
-  .explicit
-    span(
-      v-if='explicit',
-      v-tooltip='{ content: $t("explicit") }') E
+	.explicit
+		span(
+			v-if='explicit',
+			v-tooltip='{ content: $t("explicit") }') E
 
-  // album name
-  .album-container(v-if='album')
-    router-link(:to='$toTarget(album.type, album.id)') {{ album.name }}
+	// album name
+	.album-container(v-if='album')
+		router-link(:to='$toTarget(album.type, album.id)') {{ album.name }}
 
-  // duration
-  span.duration {{ formattedDuration }}
+	// duration
+	span.duration {{ formattedDuration }}
 
-  // actions
-  i.material-icons.mobile-hidden(
-    v-tooltip='{ content: $t("addtoplaylist") }') playlist_add
+	// actions
+	i.material-icons.mobile-hidden(
+		v-tooltip='{ content: $t("addtoplaylist") }') playlist_add
 
-  i.material-icons.mobile-hidden(
-    v-tooltip='{ content: $t("more") }') more_horiz
+	i.material-icons.mobile-hidden(
+		v-tooltip='{ content: $t("more") }') more_horiz
 </template>
 
 <script>
-import {
-  mapActions
-} from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   data() {
     return {
       playing: false,
+      isVisible: false,
     };
   },
   props: [
@@ -85,6 +85,9 @@ export default {
       }).then(() => {
         that.GET_CURRENT_PLAYBACK();
       });
+    },
+    visibilityChanged(isVisible) {
+      this.isVisible = isVisible;
     },
   },
   computed: {
@@ -117,7 +120,11 @@ export default {
         height: 75px;
         background-color: $blue;
         color: rgba($white, 0.7);
-        transition: background-color 0.3s, margin 0.3s, transform 0.3s;
+        transition: all 0.3s;
+        &.not-visible {
+            opacity: 0;
+            visibility: hidden;
+        }
         > i {
             margin-right: 25px;
             transition: color 0.3s;
@@ -171,17 +178,17 @@ export default {
             }
         }
         .explicit {
-          flex: 0.15;
-          span {
-            @include flex-center;
-            padding-top: 2px;
-            padding-left: 1px;
-            width: 18px;
-            height: 18px;
-            border-radius: 5px;
-            background-color: rgba($white, 0.7);
-            color: $blue;
-          }
+            flex: 0.15;
+            span {
+                @include flex-center;
+                padding-top: 2px;
+                padding-left: 1px;
+                width: 18px;
+                height: 18px;
+                border-radius: 5px;
+                background-color: rgba($white, 0.7);
+                color: $blue;
+            }
         }
         .index {
             margin: 0 20px;

@@ -34,7 +34,6 @@ export default {
       const that = this;
       const country = that.country;
 
-      that.$startLoading('fetching data');
       that.axios({
         method: 'get',
         url: '/browse/new-releases',
@@ -43,7 +42,6 @@ export default {
         },
       }).then((res) => {
         that.releases = res.data;
-        that.$endLoading('fetching data');
       });
     },
   },

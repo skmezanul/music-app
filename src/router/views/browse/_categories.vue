@@ -33,7 +33,6 @@ export default {
       const that = this;
       const locale = that.locale;
 
-      that.$startLoading('fetching data');
       that.axios({
         method: 'get',
         url: '/browse/categories',
@@ -43,7 +42,6 @@ export default {
         },
       }).then((res) => {
         that.categories = res.data.categories;
-        that.$endLoading('fetching data');
       });
     },
   },

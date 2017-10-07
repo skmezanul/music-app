@@ -35,13 +35,11 @@ export default {
     getCharts() {
       const that = this;
 
-      that.$startLoading('fetching data');
       that.axios({
         method: 'get',
         url: '/users/spotifycharts/playlists/37i9dQZEVXbMDoHDwVN2tF',
       }).then((res) => {
         that.charts = res.data.tracks.items;
-        that.$endLoading('fetching data');
       });
     },
   },
