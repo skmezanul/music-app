@@ -32,6 +32,7 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
+    this.$startLoading('fetching data');
     this.getUser();
   },
   methods: {
@@ -39,8 +40,7 @@ export default {
     getUser() {
       const that = this;
 
-      that.$startLoading('fetching data');
-      that.axios({
+      that.$spotifyApi({
         method: 'get',
         url: `/users/${that.$route.params.id}`,
       }).then((res) => {

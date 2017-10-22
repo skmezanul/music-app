@@ -3,17 +3,17 @@ main.main-container
 	// stage
 	ma-stage(
     :subtitle='$tc("album", 1)',
-    :image='album.images[0].url',
-    :title='album.name',
-    :meta='`${$t("by")} ${album.artists[0].name}`')
+    :image='data.album.images[0].url',
+    :title='data.album.name',
+    :meta='`${$t("by")} ${data.album.artists[0].name}`')
 
 	.page-container
 		// tracks
-		ma-section
+		ma-section(:copyright='data.album.copyrights[0].text')
 
 			ol.list
 				ma-list(
-          v-for='(track, index) in album.tracks.items',
+          v-for='(track, index) in data.album.tracks.items',
           :key='track.id',
           :type='track.type',
           :title='track.name',
@@ -29,29 +29,31 @@ import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      album: [],
+      data: {
+        album: [],
+      },
     };
   },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
+    this.$startLoading('fetching data');
     this.getSingleAlbum();
   },
   methods: {
     // get album from the api
     getSingleAlbum() {
-      const that = this;
-      const market = that.market;
+      const that = this,
+            market = that.market;
 
-      that.$startLoading('fetching data');
-      that.axios({
+      that.$spotifyApi({
         method: 'get',
         url: `/albums/${that.$route.params.id}`,
         params: {
           market,
         },
       }).then((res) => {
-        that.album = res.data;
+        that.data.album = res.data;
         that.$endLoading('fetching data');
       });
     },

@@ -4,7 +4,7 @@ main.main-container
   ma-stage(
     :subtitle='$t("library")',
     :title='$tc("album", 0)',
-    :image='albums[0].album.images[0].url')
+    :image='data.albums[0].album.images[0].url')
 
   .page-container
     // albums
@@ -12,7 +12,7 @@ main.main-container
 
       .section-items-container
         ma-item(
-          v-for='item in albums',
+          v-for='item in data.albums',
           :key='item.album.id',
           :type='item.album.type',
           :primaryid='item.album.id',
@@ -26,29 +26,31 @@ import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      albums: [],
+      data: {
+        albums: [],
+      },
     };
   },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
+    this.$startLoading('fetching data');
     this.getSavedAlbums();
   },
   methods: {
     // get this user's saved tracks from the api
     getSavedAlbums() {
-      const that = this;
-      const market = that.market;
+      const that = this,
+            market = that.market;
 
-      that.$startLoading('fetching data');
-      that.axios({
+      that.$spotifyApi({
         method: 'get',
         url: '/me/albums',
         params: {
           market,
         },
       }).then((res) => {
-        that.albums = res.data.items;
+        that.data.albums = res.data.items;
         that.$endLoading('fetching data');
       });
     },

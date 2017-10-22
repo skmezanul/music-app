@@ -7,10 +7,6 @@ nav.navigation-container
         router-link(to='/browse')
           i.material-icons book
           | {{ $t('browse') }}
-      li
-        router-link(to='/radio')
-          i.material-icons radio
-          | {{ $t('radio') }}
 
     // my library
     .navigation-section
@@ -55,7 +51,7 @@ nav.navigation-container
         tag='div',
         :to='$toTarget("artist", currentPlayback.item.artists[0].id)',
         v-if='$store.state.largeCover')
-        i.cover-toggle.material-icons(@click.prevent='$store.commit("TOGGLE_LARGE_COVER")') close
+        ma-button(type='overlay', @click.prevent.native='$store.commit("TOGGLE_LARGE_COVER")', icon='close')
         img(
           :src='currentPlayback.item.album.images[0].url',
           :alt='currentPlayback.item.name')
@@ -80,7 +76,7 @@ export default {
     getMyPlaylists() {
       const that = this;
 
-      that.axios({
+      that.$spotifyApi({
         method: 'get',
         url: '/me/playlists',
         params: {
@@ -179,20 +175,13 @@ export default {
       position: relative;
       height: 199px;
       border-top: 1px solid $border-color;
+      .button {
+        opacity: 0;
+      }
       &:hover {
-        .cover-toggle {
+        .button {
           opacity: 1;
         }
-      }
-      .cover-toggle {
-        @include item-hover;
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        padding: 2px;
-        border-radius: 50%;
-        background-color: rgba($black, 0.5);
-        opacity: 0;
       }
       img {
           width: 100%;

@@ -1,10 +1,20 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { createVuexLoader } from 'vuex-loading';
-import createPersistedState from 'vuex-persistedstate';
+import VuexPersist from 'vuex-persist';
 import mutations from './mutations';
 import actions from './actions';
 import getters from './getters';
+
+const VuexStorage = new VuexPersist({
+  key: 'state',
+  storage: window.localStorage,
+  reducer: state => ({
+    largeCover: state.largeCover,
+    accessToken: state.accessToken,
+    currentUser: state.currentUser,
+  }),
+});
 
 const VuexLoading = createVuexLoader({
   moduleName: 'loading',
@@ -20,7 +30,7 @@ Vue.use(VuexLoading);
 const store = new Vuex.Store({
   strict: true,
   state: {
-    currentPlayback: '',
+    currentPlayback: [],
     currentUser: [],
     notices: [],
     largeCover: false,
@@ -29,7 +39,7 @@ const store = new Vuex.Store({
   mutations,
   actions,
   getters,
-  plugins: [VuexLoading.Store, createPersistedState()],
+  plugins: [VuexLoading.Store, VuexStorage.plugin],
 });
 
 export default store;

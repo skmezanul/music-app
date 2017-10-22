@@ -3,6 +3,10 @@ export default {
     const thisState = state;
     thisState.accessToken = token;
   },
+  REMOVE_TOKEN(state) {
+    const thisState = state;
+    thisState.accessToken = '';
+  },
   CURRENT_PLAYBACK(state, data) {
     const thisState = state;
     thisState.currentPlayback = data;
@@ -16,11 +20,9 @@ export default {
     thisState.largeCover = !thisState.largeCover;
   },
   ADD_NOTICE(state, message) {
-    const thisState = state;
-    thisState.notices.unshift(message);
+    state.notices.unshift(message);
   },
   REMOVE_NOTICE(state, index) {
-    const thisState = state;
-    thisState.notices.splice(index, 1);
+    state.notices.splice(index, 1);
   },
 };

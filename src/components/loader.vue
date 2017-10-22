@@ -11,7 +11,7 @@
 
 <style lang="scss" scoped>
 .loader-container {
-    @include position(fixed, 996);
+    @include position(fixed, 997);
     @include flex-center;
     margin-bottom: 81px;
     height: 100%;

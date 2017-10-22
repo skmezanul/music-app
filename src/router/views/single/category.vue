@@ -3,7 +3,7 @@ main.main-container
   // stage
   ma-stage(
     :subtitle='$tc("category", 1)',
-    :title='category.name')
+    :title='data.category.name')
 
   .page-container
     // playlists
@@ -11,7 +11,7 @@ main.main-container
 
       .section-items-container
         ma-item(
-          v-for='playlist in playlists',
+          v-for='playlist in data.playlists',
           :key='playlist.id',
           :type='playlist.type',
           :primaryid='playlist.id',
@@ -26,24 +26,27 @@ import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      category: [],
-      playlists: [],
+      data: {
+        category: [],
+        playlists: [],
+      },
     };
   },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
+    this.$startLoading('fetching data');
     this.getCategoryInfo();
     this.getCategoriesPlaylists();
   },
   methods: {
     // get category info from the api
     getCategoryInfo() {
-      const that = this;
-      const locale = that.locale;
-      const country = that.country;
+      const that = this,
+            locale = that.locale,
+            country = that.country;
 
-      that.axios({
+      that.$spotifyApi({
         method: 'get',
         url: `/browse/categories/${that.$route.params.id}`,
         params: {
@@ -51,18 +54,18 @@ export default {
           country,
         },
       }).then((res) => {
-        that.category = res.data;
+        that.data.category = res.data;
+        that.$endLoading('fetching data');
       });
     },
 
     // get categories playlists from the api
     getCategoriesPlaylists() {
-      const that = this;
-      const locale = that.locale;
-      const country = that.country;
+      const that = this,
+            locale = that.locale,
+            country = that.country;
 
-      that.$startLoading('fetching data');
-      that.axios({
+      that.$spotifyApi({
         method: 'get',
         url: `/browse/categories/${that.$route.params.id}/playlists`,
         params: {
@@ -70,8 +73,7 @@ export default {
           country,
         },
       }).then((res) => {
-        that.playlists = res.data.playlists.items;
-        that.$endLoading('fetching data');
+        that.data.playlists = res.data.playlists.items;
       });
     },
   },

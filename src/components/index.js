@@ -5,6 +5,8 @@ import slider from 'vue-slider-component';
 import tooltip from 'v-tooltip';
 import parallax from 'vue-parallax-js';
 import visibility from 'vue-observe-visibility';
+import viewports from 'vue-match-media/src';
+import modals from 'vue-js-modal';
 import stage from './layout/stage';
 import navigation from './layout/navigation';
 import header from './layout/header';
@@ -16,6 +18,7 @@ import button from './button';
 import loader from './loader';
 import splash from './splash';
 import notice from './notice';
+import video from './video';
 
 // register components
 Vue.component('ma-slider', slider);
@@ -30,6 +33,7 @@ Vue.component('ma-button', button);
 Vue.component('ma-loader', loader);
 Vue.component('ma-splash', splash);
 Vue.component('ma-notice', notice);
+Vue.component('ma-video', video);
 
 // register plugins
 Vue.use(parallax);
@@ -39,3 +43,5 @@ Vue.use(tooltip, {
   defaultContainer: '.tooltip-container',
 });
 Vue.use(visibility);
+Vue.use(viewports);
+Vue.use(modals, { componentName: 'ma-modal' });

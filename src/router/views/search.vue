@@ -3,19 +3,19 @@ main.main-container
 	// stage
 	ma-stage(
     :subtitle='$tc("search", 1)',
-    :image='results.tracks.items[0].album.images[0].url',
+    :image='data.results.tracks.items[0].album.images[0].url',
     :title="`${$t('resultsfor')} '${$route.params.query}'`")
 
 	.page-container
 		// tracks
 		ma-section(
-      v-if='results.tracks.items.length > 0',
-      :title='`${$tc("track", 0)} (${results.tracks.items.length})`',
+      v-if='data.results.tracks.items.length > 0',
+      :title='`${$tc("track", 0)} (${data.results.tracks.items.length})`',
       :collapsible='true')
 
 			ol.list
 				ma-list(
-          v-for='(track, index) in results.tracks.items',
+          v-for='(track, index) in data.results.tracks.items',
           :key='track.id',
           :trackid='track.id',
           :type='track.type',
@@ -29,13 +29,13 @@ main.main-container
 
 		// albums
 		ma-section(
-      v-if='results.albums.items.length > 0',
-      :title='`${$tc("album", 0)} (${results.albums.items.length})`',
+      v-if='data.results.albums.items.length > 0',
+      :title='`${$tc("album", 0)} (${data.results.albums.items.length})`',
       :collapsible='true')
 
 			.section-items-container
 				ma-item(
-          v-for='album in results.albums.items',
+          v-for='album in data.results.albums.items',
           :key='album.id',
           :type='album.type',
           :primaryid='album.id',
@@ -46,42 +46,45 @@ main.main-container
 
 		// artists
 		ma-section(
-      v-if='results.artists.items.length > 0',
-      :title='`${$tc("artist", 0)} (${results.artists.items.length})`',
+      v-if='data.results.artists.items.length > 0',
+      :title='`${$tc("artist", 0)} (${data.results.artists.items.length})`',
       :collapsible='true')
 
 			.section-items-container
 				ma-item(
-          v-for='artist in results.artists.items',
+          v-for='artist in data.results.artists.items',
           :type='artist.type',
           :key='artist.id',
           :title='artist.name',
-          :trackid='artist.id')
+          :primaryid='artist.id')
 </template>
 
 <script>
 export default {
   data() {
     return {
-      results: [],
+      data: {
+        results: [],
+      },
     };
   },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
+    this.$startLoading('fetching data');
     this.getResults();
   },
   watch: {
-    // update playing state when playback is changing
+    // get results when query changes
     '$route.params.query': 'getResults',
   },
   methods: {
     // get search results from the api
     getResults() {
-      const that = this;
-      const q = that.$route.params.query;
-      that.$startLoading('fetching data');
-      that.axios({
+      const that = this,
+            q = that.$route.params.query;
+
+      that.$spotifyApi({
         method: 'get',
         url: '/search',
         params: {
@@ -89,12 +92,8 @@ export default {
           type: 'album,artist,track',
         },
       }).then((res) => {
-        that.results = res.data;
+        that.data.results = res.data;
         that.$endLoading('fetching data');
-      }).catch(() => {
-        that.$router.go(-1);
-        that.$endLoading('fetching data');
-        that.$store.commit('ADD_NOTICE', that.$t('errors.fetchresults'));
       });
     },
   },

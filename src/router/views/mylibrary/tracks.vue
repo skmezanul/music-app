@@ -4,7 +4,7 @@ main.main-container
 	ma-stage(
     :subtitle='$t("library")',
     :title='$tc("track", 0)',
-    :image='tracks[0].track.album.images[0].url')
+    :image='data.tracks[0].track.album.images[0].url')
 
 	.page-container
 		// tracks
@@ -12,7 +12,7 @@ main.main-container
 
 			ol.list
 				ma-list(
-          v-for='(item, index) in tracks',
+          v-for='(item, index) in data.tracks',
           :key='item.track.id',
           :type='item.track.type',
           :image='item.track.album.images[0].url',
@@ -31,29 +31,31 @@ import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      tracks: [],
+      data: {
+        tracks: [],
+      },
     };
   },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
+    this.$startLoading('fetching data');
     this.getSavedTracks();
   },
   methods: {
     // get this user's saved tracks from the api
     getSavedTracks() {
-      const that = this;
-      const market = that.market;
+      const that = this,
+            market = that.market;
 
-      that.$startLoading('fetching data');
-      that.axios({
+      that.$spotifyApi({
         method: 'get',
         url: '/me/tracks',
         params: {
           market,
         },
       }).then((res) => {
-        that.tracks = res.data.items;
+        that.data.tracks = res.data.items;
         that.$endLoading('fetching data');
       });
     },

@@ -3,9 +3,9 @@ main.main-container
 	// stage
 	ma-stage(
     :subtitle='$tc("playlist", 1)',
-    :image='playlist.images[0].url',
-    :title='playlist.name',
-    :meta='playlist.description')
+    :image='data.playlist.images[0].url',
+    :title='data.playlist.name',
+    :meta='data.playlist.description')
 
 	.page-container
 		// tracks
@@ -13,7 +13,7 @@ main.main-container
 
 			ol.list
 				ma-list(
-          v-for='(playlist, index) in playlist.tracks.items',
+          v-for='(playlist, index) in data.playlist.tracks.items',
           :key='playlist.track.id',
           :trackid='playlist.track.id',
           :type='playlist.track.type',
@@ -32,29 +32,31 @@ import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      playlist: [],
+      data: {
+        playlist: [],
+      },
     };
   },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
+    this.$startLoading('fetching data');
     this.getSinglePlaylist();
   },
   methods: {
     // get playlist from the api
     getSinglePlaylist() {
-      const that = this;
-      const market = that.market;
+      const that = this,
+            market = that.market;
 
-      that.$startLoading('fetching data');
-      that.axios({
+      that.$spotifyApi({
         method: 'get',
         url: `/users/${that.$route.params.owner}/playlists/${that.$route.params.id}`,
         params: {
           market,
         },
       }).then((res) => {
-        that.playlist = res.data;
+        that.data.playlist = res.data;
         that.$endLoading('fetching data');
       });
     },

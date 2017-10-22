@@ -70,20 +70,19 @@ export default {
       this.playing = !this.playing;
     },
 
-    // get color from image
+    // get color from cover image
     getColor() {
       const that = this;
       if (that.color === '') {
         Vibrant.from(that.image).getPalette()
           .then((palette) => {
-            const r = Math.round(palette.Muted._rgb[0]);
-            const g = Math.round(palette.Muted._rgb[1]);
-            const b = Math.round(palette.Muted._rgb[2]);
-            const a = 1;
-            const color = `rgba(${r}, ${g}, ${b}, ${a})`;
+            const r = Math.round(palette.Muted._rgb[0]),
+                  g = Math.round(palette.Muted._rgb[1]),
+                  b = Math.round(palette.Muted._rgb[2]),
+                  a = 1,
+                  color = `rgba(${r}, ${g}, ${b}, ${a})`;
+
             that.color = `linear-gradient(to top, ${color} 25%, rgba(80, 80, 80, 0.5) 100%)`;
-          }).catch(() => {
-            that.color = '';
           });
       }
     },

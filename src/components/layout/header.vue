@@ -7,7 +7,7 @@ header(:class='{ "scrolled" : scrollPosition > 0 }')
 
       i.material-icons(@click='routerGo(1)') keyboard_arrow_right
     // search
-    .header-inner.center
+    .header-inner.middle
       i.material-icons.search-icon search
       input(
         type='text',
@@ -17,12 +17,15 @@ header(:class='{ "scrolled" : scrollPosition > 0 }')
 
     // current user
     .header-inner.right
-      .avatar-container.mobile-hidden
-        img(
-          :src='currentUser.images[0].url',
-          :alt='currentUser.display_name')
+      router-link.current-user(
+        tag='div',
+        :to='$toTarget("user", currentUser.id)')
+        .avatar-container
+          img(
+            :src='currentUser.images[0].url',
+            :alt='currentUser.display_name')
 
-      router-link.user-name.mobile-hidden(:to='$toTarget("user", currentUser.id)') {{ currentUser.display_name }}
+        span(v-if='$mq.desktop') {{ currentUser.display_name }}
       i.toggle.material-icons(@click='toggleDropdown') keyboard_arrow_down
       // user dropdown
       ul.dropdown(
@@ -54,7 +57,7 @@ export default {
     },
 
     logout() {
-      this.$store.commit('SET_TOKEN', '');
+      this.$store.commit('REMOVE_TOKEN');
     },
 
     // do the search
@@ -151,7 +154,7 @@ header {
                 }
             }
 
-            &.center {
+            &.middle {
                 position: relative;
                 margin: 0 10px;
                 @media (max-width: $breakpoint-mobile) {
@@ -198,23 +201,33 @@ header {
                     justify-content: flex-end;
                 }
 
-                .avatar-container {
-                    width: 34px;
-                    height: 34px;
-                    border-radius: 100%;
-                    overflow: hidden;
-                    img {
-                        height: 100%;
-                        width: auto;
-                    }
-                }
+                .current-user {
+                  display: flex;
+                  align-items: center;
+                  &:hover {
+                    cursor: pointer;
+                  }
 
-                .user-name {
-                    padding: 0 10px;
+                  .avatar-container {
+                      width: 34px;
+                      height: 34px;
+                      border-radius: 100%;
+                      overflow: hidden;
+                      img {
+                          height: 100%;
+                          width: auto;
+                      }
+                  }
+
+                  span {
+                      padding-left: 10px;
+                  }
+
                 }
 
                 i {
                     @include item-hover;
+                    padding-left: 10px;
                 }
             }
         }

@@ -1,21 +1,23 @@
 <template lang="pug">
 transition(name='fade', appear)
-	section.page-section(:class='{ "collapsed" : isCollapsed }')
-		// section header
-		.section-header(v-if='title')
-			h1 {{ title }}
+  section.page-section(:class='{ "collapsed" : isCollapsed }')
+    // section header
+    .section-header(v-if='title')
+      h1 {{ title }}
 
-			// show more/less
-			.section-actions(@click='toggleCollapse', v-if='collapsible')
-				span(v-if='!collapsed')
-					| {{ $t("showless") }}
-					i.material-icons keyboard_arrow_up
-				span(v-if='collapsed')
-					| {{ $t("showmore") }}
-					i.material-icons keyboard_arrow_down
+      // show more/less
+      .section-actions(@click='toggleCollapse', v-if='collapsible')
+        span(v-if='!collapsed')
+          | {{ $t("showless") }}
+          i.material-icons keyboard_arrow_up
+        span(v-if='collapsed')
+          | {{ $t("showmore") }}
+          i.material-icons keyboard_arrow_down
 
-		// section slot
-		slot
+    // section slot
+    slot
+
+    p.copyright(v-if='copyright') {{ copyright }}
 </template>
 
 <script>
@@ -28,6 +30,7 @@ export default {
   props: [
     'title',
     'collapsible',
+    'copyright',
   ],
   methods: {
     // toggle collapse
@@ -94,6 +97,12 @@ export default {
         font-weight: 300;
         font-size: 1.1em;
         line-height: 1.5em;
+    }
+
+    .copyright {
+      color: rgba(255,255,255,0.7);
+      font-weight: 300;
+      font-size: 0.7em;
     }
 
     .section-header {

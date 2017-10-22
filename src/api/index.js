@@ -2,67 +2,31 @@ import Vue from 'vue';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 import store from '@/store';
-import { stringify } from 'query-string';
-import { clientId, scope } from './config';
+import { credentials } from './config';
 
 Vue.use(VueAxios, axios);
 
 // get api token from vuex store
 // eslint-disable-next-line
-const token = store.getters.getAccessToken;
+export const token = store.getters.getAccessToken;
 
-/**
- * Global toLogin() function.
- * Redirects user to spotify login page with given scopes and redirect url.
- * User gets redirected to route /callback after successful login.
- */
-export function toLogin() {
-  const url = window.location;
-  const req = {
-    // change the clientID and scope in index.js
-    client_id: clientId,
-    redirect_uri: `${url.protocol}//${url.host}/login`,
-    scope,
-    response_type: 'token',
-  };
+Vue.prototype.$spotifyApi = axios.create({
+  baseURL: 'https://api.spotify.com/v1/',
+  headers: { Authorization: `Bearer ${token}` },
+});
 
-  // convert request to string
-  const str = stringify(req);
+Vue.prototype.$spotifyBackendApi = axios.create({
+  baseURL: 'https://spclient.wg.spotify.com/open-backend-2/v1/',
+  headers: { Authorization: `Bearer ${credentials.backendApiToken}` },
+});
 
-  // redirect to spotify login page
-  url.href = `https://accounts.spotify.com/authorize?${str}`;
-}
-
-/**
- * Global hasToken() function.
- * Checks if token is in local storage and returns a boolean.
- */
-export function hasToken() {
-  const storedToken = token && token !== 'undefined';
-  return storedToken;
-}
-
-/**
- * Global getToken() function.
- * Extracts token from url and saves it to local storage.
- * Works only on /callback route as its the route
- * spotify redirects the user to after successful login.
- */
-export function getToken() {
-  const url = window.location.href;
-
-  // get token from url
-  const tokenFromurl = url.split('&token_type')[0].split('access_token=')[1];
-
-  // store token in local storage
-  store.commit('SET_TOKEN', tokenFromurl);
-}
-
-// set default authorization header
-Vue.axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-
-// set default baseURL
-Vue.axios.defaults.baseURL = 'https://api.spotify.com/v1/';
+Vue.prototype.$youtubeApi = axios.create({
+  baseURL: 'https://www.googleapis.com/youtube/v3/',
+  params: {
+    part: 'snippet',
+    key: credentials.youtubeApiKey,
+  },
+});
 
 // set default axios errors
 Vue.axios.interceptors.response.use(null, (err) => {
@@ -70,7 +34,7 @@ Vue.axios.interceptors.response.use(null, (err) => {
   if (err.response.status === 401) {
     message = `Error: ${err.message}. - It is likely your access token has expired.`;
     // remove expired access token
-    store.commit('SET_TOKEN', '');
+    store.commit('REMOVE_TOKEN');
   }
   if (err.response.status === 403) {
     message = `Error: ${err.message}. - This action requires a Spotify Premium subscription.`;

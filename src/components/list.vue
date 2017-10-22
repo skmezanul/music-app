@@ -1,60 +1,59 @@
 <template lang="pug">
 li.row(
-	@dblclick='playTrack',
-	:class='{ "playing" : playing, "not-visible" : !isVisible }',
-	v-observe-visibility='visibilityChanged')
+  @dblclick='playTrack("play", trackid)',
+  :class='{ "playing" : isPlaying }')
 
-	// image
-	.image-container(v-if='image')
-		i.material-icons(
-			v-if='!playing',
-			@click='playTrack') play_circle_filled
+  // image
+  .image-container(v-if='image')
+    i.material-icons(
+      v-if='!isPlaying',
+      @click='playTrack("play", trackid)') play_circle_filled
 
-		i.material-icons.playing(v-if='playing') volume_up
-		i.material-icons(v-if='playing') pause_circle_filled
-		img(
-			:src='image',
-			:alt='title')
+    i.material-icons.playing(v-if='isPlaying') volume_up
+    i.material-icons(
+      v-if='isPlaying',
+      @click='playTrack("pause")') pause_circle_filled
+    img(
+      :src='image',
+      :alt='title')
 
-	span.index.mobile-hidden {{ formattedIndex }}
+  span.index(v-if='!$mq.phone') {{ $formatValue(index, 'index') }}
 
-	// meta
-	.meta-container
-		span {{ title }}
-		.artist-container(v-if='artists')
-			router-link(
-				v-for='artist in artists',
-				:key='artist.id',
-				:to='$toTarget(artist.type, artist.id)') {{ artist.name }}
+  // meta
+  .meta-container
+    span {{ title }}
+    .artist-container(v-if='artists')
+      router-link(
+        v-for='artist in artists',
+        :key='artist.id',
+        :to='$toTarget(artist.type, artist.id)') {{ artist.name }}
+  .label-container
+    i.material-icons(
+      v-if='explicit',
+      v-tooltip='{ content: $t("explicit") }') explicit
 
-	.explicit
-		span(
-			v-if='explicit',
-			v-tooltip='{ content: $t("explicit") }') E
+  // album name
+  .album-container(v-if='album')
+    router-link(:to='$toTarget(album.type, album.id)') {{ album.name }}
 
-	// album name
-	.album-container(v-if='album')
-		router-link(:to='$toTarget(album.type, album.id)') {{ album.name }}
+  // duration
+  span.duration {{ $formatValue(duration, 'time') }}
 
-	// duration
-	span.duration {{ formattedDuration }}
-
-	// actions
-	i.material-icons.mobile-hidden(
-		v-tooltip='{ content: $t("addtoplaylist") }') playlist_add
-
-	i.material-icons.mobile-hidden(
-		v-tooltip='{ content: $t("more") }') more_horiz
+  // actions
+  .action-container(v-if='!$mq.phone')
+    i.playlistadd.material-icons(
+      v-tooltip='{ content: $t("addtoplaylist") }') playlist_add
+    i.more.material-icons(
+      v-tooltip='{ content: $t("more") }') more_horiz
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   data() {
     return {
-      playing: false,
-      isVisible: false,
+      isPlaying: false,
     };
   },
   props: [
@@ -68,45 +67,41 @@ export default {
     'image',
     'explicit',
   ],
+  created() {
+    this.getPlayingState();
+  },
+  watch: {
+    // call again if value changes
+    'currentPlayback.item.id': 'getPlayingState',
+  },
   methods: {
-    ...mapActions(['GET_CURRENT_PLAYBACK']),
+    ...mapActions(['GET_CURRENT_PLAYBACK', 'SET_PLAYBACK']),
 
-    // play track
-    playTrack() {
-      const that = this;
+    // check if track is currently playing
+    getPlayingState() {
+      const that = this,
+            isPlayingTrack = (that.currentPlayback.item.id === that.trackid),
+            isHistoryView = that.$includes(that.$route.name, 'history');
 
-      that.playing = true;
-      that.axios({
-        method: 'put',
-        url: '/me/player/play',
-        data: {
-          uris: [`spotify:track:${that.trackid}`],
-        },
-      }).then(() => {
-        that.GET_CURRENT_PLAYBACK();
-      });
+      if (isPlayingTrack && !isHistoryView) {
+        that.isPlaying = true;
+      } else {
+        that.isPlaying = false;
+      }
     },
-    visibilityChanged(isVisible) {
-      this.isVisible = isVisible;
+
+    // play clicked track or toggle playback state
+    playTrack(state, trackid) {
+      this.SET_PLAYBACK({
+        state,
+        trackid,
+      });
     },
   },
   computed: {
-    // format duration
-    formattedDuration() {
-      const that = this;
-      const minutes = Math.floor(that.duration / 60000);
-      const seconds = ((that.duration % 60000) / 1000).toFixed(0);
-      return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-    },
-
-    // format index
-    formattedIndex() {
-      const that = this;
-      if (that.index < 99) {
-        return String(`0${that.index + 1}`).slice(-2);
-      }
-      return (that.index + 1);
-    },
+    ...mapGetters({
+      currentPlayback: 'getCurrentPlayback',
+    }),
   },
 };
 </script>
@@ -121,17 +116,6 @@ export default {
         background-color: $blue;
         color: rgba($white, 0.7);
         transition: all 0.3s;
-        &.not-visible {
-            opacity: 0;
-            visibility: hidden;
-        }
-        > i {
-            margin-right: 25px;
-            transition: color 0.3s;
-            &:hover {
-                color: $white;
-            }
-        }
         &:hover {
             background-color: rgba($white, 0.1);
             cursor: pointer;
@@ -177,30 +161,17 @@ export default {
                 transition: color 0.3s;
             }
         }
-        .explicit {
-            flex: 0.15;
-            span {
-                @include flex-center;
-                padding-top: 2px;
-                padding-left: 1px;
-                width: 18px;
-                height: 18px;
-                border-radius: 5px;
-                background-color: rgba($white, 0.7);
-                color: $blue;
-            }
-        }
         .index {
-            margin: 0 20px;
+            padding-left: 20px;
             color: $white;
             text-align: center;
             font-weight: 300;
             font-size: 1.4em;
         }
         .meta-container {
-            flex: 1.5;
+            flex: 1.3;
             overflow: hidden;
-            margin-right: 20px;
+            padding: 0 20px;
             text-overflow: ellipsis;
             white-space: nowrap;
             @media (max-width: $breakpoint-mobile) {
@@ -217,6 +188,7 @@ export default {
                 }
             }
         }
+
         .album-container {
             flex: 1;
             overflow: hidden;
@@ -226,9 +198,31 @@ export default {
                 @include comma-separated(1em, 400);
             }
         }
+
         .duration {
-            flex: 0.5;
+            flex: 0.3;
+            padding-right: 10px;
             text-align: center;
+        }
+
+        .label-container, .action-container  {
+          display: flex;
+          flex: 0.3;
+          align-items: center;
+          padding: 0 30px;
+          i {
+              @include item-hover;
+          }
+        }
+
+        .action-container  {
+          justify-content: space-between;
+          max-width: 140px;
+        }
+
+        .label-container  {
+          justify-content: center;
+          max-width: 100px;
         }
     }
 }

@@ -2,12 +2,12 @@
 .page-container
   // featured playlists
   ma-section(
-    :title='featured.message',
+    :title='$parent.data.featured.message',
     :collapsible='true')
 
     .section-items-container
       ma-item(
-        v-for='playlist in featured.playlists.items',
+        v-for='playlist in $parent.data.featured.playlists.items',
         :key='playlist.id',
         :type='playlist.type',
         :primaryid='playlist.id',
@@ -20,107 +20,11 @@
 
     .section-items-container
       ma-item(
-        v-for='album in releases.albums.items',
+        v-for='album in $parent.data.releases.albums.items',
         :key='album.id',
         :type='album.type',
         :primaryid='album.id',
         :image='album.images[0].url',
         :title='album.name',
         :artist='album.artists')
-
-
-  // categories
-  ma-section(:title='$tc("category", 0)', :collapsible='true')
-
-    .section-items-container
-      ma-item(
-        v-for='category in categories.items',
-        type="category",
-        :key='category.id',
-        :primaryid='category.id',
-        :image='category.icons[0].url',
-        :title='category.name')
 </template>
-
-<script>
-import { mapGetters } from 'vuex';
-
-export default {
-  data() {
-    return {
-      featured: [],
-      releases: [],
-      categories: [],
-    };
-  },
-  created() {
-    // fetch the data when the view is created and the data is
-    // already being observed
-    this.getFeaturedPlaylists();
-    this.getNewReleases();
-    this.getCategories();
-  },
-  methods: {
-    // get featured playlists from the api
-    getFeaturedPlaylists() {
-      const that = this;
-      const country = that.country;
-
-      that.$startLoading('fetching data');
-      that.axios({
-        method: 'get',
-        url: '/browse/featured-playlists',
-        params: {
-          country,
-        },
-      }).then((res) => {
-        that.featured = res.data;
-        that.$endLoading('fetching data');
-      });
-    },
-
-    // get new releases from the api
-    getNewReleases() {
-      const that = this;
-      const country = that.country;
-
-      that.$startLoading('fetching data');
-      that.axios({
-        method: 'get',
-        url: '/browse/new-releases',
-        params: {
-          country,
-        },
-      }).then((res) => {
-        that.releases = res.data;
-        that.$endLoading('fetching data');
-      });
-    },
-
-    // get categories from the api
-    getCategories() {
-      const that = this;
-      const locale = that.locale;
-
-      that.$startLoading('fetching data');
-      that.axios({
-        method: 'get',
-        url: '/browse/categories',
-        params: {
-          limit: 15,
-          locale,
-        },
-      }).then((res) => {
-        that.categories = res.data.categories;
-        that.$endLoading('fetching data');
-      });
-    },
-  },
-  computed: {
-    ...mapGetters({
-      country: 'getCountry',
-      locale: 'getLocale',
-    }),
-  },
-};
-</script>

@@ -1,51 +1,54 @@
 <template lang="pug">
-.stage(:class='{ "has-cover" : hasCover, "compact" : isCompact }')
+.stage(:class='{ "has-cover" : hasCover, "is-compact" : isCompact }')
 
-	// background
-	.background-container(v-if='image')
-		img(
-		v-parallax='0.5',
-		:src='image',
-		:alt='title')
+  // background
+  transition(name='zoom-out', appear)
+    .background-container(v-if='image')
+      img(
+        v-parallax='0.5',
+        :src='image',
+        :alt='title')
 
-	.stage-inner
-		.cover-container.mobile-hidden(
-			v-if="hasCover",
-			:class='{ "small" : hasSmallCover }')
+  transition(name='fade', appear)
+    .stage-inner
+      .cover-container(
+        v-if='hasCover && !$mq.phone',
+        :class='{ "is-small" : hasSmallCover }')
 
-			img(
-				:src='image',
-				:alt='title')
+        img(
+          :src='image',
+          :alt='title')
 
-		// content
-		.stage-container
-			h2 {{ subtitle }}
-			h1 {{ title }}
-			.meta-container.mobile-hidden(v-if='meta')
-				a(v-html='formattedMeta')
-			.button-container(v-if='hasButtons')
-				.button-group
-					ma-button(
-            type='accent',
-            icon='play_circle_filled',
-            title='playall')
-					ma-button(
-            v-if='canFollow',
-            icon='add_circle',
-            title='follow')
-					ma-button(
-            type='icon',
-            icon='favorite')
-				ma-button(
-          type='transparent',
-          icon='share',
-          title='share')
+      // content
+      .stage-container
+        h2 {{ subtitle }}
+        h1 {{ title }}
+        .meta-container(v-if='meta && !$mq.phone')
+          p(v-html='$formatValue(meta)')
+        .button-container(v-if='$route.meta.buttons')
+          .button-group
+            ma-button(
+              type='accent',
+              icon='play_circle_filled',
+              title='playall')
+            ma-button(
+              v-if='$includes($route.name, "album")',
+              icon='save',
+              title='save')
+            ma-button(
+              v-if='$includes($route.name, "artist|playlist")',
+              icon='add_circle',
+              title='follow')
+          ma-button(
+            type='transparent',
+            icon='share',
+            title='share')
 
-		// navigation
-		nav.subnav.mobile-hidden(v-if='navigation')
-			ul
-				li(v-for='navitem in navigation')
-					router-link(:to='$toTarget(navitem.name, $route.params.id)') {{ navitem.title }}
+      // navigation
+      nav.subnav(v-if='navigation && !$mq.phone')
+        ul
+          li(v-for='navitem in navigation')
+            router-link(:to='$toTarget(navitem.name, $route.params.id)') {{ navitem.title }}
 </template>
 
 <script>
@@ -58,26 +61,6 @@ export default {
     'meta',
   ],
   computed: {
-    // remove "Cover:" message from meta on playlist
-    formattedMeta() {
-      const meta = this.meta;
-      if (meta) {
-        const formattedMeta = meta.split('Cover')[0];
-        return formattedMeta;
-      }
-      return false;
-    },
-
-    // check if can follow
-    canFollow() {
-      const routeName = this.$route.name;
-      const canFollow = routeName.includes('artist') || routeName.includes('playlist');
-      if (canFollow) {
-        return true;
-      }
-      return false;
-    },
-
     // check if stage has cover
     hasCover() {
       const hasCover = this.$route.meta.cover;
@@ -89,18 +72,9 @@ export default {
 
     // check if stage has small cover
     hasSmallCover() {
-      const routeName = this.$route.name;
-      const smallCover = this.hasCover && routeName.includes('user');
+      const that = this,
+            smallCover = that.hasCover && that.$includes(that.$route.name, 'user');
       if (smallCover) {
-        return true;
-      }
-      return false;
-    },
-
-    // check if stage has buttons
-    hasButtons() {
-      const hasButtons = this.$route.meta.buttons;
-      if (hasButtons) {
         return true;
       }
       return false;
@@ -127,12 +101,12 @@ export default {
     overflow: hidden;
     margin-top: 0;
     margin-bottom: 20px;
-    padding-top: 65px;
+    padding-top: 69px;
     min-height: 350px;
     width: 100%;
     height: 550px;
 
-    &.compact {
+    &.is-compact {
         height: 350px;
         .background-container {
             img {
@@ -162,11 +136,13 @@ export default {
     .background-container {
         @include position(absolute, 1);
         @include flex-center;
-        animation: zoomOut 0.7s 0.2s both;
 
         img {
-            width: 100%;
-            filter: saturate(130%);
+          display: block;
+          width: 100vw;
+          height: 100vh;
+          object-fit: cover;
+          filter: saturate(130%);
         }
     }
     &:after {
@@ -188,11 +164,11 @@ export default {
             height: 250px;
             border-radius: 10px;
             box-shadow: $shadow;
-            &:not(.small) {
+            &:not(.is-small) {
               flex: 1;
             }
 
-            &.small {
+            &.is-small {
                 min-width: 180px;
                 width: 180px;
                 height: 180px;
@@ -221,11 +197,12 @@ export default {
             .meta-container {
                 margin-top: 10px;
                 width: 80%;
-                a {
+                p {
                     color: rgba($white, 0.7);
                     font-size: 1.2em;
                     line-height: 1.3em;
-                    &:link {
+                    margin: 0;
+                    a:link {
                         font-size: inherit;
                         transition: color 0.3s;
                         &:hover {

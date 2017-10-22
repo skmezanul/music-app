@@ -4,7 +4,7 @@ main.main-container
 	ma-stage(
     :subtitle='$t("library")',
     :title='$t("recentlyplayed")',
-    :image='history[0].track.album.images[0].url')
+    :image='data.history[0].track.album.images[0].url')
 
 	.page-container
 		// tracks
@@ -12,7 +12,7 @@ main.main-container
 
 			ol.list
 				ma-list(
-          v-for='(history, index) in history',
+          v-for='(history, index) in data.history',
           :key='history.track.id',
           :type='history.track.type',
           :image='history.track.album.images[0].url',
@@ -29,12 +29,15 @@ main.main-container
 export default {
   data() {
     return {
-      history: [],
+      data: {
+        history: [],
+      },
     };
   },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
+    this.$startLoading('fetching data');
     this.getHistory();
   },
   methods: {
@@ -42,15 +45,14 @@ export default {
     getHistory() {
       const that = this;
 
-      that.$startLoading('fetching data');
-      that.axios({
+      that.$spotifyApi({
         method: 'get',
         url: '/me/player/recently-played',
         params: {
           type: 'track',
         },
       }).then((res) => {
-        that.history = res.data.items;
+        that.data.history = res.data.items;
         that.$endLoading('fetching data');
       });
     },

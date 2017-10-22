@@ -1,32 +1,36 @@
 <template lang="pug">
-#app
+#app(
+  :class='[$mq.all, $route.name]')
 
-	// header
-	ma-header
+  // header
+  ma-header
 
-	// navigation
-	ma-navigation.mobile-hidden
+  // navigation
+  ma-navigation(v-if='$mq.desktop || $mq.tablet')
 
-	// router view
-	router-view(:key='$route.path')
+  // router view
+  router-view(:key='$route.path')
 
-	// footer
-	keep-alive
-		transition(name='fade')
-			ma-footer
+  // footer
+  keep-alive
+    transition(name='fade')
+      ma-footer
 
-	// tooltips
-	.tooltip-container
+  // tooltips
+  .tooltip-container
 
-	// loading spinner
-	transition(name='fade', appear)
-		ma-loading.loading-container(v-if='$isLoading("fetching data")')
-			template(slot='spinner')
-				ma-loader
+  // loading spinner
+  transition(name='fade', appear)
+    ma-loading.loading-container(v-if='$isLoading("fetching data")')
+      template(slot='spinner')
+        ma-loader
 
-	// notices
-	transition-group(name='slide-down-transform', tag='notices')
-		ma-notice(v-for='(notice, index) in notices', :key='index', :message='notice', @remove="removeNotice(index)")
+  // notices
+  transition-group(name='slide-down-transform', tag='notices')
+    ma-notice(v-for='(notice, index) in notices', :key='index', :message='notice', @remove="removeNotice(index)")
+
+  // music video
+  ma-video
 </template>
 
 <script>
@@ -37,9 +41,12 @@ export default {
     // fetch the data when the view is created and the data is
     // already being observed
     this.GET_CURRENT_USER();
+    setInterval(() => {
+      this.GET_CURRENT_PLAYBACK();
+    }, 1000);
   },
   methods: {
-    ...mapActions(['GET_CURRENT_USER']),
+    ...mapActions(['GET_CURRENT_USER', 'GET_CURRENT_PLAYBACK']),
 
     // remove notice
     removeNotice(index) {
@@ -229,7 +236,7 @@ a {
     }
 }
 
-// set page elements width
+// width of page elements
 .header-container,
 .notice-inner,
 .page-section,
@@ -241,14 +248,7 @@ a {
     }
 }
 
-// global class to hide element on mobile
-@media (max-width: $breakpoint-mobile) {
-    .mobile-hidden {
-        display: none !important;
-    }
-}
-
-// fade transition with opacity
+// fade transition
 .fade-enter-active,
 .fade-leave-active {
     transition: opacity 0.3s;
@@ -285,20 +285,14 @@ a {
     margin-bottom: -199px;
 }
 
-// keyframe animations
-
-// fadeIn
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
+// zoom out animation (stage background)
+.zoom-out-enter-active {
+    animation: zoomOut 1s both;
+}
+.zoom-out-leave-active {
+    animation: zoomOut 1s both reverse;
 }
 
-// zoomOut
 @keyframes zoomOut {
     0% {
         opacity: 0;
@@ -311,19 +305,6 @@ a {
 
     100% {
         transform: scale(1);
-    }
-}
-
-// fadeInBottom
-@keyframes fadeInBottom {
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
     }
 }
 
