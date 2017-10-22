@@ -11,8 +11,7 @@ import { token } from './';
 export function toLogin() {
   const url = window.location;
   const req = {
-    // change the clientID and scope in index.js
-    show_dialog: true,
+    // change in config.js
     client_id: credentials.clientId,
     redirect_uri: `${url.protocol}//${url.host}/login`,
     scope,

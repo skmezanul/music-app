@@ -50,26 +50,37 @@ export default {
     // fetch the data when the view is created and the data is
     // already being observed
     this.$startLoading('fetching data');
-    this.getFeaturedPlaylists();
-    this.getNewReleases();
-    this.getCategories();
-    this.getCharts();
+    this.fetchData();
   },
   methods: {
+    fetchData() {
+      const that = this;
+
+      Promise.all([
+      that.getFeaturedPlaylists(),
+      that.getNewReleases(),
+      that.getCategories(),
+      that.getCharts()])
+      .then((res) => {
+        that.data.featured = res[0].data;
+        that.data.releases = res[1].data;
+        that.data.categories = res[2].data.categories;
+        that.data.charts = res[3].data.tracks.items;
+        that.$endLoading('fetching data');
+      });
+    },
+
     // get featured playlists from the api
     getFeaturedPlaylists() {
       const that = this,
             country = that.country;
 
-      that.$spotifyApi({
+      return that.$spotifyApi({
         method: 'get',
         url: '/browse/featured-playlists',
         params: {
           country,
         },
-      }).then((res) => {
-        that.data.featured = res.data;
-        that.$endLoading('fetching data');
       });
     },
 
@@ -78,14 +89,12 @@ export default {
       const that = this,
             country = that.country;
 
-      that.$spotifyApi({
+      return that.$spotifyApi({
         method: 'get',
         url: '/browse/new-releases',
         params: {
           country,
         },
-      }).then((res) => {
-        that.data.releases = res.data;
       });
     },
 
@@ -94,15 +103,13 @@ export default {
       const that = this,
             locale = that.locale;
 
-      that.$spotifyApi({
+      return that.$spotifyApi({
         method: 'get',
         url: '/browse/categories',
         params: {
           limit: 15,
           locale,
         },
-      }).then((res) => {
-        that.data.categories = res.data.categories;
       });
     },
 
@@ -112,11 +119,9 @@ export default {
             user = 'spotifycharts',
             playlist = '37i9dQZEVXbMDoHDwVN2tF';
 
-      that.$spotifyApi({
+      return that.$spotifyApi({
         method: 'get',
         url: `/users/${user}/playlists/${playlist}`,
-      }).then((res) => {
-        that.data.charts = res.data.tracks.items;
       });
     },
   },

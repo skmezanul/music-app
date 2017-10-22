@@ -45,25 +45,39 @@ export default {
     // fetch the data when the view is created and the data is
     // already being observedthat.
     this.$startLoading('fetching data');
-    this.getArtistInfo();
-    this.getAdditionalInfo();
-    this.getTopTracks();
-    this.getAlbums();
-    this.getSingles();
-    this.getAppearsOn();
-    this.getRelatedArtists();
+    this.fetchData();
   },
   methods: {
+    fetchData() {
+      const that = this;
+
+      Promise.all([
+      that.getArtistInfo(),
+      // that.getAdditionalInfo(),
+      that.getTopTracks(),
+      that.getAlbums(),
+      that.getSingles(),
+      that.getAppearsOn(),
+      that.getRelatedArtists()])
+      .then((res) => {
+        that.data.artistInfo = res[0].data;
+        // that.data.additionalInfo = res[1].data;
+        that.data.toptracks = res[1].data.tracks;
+        that.data.albums = res[2].data.items;
+        that.data.singles = res[3].data.items;
+        that.data.appearson = res[4].data.items;
+        that.data.related = res[5].data.artists;
+        that.$endLoading('fetching data');
+      });
+    },
+
     // get artist info from the api
     getArtistInfo() {
       const that = this;
 
-      that.$spotifyApi({
+      return that.$spotifyApi({
         method: 'get',
         url: `/artists/${that.$route.params.id}`,
-      }).then((res) => {
-        that.data.artistInfo = res.data;
-        that.$endLoading('fetching data');
       });
     },
 
@@ -71,11 +85,9 @@ export default {
     getAdditionalInfo() {
       const that = this;
 
-      that.$spotifyBackendApi({
+      return that.$spotifyBackendApi({
         method: 'get',
         url: `/artists/${that.$route.params.id}`,
-      }).then((res) => {
-        that.data.additionalInfo = res.data;
       });
     },
 
@@ -84,14 +96,12 @@ export default {
       const that = this;
       const country = that.country;
 
-      that.$spotifyApi({
+      return that.$spotifyApi({
         method: 'get',
         url: `/artists/${that.$route.params.id}/top-tracks`,
         params: {
           country,
         },
-      }).then((res) => {
-        that.data.toptracks = res.data.tracks;
       });
     },
 
@@ -100,15 +110,13 @@ export default {
       const that = this;
       const market = that.market;
 
-      that.$spotifyApi({
+      return that.$spotifyApi({
         method: 'get',
         url: `/artists/${that.$route.params.id}/albums`,
         params: {
           market,
           album_type: 'album',
         },
-      }).then((res) => {
-        that.data.albums = res.data.items;
       });
     },
 
@@ -117,15 +125,13 @@ export default {
       const that = this;
       const market = that.market;
 
-      that.$spotifyApi({
+      return that.$spotifyApi({
         method: 'get',
         url: `/artists/${that.$route.params.id}/albums`,
         params: {
           market,
           album_type: 'single',
         },
-      }).then((res) => {
-        that.data.singles = res.data.items;
       });
     },
 
@@ -134,15 +140,13 @@ export default {
       const that = this;
       const market = that.market;
 
-      that.$spotifyApi({
+      return that.$spotifyApi({
         method: 'get',
         url: `/artists/${that.$route.params.id}/albums`,
         params: {
           market,
           album_type: 'appears_on',
         },
-      }).then((res) => {
-        that.data.appearson = res.data.items;
       });
     },
 
@@ -150,11 +154,9 @@ export default {
     getRelatedArtists() {
       const that = this;
 
-      that.$spotifyApi({
+      return that.$spotifyApi({
         method: 'get',
         url: `/artists/${that.$route.params.id}/related-artists`,
-      }).then((res) => {
-        that.data.related = res.data.artists;
       });
     },
   },
