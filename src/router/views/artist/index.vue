@@ -19,7 +19,7 @@ export default {
     return {
       data: {
         artistInfo: [],
-        // additionalInfo: [],
+        additionalInfo: [],
         toptracks: [],
         albums: [],
         singles: [],
