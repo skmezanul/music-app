@@ -19,7 +19,7 @@ header(:class='{ "scrolled" : scrollPosition > 0 }')
     .header-inner.right
       router-link.current-user(
         tag='div',
-        :to='$toTarget("user", currentUser.id)')
+        :to='$toRoute("user", currentUser.id)')
         .avatar-container
           img(
             :src='currentUser.images[0].url',
@@ -32,9 +32,9 @@ header(:class='{ "scrolled" : scrollPosition > 0 }')
         v-if='userDropdown',
         v-on-clickaway='toggleDropdown',
         @click='toggleDropdown')
-        router-link(tag='li', :to='$toTarget("myaccount")') {{ $t('myaccount') }}
-        router-link(tag='li', :to='$toTarget("settings")') {{ $t('settings') }}
-        router-link(tag='li', :to='$toTarget("debug")') {{ $t('debug') }}
+        router-link(tag='li', :to='$toRoute("myaccount")') {{ $t('myaccount') }}
+        router-link(tag='li', :to='$toRoute("settings")') {{ $t('settings') }}
+        router-link(tag='li', :to='$toRoute("debug")') {{ $t('debug') }}
         li(@click='logout') {{ $t('logout') }}
 </template>
 

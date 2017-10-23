@@ -32,6 +32,7 @@ const store = new Vuex.Store({
   state: {
     currentPlayback: [],
     currentUser: [],
+    playlists: [],
     notices: [],
     largeCover: false,
     accessToken: '',

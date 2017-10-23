@@ -48,7 +48,7 @@
       nav.subnav(v-if='navigation && !$mq.phone')
         ul
           li(v-for='navitem in navigation')
-            router-link(:to='$toTarget(navitem.name, $route.params.id)') {{ navitem.title }}
+            router-link(:to='$toRoute(navitem.name, $route.params.id)') {{ navitem.title }}
 </template>
 
 <script>

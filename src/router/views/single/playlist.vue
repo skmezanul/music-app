@@ -41,23 +41,32 @@ export default {
     // fetch the data when the view is created and the data is
     // already being observed
     this.$startLoading('fetching data');
-    this.getSinglePlaylist();
+    this.fetchData();
   },
   methods: {
+    fetchData() {
+      const that = this;
+
+      that.axios.all([
+          that.getSinglePlaylist(),
+        ])
+        .then((res) => {
+          that.data.playlist = res[0].data;
+          that.$endLoading('fetching data');
+        });
+    },
+
     // get playlist from the api
     getSinglePlaylist() {
       const that = this,
             market = that.market;
 
-      that.$spotifyApi({
+      return that.$spotifyApi({
         method: 'get',
         url: `/users/${that.$route.params.owner}/playlists/${that.$route.params.id}`,
         params: {
           market,
         },
-      }).then((res) => {
-        that.data.playlist = res.data;
-        that.$endLoading('fetching data');
       });
     },
   },

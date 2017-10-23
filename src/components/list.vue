@@ -26,7 +26,7 @@ li.row(
       router-link(
         v-for='artist in artists',
         :key='artist.id',
-        :to='$toTarget(artist.type, artist.id)') {{ artist.name }}
+        :to='$toRoute(artist.type, artist.id)') {{ artist.name }}
   .label-container
     i.material-icons(
       v-if='explicit',
@@ -34,7 +34,7 @@ li.row(
 
   // album name
   .album-container(v-if='album')
-    router-link(:to='$toTarget(album.type, album.id)') {{ album.name }}
+    router-link(:to='$toRoute(album.type, album.id)') {{ album.name }}
 
   // duration
   span.duration {{ $formatValue(duration, 'time') }}

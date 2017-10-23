@@ -4,7 +4,7 @@
     tag='div',
     @mouseover.native='overlay = true',
     @mouseleave.native='overlay = false',
-    :to='$toTarget(type, primaryid, secondaryid)')
+    :to='$toRoute(type, primaryid, secondaryid)')
 
     // overlay
     transition(name='fade')
@@ -39,7 +39,7 @@
           router-link.artist(
             v-for='item in artist',
             :key='item.id',
-            :to='$toTarget(item.type, item.id)') {{ item.name }}
+            :to='$toRoute(item.type, item.id)') {{ item.name }}
 </template>
 
 <script>

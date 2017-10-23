@@ -2,10 +2,10 @@
 main.main-container
 	// stage
 	ma-stage(
-    :subtitle='$tc("artist", 1)',
-    :navigation='navigation',
-    :image='data.artistInfo.images[0].url',
-    :title='data.artistInfo.name')
+	:subtitle='$tc("artist", 1)',
+	:navigation='navigation',
+	:image='data.artistInfo.images[0].url',
+	:title='data.artistInfo.name')
 
 	// router view
 	router-view
@@ -19,7 +19,7 @@ export default {
     return {
       data: {
         artistInfo: [],
-        additionalInfo: [],
+        // additionalInfo: [],
         toptracks: [],
         albums: [],
         singles: [],
@@ -51,24 +51,25 @@ export default {
     fetchData() {
       const that = this;
 
-      Promise.all([
-      that.getArtistInfo(),
-      // that.getAdditionalInfo(),
-      that.getTopTracks(),
-      that.getAlbums(),
-      that.getSingles(),
-      that.getAppearsOn(),
-      that.getRelatedArtists()])
-      .then((res) => {
-        that.data.artistInfo = res[0].data;
-        // that.data.additionalInfo = res[1].data;
-        that.data.toptracks = res[1].data.tracks;
-        that.data.albums = res[2].data.items;
-        that.data.singles = res[3].data.items;
-        that.data.appearson = res[4].data.items;
-        that.data.related = res[5].data.artists;
-        that.$endLoading('fetching data');
-      });
+      that.axios.all([
+          that.getArtistInfo(),
+          // that.getAdditionalInfo(),
+          that.getTopTracks(),
+          that.getAlbums(),
+          that.getSingles(),
+          that.getAppearsOn(),
+          that.getRelatedArtists(),
+        ])
+        .then((res) => {
+          that.data.artistInfo = res[0].data;
+          // that.data.additionalInfo = res[1].data;
+          that.data.toptracks = res[1].data.tracks;
+          that.data.albums = res[2].data.items;
+          that.data.singles = res[3].data.items;
+          that.data.appearson = res[4].data.items;
+          that.data.related = res[5].data.artists;
+          that.$endLoading('fetching data');
+        });
     },
 
     // get artist info from the api

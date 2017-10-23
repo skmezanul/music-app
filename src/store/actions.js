@@ -2,12 +2,15 @@ import Vue from 'vue';
 
 export default {
   // get the current user's profile
-  GET_CURRENT_USER({ commit }) {
+  GET_CURRENT_USER({ commit }, type) {
     Vue.prototype.$spotifyApi({
       method: 'get',
-      url: '/me',
+      url: (type === 'playlists') ? '/me/playlists' : '/me',
     }).then((res) => {
-      commit('CURRENT_USER', res.data);
+      commit('CURRENT_USER', {
+        type,
+        data: res.data,
+      });
     });
   },
 
@@ -27,6 +30,7 @@ export default {
     });
   },
 
+  // TODO: Refetch timer
   REFETCH_TIMER({ dispatch }, payload) {
     const remainingTime = (payload.trackDuration - payload.playbackProgress);
     new Promise(resolve => setTimeout(resolve, remainingTime)).then(() => {

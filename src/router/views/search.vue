@@ -72,28 +72,37 @@ export default {
     // fetch the data when the view is created and the data is
     // already being observed
     this.$startLoading('fetching data');
-    this.getResults();
+    this.fetchData();
   },
   watch: {
     // get results when query changes
     '$route.params.query': 'getResults',
   },
   methods: {
+    fetchData() {
+      const that = this;
+
+      that.axios.all([
+          that.getResults(),
+        ])
+        .then((res) => {
+          that.data.results = res[0].data;
+          that.$endLoading('fetching data');
+        });
+    },
+
     // get search results from the api
     getResults() {
       const that = this,
             q = that.$route.params.query;
 
-      that.$spotifyApi({
+      return that.$spotifyApi({
         method: 'get',
         url: '/search',
         params: {
           q,
           type: 'album,artist,track',
         },
-      }).then((res) => {
-        that.data.results = res.data;
-        that.$endLoading('fetching data');
       });
     },
   },

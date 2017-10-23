@@ -40,7 +40,8 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.GET_CURRENT_USER();
+    this.GET_CURRENT_USER('profile');
+    this.GET_CURRENT_USER('playlists');
     setInterval(() => {
       this.GET_CURRENT_PLAYBACK();
     }, 1000);

@@ -56,24 +56,25 @@ export default {
     fetchData() {
       const that = this;
 
-      Promise.all([
-      that.getFeaturedPlaylists(),
-      that.getNewReleases(),
-      that.getCategories(),
-      that.getCharts()])
-      .then((res) => {
-        that.data.featured = res[0].data;
-        that.data.releases = res[1].data;
-        that.data.categories = res[2].data.categories;
-        that.data.charts = res[3].data.tracks.items;
-        that.$endLoading('fetching data');
-      });
+      that.axios.all([
+          that.getFeaturedPlaylists(),
+          that.getNewReleases(),
+          that.getCategories(),
+          that.getCharts(),
+        ])
+        .then((res) => {
+          that.data.featured = res[0].data;
+          that.data.releases = res[1].data;
+          that.data.categories = res[2].data.categories;
+          that.data.charts = res[3].data.tracks.items;
+          that.$endLoading('fetching data');
+        });
     },
 
     // get featured playlists from the api
     getFeaturedPlaylists() {
       const that = this,
-            country = that.country;
+        country = that.country;
 
       return that.$spotifyApi({
         method: 'get',
@@ -87,7 +88,7 @@ export default {
     // get new releases from the api
     getNewReleases() {
       const that = this,
-            country = that.country;
+        country = that.country;
 
       return that.$spotifyApi({
         method: 'get',
@@ -101,7 +102,7 @@ export default {
     // get categories from the api
     getCategories() {
       const that = this,
-            locale = that.locale;
+        locale = that.locale;
 
       return that.$spotifyApi({
         method: 'get',
@@ -116,8 +117,8 @@ export default {
     // get charts from the api
     getCharts() {
       const that = this,
-            user = 'spotifycharts',
-            playlist = '37i9dQZEVXbMDoHDwVN2tF';
+        user = 'spotifycharts',
+        playlist = '37i9dQZEVXbMDoHDwVN2tF';
 
       return that.$spotifyApi({
         method: 'get',
@@ -135,9 +136,9 @@ export default {
     // greeting depending on time of day
     greeting() {
       const that = this,
-            fullName = that.currentUser.display_name,
-            firstName = fullName.split(' ')[0],
-            hour = new Date().getHours();
+        fullName = that.currentUser.display_name,
+        firstName = fullName.split(' ')[0],
+        hour = new Date().getHours();
 
       let greeting;
 

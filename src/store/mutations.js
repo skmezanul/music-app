@@ -11,9 +11,13 @@ export default {
     const thisState = state;
     thisState.currentPlayback = data;
   },
-  CURRENT_USER(state, data) {
+  CURRENT_USER(state, payload) {
     const thisState = state;
-    thisState.currentUser = data;
+    if (payload.type === 'playlists') {
+      thisState.playlists = payload.data.items;
+    } else {
+      thisState.currentUser = payload.data;
+    }
   },
   TOGGLE_LARGE_COVER(state) {
     const thisState = state;

@@ -38,23 +38,32 @@ export default {
     // fetch the data when the view is created and the data is
     // already being observed
     this.$startLoading('fetching data');
-    this.getSingleAlbum();
+    this.fetchData();
   },
   methods: {
+    fetchData() {
+      const that = this;
+
+      that.axios.all([
+          that.getSingleAlbum(),
+        ])
+        .then((res) => {
+          that.data.album = res[0].data;
+          that.$endLoading('fetching data');
+        });
+    },
+
     // get album from the api
     getSingleAlbum() {
       const that = this,
             market = that.market;
 
-      that.$spotifyApi({
+      return that.$spotifyApi({
         method: 'get',
         url: `/albums/${that.$route.params.id}`,
         params: {
           market,
         },
-      }).then((res) => {
-        that.data.album = res.data;
-        that.$endLoading('fetching data');
       });
     },
   },

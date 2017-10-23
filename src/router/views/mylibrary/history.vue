@@ -38,22 +38,31 @@ export default {
     // fetch the data when the view is created and the data is
     // already being observed
     this.$startLoading('fetching data');
-    this.getHistory();
+    this.fetchData();
   },
   methods: {
+    fetchData() {
+      const that = this;
+
+      that.axios.all([
+          that.getHistory(),
+        ])
+        .then((res) => {
+          that.data.history = res[0].data.items;
+          that.$endLoading('fetching data');
+        });
+    },
+
     // get get this user's history from the api
     getHistory() {
       const that = this;
 
-      that.$spotifyApi({
+      return that.$spotifyApi({
         method: 'get',
         url: '/me/player/recently-played',
         params: {
           type: 'track',
         },
-      }).then((res) => {
-        that.data.history = res.data.items;
-        that.$endLoading('fetching data');
       });
     },
   },

@@ -35,23 +35,32 @@ export default {
     // fetch the data when the view is created and the data is
     // already being observed
     this.$startLoading('fetching data');
-    this.getSavedAlbums();
+    this.fetchData();
   },
   methods: {
+    fetchData() {
+      const that = this;
+
+      that.axios.all([
+          that.getSavedAlbums(),
+        ])
+        .then((res) => {
+          that.data.albums = res[0].data.items;
+          that.$endLoading('fetching data');
+        });
+    },
+
     // get this user's saved tracks from the api
     getSavedAlbums() {
       const that = this,
             market = that.market;
 
-      that.$spotifyApi({
+      return that.$spotifyApi({
         method: 'get',
         url: '/me/albums',
         params: {
           market,
         },
-      }).then((res) => {
-        that.data.albums = res.data.items;
-        that.$endLoading('fetching data');
       });
     },
   },

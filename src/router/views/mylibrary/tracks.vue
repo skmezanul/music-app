@@ -40,23 +40,32 @@ export default {
     // fetch the data when the view is created and the data is
     // already being observed
     this.$startLoading('fetching data');
-    this.getSavedTracks();
+    this.fetchData();
   },
   methods: {
+    fetchData() {
+      const that = this;
+
+      that.axios.all([
+          that.getSavedTracks(),
+        ])
+        .then((res) => {
+          that.data.tracks = res[0].data.items;
+          that.$endLoading('fetching data');
+        });
+    },
+
     // get this user's saved tracks from the api
     getSavedTracks() {
       const that = this,
             market = that.market;
 
-      that.$spotifyApi({
+      return that.$spotifyApi({
         method: 'get',
         url: '/me/tracks',
         params: {
           market,
         },
-      }).then((res) => {
-        that.data.tracks = res.data.items;
-        that.$endLoading('fetching data');
       });
     },
   },

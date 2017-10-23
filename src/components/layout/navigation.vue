@@ -34,8 +34,10 @@ nav.navigation-container
       .navigation-section.playlists(v-if='playlists.length > 0')
         li
           h4 {{ $tc('playlist', 0) }}
-        li(v-for='playlist in playlists', :key='playlist.id')
-          router-link(:to='$toTarget("playlist", playlist.id, playlist.owner.id)')
+        li(
+          v-for='playlist in playlists',
+          :key='playlist.id')
+          router-link(:to='$toRoute("playlist", playlist.id, playlist.owner.id)')
             i.material-icons playlist_play
             span {{ playlist.name }}
 
@@ -49,7 +51,7 @@ nav.navigation-container
     transition(name='slide-up-margin')
       router-link.cover-container(
         tag='div',
-        :to='$toTarget("artist", currentPlayback.item.artists[0].id)',
+        :to='$toRoute("artist", currentPlayback.item.artists[0].id)',
         v-if='$store.state.largeCover')
         ma-button(type='overlay', @click.prevent.native='$store.commit("TOGGLE_LARGE_COVER")', icon='close')
         img(
@@ -61,35 +63,10 @@ nav.navigation-container
 import { mapGetters } from 'vuex';
 
 export default {
-  data() {
-    return {
-      playlists: [],
-    };
-  },
-  created() {
-    // fetch the data when the view is created and the data is
-    // already being observed
-    this.getMyPlaylists();
-  },
-  methods: {
-    // get current user's playlists from the api
-    getMyPlaylists() {
-      const that = this;
-
-      that.$spotifyApi({
-        method: 'get',
-        url: '/me/playlists',
-        params: {
-          limit: 10,
-        },
-      }).then((res) => {
-        that.playlists = res.data.items;
-      });
-    },
-  },
   computed: {
     ...mapGetters({
       currentPlayback: 'getCurrentPlayback',
+      playlists: 'getPlaylists',
     }),
   },
 };

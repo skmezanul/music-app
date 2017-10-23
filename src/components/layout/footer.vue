@@ -6,19 +6,19 @@ footer
 			router-link.cover-container(
 				v-if='$mq.desktop',
 				tag='div',
-				:to='$toTarget("artist", currentPlayback.item.artists[0].id)')
+				:to='$toRoute("artist", currentPlayback.item.artists[0].id)')
 				ma-button(type='overlay', @click.prevent.native='$store.commit("TOGGLE_LARGE_COVER")', icon='keyboard_arrow_up')
 				img(
 					:src='currentPlayback.item.album.images[0].url',
 					:alt='currentPlayback.item.name')
 
 		.currently-playing
-			router-link.title(:to='$toTarget("album", currentPlayback.item.album.id)') {{ currentPlayback.item.name }}
+			router-link.title(:to='$toRoute("album", currentPlayback.item.album.id)') {{ currentPlayback.item.name }}
 			.artist-container
 				router-link.artist(
 					v-for='artist in currentPlayback.item.artists',
 					:key='artist.id',
-					:to='$toTarget(artist.type, artist.id)') {{ artist.name }}
+					:to='$toRoute(artist.type, artist.id)') {{ artist.name }}
 
 	// playback controls
 	.footer-container.middle

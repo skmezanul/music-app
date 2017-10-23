@@ -7,6 +7,7 @@ import parallax from 'vue-parallax-js';
 import visibility from 'vue-observe-visibility';
 import viewports from 'vue-match-media/src';
 import modals from 'vue-js-modal';
+
 import stage from './layout/stage';
 import navigation from './layout/navigation';
 import header from './layout/header';
@@ -37,11 +38,11 @@ Vue.component('ma-video', video);
 
 // register plugins
 Vue.use(parallax);
+Vue.use(visibility);
+Vue.use(viewports);
+Vue.use(modals, { componentName: 'ma-modal' });
 Vue.use(tooltip, {
   defaultClass: '',
   defaultTemplate: '<div class="tooltip" role="tooltip"><div class="tooltip-inner"></div></div>',
   defaultContainer: '.tooltip-container',
 });
-Vue.use(visibility);
-Vue.use(viewports);
-Vue.use(modals, { componentName: 'ma-modal' });
