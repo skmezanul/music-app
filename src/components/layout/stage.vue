@@ -9,46 +9,45 @@
         :src='image',
         :alt='title')
 
-  transition(name='fade', appear)
-    .stage-inner
-      .cover-container(
-        v-if='hasCover && !$mq.phone',
-        :class='{ "is-small" : hasSmallCover }')
+  .stage-inner
+    .cover-container(
+      v-if='hasCover && !$mq.phone',
+      :class='{ "is-small" : hasSmallCover }')
 
-        img(
-          :src='image',
-          :alt='title')
+      img(
+        :src='image',
+        :alt='title')
 
-      // content
-      .stage-container
-        h2 {{ subtitle }}
-        h1 {{ title }}
-        .meta-container(v-if='meta && !$mq.phone')
-          p(v-html='$formatValue(meta)')
-        .button-container(v-if='$route.meta.buttons')
-          .button-group
-            ma-button(
-              type='accent',
-              icon='play_circle_filled',
-              title='playall')
-            ma-button(
-              v-if='$includes($route.name, "album")',
-              icon='save',
-              title='save')
-            ma-button(
-              v-if='$includes($route.name, "artist|playlist")',
-              icon='add_circle',
-              title='follow')
+    // content
+    .stage-container
+      h2 {{ subtitle }}
+      h1 {{ title }}
+      .meta-container(v-if='meta && !$mq.phone')
+        p(v-html='$formatValue(meta)')
+      .button-container(v-if='$route.meta.buttons')
+        .button-group
           ma-button(
-            type='transparent',
-            icon='share',
-            title='share')
+            type='accent',
+            icon='play_circle_filled',
+            title='playall')
+          ma-button(
+            v-if='$includes($route.name, "album")',
+            icon='save',
+            title='save')
+          ma-button(
+            v-if='$includes($route.name, "artist|playlist")',
+            icon='add_circle',
+            title='follow')
+        ma-button(
+          type='transparent',
+          icon='share',
+          title='share')
 
       // navigation
-      nav.subnav(v-if='navigation && !$mq.phone')
-        ul
-          li(v-for='navitem in navigation')
-            router-link(:to='$toRoute(navitem.name, $route.params.id)') {{ navitem.title }}
+    nav.subnav(v-if='navigation && !$mq.phone')
+      ul
+        li(v-for='navitem in navigation')
+          router-link(:to='$toRoute(navitem.name, $route.params.id)') {{ navitem.title }}
 </template>
 
 <script>

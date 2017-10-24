@@ -59,8 +59,7 @@ export default {
           that.getSingles(),
           that.getAppearsOn(),
           that.getRelatedArtists(),
-        ])
-        .then((res) => {
+        ]).then((res) => {
           that.data.artistInfo = res[0].data;
           // that.data.additionalInfo = res[1].data;
           that.data.toptracks = res[1].data.tracks;

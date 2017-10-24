@@ -33,19 +33,27 @@ export default {
     // fetch the data when the view is created and the data is
     // already being observed
     this.$startLoading('fetching data');
-    this.getUser();
+    this.fetchData();
   },
   methods: {
-    // get playlist from the api
+    fetchData() {
+      const that = this;
+
+      that.axios.all([
+          that.getUser(),
+        ]).then((res) => {
+          that.user = res[0].data;
+          that.$endLoading('fetching data');
+        });
+    },
+
+    // get user from the api
     getUser() {
       const that = this;
 
-      that.$spotifyApi({
+      return that.$spotifyApi({
         method: 'get',
         url: `/users/${that.$route.params.id}`,
-      }).then((res) => {
-        that.user = res.data;
-        that.$endLoading('fetching data');
       });
     },
   },

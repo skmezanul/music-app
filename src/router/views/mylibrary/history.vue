@@ -46,8 +46,7 @@ export default {
 
       that.axios.all([
           that.getHistory(),
-        ])
-        .then((res) => {
+        ]).then((res) => {
           that.data.history = res[0].data.items;
           that.$endLoading('fetching data');
         });

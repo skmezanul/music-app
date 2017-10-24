@@ -1,23 +1,22 @@
 <template lang="pug">
-transition(name='fade', appear)
-  section.page-section(:class='{ "collapsed" : isCollapsed }')
-    // section header
-    .section-header(v-if='title')
-      h1 {{ title }}
+section.page-section(:class='{ "collapsed" : isCollapsed }')
+  // section header
+  .section-header(v-if='title')
+    h1 {{ title }}
 
-      // show more/less
-      .section-actions(@click='toggleCollapse', v-if='collapsible')
-        span(v-if='!collapsed')
-          | {{ $t("showless") }}
-          i.material-icons keyboard_arrow_up
-        span(v-if='collapsed')
-          | {{ $t("showmore") }}
-          i.material-icons keyboard_arrow_down
+    // show more/less
+    .section-actions(@click='toggleCollapse', v-if='collapsible')
+      span(v-if='!collapsed')
+        | {{ $t("showless") }}
+        i.material-icons keyboard_arrow_up
+      span(v-if='collapsed')
+        | {{ $t("showmore") }}
+        i.material-icons keyboard_arrow_down
 
-    // section slot
-    slot
+  // section slot
+  slot
 
-    p.copyright(v-if='copyright') {{ copyright }}
+  p.copyright(v-if='copyright') {{ copyright }}
 </template>
 
 <script>

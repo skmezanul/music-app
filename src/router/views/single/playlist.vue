@@ -49,8 +49,7 @@ export default {
 
       that.axios.all([
           that.getSinglePlaylist(),
-        ])
-        .then((res) => {
+        ]).then((res) => {
           that.data.playlist = res[0].data;
           that.$endLoading('fetching data');
         });

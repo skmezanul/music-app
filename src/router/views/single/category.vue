@@ -45,8 +45,7 @@ export default {
       that.axios.all([
           that.getCategoryInfo(),
           that.getCategoriesPlaylists(),
-        ])
-        .then((res) => {
+        ]).then((res) => {
           that.data.category = res[0].data;
           that.data.playlists = res[1].data.playlists.items;
           that.$endLoading('fetching data');

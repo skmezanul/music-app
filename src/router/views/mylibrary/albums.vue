@@ -43,8 +43,7 @@ export default {
 
       that.axios.all([
           that.getSavedAlbums(),
-        ])
-        .then((res) => {
+        ]).then((res) => {
           that.data.albums = res[0].data.items;
           that.$endLoading('fetching data');
         });

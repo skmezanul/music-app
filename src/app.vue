@@ -9,25 +9,24 @@
   ma-navigation(v-if='$mq.desktop || $mq.tablet')
 
   // router view
-  router-view(:key='$route.path')
+  transition(name='fade', mode='out-in')
+    router-view(:key='$route.path')
 
   // footer
-  keep-alive
-    transition(name='fade')
-      ma-footer
+  transition(name='fade')
+    ma-footer
 
   // tooltips
   .tooltip-container
 
   // loading spinner
-  transition(name='fade', appear)
+  transition(name='fade')
     ma-loading.loading-container(v-if='$isLoading("fetching data")')
       template(slot='spinner')
         ma-loader
 
   // notices
-  transition-group(name='slide-down-transform', tag='notices')
-    ma-notice(v-for='(notice, index) in notices', :key='index', :message='notice', @remove="removeNotice(index)")
+  transition-group(name='slide-down-transform', tag='ma-notice', v-for='(notice, index) in notices', :key='index', :message='notice', @remove="removeNotice(index)")
 
   // music video
   ma-video
@@ -35,6 +34,12 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+
+import maHeader from '@/components/layout/header';
+import maFooter from '@/components/layout/footer';
+import maNavigation from '@/components/layout/navigation';
+import maVideo from '@/components/video';
+import maLoading from '@/components/loader';
 
 export default {
   created() {
@@ -58,6 +63,13 @@ export default {
     ...mapGetters({
       notices: 'getNotices',
     }),
+  },
+  components: {
+    maHeader,
+    maFooter,
+    maNavigation,
+    maVideo,
+    maLoading,
   },
 };
 </script>

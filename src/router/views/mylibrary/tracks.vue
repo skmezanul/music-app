@@ -48,8 +48,7 @@ export default {
 
       that.axios.all([
           that.getSavedTracks(),
-        ])
-        .then((res) => {
+        ]).then((res) => {
           that.data.tracks = res[0].data.items;
           that.$endLoading('fetching data');
         });

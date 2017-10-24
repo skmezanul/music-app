@@ -1,79 +1,78 @@
 <template lang="pug">
 footer
-	// current playback
-	.footer-container.left(:class='{ "cover-hidden" : $store.state.largeCover && !$mq.phone }')
-		transition(name='fade')
-			router-link.cover-container(
-				v-if='$mq.desktop',
-				tag='div',
-				:to='$toRoute("artist", currentPlayback.item.artists[0].id)')
-				ma-button(type='overlay', @click.prevent.native='$store.commit("TOGGLE_LARGE_COVER")', icon='keyboard_arrow_up')
-				img(
-					:src='currentPlayback.item.album.images[0].url',
-					:alt='currentPlayback.item.name')
+  // current playback
+  .footer-container.left(:class='{ "cover-hidden" : $store.state.largeCover && !$mq.phone }')
+    router-link.cover-container(
+      v-if='$mq.desktop',
+      tag='div',
+      :to='$toRoute("artist", currentPlayback.item.artists[0].id)')
+      ma-button(type='overlay', @click.prevent.native='$store.commit("TOGGLE_LARGE_COVER")', icon='keyboard_arrow_up')
+      img(
+        :src='currentPlayback.item.album.images[0].url',
+        :alt='currentPlayback.item.name')
 
-		.currently-playing
-			router-link.title(:to='$toRoute("album", currentPlayback.item.album.id)') {{ currentPlayback.item.name }}
-			.artist-container
-				router-link.artist(
-					v-for='artist in currentPlayback.item.artists',
-					:key='artist.id',
-					:to='$toRoute(artist.type, artist.id)') {{ artist.name }}
+    .currently-playing
+      router-link.title(:to='$toRoute("album", currentPlayback.item.album.id)') {{ currentPlayback.item.name }}
+      .artist-container
+        router-link.artist(
+          v-for='artist in currentPlayback.item.artists',
+          :key='artist.id',
+          :to='$toRoute(artist.type, artist.id)') {{ artist.name }}
 
-	// playback controls
-	.footer-container.middle
+  // playback controls
+  .footer-container.middle
 
-		i.shuffle.material-icons(
-			@click='SET_SHUFFLE',
-			:class='{ "active": currentPlayback.shuffle_state}',
-			v-tooltip='{ content: $t("shuffle") }') shuffle
+    i.shuffle.material-icons(
+      @click='SET_SHUFFLE',
+      :class='{ "active": currentPlayback.shuffle_state}',
+      v-tooltip='{ content: $t("shuffle") }') shuffle
 
-		i.skip.material-icons(@click='SKIP("previous")') skip_previous
+    i.skip.material-icons(@click='SKIP("previous")') skip_previous
 
-		i.toggle.play.material-icons(
-			v-show='!currentPlayback.is_playing',
-			@click='SET_PLAYBACK({state: "play"})') play_circle_filled
+    i.toggle.play.material-icons(
+      v-show='!currentPlayback.is_playing',
+      @click='SET_PLAYBACK({state: "play"})') play_circle_filled
 
-		i.toggle.pause.material-icons(
-			v-show='currentPlayback.is_playing',
-			@click='SET_PLAYBACK({state: "pause"})') pause_circle_filled
+    i.toggle.pause.material-icons(
+      v-show='currentPlayback.is_playing',
+      @click='SET_PLAYBACK({state: "pause"})') pause_circle_filled
 
-		i.skip.material-icons(@click='SKIP("next")') skip_next
+    i.skip.material-icons(@click='SKIP("next")') skip_next
 
-		i.repeat.material-icons(
-			v-show='currentPlayback.repeat_state != "track"',
-			@click='TOGGLE_REPEAT',
-			:class='{ "active": currentPlayback.repeat_state == "context" }',
-			v-tooltip='{ content: $t("repeat") }') repeat
+    i.repeat.material-icons(
+      v-show='currentPlayback.repeat_state != "track"',
+      @click='TOGGLE_REPEAT',
+      :class='{ "active": currentPlayback.repeat_state == "context" }',
+      v-tooltip='{ content: $t("repeat") }') repeat
 
-		i.repeat.material-icons.active(
-			v-show='currentPlayback.repeat_state == "track"',
-			@click='TOGGLE_REPEAT',
-			v-tooltip='{ content: $t("repeat") }') repeat_one
+    i.repeat.material-icons.active(
+      v-show='currentPlayback.repeat_state == "track"',
+      @click='TOGGLE_REPEAT',
+      v-tooltip='{ content: $t("repeat") }') repeat_one
 
-	// volume and other controls
-	.footer-container.right(v-if='$mq.desktop')
-		i.volume.material-icons(v-if='volume == 0') volume_mute
-		i.volume.material-icons(v-if='volume <= 50 && volume > 0') volume_down
-		i.volume.material-icons(v-if='volume > 50') volume_up
-		ma-slider(
-			ref='slider',
-			v-model='volume',
-			width='100px',
-			:bgStyle='bgStyle',
-			:sliderStyle='sliderStyle',
-			:processStyle='sliderStyle',
-			:tooltip='false')
-		i.material-icons(
-			@click='$modal.show("video")',
-			v-tooltip='{ content: $t("watchvideo") }') music_video
-		.time-container
-			span.track-progress {{ $formatValue(currentPlayback.progress_ms, 'time') }}
-			span.track-duration {{ $formatValue(currentPlayback.item.duration_ms, 'time') }}
+  // volume and other controls
+  .footer-container.right(v-if='$mq.desktop')
+    i.volume.material-icons(v-if='volume == 0') volume_mute
+    i.volume.material-icons(v-if='volume <= 50 && volume > 0') volume_down
+    i.volume.material-icons(v-if='volume > 50') volume_up
+    ma-slider(
+      ref='slider',
+      v-model='volume',
+      width='100px',
+      :bgStyle='bgStyle',
+      :sliderStyle='sliderStyle',
+      :processStyle='sliderStyle',
+      :tooltip='false')
+    i.material-icons(
+      @click='$modal.show("video")',
+      v-tooltip='{ content: $t("watchvideo") }') music_video
+    .time-container
+      span.track-progress {{ $formatValue(currentPlayback.progress_ms, 'time') }}
+      span.track-duration {{ $formatValue(currentPlayback.item.duration_ms, 'time') }}
 
-	// progress bar
-	.progress-container
-		.progress-bar(:style='getProgress()')
+  // progress bar
+  .progress-container
+    .progress-bar(:style='getProgress()')
 </template>
 
 <script>

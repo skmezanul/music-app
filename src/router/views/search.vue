@@ -84,8 +84,7 @@ export default {
 
       that.axios.all([
           that.getResults(),
-        ])
-        .then((res) => {
+        ]).then((res) => {
           that.data.results = res[0].data;
           that.$endLoading('fetching data');
         });

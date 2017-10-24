@@ -61,8 +61,7 @@ export default {
           that.getNewReleases(),
           that.getCategories(),
           that.getCharts(),
-        ])
-        .then((res) => {
+        ]).then((res) => {
           that.data.featured = res[0].data;
           that.data.releases = res[1].data;
           that.data.categories = res[2].data.categories;

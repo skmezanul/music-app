@@ -8,7 +8,7 @@ ma-modal(
   :clickToClose='false',
   @mouseover.native='overlay = true',
   @mouseleave.native='overlay = false',
-	@before-open='getVideoId',
+	@before-open='fetchData',
   @opened='SET_PLAYBACK({state: "pause"})',
   @closed='SET_PLAYBACK({state: "play"})')
 	transition(name='fade')
@@ -57,23 +57,34 @@ export default {
   methods: {
     ...mapActions(['SET_PLAYBACK']),
 
+    fetchData() {
+      const that = this;
+
+      that.axios.all([
+          that.getVideoId(),
+        ]).then((res) => {
+          that.videoId = res[0].data.items[0].id.videoId;
+        }).catch((err) => {
+          that.$store.commit('ADD_NOTICE', `Error loading video: ${err.message}`);
+        });
+    },
+
+    // get video from the youtube api
     getVideoId() {
       const that = this,
             title = that.currentPlayback.item.name,
             artist = that.currentPlayback.item.artists[0].name;
 
-      that.$youtubeApi({
+      return that.$youtubeApi({
         method: 'get',
         url: '/search',
         params: {
           q: `${title} ${artist}`,
         },
-      }).then((res) => {
-        that.videoId = res.data.items[0].id.videoId;
-      }).catch((err) => {
-        that.$store.commit('ADD_NOTICE', `Error fetching video: ${err.message}`);
       });
     },
+
+    // close video modal
     closeVideo() {
       this.$modal.hide('video');
     },

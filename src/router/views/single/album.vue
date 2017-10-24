@@ -46,8 +46,7 @@ export default {
 
       that.axios.all([
           that.getSingleAlbum(),
-        ])
-        .then((res) => {
+        ]).then((res) => {
           that.data.album = res[0].data;
           that.$endLoading('fetching data');
         });

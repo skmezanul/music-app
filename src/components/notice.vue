@@ -17,11 +17,12 @@ export default {
   ],
   created() {
     // remove notice automatically after 4000ms
-    setInterval(() => {
+    setTimeout(() => {
       const notices = this.notices;
-      if (notices.length > 0) {
+
+      if (notices) {
         this.removeNotice();
-      };
+      }
     }, 4000);
   },
   methods: {
