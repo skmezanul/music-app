@@ -1,5 +1,5 @@
 <template lang="pug">
-main.main-container
+main.main-container(v-if='!$isLoading("fetching data")')
 	// stage
 	ma-stage(
     :subtitle='$tc("playlist", 1)',
