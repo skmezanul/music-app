@@ -34,12 +34,6 @@ $breakpoint-mobile: 768px;
   @include position(relative, $args...);
 }
 
-@mixin flex-center() {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 @mixin flex($display: null, $justify: null, $align: null, $direction: null, $flex: null, $basis: null, $wrap: null) {
   display: $display;
   flex: $flex;
@@ -65,10 +59,7 @@ $breakpoint-mobile: 768px;
   }
 
   &:after {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
+    @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0)
     content: ",";
   }
 

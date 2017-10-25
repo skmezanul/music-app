@@ -55,9 +55,7 @@ export default {
     @include flex($display: flex, $direction: column);
     margin: 30px 0;
     &:last-child {
-        @media (min-width: $breakpoint-mobile) {
-            padding-bottom: 81px;
-        }
+        padding-bottom: 81px;
         @media (max-width: $breakpoint-mobile) {
             padding-bottom: 141px;
         }
@@ -103,15 +101,12 @@ export default {
     }
 
     .section-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        @include flex($display: flex, $justify: space-between, $align: center);
         margin-bottom: 25px;
         .section-actions {
             span {
                 @include item-hover;
-                display: flex;
-                align-items: center;
+                @include flex($display: flex, $align: center);
                 white-space: nowrap;
             }
         }

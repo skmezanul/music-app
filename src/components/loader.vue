@@ -1,18 +1,16 @@
 <template lang="pug">
+- let n = 0;
 .loader-container
-	ul
-		li
-		li
-		li
-		li
-		li
-		li
+    ul
+      while n <= 6
+        li
+        - n++
 </template>
 
 <style lang="scss" scoped>
 .loader-container {
     @include fixed($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 997);
-    @include flex-center;
+    @include flex($display: flex, $justify: center, $align: center)
     margin-bottom: 81px;
     height: 100%;
     background-color: $main-bg-color;
@@ -52,6 +50,8 @@
         }
     }
 }
+
+// keyframe animations for loader
 @keyframes loading1 {
     0% {
         height: 10px;
