@@ -23,15 +23,13 @@ $breakpoint-mobile: 768px;
 }
 
 @mixin absolute($args...) {
-  @include position(absolute, $args...);
+   @include position(absolute, $args...);
 }
-
 @mixin fixed($args...) {
-  @include position(fixed, $args...);
+   @include position(fixed, $args...);
 }
-
 @mixin relative($args...) {
-  @include position(relative, $args...);
+   @include position(relative, $args...);
 }
 
 @mixin flex($display: null, $justify: null, $align: null, $direction: null, $flex: null, $basis: null, $wrap: null) {
@@ -59,7 +57,7 @@ $breakpoint-mobile: 768px;
   }
 
   &:after {
-    @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0)
+    @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0);
     content: ",";
   }
 
@@ -72,6 +70,7 @@ $breakpoint-mobile: 768px;
     }
   }
 }
+
 @mixin item-hover() {
   color: rgba($white, 0.7);
   transition: color 0.3s, opacity 0.3s;
