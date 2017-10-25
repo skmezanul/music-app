@@ -4,7 +4,7 @@
     tag='div',
     @mouseover.native='overlay = true',
     @mouseleave.native='overlay = false',
-    :to='$toRoute(type, primaryid, secondaryid)')
+    :to='$toRoute(type, { id: primaryid, owner: secondaryid })')
 
     // overlay
     transition(name='fade')
@@ -39,7 +39,7 @@
           router-link.artist(
             v-for='item in artist',
             :key='item.id',
-            :to='$toRoute(item.type, item.id)') {{ item.name }}
+            :to='$toRoute("artist", { id: item.id })') {{ item.name }}
 </template>
 
 <script>
@@ -102,21 +102,20 @@ export default {
 
 <style lang="scss">
 .section-item {
-    flex: 1;
-    flex-basis: 20%;
+    @include flex($flex: 1, $basis: 20%);
     padding: 7px;
     max-width: 20%;
     @media (max-width: $breakpoint-mobile) {
-        flex-basis: 50%;
+        @include flex($basis: 20%);
         max-width: 50%;
     }
     &.artist,
     &.category {
         .section-item-inner {
             .meta-container {
-                @include position(absolute, 1);
-                align-items: flex-end;
-                justify-content: center;
+                @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 1);
+                @include item-hover;
+                @include flex($justify: center, $align: flex-end);
                 padding-bottom: 40px;
                 height: 100%;
                 .meta-container-inner {
@@ -140,7 +139,7 @@ export default {
         }
     }
     &.artist {
-        flex-basis: 25%;
+        @include flex($basis: 25%);
         max-width: 25%;
         .section-item-inner {
             height: 300px;
@@ -149,8 +148,8 @@ export default {
             }
             .image-container {
                 img {
-                    filter: brightness(70%) contrast(110%);
                     width: auto;
+                    filter: brightness(70%) contrast(110%);
                 }
             }
             &:hover {
@@ -163,7 +162,7 @@ export default {
         }
     }
     &.category {
-      flex-basis: 20%;
+      @include flex($basis: 20%);
       max-width: 20%;
       .section-item-inner {
         .image-container {
@@ -181,10 +180,8 @@ export default {
         }
     }
     .section-item-inner {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        @include relative;
+        @include flex($display: flex, $justify: space-between, $direction: column);
         overflow: hidden;
         height: 100%;
         background-color: $blue;
@@ -193,9 +190,7 @@ export default {
             cursor: pointer;
         }
         .image-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            @include flex($display: flex, $justify: center, $align: center);
             overflow: hidden;
             width: 100%;
             height: auto;
@@ -204,15 +199,11 @@ export default {
             }
         }
         .item-overlay {
-            @include position(absolute, 1);
-            display: flex;
+            @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 1);
+            @include flex($display: flex, $justify: center);
             background: linear-gradient(to top, $accent-color 25%, rgba(80, 80, 80, 0.5) 100%);
-            justify-content: center;
             .overlay-inner {
-                display: flex;
-                flex: 0.8;
-                align-items: center;
-                justify-content: space-around;
+                @include flex($display: flex, $justify: space-around, $align: center, $flex: 0.8);
                 i {
                     transition: color 0.3s;
                     &:not(.play) {
@@ -229,8 +220,7 @@ export default {
             }
         }
         .meta-container {
-            display: flex;
-            justify-content: center;
+            @include flex($display: flex, $justify: center);
             padding: 15px;
             .meta-container-inner {
                 z-index: 2;

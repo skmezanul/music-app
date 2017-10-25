@@ -1,5 +1,5 @@
 <template lang="pug">
-main.main-container(v-if='!$isLoading("fetching data")')
+main.main-container(v-if='!$isLoading("data")')
 	// stage
 	ma-stage(
 	:subtitle='$tc("artist", 1)',
@@ -44,7 +44,7 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observedthat.
-    this.$startLoading('fetching data');
+    this.$startLoading('data');
     this.fetchData();
   },
   methods: {
@@ -67,7 +67,7 @@ export default {
           that.data.singles = res[3].data.items;
           that.data.appearson = res[4].data.items;
           that.data.related = res[5].data.artists;
-          that.$endLoading('fetching data');
+          that.$endLoading('data');
         });
     },
 

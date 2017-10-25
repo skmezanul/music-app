@@ -1,12 +1,11 @@
 <template lang="pug">
-#app(
-  :class='[$mq.all, $route.name]')
+#app
 
   // header
   ma-header
 
   // navigation
-  ma-navigation(v-if='$mq.desktop || $mq.tablet')
+  ma-navigation(v-if='!$mq.phone')
 
   // router view
   transition(name='fade', mode='out-in')
@@ -21,9 +20,8 @@
 
   // loading spinner
   transition(name='fade')
-    ma-loading.loading-container(v-if='$isLoading("fetching data")')
-      template(slot='spinner')
-        ma-loader
+    ma-loading.loading-container(v-if='$isLoading("data")')
+      ma-loader(slot='spinner')
 
   // notices
   transition-group(name='slide-down-transform', tag='ma-notice', v-for='(notice, index) in notices', :key='index', :message='notice', @remove="removeNotice(index)")
@@ -77,43 +75,43 @@ export default {
 <style lang="scss">
 /** Ultra Light */
 @font-face {
-    font-family: 'San Francisco';
     font-weight: 100;
+    font-family: 'San Francisco';
     src: url('../static/fonts/sanfranciscodisplay-ultralight-webfont.woff');
 }
 
 /** Thin */
 @font-face {
-    font-family: 'San Francisco';
     font-weight: 200;
+    font-family: 'San Francisco';
     src: url('../static/fonts/sanfranciscodisplay-thin-webfont.woff');
 }
 
 /** Regular */
 @font-face {
-    font-family: 'San Francisco';
     font-weight: 400;
+    font-family: 'San Francisco';
     src: url('../static/fonts/sanfranciscodisplay-regular-webfont.woff');
 }
 
 /** Medium */
 @font-face {
-    font-family: 'San Francisco';
     font-weight: 500;
+    font-family: 'San Francisco';
     src: url('../static/fonts/sanfranciscodisplay-medium-webfont.woff');
 }
 
 /** Semi Bold */
 @font-face {
-    font-family: 'San Francisco';
     font-weight: 600;
+    font-family: 'San Francisco';
     src: url('../static/fonts/sanfranciscodisplay-semibold-webfont.woff');
 }
 
 /** Bold */
 @font-face {
-    font-family: 'San Francisco';
     font-weight: 700;
+    font-family: 'San Francisco';
     src: url('../static/fonts/sanfranciscodisplay-bold-webfont.woff');
 }
 
@@ -150,8 +148,8 @@ h4 {
 }
 
 h1 {
-    font-weight: 700;
     letter-spacing: 2.5px;
+    font-weight: 700;
 }
 
 h2 {
@@ -176,17 +174,12 @@ a {
 
 // page-container containing stacked sections
 .page-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    @include flex($display: flex, $align: center, $direction: column);
 }
 
 // dropdown styling
 .dropdown {
-    position: absolute;
-    top: 58px;
-    right: 0;
-    z-index: 999;
+    @include absolute($top: 58px, $right: 0, $z-index: 999);
     overflow: hidden;
     width: 150px;
     border-radius: 5px;
@@ -206,24 +199,22 @@ a {
 // tooltip styling
 .tooltip-container {
     .tooltip {
-        z-index: 999;
+        @include relative($z-index: 999);
         display: block !important;
+        margin-bottom: 12px;
         letter-spacing: 1.5px;
         font-family: $font-family;
         transition: opacity 0.3s, visibility 0.3s;
-        margin-bottom: 12px;
 
         .tooltip-inner {
             padding: 7px 10px;
             border-radius: 3px;
             background: $accent-color;
             &:after {
-                content: "";
-                position: absolute;
-                top: 100%;
-                left: calc(50% - 8px);
+                @include absolute($top: 100%, $left: calc(50% - 8px));
                 border: 8px solid;
                 border-color: $accent-color transparent transparent transparent;
+                content: "";
             }
         }
 
@@ -285,7 +276,7 @@ a {
     transform: translateY(-100%);
 }
 
-// slide up transition with margin (cover)
+// slide up transition with margin (cover in sidebar)
 .slide-up-margin-enter-active,
 .slide-up-margin-leave-active {
     transition: margin 0.3s;

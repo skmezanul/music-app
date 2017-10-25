@@ -19,20 +19,19 @@ export default {
 
 <style lang="scss">
 .splash-container {
-    @include flex-center;
+    @include flex($display: flex, $justify: center, $align: center);
     width: 100%;
     height: 100vh;
     background: $main-bg-color url('/static/images/concert_bg.jpg') no-repeat;
     background-size: cover;
     animation: zoomOut 0.7s 0.2s both;
     &:before {
-        @include position(absolute, -1);
+        @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: -1);
         background-color: rgba($main-bg-color, 0.8);
         content: "";
     }
     .splash-inner {
-        @include flex-center;
-        flex-direction: column;
+        @include flex($display: flex, $justify: center, $align: center, $direction: column);
         max-width: 500px;
         width: 100%;
         text-align: center;

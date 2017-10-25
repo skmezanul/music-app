@@ -20,13 +20,10 @@ new Vue({
   render: h => h(app),
 });
 
-Vue.prototype.$toRoute = function toTarget(name, id, owner) {
+Vue.prototype.$toRoute = function toTarget(name, params) {
   const target = {
     name,
-    params: {
-      id,
-      owner,
-    },
+    params,
   };
   return target;
 };

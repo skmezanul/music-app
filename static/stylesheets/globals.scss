@@ -13,13 +13,25 @@ $shadow: 0 20px 40px rgba($black, 0.15);
 $shadow-highlight: 0 20px 50px rgba($black, 0.4);
 $breakpoint-mobile: 768px;
 
-@mixin position($type, $z-index) {
-  position: $type;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+@mixin position($position, $top: null, $right: null, $bottom: null, $left: null, $z-index: null) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
   z-index: $z-index;
+}
+
+@mixin absolute($args...) {
+  @include position(absolute, $args...);
+}
+
+@mixin fixed($args...) {
+  @include position(fixed, $args...);
+}
+
+@mixin relative($args...) {
+  @include position(relative, $args...);
 }
 
 @mixin flex-center() {
@@ -28,8 +40,18 @@ $breakpoint-mobile: 768px;
   justify-content: center;
 }
 
+@mixin flex($display: null, $justify: null, $align: null, $direction: null, $flex: null, $basis: null, $wrap: null) {
+  display: $display;
+  flex: $flex;
+  flex-basis: $basis;
+  flex-wrap: $wrap;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+}
+
 @mixin comma-separated($font-size, $font-weight) {
-  position: relative;
+  @include relative;
   margin-right: 5px;
   padding-right: 5px;
   color: rgba($white, 0.7);

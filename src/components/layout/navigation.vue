@@ -37,7 +37,7 @@ nav.navigation-container
         li(
           v-for='playlist in playlists',
           :key='playlist.id')
-          router-link(:to='$toRoute("playlist", playlist.id, playlist.owner.id)')
+          router-link(:to='$toRoute("playlist", { id: playlist.id, owner: playlist.owner.id })')
             i.material-icons playlist_play
             span {{ playlist.name }}
 
@@ -51,7 +51,7 @@ nav.navigation-container
     transition(name='slide-up-margin')
       router-link.cover-container(
         tag='div',
-        :to='$toRoute("artist", currentPlayback.item.artists[0].id)',
+        :to='$toRoute("artist", { id: currentPlayback.item.artists[0].id })',
         v-if='$store.state.largeCover')
         ma-button(type='overlay', @click.prevent.native='$store.commit("TOGGLE_LARGE_COVER")', icon='close')
         img(
@@ -74,17 +74,12 @@ export default {
 
 <style lang="scss">
 .navigation-container {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 997;
+    @include fixed($top: 0, $bottom: 0, $left: 0, $z-index: 997);
     width: 200px;
     transform: translateZ(0);
 
     ul {
-        display: flex;
-        flex-direction: column;
+        @include flex($display: flex, $direction: column);
         padding-top: 50px;
         padding-bottom: 81px;
         height: 100%;
@@ -109,7 +104,7 @@ export default {
             }
 
             li {
-                display: flex;
+                @include flex($display: flex);
 
                 h4 {
                     padding: 5px 10px;
@@ -121,8 +116,7 @@ export default {
 
                 a {
                     @include item-hover;
-                    display: flex;
-                    align-items: center;
+                    @include flex($display: flex, $align: center);
                     overflow: hidden;
                     padding: 10px;
                     width: 100%;
@@ -149,7 +143,7 @@ export default {
         }
     }
     .cover-container {
-      position: relative;
+      @include relative;
       height: 199px;
       border-top: 1px solid $border-color;
       .button {

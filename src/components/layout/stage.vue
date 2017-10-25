@@ -47,7 +47,7 @@
     nav.subnav(v-if='navigation && !$mq.phone')
       ul
         li(v-for='navitem in navigation')
-          router-link(:to='$toRoute(navitem.name, $route.params.id)') {{ navitem.title }}
+          router-link(:to='$toRoute(navitem.name, { id: $route.params.id })') {{ navitem.title }}
 </template>
 
 <script>
@@ -93,10 +93,8 @@ export default {
 
 <style lang="scss">
 .stage {
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
+    @include relative;
+    @include flex($display: flex, $justify: center, $align: flex-end);
     overflow: hidden;
     margin-top: 0;
     margin-bottom: 20px;
@@ -123,37 +121,34 @@ export default {
 
     &.has-cover {
         .stage-inner {
-            flex-direction: row;
-            flex-wrap: wrap;
-            align-items: center;
+            @include flex($align: center, $direction: row, $wrap: wrap);
             .subnav {
-                flex-basis: 100%;
+                @include flex($basis: 100%);
             }
         }
     }
 
     .background-container {
-        @include position(absolute, 1);
-        @include flex-center;
+        @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 1);
+        @include flex($display: flex, $justify: center, $align: center);
 
         img {
           display: block;
           width: 100vw;
           height: 100vh;
-          object-fit: cover;
           filter: saturate(130%);
+          object-fit: cover;
         }
     }
     &:after {
-        @include position(absolute, 1);
+        @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 1);
         background: ease-in-out-sine-gradient(to top, $main-bg-color, rgba($main-bg-color, 0)), radial-gradient(circle, rgba($main-bg-color, 0), $main-bg-color);
         content: "";
     }
 
     .stage-inner {
         z-index: 996;
-        display: flex;
-        flex-direction: column;
+        @include flex($display: flex, $direction: column);
 
         .cover-container {
             overflow: hidden;
@@ -164,7 +159,7 @@ export default {
             border-radius: 10px;
             box-shadow: $shadow;
             &:not(.is-small) {
-              flex: 1;
+              @include flex($flex: 1);
             }
 
             &.is-small {
@@ -180,9 +175,7 @@ export default {
         }
 
         .stage-container {
-            display: flex;
-            flex: 4;
-            flex-direction: column;
+            @include flex($display: flex, $direction: column, $flex: 4);
 
             h1 {
                 margin-left: -3px;
@@ -197,10 +190,10 @@ export default {
                 margin-top: 10px;
                 width: 80%;
                 p {
+                    margin: 0;
                     color: rgba($white, 0.7);
                     font-size: 1.2em;
                     line-height: 1.3em;
-                    margin: 0;
                     a:link {
                         font-size: inherit;
                         transition: color 0.3s;
@@ -219,7 +212,7 @@ nav {
         margin-top: 15px;
 
         ul {
-            display: flex;
+            @include flex($display: flex);
 
             li {
                 margin-right: 50px;
@@ -234,7 +227,7 @@ nav {
                     &.exact-active {
                         color: $white;
                         &:after {
-                            position: relative;
+                            @include relative;
                             top: 0.9em;
                             display: block;
                             margin: 0 auto;

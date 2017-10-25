@@ -52,8 +52,7 @@ export default {
 
 <style lang="scss">
 .page-section {
-    display: flex;
-    flex-direction: column;
+    @include flex($display: flex, $direction: column);
     margin: 30px 0;
     &:last-child {
         @media (min-width: $breakpoint-mobile) {
@@ -65,8 +64,7 @@ export default {
     }
 
     .section-items-container {
-        display: flex;
-        flex-flow: row wrap;
+        @include flex($display: flex, $wrap: wrap);
         margin: 0 -7px;
     }
 

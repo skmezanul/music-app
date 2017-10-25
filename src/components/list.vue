@@ -26,7 +26,7 @@ li.row(
       router-link(
         v-for='artist in artists',
         :key='artist.id',
-        :to='$toRoute(artist.type, artist.id)') {{ artist.name }}
+        :to='$toRoute("artist", { id: artist.id })') {{ artist.name }}
   .label-container
     i.material-icons(
       v-if='explicit',
@@ -34,7 +34,7 @@ li.row(
 
   // album name
   .album-container(v-if='album')
-    router-link(:to='$toRoute(album.type, album.id)') {{ album.name }}
+    router-link(:to='$toRoute("album", { id: album.id })') {{ album.name }}
 
   // duration
   span.duration {{ $formatValue(duration, 'time') }}
@@ -109,8 +109,7 @@ export default {
 <style lang="scss">
 .list {
     .row {
-        display: flex;
-        align-items: center;
+        @include flex($display: flex, $align: center);
         margin-bottom: 2px;
         height: 75px;
         background-color: $blue;
@@ -144,7 +143,7 @@ export default {
             }
         }
         .image-container {
-            position: relative;
+            @include relative;
             overflow: hidden;
             width: 75px;
             height: 75px;
@@ -154,8 +153,8 @@ export default {
                 transition: filter 0.3s;
             }
             i {
-                @include position(absolute, 1);
-                @include flex-center;
+                @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 1);
+                @include flex($display: flex, $justify: center, $align: center);
                 color: rgba($white, 0);
                 font-size: 2.5em;
                 transition: color 0.3s;
@@ -169,7 +168,7 @@ export default {
             font-size: 1.4em;
         }
         .meta-container {
-            flex: 1.3;
+            @include flex($flex: 1.3);
             overflow: hidden;
             padding: 0 20px;
             text-overflow: ellipsis;
@@ -190,7 +189,7 @@ export default {
         }
 
         .album-container {
-            flex: 1;
+            @include flex($flex: 1);
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -200,15 +199,13 @@ export default {
         }
 
         .duration {
-            flex: 0.3;
+            @include flex($flex: 0.3);
             padding-right: 10px;
             text-align: center;
         }
 
         .label-container, .action-container  {
-          display: flex;
-          flex: 0.3;
-          align-items: center;
+          @include flex($display: flex, $align: center, $flex: 0.3);
           padding: 0 30px;
           i {
               @include item-hover;
@@ -216,12 +213,12 @@ export default {
         }
 
         .action-container  {
-          justify-content: space-between;
+          @include flex($justify: space-between);
           max-width: 140px;
         }
 
         .label-container  {
-          justify-content: center;
+          @include flex($justify: center);
           max-width: 100px;
         }
     }

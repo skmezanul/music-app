@@ -11,17 +11,16 @@
 
 <style lang="scss" scoped>
 .loader-container {
-    @include position(fixed, 997);
+    @include fixed($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 997);
     @include flex-center;
     margin-bottom: 81px;
     height: 100%;
     background-color: $main-bg-color;
     ul {
-        position: relative;
+        @include relative;
         width: 100px;
         li {
-            position: absolute;
-            bottom: 0;
+            @include absolute($bottom: 5px);
             width: 5px;
             height: 0;
             border-radius: 5px;

@@ -1,5 +1,5 @@
 <template lang="pug">
-main.main-container(v-if='!$isLoading("fetching data")')
+main.main-container(v-if='!$isLoading("data")')
 	// stage
 	ma-stage(
 	:subtitle='$t("browse")',
@@ -49,7 +49,7 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.$startLoading('fetching data');
+    this.$startLoading('data');
     this.fetchData();
   },
   methods: {
@@ -66,7 +66,7 @@ export default {
           that.data.releases = res[1].data;
           that.data.categories = res[2].data.categories;
           that.data.charts = res[3].data.tracks.items;
-          that.$endLoading('fetching data');
+          that.$endLoading('data');
         });
     },
 

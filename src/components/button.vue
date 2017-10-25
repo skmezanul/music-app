@@ -16,12 +16,11 @@ export default {
 
 <style lang="scss">
 .button-container {
-    display: flex;
-    align-items: center;
+    @include flex($display: flex, $align: center);
     margin-top: 15px;
 
     .button-group {
-        display: flex;
+        @include flex($display: flex);
         overflow: hidden;
         margin-right: 5px;
         border-radius: 5px;
@@ -34,7 +33,7 @@ export default {
 }
 
 .button {
-    display: inline-flex;
+    @include flex($display: inline-flex);
     margin-right: 5px;
     padding: 13px;
     border-radius: 3px;
@@ -73,11 +72,9 @@ export default {
     }
 
     &.overlay {
+      @include absolute($top: 10px, $right: 10px);
       @include item-hover;
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      display: inline-flex;
+      @include flex($display: inline-flex);
       margin-right: 0;
       padding: 3px;
       border-radius: 50%;

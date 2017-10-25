@@ -5,19 +5,19 @@ footer
     router-link.cover-container(
       v-if='$mq.desktop',
       tag='div',
-      :to='$toRoute("artist", currentPlayback.item.artists[0].id)')
+      :to='$toRoute("artist", { id: currentPlayback.item.artists[0].id })')
       ma-button(type='overlay', @click.prevent.native='$store.commit("TOGGLE_LARGE_COVER")', icon='keyboard_arrow_up')
       img(
         :src='currentPlayback.item.album.images[0].url',
         :alt='currentPlayback.item.name')
 
     .currently-playing
-      router-link.title(:to='$toRoute("album", currentPlayback.item.album.id)') {{ currentPlayback.item.name }}
+      router-link.title(:to='$toRoute("album", { id: currentPlayback.item.album.id })') {{ currentPlayback.item.name }}
       .artist-container
         router-link.artist(
           v-for='artist in currentPlayback.item.artists',
           :key='artist.id',
-          :to='$toRoute(artist.type, artist.id)') {{ artist.name }}
+          :to='$toRoute("artist", { id: artist.id })') {{ artist.name }}
 
   // playback controls
   .footer-container.middle
@@ -141,27 +141,19 @@ export default {
 
 <style lang="scss">
 footer {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 998;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    @include fixed($right: 0, $bottom: 0, $left: 0, $z-index: 998);
+    @include flex($display: flex, $align: center, $wrap: wrap);
     padding: 15px 20px;
     border-top: 1px solid $border-color;
     background: $dark-blue;
     transform: translateZ(0);
 
     .footer-container {
-        display: flex;
-        align-items: center;
+        @include flex($display: flex, $align: center);
         height: 50px;
 
         &.left {
-            flex: 1;
-            justify-content: flex-start;
+            @include flex($justify: flex-start, $align: center, $flex: 1);
             transition: transform 0.3s;
             will-change: transform;
             @media (max-width: $breakpoint-mobile) {
@@ -177,7 +169,7 @@ footer {
             }
 
             .cover-container {
-                position: relative;
+                @include relative;
                 overflow: hidden;
                 margin-right: 10px;
                 width: 50px;
@@ -219,11 +211,10 @@ footer {
         }
 
         &.middle {
-            flex: 0.7;
-            justify-content: space-between;
+            @include flex($justify: space-between, $flex: 0.7);
             letter-spacing: 2px;
             @media (max-width: $breakpoint-mobile) {
-                flex: 1;
+                @include flex($flex: 1);
                 margin-top: 10px;
             }
 
@@ -238,14 +229,12 @@ footer {
         }
 
         &.right {
-            flex: 1;
-            justify-content: flex-end;
+            @include flex($justify: flex-end, $flex: 1);
             i {
                 margin-left: 10px;
             }
             .time-container {
-                display: flex;
-                justify-content: center;
+                @include flex($display: flex, $justify: center);
                 margin-left: 20px;
                 padding: 5px 10px;
                 width: 110px;
@@ -269,15 +258,11 @@ footer {
         }
     }
     .progress-container {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        @include absolute($right: 0, $bottom: 0, $left: 0);
         height: 4px;
         background-color: $accent-color;
         .progress-bar {
-            position: absolute;
-            right: 0;
+            @include absolute($right: 0);
             width: 100%;
             height: 100%;
             background: $dark-blue;

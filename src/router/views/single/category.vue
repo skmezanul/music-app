@@ -1,5 +1,5 @@
 <template lang="pug">
-main.main-container(v-if='!$isLoading("fetching data")')
+main.main-container(v-if='!$isLoading("data")')
 	// stage
 	ma-stage(
 		:subtitle='$tc("category", 1)',
@@ -35,7 +35,7 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.$startLoading('fetching data');
+    this.$startLoading('data');
     this.fetchData();
   },
   methods: {
@@ -48,7 +48,7 @@ export default {
         ]).then((res) => {
           that.data.category = res[0].data;
           that.data.playlists = res[1].data.playlists.items;
-          that.$endLoading('fetching data');
+          that.$endLoading('data');
         });
     },
 

@@ -1,5 +1,5 @@
 <template lang="pug">
-main.main-container(v-if='!$isLoading("fetching data")')
+main.main-container(v-if='!$isLoading("data")')
 	// stage
 	ma-stage(
     :subtitle='$tc("search", 1)',
@@ -71,7 +71,7 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.$startLoading('fetching data');
+    this.$startLoading('data');
     this.fetchData();
   },
   watch: {
@@ -86,7 +86,7 @@ export default {
           that.getResults(),
         ]).then((res) => {
           that.data.results = res[0].data;
-          that.$endLoading('fetching data');
+          that.$endLoading('data');
         });
     },
 

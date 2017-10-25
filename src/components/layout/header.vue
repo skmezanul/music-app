@@ -19,7 +19,7 @@ header(:class='{ "scrolled" : scrollPosition > 0 }')
     .header-inner.right
       router-link.current-user(
         tag='div',
-        :to='$toRoute("user", currentUser.id)')
+        :to='$toRoute("user", { id: currentUser.id })')
         .avatar-container
           img(
             :src='currentUser.images[0].url',
@@ -106,13 +106,8 @@ export default {
 
 <style lang='scss'>
 header {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 998;
-    display: flex;
-    justify-content: center;
+    @include fixed($top: 0, $right: 0, $left: 0, $z-index: 998);
+    @include flex($display: flex, $justify: center);
     padding: 13px 0;
     border-bottom: 1px solid;
     border-color: transparent;
@@ -129,8 +124,7 @@ header {
     }
 
     .header-container {
-        display: flex;
-        justify-content: space-between;
+        @include flex($display: flex, $justify: space-between);
         height: 42px;
         transition: width 0.3s;
         will-change: width;
@@ -139,13 +133,11 @@ header {
         }
 
         .header-inner {
-            display: flex;
-            align-items: center;
+            @include flex($display: flex, $align: center);
 
             &.left {
                 @media (min-width: $breakpoint-mobile) {
-                    flex: 1;
-                    justify-content: flex-start;
+                    @include flex($justify: flex-start, $flex: 1);
                 }
 
                 i {
@@ -155,13 +147,13 @@ header {
             }
 
             &.middle {
-                position: relative;
+                @include relative;
                 margin: 0 10px;
                 @media (max-width: $breakpoint-mobile) {
                     width: 100%;
                 }
                 @media (min-width: $breakpoint-mobile) {
-                    flex: 2;
+                    @include flex($flex: 2);
                 }
                 input {
                     z-index: 1;
@@ -186,24 +178,19 @@ header {
                     }
                 }
                 .search-icon {
-                    position: absolute;
-                    top: 9px;
-                    left: 17px;
-                    z-index: 2;
+                    @include absolute($top: 9px, $left: 17px, $z-index: 2);
                     color: rgba($white, 0.5);
                 }
             }
 
             &.right {
-                position: relative;
+                @include relative;
                 @media (min-width: $breakpoint-mobile) {
-                    flex: 1;
-                    justify-content: flex-end;
+                    @include flex($justify: flex-end, $flex: 1);
                 }
 
                 .current-user {
-                  display: flex;
-                  align-items: center;
+                  @include flex($display: flex, $align: center);
                   &:hover {
                     cursor: pointer;
                   }

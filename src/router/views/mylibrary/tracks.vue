@@ -1,5 +1,5 @@
 <template lang="pug">
-main.main-container(v-if='!$isLoading("fetching data")')
+main.main-container(v-if='!$isLoading("data")')
 	// stage
 	ma-stage(
     :subtitle='$t("library")',
@@ -39,7 +39,7 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.$startLoading('fetching data');
+    this.$startLoading('data');
     this.fetchData();
   },
   methods: {
@@ -50,7 +50,7 @@ export default {
           that.getSavedTracks(),
         ]).then((res) => {
           that.data.tracks = res[0].data.items;
-          that.$endLoading('fetching data');
+          that.$endLoading('data');
         });
     },
 

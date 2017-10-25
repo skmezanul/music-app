@@ -102,6 +102,7 @@ export default [{
     name: 'artistRelated',
     meta: {
       buttons: true,
+      compact: true,
     },
     component: artistRelated,
   },
@@ -110,6 +111,7 @@ export default [{
     name: 'artistAbout',
     meta: {
       buttons: true,
+      compact: true,
     },
     component: artistAbout,
   },

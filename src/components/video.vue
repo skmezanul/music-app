@@ -1,37 +1,37 @@
 <template lang="pug">
 ma-modal(
-	name='video',
-	height='100%',
-	width='100%',
-	transition='fade',
+  name='video',
+  height='100%',
+  width='100%',
+  transition='fade',
   :adaptive='true',
   :clickToClose='false',
   @mouseover.native='overlay = true',
   @mouseleave.native='overlay = false',
-	@before-open='fetchData',
+  @before-open='fetchData',
   @opened='SET_PLAYBACK({state: "pause"})',
   @closed='SET_PLAYBACK({state: "play"})')
-	transition(name='fade')
-		.overlay-container(v-show='overlay')
-			.overlay-inner
-				h1 {{ currentPlayback.item.name }}
-				.artist-container
-					router-link.artist(
-						v-for='artist in currentPlayback.item.artists',
-						:key='artist.id',
-						@click.native='closeVideo',
-						:to='$toRoute(artist.type, artist.id)') {{ artist.name }}
-			ma-button(
-				type='overlay',
-				@click.native='closeVideo',
-				icon='close')
+  transition(name='fade')
+    .overlay-container(v-show='overlay')
+      .overlay-inner
+        h1 {{ currentPlayback.item.name }}
+        .artist-container
+          router-link.artist(
+            v-for='artist in currentPlayback.item.artists',
+            :key='artist.id',
+            @click.native='closeVideo',
+            :to='$toRoute("artist", { id: artist.id })') {{ artist.name }}
+      ma-button(
+        type='overlay',
+        @click.native='closeVideo',
+        icon='close')
 
-	iframe(
-		v-if='videoId',
-		width='100%',
-		height='100%',
-		frameborder='0',
-		:src='`https://www.youtube-nocookie.com/embed/${videoId}?${options}`')
+  iframe(
+    v-if='videoId',
+    width='100%',
+    height='100%',
+    frameborder='0',
+    :src='`https://www.youtube-nocookie.com/embed/${videoId}?${options}`')
 </template>
 
 <script>
@@ -103,12 +103,8 @@ export default {
     .v--modal {
         background: $black;
         .overlay-container {
-          position: absolute;
-          top: 0;
-          right: 0;
-          left: 0;
-          display: flex;
-          align-items: center;
+          @include absolute($top: 0, $right: 0, $left: 0);
+          @include flex($display: flex, $align: center);
           padding: 0 60px;
           height: 200px;
           background: ease-in-out-sine-gradient(to bottom, rgba($main-bg-color, 0.7), rgba($main-bg-color, 0));
