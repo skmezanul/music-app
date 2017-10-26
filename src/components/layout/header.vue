@@ -142,7 +142,7 @@ header {
 
                 i {
                     @include item-hover;
-                    font-size: 2.2em;
+                    @include font($size: 2.2em);
                 }
             }
 
@@ -163,8 +163,7 @@ header {
                     border: none;
                     border-radius: 5px;
                     background-color: rgba($white,0.1);
-                    color: $white;
-                    letter-spacing: 1.3px;
+                    @include font($spacing: 1.3px, $color: $white);
                     transition: background-color 0.3s, box-shadow 0.3s;
                     -webkit-app-region: no-drag;
                     -webkit-font-smoothing: subpixel-antialiased;
@@ -174,12 +173,12 @@ header {
                     }
 
                     &::-webkit-input-placeholder {
-                        color: rgba($white,0.4);
+                      @include font($color: rgba($white,0.4));
                     }
                 }
                 .search-icon {
                     @include absolute($top: 9px, $left: 17px, $z-index: 2);
-                    color: rgba($white, 0.5);
+                    @include font($color: rgba($white,0.5));
                 }
             }
 

@@ -108,24 +108,21 @@ export default {
 
                 h4 {
                     padding: 5px 10px;
-                    color: rgba($white, 0.7);
-                    text-transform: uppercase;
-                    font-weight: 300;
-                    font-size: 0.9em;
+                    @include font($size: 0.9em, $weight: 300, $transform: uppercase, $color: rgba($white, 0.7));
                 }
 
                 a {
                     @include item-hover;
                     @include flex($display: flex, $align: center);
+                    @include font($size: 0.85em);
                     overflow: hidden;
                     padding: 10px;
                     width: 100%;
                     border-radius: 5px;
-                    font-size: 0.85em;
 
                     i {
                         margin-right: 7px;
-                        font-size: 1.3em;
+                        @include font($size: 1.3em);
                     }
 
                     span {
@@ -136,7 +133,7 @@ export default {
 
                     &.active {
                         background-color: $accent-color;
-                        color: $white;
+                        @include font($color: $white);
                     }
                 }
             }

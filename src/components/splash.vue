@@ -38,13 +38,12 @@ export default {
         transform: translateY(-15%);
         i {
             margin-bottom: 25px;
-            font-size: 5em;
+            @include font($size: 5em);
         }
         h1 {
             margin: 40px 0 10px;
-            font-weight: 300;
             font-family: 'Roboto', sans-serif;
-            line-height: 1.4em;
+            @include font($weight: 300, $line: 1.4em);
         }
         .image-container {
             img {

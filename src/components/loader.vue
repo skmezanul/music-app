@@ -1,10 +1,10 @@
 <template lang="pug">
 - let n = 0;
 .loader-container
-    ul
-      while n <= 6
-        li
-        - n++
+  .loader-inner
+    while n <= 6
+      span
+      - n++
 </template>
 
 <style lang="scss" scoped>
@@ -14,11 +14,11 @@
     margin-bottom: 81px;
     height: 100%;
     background-color: $main-bg-color;
-    ul {
+    .loader-inner {
         @include relative;
         width: 100px;
-        li {
-            @include absolute($bottom: 5px);
+        span {
+            @include absolute($bottom: 0);
             width: 5px;
             height: 0;
             border-radius: 5px;

@@ -119,7 +119,7 @@ export default {
                 padding-bottom: 40px;
                 height: 100%;
                 .meta-container-inner {
-                    font-size: 1.3em;
+                    @include font($size: 1.3em);
                 }
             }
             .image-container {
@@ -210,7 +210,7 @@ export default {
                         @include item-hover;
                     }
                     &.play {
-                        font-size: 4.5em;
+                        @include font($size: 4.5em);
                         transition: transform 0.3s;
                         &:hover {
                             transform: scale(1.1);
@@ -228,10 +228,10 @@ export default {
                 text-align: center;
                 text-overflow: ellipsis;
                 white-space: nowrap;
-                line-height: 1.4em;
+                @include font($line: 1.4em);
                 .artist-container {
                     a {
-                        @include comma-separated(0.95em, 300);
+                        @include comma-separated($size: 0.95em, $weight: 300);
                     }
                 }
 

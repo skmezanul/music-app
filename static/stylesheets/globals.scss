@@ -34,49 +34,47 @@ $breakpoint-mobile: 768px;
 
 @mixin flex($display: null, $justify: null, $align: null, $direction: null, $flex: null, $basis: null, $wrap: null) {
   display: $display;
-  flex: $flex;
-  flex-basis: $basis;
-  flex-wrap: $wrap;
   justify-content: $justify;
   align-items: $align;
   flex-direction: $direction;
+  flex: $flex;
+  flex-basis: $basis;
+  flex-wrap: $wrap;
 }
 
-@mixin comma-separated($font-size, $font-weight) {
+@mixin font($size: null, $weight: null, $line: null, $spacing: null, $transform: null, $color: null) {
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $line;
+  letter-spacing: $spacing;
+  text-transform: $transform;
+  color: $color;
+}
+
+@mixin comma-separated($args...) {
   @include relative;
+  @include font($args..., $color: rgba($white, 0.7));
   margin-right: 5px;
-  padding-right: 5px;
-  color: rgba($white, 0.7);
-  font-weight: $font-weight;
-  font-size: $font-size;
+  padding-right: 3px;
   transition: color 0.3s;
 
   &:hover {
-    color: $white;
+    @include font($color: $white);
     cursor: pointer;
   }
 
-  &:after {
-    @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0);
+  &:not(:last-child):after {
+    @include absolute($top: 0, $right: 0, $bottom: 0);
     content: ",";
-  }
-
-  &:last-child {
-    margin-right: 0;
-    padding-right: 0;
-
-    &:after {
-      content: "";
-    }
   }
 }
 
 @mixin item-hover() {
-  color: rgba($white, 0.7);
+  @include font($color: rgba($white, 0.7));
   transition: color 0.3s, opacity 0.3s;
 
   &:hover {
-    color: $white;
+    @include font($color: $white);
     cursor: pointer;
   }
 }

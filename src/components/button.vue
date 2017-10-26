@@ -37,10 +37,7 @@ export default {
     margin-right: 5px;
     padding: 13px;
     border-radius: 3px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-weight: 700;
-    font-size: 0.9em;
+    @include font($size: 0.9em, $weight: 700, $spacing: 1.5px, $transform: uppercase);
     transition: background-color 0.3s, color 0.3s;
 
     &:hover {
@@ -54,14 +51,13 @@ export default {
         }
         &:hover {
             background-color: $white;
-            color: $black;
+            @include font($color: $black);
         }
     }
 
     &:not(.overlay) {
       i {
-          font-size: 1em;
-          line-height: inherit;
+          @include font($size: 1em, $line: inherit);
       }
     }
 

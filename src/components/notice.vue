@@ -49,8 +49,7 @@ export default {
         @include flex($display: flex, $justify: space-between, $align: center);
         p {
             margin: 0;
-            font-weight: 300;
-            font-size: 1.1em;
+            @include font($size: 1.1em, $weight: 300);
         }
         i {
             @include item-hover;

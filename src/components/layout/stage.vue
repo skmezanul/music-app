@@ -9,7 +9,7 @@
         :src='image',
         :alt='title')
 
-  .stage-inner
+  .stage-container
     .cover-container(
       v-if='hasCover && !$mq.phone',
       :class='{ "is-small" : hasSmallCover }')
@@ -19,7 +19,7 @@
         :alt='title')
 
     // content
-    .stage-container
+    .stage-inner
       h2 {{ subtitle }}
       h1 {{ title }}
       .meta-container(v-if='meta && !$mq.phone')
@@ -44,7 +44,7 @@
           title='share')
 
       // navigation
-    nav.subnav(v-if='navigation && !$mq.phone')
+    nav.subnav-container(v-if='navigation && !$mq.phone')
       ul
         li(v-for='navitem in navigation')
           router-link(:to='$toRoute(navitem.name, { id: $route.params.id })') {{ navitem.title }}
@@ -110,19 +110,19 @@ export default {
                 filter: saturate(150%) blur(40px);
             }
         }
-        .stage-inner {
-            .stage-container {
+        .stage-container {
+            .stage-inner {
                 h1 {
-                    font-size: 3.5em;
+                    @include font($size: 3.5em);
                 }
             }
         }
     }
 
     &.has-cover {
-        .stage-inner {
+        .stage-container {
             @include flex($align: center, $direction: row, $wrap: wrap);
-            .subnav {
+            .subnav-container {
                 @include flex($basis: 100%);
             }
         }
@@ -146,7 +146,7 @@ export default {
         content: "";
     }
 
-    .stage-inner {
+    .stage-container {
         z-index: 996;
         @include flex($display: flex, $direction: column);
 
@@ -174,12 +174,12 @@ export default {
             }
         }
 
-        .stage-container {
+        .stage-inner {
             @include flex($display: flex, $direction: column, $flex: 4);
 
             h1 {
                 margin-left: -3px;
-                font-size: 5.5em;
+                @include font($size: 5.5em);
             }
 
             h2 {
@@ -191,14 +191,12 @@ export default {
                 width: 80%;
                 p {
                     margin: 0;
-                    color: rgba($white, 0.7);
-                    font-size: 1.2em;
-                    line-height: 1.3em;
+                    @include font($size: 1.2em, $line: 1.3em, $color: rgba($white, 0.7));
                     a:link {
-                        font-size: inherit;
+                        @include font($size: inherit);
                         transition: color 0.3s;
                         &:hover {
-                            color: $white;
+                            @include font($color: $white);
                         }
                     }
                 }
@@ -208,7 +206,7 @@ export default {
 }
 
 nav {
-    &.subnav {
+    &.subnav-container {
         margin-top: 15px;
 
         ul {
@@ -218,10 +216,7 @@ nav {
                 margin-right: 50px;
                 padding: 15px 0;
                 a {
-                    color: rgba($white, 0.5);
-                    text-transform: uppercase;
-                    letter-spacing: 2px;
-                    font-size: 0.9em;
+                    @include font($size: 0.9em, $spacing: 2px, $transform: uppercase, $color: rgba($white, 0.5));
                     transition: color 0.5s;
 
                     &.exact-active {
@@ -238,7 +233,7 @@ nav {
                         }
                     }
                     &:not(.active):hover {
-                        color: rgba($white, 0.7);
+                        @include font($color: rgba($white, 0.7));
                         cursor: pointer;
                     }
                 }

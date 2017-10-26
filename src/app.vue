@@ -122,8 +122,7 @@ export default {
 body {
     min-width: 611px;
     background-color: $main-bg-color;
-    color: $white;
-    letter-spacing: 1px;
+    @include font($spacing: 1px, $color: $white);
     font-family: $font-family;
     user-select: none;
 }
@@ -144,19 +143,15 @@ h2,
 h3,
 h4 {
     margin: 0;
-    font-weight: 400;
+    @include font($weight: 400);
 }
 
 h1 {
-    letter-spacing: 2.5px;
-    font-weight: 700;
+    @include font($weight: 700, $spacing: 2.5px);
 }
 
 h2 {
-    color: rgba($white, 0.7);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 1.2em;
+    @include font($size: 1.2em, $spacing: 2px, $transform: uppercase, $color: rgba($white, 0.7));
 }
 
 pre {
@@ -167,7 +162,7 @@ a {
     &:active,
     &:link,
     &:visited {
-        color: $white;
+        @include font($color: $white);
         text-decoration: none;
     }
 }
@@ -187,7 +182,7 @@ a {
 
     li {
         padding: 15px;
-        font-size: 0.9em;
+        @include font($size: 0.9em);
         transition: background-color 0.3s;
         &:hover {
             background-color: $blue;
@@ -202,7 +197,7 @@ a {
         @include relative($z-index: 999);
         display: block !important;
         margin-bottom: 12px;
-        letter-spacing: 1.5px;
+        @include font($spacing: 1.5px);
         font-family: $font-family;
         transition: opacity 0.3s, visibility 0.3s;
 
@@ -244,7 +239,7 @@ a {
 .header-container,
 .notice-inner,
 .page-section,
-.stage-inner {
+.stage-container {
     max-width: 1440px;
     width: $large-width;
     @media (max-width: 1440px) {

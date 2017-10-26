@@ -1,18 +1,18 @@
 <template lang="pug">
 li.row(
-  @dblclick='playTrack("play", trackid)',
+  @dblclick='SET_PLAYBACK({ state: "play", trackid })',
   :class='{ "playing" : isPlaying }')
 
   // image
   .image-container(v-if='image')
     i.material-icons(
       v-if='!isPlaying',
-      @click='playTrack("play", trackid)') play_circle_filled
+      @click='SET_PLAYBACK({ state: "play", trackid })') play_circle_filled
 
     i.material-icons.playing(v-if='isPlaying') volume_up
     i.material-icons(
       v-if='isPlaying',
-      @click='playTrack("pause")') pause_circle_filled
+      @click='SET_PLAYBACK({ state: "pause" })') pause_circle_filled
     img(
       :src='image',
       :alt='title')
@@ -89,14 +89,6 @@ export default {
         that.isPlaying = false;
       }
     },
-
-    // play clicked track or toggle playback state
-    playTrack(state, trackid) {
-      this.SET_PLAYBACK({
-        state,
-        trackid,
-      });
-    },
   },
   computed: {
     ...mapGetters({
@@ -110,17 +102,17 @@ export default {
 .list {
     .row {
         @include flex($display: flex, $align: center);
+        @include font($color: rgba($white, 0.7));
         margin-bottom: 2px;
         height: 75px;
         background-color: $blue;
-        color: rgba($white, 0.7);
         transition: all 0.3s;
         &:hover {
             background-color: rgba($white, 0.1);
             cursor: pointer;
             .image-container {
                 i {
-                    color: $white;
+                    @include font($color: $white);
                     &.playing {
                         visibility: hidden;
                     }
@@ -138,7 +130,7 @@ export default {
                     filter: brightness(20%);
                 }
                 i.playing {
-                    color: $white;
+                    @include font($color: $white);
                 }
             }
         }
@@ -155,17 +147,14 @@ export default {
             i {
                 @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 1);
                 @include flex($display: flex, $justify: center, $align: center);
-                color: rgba($white, 0);
-                font-size: 2.5em;
+                @include font($size: 2.5em, $color: rgba($white, 0));
                 transition: color 0.3s;
             }
         }
         .index {
+            @include font($size: 1.4em, $weight: 300, $color: $white);
             padding-left: 20px;
-            color: $white;
             text-align: center;
-            font-weight: 300;
-            font-size: 1.4em;
         }
         .meta-container {
             @include flex($flex: 1.3);
@@ -177,13 +166,14 @@ export default {
                 padding: 0 15px;
             }
             span {
-                color: $white;
-                font-size: 1.1em;
+                @include font($size: 1.1em, $color: $white);
             }
             .artist-container {
+                overflow: hidden;
                 margin-top: 5px;
+                text-overflow: ellipsis;
                 a {
-                    @include comma-separated(1em, 300);
+                    @include comma-separated($size: 1em, $weight: 300);
                 }
             }
         }
@@ -194,7 +184,7 @@ export default {
             text-overflow: ellipsis;
             white-space: nowrap;
             a {
-                @include comma-separated(1em, 400);
+                @include comma-separated($size: 1em, $weight: 400);
             }
         }
 

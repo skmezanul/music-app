@@ -1,82 +1,85 @@
 <template lang="pug">
 footer
-  // current playback
-  .footer-container.left(:class='{ "cover-hidden" : $store.state.largeCover && !$mq.phone }')
-    router-link.cover-container(
-      v-if='$mq.desktop',
-      tag='div',
-      :to='$toRoute("artist", { id: currentPlayback.item.artists[0].id })')
-      ma-button(type='overlay', @click.prevent.native='$store.commit("TOGGLE_LARGE_COVER")', icon='keyboard_arrow_up')
-      img(
-        :src='currentPlayback.item.album.images[0].url',
-        :alt='currentPlayback.item.name')
+	// current playback
+	.footer-container.left(:class='{ "cover-hidden" : $store.state.largeCover && !$mq.phone }')
+		router-link.cover-container(
+			v-if='$mq.desktop',
+			tag='div',
+			:to='$toRoute("artist", { id: currentPlayback.item.artists[0].id })')
+			ma-button(type='overlay', @click.prevent.native='$store.commit("TOGGLE_LARGE_COVER")', icon='keyboard_arrow_up')
+			img(
+				:src='currentPlayback.item.album.images[0].url',
+				:alt='currentPlayback.item.name')
 
-    .currently-playing
-      router-link.title(:to='$toRoute("album", { id: currentPlayback.item.album.id })') {{ currentPlayback.item.name }}
-      .artist-container
-        router-link.artist(
-          v-for='artist in currentPlayback.item.artists',
-          :key='artist.id',
-          :to='$toRoute("artist", { id: artist.id })') {{ artist.name }}
+		.currently-playing
+			router-link.title(:to='$toRoute("album", { id: currentPlayback.item.album.id })') {{ currentPlayback.item.name }}
+			.artist-container
+				router-link.artist(
+					v-for='artist in currentPlayback.item.artists',
+					:key='artist.id',
+					:to='$toRoute("artist", { id: artist.id })') {{ artist.name }}
 
-  // playback controls
-  .footer-container.middle
+	// playback controls
+	.footer-container.middle
 
-    i.shuffle.material-icons(
-      @click='SET_SHUFFLE',
-      :class='{ "active": currentPlayback.shuffle_state}',
-      v-tooltip='{ content: $t("shuffle") }') shuffle
+		i.shuffle.material-icons(
+			@click='SET_SHUFFLE',
+			:class='{ "active": currentPlayback.shuffle_state}',
+			v-tooltip='{ content: $t("shuffle") }') shuffle
 
-    i.skip.material-icons(@click='SKIP("previous")') skip_previous
+		i.skip.material-icons(@click='SKIP("previous")') skip_previous
 
-    i.toggle.play.material-icons(
-      v-show='!currentPlayback.is_playing',
-      @click='SET_PLAYBACK({state: "play"})') play_circle_filled
+		i.toggle.play.material-icons(
+			v-show='!currentPlayback.is_playing',
+			@click='SET_PLAYBACK({state: "play"})') play_circle_filled
 
-    i.toggle.pause.material-icons(
-      v-show='currentPlayback.is_playing',
-      @click='SET_PLAYBACK({state: "pause"})') pause_circle_filled
+		i.toggle.pause.material-icons(
+			v-show='currentPlayback.is_playing',
+			@click='SET_PLAYBACK({state: "pause"})') pause_circle_filled
 
-    i.skip.material-icons(@click='SKIP("next")') skip_next
+		i.skip.material-icons(@click='SKIP("next")') skip_next
 
-    i.repeat.material-icons(
-      v-show='currentPlayback.repeat_state != "track"',
-      @click='TOGGLE_REPEAT',
-      :class='{ "active": currentPlayback.repeat_state == "context" }',
-      v-tooltip='{ content: $t("repeat") }') repeat
+		i.repeat.material-icons(
+			v-show='currentPlayback.repeat_state != "track"',
+			@click='TOGGLE_REPEAT',
+			:class='{ "active": currentPlayback.repeat_state == "context" }',
+			v-tooltip='{ content: $t("repeat") }') repeat
 
-    i.repeat.material-icons.active(
-      v-show='currentPlayback.repeat_state == "track"',
-      @click='TOGGLE_REPEAT',
-      v-tooltip='{ content: $t("repeat") }') repeat_one
+		i.repeat.material-icons.active(
+			v-show='currentPlayback.repeat_state == "track"',
+			@click='TOGGLE_REPEAT',
+			v-tooltip='{ content: $t("repeat") }') repeat_one
 
-  // volume and other controls
-  .footer-container.right(v-if='$mq.desktop')
-    i.volume.material-icons(v-if='volume == 0') volume_mute
-    i.volume.material-icons(v-if='volume <= 50 && volume > 0') volume_down
-    i.volume.material-icons(v-if='volume > 50') volume_up
-    ma-slider(
-      ref='slider',
-      v-model='volume',
-      width='100px',
-      :bgStyle='bgStyle',
-      :sliderStyle='sliderStyle',
-      :processStyle='sliderStyle',
-      :tooltip='false')
-    i.material-icons(
-      @click='$modal.show("video")',
-      v-tooltip='{ content: $t("watchvideo") }') music_video
-    .time-container
-      span.track-progress {{ $formatValue(currentPlayback.progress_ms, 'time') }}
-      span.track-duration {{ $formatValue(currentPlayback.item.duration_ms, 'time') }}
+	// volume and other controls
+	.footer-container.right(v-if='$mq.desktop')
+		i.volume.material-icons(v-if='volume == 0') volume_mute
+		i.volume.material-icons(v-if='volume <= 50 && volume > 0') volume_down
+		i.volume.material-icons(v-if='volume > 50') volume_up
+		ma-slider(
+			ref='slider',
+			v-model='volume',
+			width='100px',
+			:bgStyle='bgStyle',
+			:sliderStyle='sliderStyle',
+			:processStyle='sliderStyle',
+			:tooltip='false')
+		i.material-icons(
+			@click='$modal.show("video")',
+			v-tooltip='{ content: $t("watchvideo") }') music_video
+		.time-container
+			span.track-progress {{ $formatValue(currentPlayback.progress_ms, 'time') }}
+			span.track-duration {{ $formatValue(currentPlayback.item.duration_ms, 'time') }}
 
-  // progress bar
-  .progress-container
-    .progress-bar(:style='getProgress()')
+	// progress bar
+	.progress-container
+		.progress-bar(:style='getProgress()')
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import {
+  mapActions,
+  mapGetters
+} from 'vuex';
 
 export default {
   data() {
@@ -106,10 +109,10 @@ export default {
     // get progress of the current track in percent
     getProgress() {
       const that = this,
-            duration = that.currentPlayback.item.duration_ms,
-            progress = that.currentPlayback.progress_ms,
-            value = ((duration - progress) / duration) * 100,
-            valueRounded = Math.round(value * 100) / 100;
+        duration = that.currentPlayback.item.duration_ms,
+        progress = that.currentPlayback.progress_ms,
+        value = ((duration - progress) / duration) * 100,
+        valueRounded = Math.round(value * 100) / 100;
 
       return `width: ${valueRounded}%;`;
     },
@@ -117,8 +120,8 @@ export default {
     // set volume for the current playback
     setVolume() {
       const that = this,
-            volume_percent = that.volume,
-            device_id = that.deviceId;
+        volume_percent = that.volume,
+        device_id = that.deviceId;
 
       that.$spotifyApi({
         method: 'put',
@@ -157,7 +160,7 @@ footer {
             transition: transform 0.3s;
             will-change: transform;
             @media (max-width: $breakpoint-mobile) {
-                flex-basis: 100%;
+                @include flex($basis: 100%);
             }
             @media (min-width: $breakpoint-mobile) {
                 &.cover-hidden {
@@ -192,19 +195,25 @@ footer {
             }
 
             .currently-playing {
+                @media (min-width: $breakpoint-mobile) {
+                    overflow: hidden;
+                    max-width: 450px;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
                 @media (max-width: $breakpoint-mobile) {
                     width: 100%;
                     text-align: center;
                 }
                 .title {
-                    font-size: 1.2em;
+										@include font($size: 1.2em);
                 }
                 .artist-container {
                     margin-top: 2px;
-                    font-weight: 300;
+										@include font($weight: 300);
 
                     a {
-                        @include comma-separated(0.9em, 300);
+                        @include comma-separated($size: 0.9em, $weight: 300);
                     }
                 }
             }
@@ -212,15 +221,14 @@ footer {
 
         &.middle {
             @include flex($justify: space-between, $flex: 0.7);
-            letter-spacing: 2px;
+						@include font($spacing: 2px);
             @media (max-width: $breakpoint-mobile) {
                 @include flex($flex: 1);
                 margin-top: 10px;
             }
 
             .toggle {
-                color: $white;
-                font-size: 3.3em;
+								@include font($size: 3.3em, $color: $white);
                 transition: transform 0.3s;
                 &:hover {
                     transform: scale(1.15);
@@ -252,7 +260,7 @@ footer {
         i {
             @include item-hover;
             &.active {
-                color: $accent-color;
+								@include font($color: $accent-color);
                 opacity: 1;
             }
         }

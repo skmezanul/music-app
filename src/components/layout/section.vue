@@ -88,16 +88,11 @@ export default {
 
     .biography {
         margin: 0;
-        color: rgba($white, 0.9);
-        font-weight: 300;
-        font-size: 1.1em;
-        line-height: 1.5em;
+        @include font($size: 1.1em, $weight: 300, $line: 1.5em, $color: rgba($white, 0.9));
     }
 
     .copyright {
-      color: rgba(255,255,255,0.7);
-      font-weight: 300;
-      font-size: 0.7em;
+      @include font($size: 0.7em, $weight: 300, $color: rgba($white, 0.7));
     }
 
     .section-header {

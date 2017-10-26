@@ -111,11 +111,11 @@ export default {
             .overlay-inner {
                 h1 {
                     margin-bottom: 10px;
-                    font-size: 3em;
+                    @include font($size: 3em);
                 }
                 .artist-container {
                     a {
-                        @include comma-separated(1.2em, 300);
+                        @include comma-separated($size: 1.2em, $weight: 300);
                     }
                 }
             }
