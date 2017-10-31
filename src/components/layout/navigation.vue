@@ -132,7 +132,7 @@ export default {
                     }
 
                     &.active {
-                        background-color: $accent-color;
+                        background-color: var(--accent-color);
                         @include font($color: $white);
                     }
                 }

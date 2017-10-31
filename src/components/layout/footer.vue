@@ -76,15 +76,11 @@ footer
 </template>
 
 <script>
-import {
-  mapActions,
-  mapGetters
-} from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   data() {
     return {
-      volume: 50,
       bgStyle: {
         backgroundColor: '#1A1D2C',
       },
@@ -92,10 +88,6 @@ export default {
         backgroundColor: '#ca2a59',
       },
     };
-  },
-  watch: {
-    // call again if value changes
-    volume: 'setVolume',
   },
   methods: {
     ...mapActions([
@@ -118,9 +110,9 @@ export default {
     },
 
     // set volume for the current playback
-    setVolume() {
+    setVolume(value) {
       const that = this,
-        volume_percent = that.volume,
+        volume_percent = value,
         device_id = that.deviceId;
 
       that.$spotifyApi({
@@ -138,6 +130,15 @@ export default {
       currentPlayback: 'getCurrentPlayback',
       deviceId: 'getDeviceId',
     }),
+
+    volume: {
+      get() {
+        return this.currentPlayback.device.volume_percent;
+      },
+      set(value) {
+        this.setVolume(value);
+      },
+    },
   },
 };
 </script>
@@ -260,7 +261,7 @@ footer {
         i {
             @include item-hover;
             &.active {
-								@include font($color: $accent-color);
+								@include font($color: var(--accent-color));
                 opacity: 1;
             }
         }
@@ -268,7 +269,7 @@ footer {
     .progress-container {
         @include absolute($right: 0, $bottom: 0, $left: 0);
         height: 4px;
-        background-color: $accent-color;
+        background-color: var(--accent-color);
         .progress-bar {
             @include absolute($right: 0);
             width: 100%;

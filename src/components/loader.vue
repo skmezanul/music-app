@@ -22,7 +22,7 @@
             width: 5px;
             height: 0;
             border-radius: 5px;
-            background-color: $accent-color;
+            background-color: var(--accent-color);
             &:nth-child(1) {
                 left: 0;
                 animation: loading1 1s ease infinite 0;

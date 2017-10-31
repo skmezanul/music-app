@@ -1,5 +1,5 @@
 <template lang="pug">
-#app
+#app(:style='{ "--accent-color" : $store.state.customization.accentColor }')
 
   // header
   ma-header
@@ -19,19 +19,20 @@
   .tooltip-container
 
   // loading spinner
-  transition(name='fade')
-    ma-loading.loading-container(v-if='$isLoading("data")')
+  transition(name='fade', tag='ma-loading')
+    ma-loading(v-if='$isLoading("data")')
       ma-loader(slot='spinner')
 
   // notices
-  transition-group(name='slide-down-transform', tag='ma-notice', v-for='(notice, index) in notices', :key='index', :message='notice', @remove="removeNotice(index)")
+  transition-group(name='slide-down-transform')
+    ma-notice(v-for='(notice, index) in notices', :key='index', :message='notice', @remove='removeNotice(index)')
 
   // music video
   ma-video
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 
 import maHeader from '@/components/layout/header';
 import maFooter from '@/components/layout/footer';
@@ -60,6 +61,9 @@ export default {
   computed: {
     ...mapGetters({
       notices: 'getNotices',
+    }),
+    ...mapState({
+        accentColor: state => state.customization.accentColor,
     }),
   },
   components: {
@@ -204,11 +208,11 @@ a {
         .tooltip-inner {
             padding: 7px 10px;
             border-radius: 3px;
-            background: $accent-color;
+            background: var(--accent-color);
             &:after {
                 @include absolute($top: 100%, $left: calc(50% - 8px));
                 border: 8px solid;
-                border-color: $accent-color transparent transparent transparent;
+                border-color: var(--accent-color) transparent transparent transparent;
                 content: "";
             }
         }

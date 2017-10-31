@@ -47,7 +47,7 @@ export default {
     &:not(.transparent):not(.overlay) {
         background-color: $light-blue;
         &.accent {
-            background-color: $accent-color;
+            background-color: var(--accent-color);
         }
         &:hover {
             background-color: $white;

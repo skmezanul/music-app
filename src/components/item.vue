@@ -201,7 +201,7 @@ export default {
         .item-overlay {
             @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 1);
             @include flex($display: flex, $justify: center);
-            background: linear-gradient(to top, $accent-color 25%, rgba(80, 80, 80, 0.5) 100%);
+            background: linear-gradient(to top, var(--accent-color) 25%, rgba(80, 80, 80, 0.5) 100%);
             .overlay-inner {
                 @include flex($display: flex, $justify: space-around, $align: center, $flex: 0.8);
                 i {

@@ -29,4 +29,8 @@ export default {
   REMOVE_NOTICE(state, index) {
     state.notices.splice(index, 1);
   },
+  SET_APP_SETTINGS(state, payload) {
+    const that = state;
+    that.customization.accentColor = payload.value;
+  },
 };

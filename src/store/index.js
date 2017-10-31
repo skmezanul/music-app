@@ -13,6 +13,7 @@ const VuexStorage = new VuexPersist({
     largeCover: state.largeCover,
     accessToken: state.accessToken,
     currentUser: state.currentUser,
+    customization: state.customization,
   }),
 });
 
@@ -36,6 +37,9 @@ const store = new Vuex.Store({
     notices: [],
     largeCover: false,
     accessToken: '',
+    customization: {
+      accentColor: '#ca2a59',
+    },
   },
   mutations,
   actions,

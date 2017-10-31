@@ -228,7 +228,7 @@ nav {
                             margin: 0 auto;
                             width: 40px;
                             height: 3px;
-                            background-color: $accent-color;
+                            background-color: var(--accent-color);
                             content: "";
                         }
                     }
