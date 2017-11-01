@@ -1,11 +1,11 @@
 export default {
-  SET_TOKEN(state, token) {
+  ACCESS_TOKEN(state, payload) {
     const thisState = state;
-    thisState.accessToken = token;
-  },
-  REMOVE_TOKEN(state) {
-    const thisState = state;
-    thisState.accessToken = '';
+    let accessToken = payload.token;
+    if (payload.action === 'remove') {
+      accessToken = '';
+    }
+    thisState.accessToken = accessToken;
   },
   CURRENT_PLAYBACK(state, data) {
     const thisState = state;
@@ -13,15 +13,11 @@ export default {
   },
   CURRENT_USER(state, payload) {
     const thisState = state;
+    let type = 'currentUser';
     if (payload.type === 'playlists') {
-      thisState.playlists = payload.data.items;
-    } else {
-      thisState.currentUser = payload.data;
+      type = 'playlists';
     }
-  },
-  TOGGLE_LARGE_COVER(state) {
-    const thisState = state;
-    thisState.largeCover = !thisState.largeCover;
+    thisState[type] = payload.data;
   },
   ADD_NOTICE(state, message) {
     state.notices.unshift(message);
@@ -31,6 +27,6 @@ export default {
   },
   SET_APP_SETTINGS(state, payload) {
     const that = state;
-    that.customization.accentColor = payload.value;
+    that.settings[payload.setting] = payload.value;
   },
 };

@@ -10,10 +10,9 @@ const VuexStorage = new VuexPersist({
   key: 'state',
   storage: window.localStorage,
   reducer: state => ({
-    largeCover: state.largeCover,
     accessToken: state.accessToken,
     currentUser: state.currentUser,
-    customization: state.customization,
+    settings: state.settings,
   }),
 });
 
@@ -35,10 +34,10 @@ const store = new Vuex.Store({
     currentUser: [],
     playlists: [],
     notices: [],
-    largeCover: false,
     accessToken: '',
-    customization: {
+    settings: {
       accentColor: '#ca2a59',
+      largeCover: false,
     },
   },
   mutations,

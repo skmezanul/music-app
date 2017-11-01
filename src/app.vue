@@ -1,11 +1,11 @@
 <template lang="pug">
-#app(:style='{ "--accent-color" : $store.state.customization.accentColor }')
+#app(:style='{ "--accent-color" : settings.accentColor }')
 
   // header
   ma-header
 
   // navigation
-  ma-navigation(v-if='!$mq.phone')
+  ma-sidebar(v-if='!$mq.phone')
 
   // router view
   transition(name='fade', mode='out-in')
@@ -32,11 +32,11 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 import maHeader from '@/components/layout/header';
 import maFooter from '@/components/layout/footer';
-import maNavigation from '@/components/layout/navigation';
+import maSidebar from '@/components/layout/sidebar';
 import maVideo from '@/components/video';
 import maLoading from '@/components/loader';
 
@@ -61,15 +61,13 @@ export default {
   computed: {
     ...mapGetters({
       notices: 'getNotices',
-    }),
-    ...mapState({
-        accentColor: state => state.customization.accentColor,
+      settings: 'getAppSettings',
     }),
   },
   components: {
     maHeader,
     maFooter,
-    maNavigation,
+    maSidebar,
     maVideo,
     maLoading,
   },
@@ -209,10 +207,12 @@ a {
             padding: 7px 10px;
             border-radius: 3px;
             background: var(--accent-color);
+            transition: background-color 0.3s;
             &:after {
                 @include absolute($top: 100%, $left: calc(50% - 8px));
                 border: 8px solid;
                 border-color: var(--accent-color) transparent transparent transparent;
+                transition: border-color 0.3s;
                 content: "";
             }
         }

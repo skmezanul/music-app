@@ -1,5 +1,5 @@
 <template lang="pug">
-.stage(:class='{ "has-cover" : hasCover, "is-compact" : isCompact }')
+.stage(:class='{ "has-cover" : hasCover, "is-compact" : isCompact, "has-image" : image }')
 
   // background
   transition(name='zoom-out', appear)
@@ -102,6 +102,12 @@ export default {
     min-height: 350px;
     width: 100%;
     height: 550px;
+
+    &:not(.has-image) {
+      background-color: var(--accent-color);
+      transition: background-color 1s;
+      filter: saturate(80%);
+    }
 
     &.is-compact {
         height: 350px;

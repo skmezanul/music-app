@@ -47,5 +47,8 @@ export function getToken() {
   const tokenFromurl = url.split('&token_type')[0].split('access_token=')[1];
 
   // store token in local storage
-  store.commit('SET_TOKEN', tokenFromurl);
+  store.commit('ACCESS_TOKEN', {
+    action: 'set',
+    token: tokenFromurl,
+  });
 }

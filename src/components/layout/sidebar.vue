@@ -1,15 +1,15 @@
 <template lang='pug'>
-nav.navigation-container
+nav.sidebar-container
   ul
     // browse
-    .navigation-section
+    .sidebar-section
       li
         router-link(to='/browse')
           i.material-icons book
           | {{ $t('browse') }}
 
     // my library
-    .navigation-section
+    .sidebar-section
       li
         h4 {{ $t('library') }}
       li
@@ -31,7 +31,7 @@ nav.navigation-container
 
     // playlists
     transition(name='fade')
-      .navigation-section.playlists(v-if='playlists.length > 0')
+      .sidebar-section.playlists(v-if='playlists.length > 0')
         li
           h4 {{ $tc('playlist', 0) }}
         li(
@@ -42,7 +42,7 @@ nav.navigation-container
             span {{ playlist.name }}
 
     // new playlist
-    .navigation-section.newplaylist
+    .sidebar-section.newplaylist
       li
         a
           i.material-icons playlist_add
@@ -52,28 +52,34 @@ nav.navigation-container
       router-link.cover-container(
         tag='div',
         :to='$toRoute("artist", { id: currentPlayback.item.artists[0].id })',
-        v-if='$store.state.largeCover')
-        ma-button(type='overlay', @click.prevent.native='$store.commit("TOGGLE_LARGE_COVER")', icon='close')
+        v-if='settings.largeCover')
+        ma-button(type='overlay', @click.prevent.native='setAppSettings({ setting: "largeCover", value: false })', icon='close')
         img(
           :src='currentPlayback.item.album.images[0].url',
           :alt='currentPlayback.item.name')
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
+  methods: {
+    ...mapMutations({
+      setAppSettings: 'SET_APP_SETTINGS',
+    }),
+  },
   computed: {
     ...mapGetters({
       currentPlayback: 'getCurrentPlayback',
       playlists: 'getPlaylists',
+      settings: 'getAppSettings',
     }),
   },
 };
 </script>
 
 <style lang="scss">
-.navigation-container {
+.sidebar-container {
     @include fixed($top: 0, $bottom: 0, $left: 0, $z-index: 997);
     width: 200px;
     transform: translateZ(0);
@@ -86,7 +92,7 @@ export default {
         border-right: 1px solid $border-color;
         background-color: $dark-blue;
 
-        .navigation-section {
+        .sidebar-section {
             margin: 15px;
 
             &.playlists {
