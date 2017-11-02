@@ -150,7 +150,7 @@ export default {
       } else if (hour >= 18 && hour < 23) {
         greeting = that.$t('greetings.evening');
 
-      } else if (hour >= 23 && hour < 5) {
+      } else {
         greeting = that.$t('greetings.night');
 
       }

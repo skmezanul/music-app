@@ -6,7 +6,7 @@ main.main-container
 
   .page-container
     ma-section(:title='$t("accentcolor")')
-      .color-select
+      .color-picker
         .color(
           v-for='color in accentColors',
           :style='{ "background-color" : color.hex }',
@@ -55,8 +55,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.color-select {
+<style lang="scss" scoped>
+.color-picker {
   @include flex($display: flex);
   margin: 0 -7px;
   .color {

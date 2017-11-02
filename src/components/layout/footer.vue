@@ -251,7 +251,7 @@ footer {
             // slider styling
             .vue-slider-component {
                 .vue-slider {
-                    background-color: rgba($white, 0.5);
+                    background-color: rgba($white, 0.3);
                     .vue-slider-dot,
                     .vue-slider-process {
                         background-color: var(--accent-color);

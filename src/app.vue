@@ -25,7 +25,7 @@
 
   // notices
   transition-group(name='slide-down-transform')
-    ma-notice(v-for='(notice, index) in notices', :key='index', :message='notice', @remove='removeNotice(index)')
+    ma-notice(v-for='(notice, index) in notices', :key='index', :type='notice.type', :message='notice.message', @remove='removeNotice(index)')
 
   // music video
   ma-video
@@ -52,11 +52,6 @@ export default {
   },
   methods: {
     ...mapActions(['GET_CURRENT_USER', 'GET_CURRENT_PLAYBACK']),
-
-    // remove notice
-    removeNotice(index) {
-      this.$store.commit('REMOVE_NOTICE', index);
-    },
   },
   computed: {
     ...mapGetters({

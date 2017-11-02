@@ -1,39 +1,26 @@
 <template lang="pug">
 .notice-container
-	.notice-inner
-		// message
-		p {{ message }}
+  .notice-inner
+    i.icon.material-icons(v-if='type === "error" && !$mq.phone') error
+    i.icon.material-icons(v-if='type === "warning" && !$mq.phone') warning
+    // message
+    p {{ message }}
 
-		// remove notice manually
-		i.material-icons(@click='removeNotice') close
+    // remove notice manually
+    i.close.material-icons(@click='removeNotice({ action: "remove" })') close
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapMutations } from 'vuex';
 
 export default {
   props: [
+    'type',
     'message',
   ],
-  created() {
-    // remove notice automatically after 4000ms
-    setTimeout(() => {
-      const notices = this.notices;
-
-      if (notices) {
-        this.removeNotice();
-      }
-    }, 4000);
-  },
   methods: {
-    // remove notice
-    removeNotice() {
-      this.$emit("remove");
-    }
-  },
-  computed: {
-    ...mapGetters({
-      notices: 'getNotices',
+    ...mapMutations({
+      removeNotice: 'SHOW_NOTICE',
     }),
   },
 };
@@ -47,12 +34,26 @@ export default {
     background-color: var(--accent-color);
     .notice-inner {
         @include flex($display: flex, $justify: space-between, $align: center);
+        @include relative;
+        overflow: hidden;
+        height: 100%;
+        @media (min-width: $breakpoint-mobile) {
+          padding-left: 120px;
+        }
         p {
+            @include font($size: 1.2em);
             margin: 0;
-            @include font($size: 1.1em, $weight: 300);
         }
         i {
-            @include item-hover;
+            &.icon {
+                position: absolute;
+                left: 0;
+                color: rgba($white, 0.2);
+                font-size: 7em;
+            }
+            &.close {
+                @include item-hover;
+            }
         }
     }
 }

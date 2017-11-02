@@ -67,7 +67,7 @@ export default {
     }
 
     &.collapsed {
-        .row:nth-child(n+4),
+        .list-item:nth-child(n+4),
         .section-item.artist:nth-child(n+5) {
             display: none;
         }

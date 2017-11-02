@@ -54,7 +54,10 @@ export default {
   // resume / pause the current playback or change playing track
   SET_PLAYBACK({ dispatch, getters }, payload) {
     let uris;
-    if (payload.state === 'play' && typeof payload.trackid !== 'undefined') {
+
+    // play track if trackid in request payload and state set to 'play'
+    const playTrack = payload.state === 'play' && payload.trackid;
+    if (playTrack) {
       uris = [`spotify:track:${payload.trackid}`];
     }
 

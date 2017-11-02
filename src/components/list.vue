@@ -1,5 +1,5 @@
 <template lang="pug">
-li.row(
+li.list-item(
   @dblclick='SET_PLAYBACK({ state: "play", trackid })',
   :class='{ "playing" : isPlaying }')
 
@@ -21,7 +21,7 @@ li.row(
 
   // meta
   .meta-container
-    span {{ title }}
+    span.title {{ title }}
     .artist-container(v-if='artists')
       router-link(
         v-for='artist in artists',
@@ -100,10 +100,11 @@ export default {
 
 <style lang="scss">
 .list {
-    .row {
+    .list-item {
         @include flex($display: flex, $align: center);
         @include font($color: rgba($white, 0.7));
         margin-bottom: 2px;
+        width: 100%;
         height: 75px;
         background-color: $blue;
         transition: all 0.3s;
