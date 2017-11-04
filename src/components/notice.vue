@@ -1,8 +1,7 @@
 <template lang="pug">
 .notice-container
   .notice-inner
-    i.icon.material-icons(v-if='type === "error" && !$mq.phone') error
-    i.icon.material-icons(v-if='type === "warning" && !$mq.phone') warning
+    i.icon.material-icons(v-if='!$mq.phone') {{ type }}
     // message
     p {{ message }}
 
