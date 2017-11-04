@@ -71,7 +71,6 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.$startLoading('data');
     this.fetchData();
   },
   watch: {
@@ -81,6 +80,7 @@ export default {
   methods: {
     fetchData() {
       const that = this;
+      that.$startLoading('data');
 
       that.axios.all([
           that.getResults(),
@@ -99,8 +99,8 @@ export default {
         method: 'get',
         url: '/search',
         params: {
-          q,
           type: 'album,artist,track',
+          q,
         },
       });
     },

@@ -4,7 +4,7 @@ main.main-container(v-if='!$isLoading("data")')
 	ma-stage(
 	:subtitle='$tc("artist", 1)',
 	:navigation='navigation',
-	:image='data.artistInfo.images[0].url',
+	:image='data.additionalInfo.headerImages[1].url',
 	:title='data.artistInfo.name')
 
 	// router view
@@ -44,16 +44,16 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observedthat.
-    this.$startLoading('data');
     this.fetchData();
   },
   methods: {
     fetchData() {
       const that = this;
+      that.$startLoading('data');
 
       that.axios.all([
           that.getArtistInfo(),
-          // that.getAdditionalInfo(),
+          that.getAdditionalInfo(),
           that.getTopTracks(),
           that.getAlbums(),
           that.getSingles(),
@@ -61,12 +61,12 @@ export default {
           that.getRelatedArtists(),
         ]).then((res) => {
           that.data.artistInfo = res[0].data;
-          // that.data.additionalInfo = res[1].data;
-          that.data.toptracks = res[1].data.tracks;
-          that.data.albums = res[2].data.items;
-          that.data.singles = res[3].data.items;
-          that.data.appearson = res[4].data.items;
-          that.data.related = res[5].data.artists;
+          that.data.additionalInfo = res[1].data;
+          that.data.toptracks = res[2].data.tracks;
+          that.data.albums = res[3].data.items;
+          that.data.singles = res[4].data.items;
+          that.data.appearson = res[5].data.items;
+          that.data.related = res[6].data.artists;
           that.$endLoading('data');
         });
     },

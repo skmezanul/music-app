@@ -2,15 +2,19 @@ import Vue from 'vue';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 import store from '@/store';
-import router from '@/router';
-import { credentials } from './config';
+import credentials from './config';
 
 Vue.use(VueAxios, axios);
 
 // get api token from vuex store
-// eslint-disable-next-line
-export const token = store.getters.getAccessToken;
+const token = store.getters.getAccessToken;
 
+// register music-app backend axios instance
+const backendApi = axios.create({
+  baseURL: 'http://82.165.99.125:3000/music-app/v1/',
+});
+
+Vue.prototype.$backendApi = backendApi;
 
 // register spotify axios instance
 const spotifyApi = axios.create({
@@ -41,32 +45,32 @@ Vue.prototype.$youtubeApi = youtubeApi;
 
 // register global spotify api interceptor
 spotifyApi.interceptors.response.use(null, (err) => {
-  const error = `Error: ${err.message}. -`;
+  const error = `Error: ${err.message}.`;
   let message;
 
   switch (err.response.status) {
     default:
-      message = `Error: ${err.message}.`;
+      message = error;
       break;
 
     case '401':
-      message = `${error} It is likely your access token has expired.`;
+      message = `${error} - It is likely your access token has expired.`;
       // remove expired access token
-      store.commit('ACCESS_TOKEN', {
-        action: 'remove',
+      store.commit('SET_CREDENTIALS', {
+        access_token: '',
       });
       break;
 
     case '403':
-      message = `${error} This action requires a Spotify Premium subscription.`;
+      message = `${error} - This action requires a Spotify Premium subscription.`;
       break;
 
     case '503':
-      message = `${error} The server is currently unable to handle the request.`;
+      message = `${error} - The server is currently unable to handle the request.`;
       break;
 
     case '404':
-      message = `${error} The requested resource could not be found.`;
+      message = `${error} - The requested resource could not be found.`;
       break;
   }
 
@@ -78,7 +82,6 @@ spotifyApi.interceptors.response.use(null, (err) => {
       message,
     });
   }
-
-  // return to previous route
-  router.go(-1);
 });
+
+export default token;

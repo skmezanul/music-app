@@ -32,12 +32,12 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.$startLoading('data');
     this.fetchData();
   },
   methods: {
     fetchData() {
       const that = this;
+      that.$startLoading('data');
 
       that.axios.all([
           that.getUser(),

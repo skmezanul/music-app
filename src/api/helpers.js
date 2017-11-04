@@ -1,7 +1,6 @@
+import Vue from 'vue';
 import store from '@/store';
-import { stringify } from 'query-string';
-import { credentials, scope } from './config';
-import { token } from './';
+import token from './';
 
 /**
  * Global toLogin() helper function.
@@ -10,19 +9,12 @@ import { token } from './';
  */
 export function toLogin() {
   const url = window.location;
-  const req = {
-    // change in config.js
-    client_id: credentials.clientId,
-    redirect_uri: `${url.protocol}//${url.host}/login`,
-    scope,
-    response_type: 'token',
-  };
-
-  // convert request to string
-  const str = stringify(req);
-
-  // redirect to spotify login page
-  url.href = `https://accounts.spotify.com/authorize?${str}`;
+  Vue.prototype.$backendApi({
+    method: 'get',
+    url: `/getAuthURL?redirectURI=${url.protocol}//${url.host}/login`,
+  }).then((res) => {
+    url.href = res.data.url;
+  });
 }
 
 /**
@@ -30,7 +22,7 @@ export function toLogin() {
  * Checks if token is in vuex store and returns a boolean.
  */
 export function hasToken() {
-  const storedToken = token && typeof token !== 'undefined';
+  const storedToken = token;
   return storedToken;
 }
 
@@ -43,12 +35,16 @@ export function hasToken() {
 export function getToken() {
   const url = window.location.href;
 
-  // get token from url
-  const tokenFromurl = url.split('&token_type')[0].split('access_token=')[1];
+  // get code from url
+  const code = url.split('&state')[0].split('code=')[1];
 
-  // store token in local storage
-  store.commit('ACCESS_TOKEN', {
-    action: 'set',
-    token: tokenFromurl,
-  });
+  if (code) {
+    Vue.prototype.$backendApi({
+      method: 'get',
+      url: `/getToken?code=${code}`,
+    }).then((res) => {
+      // store token in vuex store
+      store.commit('SET_CREDENTIALS', res.data);
+    });
+  }
 }

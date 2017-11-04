@@ -82,6 +82,8 @@ export default {
 .sidebar-container {
     @include fixed($top: 0, $bottom: 0, $left: 0, $z-index: 997);
     width: 200px;
+    border-right: 1px solid $border-color;
+    background-color: $dark-blue;
     transform: translateZ(0);
 
     ul {
@@ -89,8 +91,6 @@ export default {
         padding-top: 50px;
         padding-bottom: 81px;
         height: 100%;
-        border-right: 1px solid $border-color;
-        background-color: $dark-blue;
 
         .sidebar-section {
             margin: 15px;
@@ -113,8 +113,8 @@ export default {
                 @include flex($display: flex);
 
                 h4 {
-                    padding: 5px 10px;
                     @include font($size: 0.9em, $weight: 300, $transform: uppercase, $color: rgba($white, 0.7));
+                    padding: 5px 10px;
                 }
 
                 a {
@@ -127,8 +127,8 @@ export default {
                     border-radius: 5px;
 
                     i {
-                        margin-right: 7px;
                         @include font($size: 1.3em);
+                        margin-right: 7px;
                     }
 
                     span {
@@ -138,8 +138,8 @@ export default {
                     }
 
                     &.active {
-                        background-color: var(--accent-color);
                         @include font($color: $white);
+                        background-color: var(--accent-color);
                     }
                 }
             }

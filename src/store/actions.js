@@ -30,7 +30,7 @@ export default {
     });
   },
 
-  // TODO: Refetch timer
+  // TODO: refetch timer
   REFETCH_TIMER({ dispatch }, payload) {
     const remainingTime = (payload.trackDuration - payload.playbackProgress);
     new Promise(resolve => setTimeout(resolve, remainingTime)).then(() => {

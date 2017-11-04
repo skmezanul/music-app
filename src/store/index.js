@@ -10,8 +10,9 @@ const VuexStorage = new VuexPersist({
   key: 'state',
   storage: window.localStorage,
   reducer: state => ({
-    accessToken: state.accessToken,
+    credentials: state.credentials,
     currentUser: state.currentUser,
+    currentPlayback: state.currentPlayback,
     settings: state.settings,
   }),
 });
@@ -34,10 +35,14 @@ const store = new Vuex.Store({
     currentUser: [],
     playlists: [],
     notices: [],
-    accessToken: '',
     settings: {
       accentColor: '#ca2a59',
       largeCover: false,
+    },
+    credentials: {
+      accessToken: '',
+      refreshToken: '',
+      expiryTime: '',
     },
   },
   mutations,

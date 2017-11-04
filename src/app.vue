@@ -46,9 +46,7 @@ export default {
     // already being observed
     this.GET_CURRENT_USER('profile');
     this.GET_CURRENT_USER('playlists');
-    setInterval(() => {
-      this.GET_CURRENT_PLAYBACK();
-    }, 1000);
+    this.GET_CURRENT_PLAYBACK();
   },
   methods: {
     ...mapActions(['GET_CURRENT_USER', 'GET_CURRENT_PLAYBACK']),
@@ -117,7 +115,6 @@ export default {
 }
 
 body {
-    min-width: 611px;
     background-color: $main-bg-color;
     @include font($spacing: 1px, $color: $white);
     font-family: $font-family;

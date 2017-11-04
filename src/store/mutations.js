@@ -1,20 +1,13 @@
 export default {
-  // set or remove the access token
-  ACCESS_TOKEN(state, payload) {
-    const that = state;
-    let accessToken;
+  // set the api credentials (accessToken, refreshToken, expiry)
+  SET_CREDENTIALS(state, payload) {
+    const that = state.credentials;
+    const now = new Date();
+    const expiryTime = new Date(now.getTime() + (payload.expires_in * 1000));
 
-    switch (payload.action) {
-      default:
-      case 'set':
-        accessToken = payload.token;
-        break;
-
-      case 'remove':
-        accessToken = '';
-        break;
-    }
-    that.accessToken = accessToken;
+    that.accessToken = payload.access_token;
+    that.refreshToken = payload.refresh_token;
+    that.expiryTime = expiryTime;
   },
 
   // push the current playback to state
