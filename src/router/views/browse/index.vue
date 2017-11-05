@@ -1,5 +1,5 @@
 <template lang="pug">
-main.main-container(v-if='!$isLoading("data")')
+.view-parent(v-if='!$isLoading("data")')
 	// stage
 	ma-stage(
 	:subtitle='$t("browse")',

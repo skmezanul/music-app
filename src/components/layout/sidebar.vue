@@ -80,17 +80,16 @@ export default {
 
 <style lang="scss">
 .sidebar-container {
-    @include fixed($top: 0, $bottom: 0, $left: 0, $z-index: 997);
     width: 200px;
+    height: 100%;
     border-right: 1px solid $border-color;
     background-color: $dark-blue;
-    transform: translateZ(0);
 
     ul {
         @include flex($display: flex, $direction: column);
         padding-top: 50px;
         padding-bottom: 81px;
-        height: 100%;
+        height: 100vh;
 
         .sidebar-section {
             margin: 15px;
@@ -113,7 +112,7 @@ export default {
                 @include flex($display: flex);
 
                 h4 {
-                    @include font($size: 0.9em, $weight: 300, $transform: uppercase, $color: rgba($white, 0.7));
+                    @include font($size: 0.9em, $weight: 200, $transform: uppercase, $color: rgba($white, 0.7));
                     padding: 5px 10px;
                 }
 
@@ -156,10 +155,6 @@ export default {
         .button {
           opacity: 1;
         }
-      }
-      img {
-          width: 100%;
-          height: auto;
       }
     }
 }

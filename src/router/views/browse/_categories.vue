@@ -1,5 +1,5 @@
 <template lang="pug">
-.page-container
+.view-content
 	// categories
 	ma-section(:title='$tc("category", 0)')
 
@@ -9,6 +9,6 @@
         type="category",
         :key='category.id',
         :primaryid='category.id',
-        :image='category.icons[0].url',
+        :image='category.icons',
         :title='category.name')
 </template>

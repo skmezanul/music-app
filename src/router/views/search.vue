@@ -1,15 +1,15 @@
 <template lang="pug">
-main.main-container(v-if='!$isLoading("data")')
+.view-parent(v-if='!$isLoading("data")')
 	// stage
 	ma-stage(
     :subtitle='$tc("search", 1)',
     :image='data.results.tracks.items[0].album.images[0].url',
     :title="`${$t('resultsfor')} '${$route.params.query}'`")
 
-	.page-container
+	.view-content
 		// tracks
 		ma-section(
-      v-if='data.results.tracks.items.length > 0',
+      v-if='data.results.tracks.items',
       :title='`${$tc("track", 0)} (${data.results.tracks.items.length})`',
       :collapsible='true')
 
@@ -19,7 +19,7 @@ main.main-container(v-if='!$isLoading("data")')
           :key='track.id',
           :trackid='track.id',
           :type='track.type',
-          :image='track.album.images[0].url',
+          :image='track.album.images',
           :title='track.name',
           :artists='track.artists',
           :album='track.album',
@@ -29,7 +29,7 @@ main.main-container(v-if='!$isLoading("data")')
 
 		// albums
 		ma-section(
-      v-if='data.results.albums.items.length > 0',
+      v-if='data.results.albums.items',
       :title='`${$tc("album", 0)} (${data.results.albums.items.length})`',
       :collapsible='true')
 
@@ -40,13 +40,13 @@ main.main-container(v-if='!$isLoading("data")')
           :type='album.type',
           :primaryid='album.id',
           :secondaryid='album.artists[0].id',
-          :image='album.images[0].url',
+          :image='album.images',
           :title='album.name',
           :artist='album.artists')
 
 		// artists
 		ma-section(
-      v-if='data.results.artists.items.length > 0',
+      v-if='data.results.artists.items',
       :title='`${$tc("artist", 0)} (${data.results.artists.items.length})`',
       :collapsible='true')
 
@@ -56,10 +56,13 @@ main.main-container(v-if='!$isLoading("data")')
           :type='artist.type',
           :key='artist.id',
           :title='artist.name',
+          :image='artist.images',
           :primaryid='artist.id')
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
@@ -93,6 +96,7 @@ export default {
     // get search results from the api
     getResults() {
       const that = this,
+            market = that.market,
             q = that.$route.params.query;
 
       return that.$spotifyApi({
@@ -100,10 +104,17 @@ export default {
         url: '/search',
         params: {
           type: 'album,artist,track',
+          market,
+          limit: 12,
           q,
         },
       });
     },
+  },
+  computed: {
+    ...mapGetters({
+      market: 'getMarket',
+    }),
   },
 };
 </script>

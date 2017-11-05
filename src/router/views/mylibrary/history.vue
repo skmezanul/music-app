@@ -1,12 +1,12 @@
 <template lang="pug">
-main.main-container(v-if='!$isLoading("data")')
+.view-parent(v-if='!$isLoading("data")')
 	// stage
 	ma-stage(
     :subtitle='$t("library")',
     :title='$t("recentlyplayed")',
     :image='data.history[0].track.album.images[0].url')
 
-	.page-container
+	.view-content
 		// tracks
 		ma-section
 
@@ -15,7 +15,7 @@ main.main-container(v-if='!$isLoading("data")')
           v-for='(history, index) in data.history',
           :key='history.track.id',
           :type='history.track.type',
-          :image='history.track.album.images[0].url',
+          :image='history.track.album.images',
           :title='history.track.name',
           :trackid='history.track.id',
           :artists='history.track.artists',

@@ -28,7 +28,7 @@
     // image
     .image-container(v-if='image')
       img(
-        :src='image',
+        :src='image[0].url',
         :alt='title')
 
     // meta
@@ -106,7 +106,7 @@ export default {
     padding: 7px;
     max-width: 20%;
     @media (max-width: $breakpoint-mobile) {
-        @include flex($basis: 20%);
+        @include flex($basis: 50%);
         max-width: 50%;
     }
     &.artist,
@@ -124,7 +124,6 @@ export default {
             }
             .image-container {
                 img {
-                    height: 100%;
                     transition: transform 0.7s, filter 0.3s;
                     will-change: transform;
                 }
@@ -231,7 +230,7 @@ export default {
                 @include font($line: 1.4em);
                 .artist-container {
                     a {
-                        @include comma-separated($size: 0.95em, $weight: 300);
+                        @include comma-separated($size: 0.95em, $weight: 200);
                     }
                 }
 

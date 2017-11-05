@@ -1,5 +1,5 @@
 <template lang="pug">
-section.page-section(:class='{ "collapsed" : isCollapsed }')
+section.view-section(:class='{ "collapsed" : isCollapsed }')
   // section header
   .section-header(v-if='title')
     h1 {{ title }}
@@ -51,7 +51,7 @@ export default {
 </script>
 
 <style lang="scss">
-.page-section {
+.view-section {
     @include flex($display: flex, $direction: column);
     margin: 30px 0;
     &:last-child {
@@ -88,11 +88,11 @@ export default {
 
     .biography {
         margin: 0;
-        @include font($size: 1.1em, $weight: 300, $line: 1.5em, $color: rgba($white, 0.9));
+        @include font($size: 1.1em, $weight: 200, $line: 1.5em, $color: rgba($white, 0.9));
     }
 
     .copyright {
-      @include font($size: 0.7em, $weight: 300, $color: rgba($white, 0.7));
+      @include font($size: 0.7em, $weight: 200, $color: rgba($white, 0.7));
     }
 
     .section-header {

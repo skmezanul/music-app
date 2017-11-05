@@ -1,5 +1,5 @@
 <template lang="pug">
-main.main-container(v-if='!$isLoading("data")')
+.view-parent(v-if='!$isLoading("data")')
 	// stage
 	ma-stage(
     :subtitle='$tc("playlist", 1)',
@@ -7,7 +7,7 @@ main.main-container(v-if='!$isLoading("data")')
     :title='data.playlist.name',
     :meta='data.playlist.description')
 
-	.page-container
+	.view-content
 		// tracks
 		ma-section
 
@@ -17,7 +17,7 @@ main.main-container(v-if='!$isLoading("data")')
           :key='playlist.track.id',
           :trackid='playlist.track.id',
           :type='playlist.track.type',
-          :image='playlist.track.album.images[0].url',
+          :image='playlist.track.album.images',
           :title='playlist.track.name',
           :artists='playlist.track.artists',
           :album='playlist.track.album',

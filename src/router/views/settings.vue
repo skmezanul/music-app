@@ -1,10 +1,10 @@
 <template lang="pug">
-main.main-container
+.view-parent
   // stage
   ma-stage(
     :title='$t("settings")')
 
-  .page-container
+  .view-content
     ma-section(:title='$t("accentcolor")')
       .color-picker
         .color(

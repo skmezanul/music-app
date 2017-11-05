@@ -2,8 +2,7 @@ export default {
   // set the api credentials (accessToken, refreshToken, expiry)
   SET_CREDENTIALS(state, payload) {
     const that = state.credentials;
-    const now = new Date();
-    const expiryTime = new Date(now.getTime() + (payload.expires_in * 1000));
+    const expiryTime = Date.now() + (payload.expires_in * 1000);
 
     that.accessToken = payload.access_token;
     that.refreshToken = payload.refresh_token;

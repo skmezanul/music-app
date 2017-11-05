@@ -1,5 +1,5 @@
 <template lang="pug">
-.page-container
+.view-content
   // charts
   ma-section(:title='$t("charts")')
 
@@ -8,7 +8,7 @@
         v-for='(item, index) in $parent.data.charts',
         :key='item.track.id',
         :type='item.track.type',
-        :image='item.track.album.images[0].url',
+        :image='item.track.album.images',
         :title='item.track.name',
         :trackid='item.track.id',
         :artists='item.track.artists',

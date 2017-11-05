@@ -27,7 +27,7 @@ export default {
 
 <style lang="scss">
 .notice-container {
-    @include fixed($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 999);
+    @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 999);
     @include flex($display: flex, $justify: center, $align: center);
     height: 69px;
     background-color: var(--accent-color);

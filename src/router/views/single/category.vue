@@ -1,11 +1,11 @@
 <template lang="pug">
-main.main-container(v-if='!$isLoading("data")')
+.view-parent(v-if='!$isLoading("data")')
 	// stage
 	ma-stage(
 		:subtitle='$tc("category", 1)',
 		:title='data.category.name')
 
-	.page-container
+	.view-content
 		// playlists
 		ma-section
 
@@ -16,7 +16,7 @@ main.main-container(v-if='!$isLoading("data")')
 					:type='playlist.type',
 					:primaryid='playlist.id',
 					:secondaryid='playlist.owner.id',
-					:image='playlist.images[0].url',
+					:image='playlist.images',
 					:title='playlist.name')
 </template>
 

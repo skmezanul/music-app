@@ -55,10 +55,6 @@ spotifyApi.interceptors.response.use(null, (err) => {
 
     case '401':
       message = `${error} - It is likely your access token has expired.`;
-      // remove expired access token
-      store.commit('SET_CREDENTIALS', {
-        access_token: '',
-      });
       break;
 
     case '403':
@@ -75,7 +71,7 @@ spotifyApi.interceptors.response.use(null, (err) => {
   }
 
   // commit notice to vuex store
-  if (store.state.notices.length < 3) {
+  if (store.state.notices.length <= 3) {
     store.commit('SHOW_NOTICE', {
       action: 'add',
       type: 'error',

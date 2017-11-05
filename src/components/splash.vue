@@ -43,7 +43,7 @@ export default {
         h1 {
             margin: 40px 0 10px;
             font-family: 'Roboto', sans-serif;
-            @include font($weight: 300, $line: 1.4em);
+            @include font($weight: 200, $line: 1.4em);
         }
         .image-container {
             img {

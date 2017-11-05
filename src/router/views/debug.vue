@@ -1,9 +1,9 @@
 <template lang="pug">
-main.main-container
+.view-parent
   // stage
   ma-stage(:title='$t("debug")')
 
-  .page-container
+  .view-content
     ma-section(
       title='Current User',
       :collapsible='true')

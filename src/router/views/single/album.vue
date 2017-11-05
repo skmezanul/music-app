@@ -1,5 +1,5 @@
 <template lang="pug">
-main.main-container(v-if='!$isLoading("data")')
+.view-parent(v-if='!$isLoading("data")')
 	// stage
 	ma-stage(
     :subtitle='$tc("album", 1)',
@@ -7,7 +7,7 @@ main.main-container(v-if='!$isLoading("data")')
     :title='data.album.name',
     :meta='`${$t("by")} ${data.album.artists[0].name}`')
 
-	.page-container
+	.view-content
 		// tracks
 		ma-section(:copyright='data.album.copyrights[0].text')
 

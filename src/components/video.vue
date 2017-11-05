@@ -115,7 +115,7 @@ export default {
                 }
                 .artist-container {
                     a {
-                        @include comma-separated($size: 1.2em, $weight: 300);
+                        @include comma-separated($size: 1.2em, $weight: 200);
                     }
                 }
             }

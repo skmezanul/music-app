@@ -125,7 +125,8 @@ export default {
 
     volume: {
       get() {
-        return this.currentPlayback.device.volume_percent;
+        const currentVolume = this.currentPlayback.device.volume_percent;
+        return currentVolume;
       },
       set(value) {
         this.setVolume(value);
@@ -137,12 +138,11 @@ export default {
 
 <style lang="scss">
 footer {
-    @include fixed($right: 0, $bottom: 0, $left: 0, $z-index: 998);
+    @include absolute($right: 0, $bottom: 0, $left: 0, $z-index: 998);
     @include flex($display: flex, $align: center, $wrap: wrap);
     padding: 15px 20px;
     border-top: 1px solid $border-color;
     background: $dark-blue;
-    transform: translateZ(0);
 
     .footer-container {
         @include flex($display: flex, $align: center);
@@ -181,10 +181,6 @@ footer {
                         opacity: 1;
                     }
                 }
-                img {
-                    width: 100%;
-                    height: auto;
-                }
             }
 
             .currently-playing {
@@ -203,10 +199,10 @@ footer {
                 }
                 .artist-container {
                     margin-top: 2px;
-                    @include font($weight: 300);
+                    @include font($weight: 200);
 
                     a {
-                        @include comma-separated($size: 0.9em, $weight: 300);
+                        @include comma-separated($size: 0.9em, $weight: 200);
                     }
                 }
             }

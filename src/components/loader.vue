@@ -9,10 +9,9 @@
 
 <style lang="scss" scoped>
 .loader-container {
-    @include fixed($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 997);
+    @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 997);
     @include flex($display: flex, $justify: center, $align: center)
     margin-bottom: 81px;
-    height: 100%;
     background-color: $main-bg-color;
     .loader-inner {
         @include relative;

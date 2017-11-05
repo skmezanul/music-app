@@ -1,12 +1,12 @@
 <template lang="pug">
-main.main-container(v-if='!$isLoading("data")')
+.view-parent(v-if='!$isLoading("data")')
   // stage
   ma-stage(
     :subtitle='$t("library")',
     :title='$tc("album", 0)',
-    :image='data.albums[0].album.images[0].url')
+    :image='data.albums[0].album.images')
 
-  .page-container
+  .view-content
     // albums
     ma-section
 
@@ -16,7 +16,7 @@ main.main-container(v-if='!$isLoading("data")')
           :key='item.album.id',
           :type='item.album.type',
           :primaryid='item.album.id',
-          :image='item.album.images[0].url',
+          :image='item.album.images',
           :title='item.album.name')
 </template>
 

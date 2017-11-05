@@ -1,5 +1,5 @@
 <template lang="pug">
-.page-container
+.view-content
   // featured playlists
   ma-section(
     :title='$parent.data.featured.message',
@@ -12,7 +12,7 @@
         :type='playlist.type',
         :primaryid='playlist.id',
         :secondaryid='playlist.owner.id',
-        :image='playlist.images[0].url',
+        :image='playlist.images',
         :title='playlist.name')
 
   // new releases
@@ -24,7 +24,7 @@
         :key='album.id',
         :type='album.type',
         :primaryid='album.id',
-        :image='album.images[0].url',
+        :image='album.images',
         :title='album.name',
         :artist='album.artists')
 </template>

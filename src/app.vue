@@ -1,15 +1,26 @@
 <template lang="pug">
 #app(:style='{ "--accent-color" : settings.accentColor }')
 
-  // header
-  ma-header
-
   // navigation
   ma-sidebar(v-if='!$mq.phone')
 
-  // router view
-  transition(name='fade', mode='out-in')
-    router-view(:key='$route.path')
+  main.main-container
+    // notices
+    transition-group(name='slide-down-transform')
+      ma-notice(v-for='(notice, index) in notices', :key='index', :type='notice.type', :message='notice.message')
+
+    // header
+    ma-header
+
+    // loading spinner
+    transition(name='fade', tag='ma-loading')
+      ma-loading(v-if='$isLoading("data")')
+        ma-loader(slot='spinner')
+
+    // router view
+    .view-container
+      transition(name='fade', mode='out-in')
+        router-view(:key='$route.path')
 
   // footer
   transition(name='fade')
@@ -17,15 +28,6 @@
 
   // tooltips
   .tooltip-container
-
-  // loading spinner
-  transition(name='fade', tag='ma-loading')
-    ma-loading(v-if='$isLoading("data")')
-      ma-loader(slot='spinner')
-
-  // notices
-  transition-group(name='slide-down-transform')
-    ma-notice(v-for='(notice, index) in notices', :key='index', :type='notice.type', :message='notice.message', @remove='removeNotice(index)')
 
   // music video
   ma-video
@@ -68,13 +70,6 @@ export default {
 </script>
 
 <style lang="scss">
-/** Ultra Light */
-@font-face {
-    font-weight: 100;
-    font-family: 'San Francisco';
-    src: url('../static/fonts/sanfranciscodisplay-ultralight-webfont.woff');
-}
-
 /** Thin */
 @font-face {
     font-weight: 200;
@@ -87,20 +82,6 @@ export default {
     font-weight: 400;
     font-family: 'San Francisco';
     src: url('../static/fonts/sanfranciscodisplay-regular-webfont.woff');
-}
-
-/** Medium */
-@font-face {
-    font-weight: 500;
-    font-family: 'San Francisco';
-    src: url('../static/fonts/sanfranciscodisplay-medium-webfont.woff');
-}
-
-/** Semi Bold */
-@font-face {
-    font-weight: 600;
-    font-family: 'San Francisco';
-    src: url('../static/fonts/sanfranciscodisplay-semibold-webfont.woff');
 }
 
 /** Bold */
@@ -116,13 +97,16 @@ export default {
 
 body {
     background-color: $main-bg-color;
-    @include font($spacing: 1px, $color: $white);
-    font-family: $font-family;
-    user-select: none;
+    overflow: hidden;
 }
 
 input {
     user-select: text;
+}
+
+img {
+    width: 100%;
+    height: auto;
 }
 
 ol,
@@ -136,8 +120,8 @@ h1,
 h2,
 h3,
 h4 {
-    margin: 0;
     @include font($weight: 400);
+    margin: 0;
 }
 
 h1 {
@@ -161,9 +145,30 @@ a {
     }
 }
 
-// page-container containing stacked sections
-.page-container {
-    @include flex($display: flex, $align: center, $direction: column);
+// vue instance container
+#app {
+  display: flex;
+  @include font($spacing: 1px, $color: $white);
+  font-family: $font-family;
+  user-select: none;
+  // main-container containing header and view-container
+  .main-container {
+    @include relative;
+    width: 100%;
+    // scrolling view-container containing view-parent
+    .view-container {
+      overflow-y: auto;
+      height: 100vh;
+      will-change: transform;
+      // view-parent element to render components and wrap stage and view-content
+      .view-parent {
+        // view-content containing stacked sections
+        .view-content {
+            @include flex($display: flex, $align: center, $direction: column);
+        }
+      }
+    }
+  }
 }
 
 // dropdown styling
@@ -175,8 +180,8 @@ a {
     background-color: $dark-blue;
 
     li {
-        padding: 15px;
         @include font($size: 0.9em);
+        padding: 15px;
         transition: background-color 0.3s;
         &:hover {
             background-color: $blue;
@@ -189,9 +194,9 @@ a {
 .tooltip-container {
     .tooltip {
         @include relative($z-index: 999);
+        @include font($spacing: 1.5px);
         display: block !important;
         margin-bottom: 12px;
-        @include font($spacing: 1.5px);
         font-family: $font-family;
         transition: opacity 0.3s, visibility 0.3s;
 
@@ -204,8 +209,8 @@ a {
                 @include absolute($top: 100%, $left: calc(50% - 8px));
                 border: 8px solid;
                 border-color: var(--accent-color) transparent transparent transparent;
-                transition: border-color 0.3s;
                 content: "";
+                transition: border-color 0.3s;
             }
         }
 
@@ -221,20 +226,10 @@ a {
     }
 }
 
-// spacing for navigation sidebar
-@media (min-width: $breakpoint-mobile) {
-    .loader-container,
-    .main-container,
-    .notice-container,
-    header {
-        margin-left: 200px;
-    }
-}
-
 // width of page elements
 .header-container,
 .notice-inner,
-.page-section,
+.view-section,
 .stage-container {
     max-width: 1440px;
     width: $large-width;

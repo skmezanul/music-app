@@ -1,5 +1,5 @@
 <template lang="pug">
-.page-container
+.view-content
 	// top tracks
 	ma-section(
     v-if='$parent.data.toptracks.length > 0',
@@ -12,7 +12,7 @@
         :key='track.id',
         :trackid='track.id',
         :type='track.type',
-        :image='track.album.images[0].url',
+        :image='track.album.images',
         :album='track.album',
         :explicit='track.explicit',
         :title='track.name',
@@ -32,7 +32,7 @@
         :type='album.type',
         :primaryid='album.id',
         :secondaryid='album.artists[0].id',
-        :image='album.images[0].url',
+        :image='album.images',
         :title='album.name',
         :artist='album.artists')
 
@@ -49,7 +49,7 @@
         :type='single.type',
         :primaryid='single.id',
         :secondaryid='single.artists[0].id',
-        :image='single.images[0].url',
+        :image='single.images',
         :title='single.name',
         :artist='single.artists')
 
@@ -66,7 +66,7 @@
         :type='album.type',
         :primaryid='album.id',
         :secondaryid='album.artists[0].id',
-        :image='album.images[0].url',
+        :image='album.images',
         :title='album.name',
         :artist='album.artists')
 </template>

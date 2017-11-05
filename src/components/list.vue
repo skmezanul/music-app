@@ -14,7 +14,7 @@ li.list-item(
       v-if='isPlaying',
       @click='SET_PLAYBACK({ state: "pause" })') pause_circle_filled
     img(
-      :src='image',
+      :src='image[0].url',
       :alt='title')
 
   span.index(v-if='!$mq.phone') {{ $formatValue(index, 'index') }}
@@ -153,7 +153,7 @@ export default {
             }
         }
         .index {
-            @include font($size: 1.4em, $weight: 300, $color: $white);
+            @include font($size: 1.4em, $weight: 200, $color: $white);
             padding-left: 20px;
             text-align: center;
         }
@@ -174,7 +174,7 @@ export default {
                 margin-top: 5px;
                 text-overflow: ellipsis;
                 a {
-                    @include comma-separated($size: 1em, $weight: 300);
+                    @include comma-separated($size: 1em, $weight: 200);
                 }
             }
         }

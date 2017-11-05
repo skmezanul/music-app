@@ -1,5 +1,5 @@
 <template lang="pug">
-.page-container
+.view-content
 	// new releases
 	ma-section(:title='$t("newreleases")')
 
@@ -9,7 +9,7 @@
         :key='album.id',
         :type='album.type',
         :primaryid='album.id',
-        :image='album.images[0].url',
+        :image='album.images',
         :title='album.name',
         :artist='album.artists')
 </template>

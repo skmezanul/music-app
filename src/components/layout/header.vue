@@ -35,7 +35,7 @@ header(:class='{ "scrolled" : scrollPosition > 0 }')
         router-link(tag='li', :to='$toRoute("myaccount")') {{ $t('myaccount') }}
         router-link(tag='li', :to='$toRoute("settings")') {{ $t('settings') }}
         router-link(tag='li', :to='$toRoute("debug")') {{ $t('debug') }}
-        li(@click='logout') {{ $t('logout') }}
+        li {{ $t('logout') }}
 </template>
 
 <script>
@@ -53,11 +53,7 @@ export default {
   methods: {
     // update scroll position
     updateScroll() {
-      this.scrollPosition = window.scrollY;
-    },
-
-    logout() {
-      this.$store.commit('REMOVE_TOKEN');
+      this.scrollPosition = document.querySelector('.view-container').scrollTop;
     },
 
     // do the search
@@ -89,12 +85,12 @@ export default {
     }),
   },
   mounted() {
-    window.addEventListener('scroll', this.updateScroll, {
+    document.querySelector('.view-container').addEventListener('scroll', this.updateScroll, {
       passive: true,
     });
   },
   destroy() {
-    window.removeEventListener('scroll', this.updateScroll, {
+    document.querySelector('.view-container').removeEventListener('scroll', this.updateScroll, {
       passive: true,
     });
   },
@@ -106,13 +102,12 @@ export default {
 
 <style lang='scss'>
 header {
-    @include fixed($top: 0, $right: 0, $left: 0, $z-index: 998);
+    @include absolute($top: 0, $right: 0, $left: 0, $z-index: 998);
     @include flex($display: flex, $justify: center);
     padding: 13px 0;
     border-bottom: 1px solid;
     border-color: transparent;
     transition: background-color 0.3s, border-color 0.3s;
-    transform: translateZ(0);
     -webkit-app-region: drag;
 
     &.scrolled {
@@ -199,10 +194,6 @@ header {
                       height: 34px;
                       border-radius: 100%;
                       overflow: hidden;
-                      img {
-                          height: 100%;
-                          width: auto;
-                      }
                   }
 
                   span {
