@@ -198,8 +198,8 @@ footer {
                     @include font($size: 1.2em);
                 }
                 .artist-container {
-                    margin-top: 2px;
                     @include font($weight: 200);
+                    margin-top: 2px;
 
                     a {
                         @include comma-separated($size: 0.9em, $weight: 200);

@@ -1,66 +1,69 @@
 <template lang='pug'>
 nav.sidebar-container
-  ul
-    // browse
-    .sidebar-section
-      li
-        router-link(to='/browse')
-          i.material-icons book
-          | {{ $t('browse') }}
+	ul
+		// browse
+		.sidebar-section
+			li
+				router-link(to='/browse')
+					i.material-icons book
+					| {{ $t('browse') }}
 
-    // my library
-    .sidebar-section
-      li
-        h4 {{ $t('library') }}
-      li
-        router-link(to='/history')
-          i.material-icons history
-          | {{ $t('recentlyplayed') }}
-      li
-        router-link(to='/tracks')
-          i.material-icons music_note
-          | {{ $tc('track', 0) }}
-      li
-        router-link(to='/albums')
-          i.material-icons album
-          | {{ $tc('album', 0) }}
-      li
-        router-link(to='/artists')
-          i.material-icons person
-          | {{ $tc('artist', 0) }}
+		// my library
+		.sidebar-section
+			li
+				h4 {{ $t('library') }}
+			li
+				router-link(to='/history')
+					i.material-icons history
+					| {{ $t('recentlyplayed') }}
+			li
+				router-link(to='/tracks')
+					i.material-icons music_note
+					| {{ $tc('track', 0) }}
+			li
+				router-link(to='/albums')
+					i.material-icons album
+					| {{ $tc('album', 0) }}
+			li
+				router-link(to='/artists')
+					i.material-icons person
+					| {{ $tc('artist', 0) }}
 
-    // playlists
-    transition(name='fade')
-      .sidebar-section.playlists(v-if='playlists.length > 0')
-        li
-          h4 {{ $tc('playlist', 0) }}
-        li(
-          v-for='playlist in playlists',
-          :key='playlist.id')
-          router-link(:to='$toRoute("playlist", { id: playlist.id, owner: playlist.owner.id })')
-            i.material-icons playlist_play
-            span {{ playlist.name }}
+		// playlists
+		transition(name='fade')
+			.sidebar-section.playlists(v-if='playlists.length > 0')
+				li
+					h4 {{ $tc('playlist', 0) }}
+				li(
+					v-for='playlist in playlists',
+					:key='playlist.id')
+					router-link(:to='$toRoute("playlist", { id: playlist.id, owner: playlist.owner.id })')
+						i.material-icons playlist_play
+						span {{ playlist.name }}
 
-    // new playlist
-    .sidebar-section.newplaylist
-      li
-        a
-          i.material-icons playlist_add
-          span {{ $t('newplaylist') }}
+		// new playlist
+		.sidebar-section.newplaylist
+			li
+				a
+					i.material-icons playlist_add
+					span {{ $t('newplaylist') }}
 
-    transition(name='slide-up-margin')
-      router-link.cover-container(
-        tag='div',
-        :to='$toRoute("artist", { id: currentPlayback.item.artists[0].id })',
-        v-if='settings.largeCover')
-        ma-button(type='overlay', @click.prevent.native='setAppSettings({ setting: "largeCover", value: false })', icon='close')
-        img(
-          :src='currentPlayback.item.album.images[0].url',
-          :alt='currentPlayback.item.name')
+		transition(name='slide-up-margin')
+			router-link.cover-container(
+				tag='div',
+				:to='$toRoute("artist", { id: currentPlayback.item.artists[0].id })',
+				v-if='settings.largeCover')
+				ma-button(type='overlay', @click.prevent.native='setAppSettings({ setting: "largeCover", value: false })', icon='close')
+				img(
+					:src='currentPlayback.item.album.images[0].url',
+					:alt='currentPlayback.item.name')
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import {
+  mapGetters,
+  mapMutations
+} from 'vuex';
 
 export default {
   methods: {
@@ -80,23 +83,21 @@ export default {
 
 <style lang="scss">
 .sidebar-container {
-    width: 200px;
-    height: 100%;
+    grid-area: sidebar;
     border-right: 1px solid $border-color;
     background-color: $dark-blue;
 
     ul {
         @include flex($display: flex, $direction: column);
-        padding-top: 50px;
-        padding-bottom: 81px;
+        padding: 50px 0 81px;
         height: 100vh;
 
         .sidebar-section {
             margin: 15px;
 
             &.playlists {
-              overflow-y: auto;
-              height: 100%;
+                overflow-y: auto;
+                height: 100%;
             }
 
             &.newplaylist {
@@ -145,17 +146,17 @@ export default {
         }
     }
     .cover-container {
-      @include relative;
-      height: 199px;
-      border-top: 1px solid $border-color;
-      .button {
-        opacity: 0;
-      }
-      &:hover {
+        @include relative;
+        height: 199px;
+        border-top: 1px solid $border-color;
         .button {
-          opacity: 1;
+            opacity: 0;
         }
-      }
+        &:hover {
+            .button {
+                opacity: 1;
+            }
+        }
     }
 }
 </style>
