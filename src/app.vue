@@ -147,23 +147,18 @@ a {
 
 // vue instance container
 #app {
-  display: grid;
-  // grid-template-rows: 1fr 81px;
-  grid-template-columns: 200px 1fr;
-  grid-template-areas: "sidebar main";
+  @include flex($display: flex);
   @include font($spacing: 1px, $color: $white);
   font-family: $font-family;
   user-select: none;
   // main-container containing header and view-container
   .main-container {
     @include relative;
-    grid-area: main;
     width: 100%;
     // scrolling view-container containing view-parent
     .view-container {
       overflow-y: auto;
       height: 100vh;
-      will-change: transform;
       // view-parent element to render components and wrap stage and view-content
       .view-parent {
         // view-content containing stacked sections

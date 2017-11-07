@@ -83,7 +83,7 @@ export default {
 
 <style lang="scss">
 .sidebar-container {
-    grid-area: sidebar;
+    width: 200px;
     border-right: 1px solid $border-color;
     background-color: $dark-blue;
 
