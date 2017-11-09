@@ -296,14 +296,4 @@ a {
         transform: scale(1);
     }
 }
-
-// enable backdrop-filter in supported browsers
-@supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
-    .scrolled header,
-    footer {
-        background-color: rgba($dark-blue, 0.8) !important;
-        -webkit-backdrop-filter: saturate(200%) blur(20px);
-        backdrop-filter: saturate(200%) blur(20px);
-    }
-}
 </style>

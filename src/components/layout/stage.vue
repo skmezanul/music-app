@@ -173,11 +173,6 @@ export default {
                 width: 180px;
                 height: 180px;
             }
-
-            img {
-                width: 100%;
-                height: auto;
-            }
         }
 
         .stage-inner {
