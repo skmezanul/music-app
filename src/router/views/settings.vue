@@ -32,6 +32,10 @@ export default {
           name: 'cyan',
           hex: '#00e6e6',
         },
+        {
+          name: 'green',
+          hex: '#1DB954',
+        },
       ],
     }
   },

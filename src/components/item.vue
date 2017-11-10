@@ -51,7 +51,7 @@ export default {
       playing: false,
       overlay: false,
       color: '',
-    };
+    }
   },
   props: [
     'type',
@@ -62,7 +62,7 @@ export default {
     'image',
   ],
   watch: {
-    'overlay': 'getColor',
+    'overlay': 'getColorFromAlbumCover',
   },
   methods: {
     // toggle playing state
@@ -70,11 +70,13 @@ export default {
       this.playing = !this.playing;
     },
 
-    // get color from cover image
-    getColor() {
-      const that = this;
-      if (that.color === '') {
-        Vibrant.from(that.image).getPalette()
+    // get overlay color from album cover
+    getColorFromAlbumCover() {
+      const that = this,
+            overlayColor = that.color,
+            albumCover = that.image[0].url;
+      if (!overlayColor) {
+        Vibrant.from(albumCover).getPalette()
           .then((palette) => {
             const r = Math.round(palette.Muted._rgb[0]),
                   g = Math.round(palette.Muted._rgb[1]),

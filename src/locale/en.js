@@ -7,6 +7,7 @@ export default {
   red: 'Red',
   orange: 'Orange',
   cyan: 'Cyan',
+  green: 'Green',
   debug: 'Debug',
   logout: 'Log out',
   browse: 'Browse',
