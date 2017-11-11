@@ -57,7 +57,7 @@ export default {
             subtitle: that.$t('library'),
             title: that.$tc('track', 0),
             settings: {
-              large: true,
+              large: false,
               cover: false,
               share: false,
             },
