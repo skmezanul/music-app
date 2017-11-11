@@ -1,5 +1,5 @@
 <template lang="pug">
-.view-content
+.view-content(v-if='!$isLoading("data")')
   // charts
   ma-section(:title='$t("charts")')
 

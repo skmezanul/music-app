@@ -1,10 +1,7 @@
 <template lang="pug">
 .view-parent(v-if='!$isLoading("data")')
 	// stage
-	ma-stage(
-    :subtitle='$t("library")',
-    :title='$t("recentlyplayed")',
-    :image='data.history[0].track.album.images[0].url')
+	ma-stage
 
 	.view-content
 		// tracks
@@ -26,6 +23,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
   data() {
     return {
@@ -40,6 +39,10 @@ export default {
     this.fetchData();
   },
   methods: {
+    ...mapMutations({
+      setStage: 'SET_STAGE',
+    }),
+
     fetchData() {
       const that = this;
       that.$startLoading('data');
@@ -48,6 +51,18 @@ export default {
           that.getHistory(),
         ]).then((res) => {
           that.data.history = res[0].data.items;
+          // init stage
+          that.setStage({
+            size: 'large',
+            image: res[0].data.items[0].track.album.images[0].url,
+            subtitle: that.$t('library'),
+            title: that.$t('recentlyplayed'),
+            buttons: [{
+                title: 'playall',
+                icon: 'play_circle_filled',
+              },
+            ],
+          });
           that.$endLoading('data');
         });
     },

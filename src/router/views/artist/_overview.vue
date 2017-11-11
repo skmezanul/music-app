@@ -1,5 +1,5 @@
 <template lang="pug">
-.view-content
+.view-content(v-if='!$isLoading("data")')
 	// top tracks
 	ma-section(
     v-if='$parent.data.toptracks.length > 0',

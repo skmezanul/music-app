@@ -1,5 +1,5 @@
 <template lang="pug">
-.view-content
+.view-content(v-if='!$isLoading("data")')
   // featured playlists
   ma-section(
     :title='$parent.data.featured.message',

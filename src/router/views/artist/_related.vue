@@ -1,5 +1,5 @@
 <template lang="pug">
-.view-content
+.view-content(v-if='!$isLoading("data")')
 	// related artists
 	ma-section(
     :title='`${$t("relatedto")} ${$parent.data.artistInfo.name}`',

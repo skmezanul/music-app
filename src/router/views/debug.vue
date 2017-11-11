@@ -1,7 +1,7 @@
 <template lang="pug">
 .view-parent
   // stage
-  ma-stage(:title='$t("debug")')
+  ma-stage
 
   .view-content
     ma-section(
@@ -30,9 +30,21 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
+  created() {
+    // init stage
+    this.setStage({
+      size: 'compact',
+      title: this.$t('debug'),
+    });
+  },
+  methods: {
+    ...mapMutations({
+      setStage: 'SET_STAGE',
+    }),
+  },
   computed: {
     ...mapGetters({
       currentUser: 'getCurrentUser',

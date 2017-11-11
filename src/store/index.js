@@ -35,6 +35,7 @@ const store = new Vuex.Store({
     currentUser: [],
     playlists: [],
     notices: [],
+    stage: {},
     settings: {
       accentColor: '#ca2a59',
       largeCover: false,

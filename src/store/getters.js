@@ -11,4 +11,5 @@ export default {
   getLocale: state => state.currentUser.country,
   getNotices: state => state.notices,
   getAppSettings: state => state.settings,
+  getStageContent: state => state.stage,
 };

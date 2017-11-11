@@ -1,15 +1,12 @@
 <template lang="pug">
 .view-parent(v-if='!$isLoading("data")')
 	// stage
-	ma-stage(
-	:subtitle='$tc("user", 1)',
-  :navigation='navigation',
-	:image='user.images[0].url',
-	:title='user.display_name',
-	:meta='`${user.followers.total} ${$tc("follower", 0)}`')
+	ma-stage
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
   data() {
     return {
@@ -35,6 +32,10 @@ export default {
     this.fetchData();
   },
   methods: {
+    ...mapMutations({
+      setStage: 'SET_STAGE',
+    }),
+
     fetchData() {
       const that = this;
       that.$startLoading('data');
@@ -43,6 +44,19 @@ export default {
           that.getUser(),
         ]).then((res) => {
           that.user = res[0].data;
+          // init stage
+          that.setStage({
+            size: 'compact',
+            cover: 'small',
+            navigation: that.navigation,
+            image: res[0].data.images[0].url,
+            subtitle: that.$tc('user', 1),
+            title: res[0].data.display_name,
+            buttons: [{
+              title: 'follow',
+              icon: 'add_circle',
+            }]
+          });
           that.$endLoading('data');
         });
     },

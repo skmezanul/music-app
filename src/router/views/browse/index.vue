@@ -1,18 +1,14 @@
 <template lang="pug">
 .view-parent(v-if='!$isLoading("data")')
 	// stage
-	ma-stage(
-	:subtitle='$t("browse")',
-	:navigation='navigation',
-	:image='currentUser.images[0].url',
-	:title='greeting')
+	ma-stage
 
 	// router view
 	router-view
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   data() {
@@ -52,6 +48,10 @@ export default {
     this.fetchData();
   },
   methods: {
+    ...mapMutations({
+      setStage: 'SET_STAGE',
+    }),
+
     fetchData() {
       const that = this;
       that.$startLoading('data');
@@ -66,6 +66,14 @@ export default {
           that.data.releases = res[1].data;
           that.data.categories = res[2].data.categories;
           that.data.charts = res[3].data.tracks.items;
+          // init stage
+          that.setStage({
+            size: 'compact',
+            navigation: that.navigation,
+            image: that.currentUser.images[0].url,
+            subtitle: that.$t('browse'),
+            title: that.getGreeting,
+          });
           that.$endLoading('data');
         });
     },
@@ -133,7 +141,7 @@ export default {
     }),
 
     // greeting depending on time of day
-    greeting() {
+    getGreeting() {
       const that = this,
         fullName = that.currentUser.display_name,
         firstName = fullName.split(' ')[0],

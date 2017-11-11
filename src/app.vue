@@ -7,7 +7,11 @@
   main.main-container
     // notices
     transition-group(name='slide-down-transform')
-      ma-notice(v-for='(notice, index) in notices', :key='index', :type='notice.type', :message='notice.message')
+      ma-notice(
+        v-for='(notice, index) in notices',
+        :key='index',
+        :type='notice.type',
+        :message='notice.message')
 
     // header
     ma-header
@@ -105,6 +109,7 @@ input {
 }
 
 img {
+    display: block;
     width: 100%;
     height: auto;
 }

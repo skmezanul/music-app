@@ -1,9 +1,7 @@
 <template lang="pug">
 .view-parent(v-if='!$isLoading("data")')
 	// stage
-	ma-stage(
-		:subtitle='$tc("category", 1)',
-		:title='data.category.name')
+	ma-stage
 
 	.view-content
 		// playlists
@@ -21,7 +19,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   data() {
@@ -38,6 +36,10 @@ export default {
     this.fetchData();
   },
   methods: {
+    ...mapMutations({
+      setStage: 'SET_STAGE',
+    }),
+
     fetchData() {
       const that = this;
       that.$startLoading('data');
@@ -48,6 +50,12 @@ export default {
         ]).then((res) => {
           that.data.category = res[0].data;
           that.data.playlists = res[1].data.playlists.items;
+          // init stage
+          that.setStage({
+            size: 'compact',
+            subtitle: that.$tc('category', 1),
+            title: res[0].data.name,
+          });
           that.$endLoading('data');
         });
     },

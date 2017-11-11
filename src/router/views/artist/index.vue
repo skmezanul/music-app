@@ -1,18 +1,14 @@
 <template lang="pug">
 .view-parent(v-if='!$isLoading("data")')
 	// stage
-	ma-stage(
-	:subtitle='$tc("artist", 1)',
-	:navigation='navigation',
-	:image='data.artistInfo.images[0].url',
-	:title='data.artistInfo.name')
+	ma-stage
 
 	// router view
 	router-view
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   data() {
@@ -47,6 +43,10 @@ export default {
     this.fetchData();
   },
   methods: {
+    ...mapMutations({
+      setStage: 'SET_STAGE',
+    }),
+
     fetchData() {
       const that = this;
       that.$startLoading('data');
@@ -67,6 +67,23 @@ export default {
           that.data.singles = res[3].data.items;
           that.data.appearson = res[4].data.items;
           that.data.related = res[5].data.artists;
+          // init stage
+          that.setStage({
+            size: 'large',
+            navigation: that.navigation,
+            image: res[0].data.images[0].url,
+            subtitle: that.$tc('artist', 1),
+            title: res[0].data.name,
+            buttons: [{
+                title: 'playall',
+                icon: 'play_circle_filled',
+              },
+              {
+                title: 'follow',
+                icon: 'add_circle',
+              },
+            ],
+          });
           that.$endLoading('data');
         });
     },

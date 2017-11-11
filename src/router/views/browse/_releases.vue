@@ -1,5 +1,5 @@
 <template lang="pug">
-.view-content
+.view-content(v-if='!$isLoading("data")')
 	// new releases
 	ma-section(:title='$t("newreleases")')
 

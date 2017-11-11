@@ -1,5 +1,5 @@
 <template lang="pug">
-.view-content
+.view-content(v-if='!$isLoading("data")')
 	// categories
 	ma-section(:title='$tc("category", 0)')
 

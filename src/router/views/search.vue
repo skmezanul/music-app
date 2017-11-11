@@ -1,10 +1,7 @@
 <template lang="pug">
 .view-parent(v-if='!$isLoading("data")')
 	// stage
-	ma-stage(
-    :subtitle='$tc("search", 1)',
-    :image='data.results.tracks.items[0].album.images[0].url',
-    :title="`${$t('resultsfor')} '${$route.params.query}'`")
+	ma-stage
 
 	.view-content
 		// tracks
@@ -61,7 +58,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   data() {
@@ -81,6 +78,10 @@ export default {
     '$route.params.query': 'getResults',
   },
   methods: {
+    ...mapMutations({
+      setStage: 'SET_STAGE',
+    }),
+
     fetchData() {
       const that = this;
       that.$startLoading('data');
@@ -89,6 +90,13 @@ export default {
           that.getResults(),
         ]).then((res) => {
           that.data.results = res[0].data;
+          // init stage
+          that.setStage({
+            size: 'compact',
+            subtitle: that.$tc('search', 1),
+            title: `${that.$t('resultsfor')} '${that.$route.params.query}'`,
+            image: res[0].data.tracks.items[0].album.images[0].url,
+          });
           that.$endLoading('data');
         });
     },

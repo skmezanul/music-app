@@ -1,92 +1,56 @@
 <template lang="pug">
-.stage(:class='{ "has-cover" : hasCover, "is-compact" : isCompact, "has-image" : image }')
+.stage(:class='{ "has-cover" : stage.cover, "is-compact" : stage.size === "compact", "has-image" : stage.image }')
 
   // background
   transition(name='zoom-out', appear)
-    .background-container(v-if='image')
+    .background-container(v-if='stage.image')
       img(
         v-parallax='0.5',
-        :src='image',
-        :alt='title')
+        :src='stage.image',
+        :alt='stage.title')
 
   .stage-container
     .cover-container(
-      v-if='hasCover && !$mq.phone',
-      :class='{ "is-small" : hasSmallCover }')
+      v-if='stage.cover && !$mq.phone',
+      :class='{ "is-small" : stage.cover === "small" }')
 
       img(
-        :src='image',
-        :alt='title')
+        :src='stage.image',
+        :alt='stage.title')
 
     // content
     .stage-inner
-      h2 {{ subtitle }}
-      h1 {{ title }}
-      .meta-container(v-if='meta && !$mq.phone')
-        p(v-html='$formatValue(meta)')
-      .button-container(v-if='$route.meta.buttons')
+      h2 {{ stage.subtitle }}
+      h1 {{ stage.title }}
+      .meta-container(v-if='stage.meta && !$mq.phone')
+        p(v-html='$formatValue(stage.meta)')
+      .button-container(v-if='stage.buttons')
         .button-group
           ma-button(
-            type='accent',
-            icon='play_circle_filled',
-            title='playall')
-          ma-button(
-            v-if='$includes($route.name, "album")',
-            icon='save',
-            title='save')
-          ma-button(
-            v-if='$includes($route.name, "artist|playlist")',
-            icon='add_circle',
-            title='follow')
+            v-for='(button, index) in stage.buttons',
+            :type='{ "accent" : index === 0}',
+            :icon='button.icon',
+            :title='button.title')
         ma-button(
           type='transparent',
           icon='share',
           title='share')
 
       // navigation
-    nav.subnav-container(v-if='navigation && !$mq.phone')
+    nav.subnav-container(v-if='stage.navigation && !$mq.phone')
       ul
-        li(v-for='navitem in navigation')
+        li(v-for='navitem in stage.navigation')
           router-link(:to='$toRoute(navitem.name, { id: $route.params.id })') {{ navitem.title }}
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
-  props: [
-    'subtitle',
-    'navigation',
-    'image',
-    'title',
-    'meta',
-  ],
   computed: {
-    // check if stage has cover
-    hasCover() {
-      const hasCover = this.$route.meta.cover;
-      if (hasCover) {
-        return true;
-      }
-      return false;
-    },
-
-    // check if stage has small cover
-    hasSmallCover() {
-      const that = this,
-            smallCover = that.hasCover && that.$includes(that.$route.name, 'user');
-      if (smallCover) {
-        return true;
-      }
-      return false;
-    },
-
-    // check if stage is compact
-    isCompact() {
-      const isCompact = this.$route.meta.compact;
-      if (isCompact) {
-        return true;
-      }
-      return false;
-    },
+    ...mapGetters({
+      stage: 'getStageContent',
+    }),
   },
 };
 </script>

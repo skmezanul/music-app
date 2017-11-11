@@ -1,18 +1,14 @@
 <template lang="pug">
 .view-parent(v-if='!$isLoading("data")')
-	// stage
-	ma-stage(
-    :subtitle='$tc("playlist", 1)',
-    :image='data.playlist.images[0].url',
-    :title='data.playlist.name',
-    :meta='data.playlist.description')
+  // stage
+  ma-stage
 
-	.view-content
-		// tracks
-		ma-section
+  .view-content
+    // playlists
+    ma-section
 
-			ol.list
-				ma-list(
+      ol.list
+        ma-list(
           v-for='(playlist, index) in data.playlist.tracks.items',
           :key='playlist.track.id',
           :trackid='playlist.track.id',
@@ -27,7 +23,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   data() {
@@ -43,6 +39,10 @@ export default {
     this.fetchData();
   },
   methods: {
+    ...mapMutations({
+      setStage: 'SET_STAGE',
+    }),
+
     fetchData() {
       const that = this;
       that.$startLoading('data');
@@ -51,6 +51,24 @@ export default {
           that.getSinglePlaylist(),
         ]).then((res) => {
           that.data.playlist = res[0].data;
+          // init stage
+          that.setStage({
+            size: 'compact',
+            cover: 'large',
+            image: res[0].data.images[0].url,
+            subtitle: that.$tc('playlist', 1),
+            title: res[0].data.name,
+            meta: res[0].data.description,
+            buttons: [{
+                title: 'playall',
+                icon: 'play_circle_filled',
+              },
+              {
+                title: 'follow',
+                icon: 'add_circle',
+              },
+            ],
+          });
           that.$endLoading('data');
         });
     },

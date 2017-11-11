@@ -47,41 +47,26 @@ export default [{
   children: [{
     path: '',
     name: 'browse',
-    meta: {
-      compact: true,
-    },
     component: browseOverview,
   },
   {
     path: 'charts',
     name: 'browseCharts',
-    meta: {
-      compact: true,
-    },
     component: browseCharts,
   },
   {
     path: 'categories',
     name: 'browseCategories',
-    meta: {
-      compact: true,
-    },
     component: browseCategories,
   },
   {
     path: 'releases',
     name: 'browseReleases',
-    meta: {
-      compact: true,
-    },
     component: browseReleases,
   },
   {
     path: 'discover',
     name: 'browseDiscover',
-    meta: {
-      compact: true,
-    },
     component: browseDiscover,
   },
   ],
@@ -92,27 +77,16 @@ export default [{
   children: [{
     path: '',
     name: 'artist',
-    meta: {
-      buttons: true,
-    },
     component: artistOverview,
   },
   {
     path: 'related',
     name: 'artistRelated',
-    meta: {
-      buttons: true,
-      compact: true,
-    },
     component: artistRelated,
   },
   {
     path: 'about',
     name: 'artistAbout',
-    meta: {
-      buttons: true,
-      compact: true,
-    },
     component: artistAbout,
   },
   ],
@@ -123,28 +97,16 @@ export default [{
   children: [{
     path: '',
     name: 'user',
-    meta: {
-      compact: true,
-      cover: true,
-    },
     component: userOverview,
   },
   {
     path: 'playlists',
     name: 'userPlaylists',
-    meta: {
-      compact: true,
-      cover: true,
-    },
     component: userPlaylists,
   },
   {
     path: 'following',
     name: 'userFollowing',
-    meta: {
-      compact: true,
-      cover: true,
-    },
     component: userFollowing,
   },
   ],
@@ -152,78 +114,46 @@ export default [{
 {
   path: '/album/:id',
   name: 'album',
-  meta: {
-    compact: true,
-    cover: true,
-    buttons: true,
-  },
   component: album,
 },
 {
   path: '/playlist/:owner/:id',
   name: 'playlist',
-  meta: {
-    compact: true,
-    cover: true,
-    buttons: true,
-  },
   component: playlist,
 },
 {
   path: '/category/:id',
   name: 'category',
-  meta: {
-    compact: true,
-  },
   component: category,
 },
 {
   path: '/search/:query',
   name: 'search',
-  meta: {
-    compact: true,
-  },
   component: search,
 },
 {
   path: '/history',
   name: 'mylibraryHistory',
-  meta: {
-    buttons: true,
-  },
   component: mylibraryHistory,
 },
 {
   path: '/tracks',
   name: 'mylibraryTracks',
-  meta: {
-    buttons: true,
-  },
   component: mylibraryTracks,
 },
 {
   path: '/albums',
   name: 'mylibraryAlbums',
-  meta: {
-    buttons: true,
-    compact: true,
-  },
   component: mylibraryAlbums,
 },
 {
   path: '/settings',
   name: 'settings',
-  meta: {
-    compact: true,
-  },
   component: settings,
 },
 {
   path: '/debug',
   name: 'debug',
-  meta: {
-    compact: true,
-  },
   component: debug,
 },
 ];

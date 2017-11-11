@@ -58,4 +58,10 @@ export default {
     const that = state;
     that.settings[payload.setting] = payload.value;
   },
+
+  // set stage content
+  SET_STAGE(state, payload) {
+    const that = state;
+    that.stage = payload;
+  },
 };

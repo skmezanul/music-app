@@ -24,10 +24,6 @@ nav.sidebar-container
 				router-link(to='/albums')
 					i.material-icons album
 					| {{ $tc('album', 0) }}
-			li
-				router-link(to='/artists')
-					i.material-icons person
-					| {{ $tc('artist', 0) }}
 
 		// playlists
 		transition(name='fade')
