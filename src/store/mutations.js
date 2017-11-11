@@ -18,19 +18,19 @@ export default {
   // push the current users profile or playlists to state
   CURRENT_USER(state, payload) {
     const that = state;
-    let type;
+    let target;
 
     switch (payload.type) {
       default:
       case 'profile':
-        type = 'currentUser';
+        target = 'currentUser';
         break;
 
       case 'playlists':
-        type = 'playlists';
+        target = 'playlists';
         break;
     }
-    that[type] = payload.data;
+    that[target] = payload.data;
   },
 
   // add or remove notice

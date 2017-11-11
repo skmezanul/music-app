@@ -35,7 +35,17 @@ const store = new Vuex.Store({
     currentUser: [],
     playlists: [],
     notices: [],
-    stage: {},
+    stage: {
+      image: '',
+      title: '',
+      subtitle: '',
+      navigation: [],
+      settings: {
+        large: false,
+        cover: false,
+        share: false,
+      },
+    },
     settings: {
       accentColor: '#ca2a59',
       largeCover: false,

@@ -53,7 +53,7 @@ export default {
 <style lang="scss">
 .view-section {
     @include flex($display: flex, $direction: column);
-    margin: 30px 0;
+    margin: 20px 0;
     &:last-child {
         padding-bottom: 81px;
         @media (max-width: $breakpoint-mobile) {

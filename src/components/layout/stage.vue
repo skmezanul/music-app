@@ -1,9 +1,9 @@
 <template lang="pug">
-.stage(:class='{ "has-cover" : stage.cover, "is-compact" : stage.size === "compact", "has-image" : stage.image }')
+.stage(:class='{ "large" : stage.settings.large, "has-cover" : stage.settings.cover, "has-image" : stage.image }')
 
   // background
-  transition(name='zoom-out', appear)
-    .background-container(v-if='stage.image')
+  transition(v-if='stage.image', name='zoom-out', appear)
+    .background-container
       img(
         v-parallax='0.5',
         :src='stage.image',
@@ -11,8 +11,8 @@
 
   .stage-container
     .cover-container(
-      v-if='stage.cover && !$mq.phone',
-      :class='{ "is-small" : stage.cover === "small" }')
+      v-if='stage.settings.cover && !$mq.phone',
+      :class='{ "small" : stage.settings.cover && $includes($route.name, "user") }')
 
       img(
         :src='stage.image',
@@ -20,18 +20,19 @@
 
     // content
     .stage-inner
-      h2 {{ stage.subtitle }}
-      h1 {{ stage.title }}
+      h2(v-if='subtitle || stage.subtitle') {{ subtitle || stage.subtitle }}
+      h1(v-if='title || stage.title') {{ title || stage.title }}
       .meta-container(v-if='stage.meta && !$mq.phone')
         p(v-html='$formatValue(stage.meta)')
       .button-container(v-if='stage.buttons')
         .button-group
           ma-button(
             v-for='(button, index) in stage.buttons',
-            :type='{ "accent" : index === 0}',
+            :type='{ "accent" : index === 0 }',
             :icon='button.icon',
             :title='button.title')
         ma-button(
+          v-if='stage.settings.share',
           type='transparent',
           icon='share',
           title='share')
@@ -40,13 +41,17 @@
     nav.subnav-container(v-if='stage.navigation && !$mq.phone')
       ul
         li(v-for='navitem in stage.navigation')
-          router-link(:to='$toRoute(navitem.name, { id: $route.params.id })') {{ navitem.title }}
+          router-link(:to='$toRoute(navitem.routeName, { id: $route.params.id })') {{ navitem.title }}
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 
 export default {
+  props: [
+    'title',
+    'subtitle',
+  ],
   computed: {
     ...mapGetters({
       stage: 'getStageContent',
@@ -65,25 +70,28 @@ export default {
     padding-top: 69px;
     min-height: 350px;
     width: 100%;
-    height: 550px;
+    height: 350px;
+    transition: background-color 1s;
 
     &:not(.has-image) {
       background-color: var(--accent-color);
-      transition: background-color 1s;
       filter: saturate(80%);
     }
 
-    &.is-compact {
-        height: 350px;
-        .background-container {
-            img {
-                filter: saturate(150%) blur(40px);
-            }
-        }
+    &:not(.large) {
+      .background-container {
+          img {
+              filter: saturate(150%) blur(40px);
+          }
+      }
+    }
+
+    &.large {
+        height: 550px;
         .stage-container {
             .stage-inner {
                 h1 {
-                    @include font($size: 3.5em);
+                    @include font($size: 5.5em);
                 }
             }
         }
@@ -117,8 +125,8 @@ export default {
     }
 
     .stage-container {
-        z-index: 996;
         @include flex($display: flex, $direction: column);
+        z-index: 996;
 
         .cover-container {
             overflow: hidden;
@@ -128,11 +136,11 @@ export default {
             height: 250px;
             border-radius: 10px;
             box-shadow: $shadow;
-            &:not(.is-small) {
+            &:not(.small) {
               @include flex($flex: 1);
             }
 
-            &.is-small {
+            &.small {
                 min-width: 180px;
                 width: 180px;
                 height: 180px;
@@ -143,8 +151,8 @@ export default {
             @include flex($display: flex, $direction: column, $flex: 4);
 
             h1 {
+                @include font($size: 3.5em);
                 margin-left: -3px;
-                @include font($size: 5.5em);
             }
 
             h2 {
@@ -155,8 +163,8 @@ export default {
                 margin-top: 10px;
                 width: 80%;
                 p {
-                    margin: 0;
                     @include font($size: 1.2em, $line: 1.3em, $color: rgba($white, 0.7));
+                    margin: 0;
                     a:link {
                         @include font($size: inherit);
                         transition: color 0.3s;

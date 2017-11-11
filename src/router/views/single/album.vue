@@ -50,12 +50,15 @@ export default {
           that.data.album = res[0].data;
           // init stage
           that.setStage({
-            size: 'compact',
-            cover: 'large',
             image: res[0].data.images[0].url,
             subtitle: that.$tc('album', 1),
             title: res[0].data.name,
             meta: `${that.$t('by')} ${res[0].data.artists[0].name}`,
+            settings: {
+              large: false,
+              cover: true,
+              share: true,
+            },
             buttons: [{
                 title: 'playall',
                 icon: 'play_circle_filled',

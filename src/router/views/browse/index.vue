@@ -19,27 +19,6 @@ export default {
         categories: [],
         charts: [],
       },
-      navigation: [{
-          title: this.$t('overview'),
-          name: 'browse',
-        },
-        {
-          title: this.$t('charts'),
-          name: 'browseCharts',
-        },
-        {
-          title: this.$tc('category', 0),
-          name: 'browseCategories',
-        },
-        {
-          title: this.$t('newreleases'),
-          name: 'browseReleases',
-        },
-        {
-          title: this.$t('discover'),
-          name: 'browseDiscover',
-        },
-      ],
     };
   },
   created() {
@@ -68,11 +47,35 @@ export default {
           that.data.charts = res[3].data.tracks.items;
           // init stage
           that.setStage({
-            size: 'compact',
-            navigation: that.navigation,
             image: that.currentUser.images[0].url,
             subtitle: that.$t('browse'),
             title: that.getGreeting,
+            settings: {
+              large: false,
+              cover: false,
+              share: false,
+            },
+            navigation: [{
+                title: this.$t('overview'),
+                routeName: 'browse',
+              },
+              {
+                title: this.$t('charts'),
+                routeName: 'browseCharts',
+              },
+              {
+                title: this.$tc('category', 0),
+                routeName: 'browseCategories',
+              },
+              {
+                title: this.$t('newreleases'),
+                routeName: 'browseReleases',
+              },
+              {
+                title: this.$t('discover'),
+                routeName: 'browseDiscover',
+              },
+            ],
           });
           that.$endLoading('data');
         });

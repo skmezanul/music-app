@@ -52,9 +52,13 @@ export default {
           that.data.playlists = res[1].data.playlists.items;
           // init stage
           that.setStage({
-            size: 'compact',
             subtitle: that.$tc('category', 1),
             title: res[0].data.name,
+            settings: {
+              large: false,
+              cover: false,
+              share: false,
+            },
           });
           that.$endLoading('data');
         });

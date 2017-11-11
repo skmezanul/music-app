@@ -53,12 +53,15 @@ export default {
           that.data.playlist = res[0].data;
           // init stage
           that.setStage({
-            size: 'compact',
-            cover: 'large',
             image: res[0].data.images[0].url,
             subtitle: that.$tc('playlist', 1),
             title: res[0].data.name,
             meta: res[0].data.description,
+            settings: {
+              large: false,
+              cover: true,
+              share: true,
+            },
             buttons: [{
                 title: 'playall',
                 icon: 'play_circle_filled',

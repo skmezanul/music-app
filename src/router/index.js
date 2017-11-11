@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store from '@/store';
 import { hasToken, getToken, toLogin } from '@/api/helpers';
 import routes from './routes';
 
@@ -29,6 +30,13 @@ router.beforeEach((to, from, next) => {
     getToken();
     next();
   }
+  store.commit('SET_STAGE', {
+    options: {
+      large: false,
+      cover: false,
+      share: false,
+    },
+  });
   next();
 });
 

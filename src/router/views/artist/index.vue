@@ -22,19 +22,6 @@ export default {
         appearson: [],
         related: [],
       },
-      navigation: [{
-          title: this.$t('overview'),
-          name: 'artist',
-        },
-        {
-          title: this.$t('relatedartists'),
-          name: 'artistRelated',
-        },
-        {
-          title: this.$t('about'),
-          name: 'artistAbout',
-        },
-      ],
     };
   },
   created() {
@@ -69,11 +56,27 @@ export default {
           that.data.related = res[5].data.artists;
           // init stage
           that.setStage({
-            size: 'large',
-            navigation: that.navigation,
             image: res[0].data.images[0].url,
             subtitle: that.$tc('artist', 1),
             title: res[0].data.name,
+            settings: {
+              large: true,
+              cover: false,
+              share: true,
+            },
+            navigation: [{
+                title: this.$t('overview'),
+                routeName: 'artist',
+              },
+              {
+                title: this.$t('relatedartists'),
+                routeName: 'artistRelated',
+              },
+              {
+                title: this.$t('about'),
+                routeName: 'artistAbout',
+              },
+            ],
             buttons: [{
                 title: 'playall',
                 icon: 'play_circle_filled',

@@ -1,7 +1,7 @@
 <template lang="pug">
 .view-parent
   // stage
-  ma-stage
+  ma-stage(:title='$t("settings")')
 
   .view-content
     ma-section(:title='$t("accentcolor")')
@@ -38,15 +38,8 @@ export default {
       ],
     }
   },
-  created() {
-    this.setStage({
-      size: 'compact',
-      title: this.$t('settings'),
-    });
-  },
   methods: {
     ...mapMutations({
-      setStage: 'SET_STAGE',
       setAppSettings: 'SET_APP_SETTINGS',
     }),
 

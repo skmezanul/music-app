@@ -48,10 +48,14 @@ export default {
           that.data.albums = res[0].data.items;
           // init stage
           that.setStage({
-            size: 'compact',
             image: res[0].data.items[0].album.images[0].url,
             subtitle: that.$t('library'),
             title: that.$tc('album', 0),
+            settings: {
+              large: false,
+              cover: false,
+              share: false,
+            },
             buttons: [{
                 title: 'playall',
                 icon: 'play_circle_filled',
