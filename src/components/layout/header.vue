@@ -112,7 +112,7 @@ header {
 
     &.scrolled {
       border-color: $border-color;
-      background-color: $dark-blue;
+      background-color: $dark-grey;
         .header-container {
           width: $small-width;
         }

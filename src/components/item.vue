@@ -9,7 +9,7 @@
     // overlay
     transition(name='fade')
       .item-overlay(
-        v-if='hasOverlay && overlay',
+        v-show='hasOverlay && overlay',
         :style='{ background: color }')
 
         .overlay-inner
@@ -78,13 +78,10 @@ export default {
       if (!overlayColor) {
         Vibrant.from(albumCover).getPalette()
           .then((palette) => {
-            const r = Math.round(palette.Muted._rgb[0]),
-                  g = Math.round(palette.Muted._rgb[1]),
-                  b = Math.round(palette.Muted._rgb[2]),
-                  a = 1,
-                  color = `rgba(${r}, ${g}, ${b}, ${a})`;
+            const fromColor = `rgba(${palette.Muted.getRgb()}, 1)`,
+                  toColor = 'rgba(80, 80, 80, 0.5)';
 
-            that.color = `linear-gradient(to top, ${color} 25%, rgba(80, 80, 80, 0.5) 100%)`;
+            that.color = `linear-gradient(to top, ${fromColor} 25%, ${toColor} 100%)`;
           });
       }
     },
@@ -185,7 +182,7 @@ export default {
         @include flex($display: flex, $justify: space-between, $direction: column);
         overflow: hidden;
         height: 100%;
-        background-color: $blue;
+        background-color: $grey;
         transition: box-shadow 0.3s;
         &:hover {
             cursor: pointer;

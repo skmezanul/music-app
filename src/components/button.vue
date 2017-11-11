@@ -45,7 +45,7 @@ export default {
     }
 
     &:not(.transparent):not(.overlay) {
-        background-color: $light-blue;
+        background-color: $grey;
         &.accent {
             background-color: var(--accent-color);
         }

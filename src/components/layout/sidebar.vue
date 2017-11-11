@@ -85,7 +85,7 @@ export default {
 .sidebar-container {
     width: 200px;
     border-right: 1px solid $border-color;
-    background-color: $dark-blue;
+    background-color: $dark-grey;
 
     ul {
         @include flex($display: flex, $direction: column);

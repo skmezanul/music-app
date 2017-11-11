@@ -13,7 +13,7 @@
     ma-header
 
     // loading spinner
-    transition(name='fade', tag='ma-loading')
+    transition(name='fade')
       ma-loading(v-if='$isLoading("data")')
         ma-loader(slot='spinner')
 
@@ -176,14 +176,14 @@ a {
     overflow: hidden;
     width: 150px;
     border-radius: 5px;
-    background-color: $dark-blue;
+    background-color: $dark-grey;
 
     li {
         @include font($size: 0.9em);
         padding: 15px;
         transition: background-color 0.3s;
         &:hover {
-            background-color: $blue;
+            background-color: $grey;
             cursor: pointer;
         }
     }

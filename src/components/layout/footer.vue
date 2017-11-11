@@ -142,7 +142,7 @@ footer {
     @include flex($display: flex, $align: center, $wrap: wrap);
     padding: 15px 20px;
     border-top: 1px solid $border-color;
-    background: $dark-blue;
+    background: $dark-grey;
 
     .footer-container {
         @include flex($display: flex, $align: center);
@@ -236,7 +236,7 @@ footer {
                 padding: 5px 10px;
                 width: 110px;
                 border-radius: 5px;
-                background-color: $blue;
+                background-color: $grey;
                 .track-progress {
                     margin-right: 5px;
                     &:after {
@@ -272,7 +272,7 @@ footer {
             @include absolute($right: 0);
             width: 100%;
             height: 100%;
-            background: $dark-blue;
+            background: $dark-grey;
             transition: width 1s linear;
         }
     }

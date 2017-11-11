@@ -106,7 +106,7 @@ export default {
         margin-bottom: 2px;
         width: 100%;
         height: 75px;
-        background-color: $blue;
+        background-color: $grey;
         transition: all 0.3s;
         &:hover {
             background-color: rgba($white, 0.1);

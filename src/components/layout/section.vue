@@ -97,7 +97,7 @@ export default {
 
     .section-header {
         @include flex($display: flex, $justify: space-between, $align: center);
-        margin-bottom: 25px;
+        margin-bottom: 15px;
         .section-actions {
             span {
                 @include item-hover;
