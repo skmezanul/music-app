@@ -1,16 +1,18 @@
 <template lang="pug">
 .notice-container
-  .notice-inner
-    i.icon.material-icons(v-if='!$mq.phone') {{ type }}
-    // message
-    p {{ message }}
+	.notice-inner
+		i.icon.material-icons(v-if='!$mq.phone') {{ type }}
+		// message
+		p {{ message }}
 
-    // remove notice manually
-    i.close.material-icons(@click='removeNotice({ action: "remove" })') close
+		// remove notice manually
+		i.close.material-icons(@click='removeNotice({ action: "remove" })') close
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import {
+  mapMutations
+} from 'vuex';
 
 export default {
   props: [
@@ -28,16 +30,20 @@ export default {
 <style lang="scss">
 .notice-container {
     @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 999);
-    @include flex($display: flex, $justify: center, $align: center);
+    @include view-grid-columns;
+    display: grid;
     height: 69px;
     background-color: var(--accent-color);
+    grid-template-areas: ". content .";
     .notice-inner {
         @include flex($display: flex, $justify: space-between, $align: center);
         @include relative;
         overflow: hidden;
+        width: 100%;
         height: 100%;
-        @media (min-width: $breakpoint-mobile) {
-          padding-left: 120px;
+        grid-area: content;
+        @media (min-width: $mobile-breakpoint) {
+            padding-left: 120px;
         }
         p {
             @include font($size: 1.2em);

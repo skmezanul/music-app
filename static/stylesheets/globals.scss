@@ -5,11 +5,12 @@ $grey: #1e1e1e;
 $dark-grey: #0f0f0f;
 $border-color: rgba($white, 0.05);
 $main-bg-color: #121212;
-$large-width: 75%;
-$small-width: 95%;
+$large-viewport-width: 75%;
+$small-viewport-width: 95%;
 $shadow: 0 20px 40px rgba($black, 0.15);
 $shadow-highlight: 0 20px 50px rgba($black, 0.4);
-$breakpoint-mobile: 768px;
+$mobile-breakpoint: 768px;
+$view-width-breakpoint: 1440px;
 
 @mixin position($position, $top: null, $right: null, $bottom: null, $left: null, $z-index: null) {
   position: $position;
@@ -47,6 +48,13 @@ $breakpoint-mobile: 768px;
   letter-spacing: $spacing;
   text-transform: $transform;
   color: $color;
+}
+
+@mixin view-grid-columns() {
+  grid-template-columns: auto $large-viewport-width auto;
+  @media (max-width: $view-width-breakpoint) {
+    grid-template-columns: auto $small-viewport-width auto;
+  }
 }
 
 @mixin comma-separated($args...) {

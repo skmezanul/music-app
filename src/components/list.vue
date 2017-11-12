@@ -100,14 +100,21 @@ export default {
 
 <style lang="scss">
 .list {
+  display: grid;
+  grid-auto-rows: 75px;
+  grid-row-gap: 2px;
     .list-item {
-        @include flex($display: flex, $align: center);
         @include font($color: rgba($white, 0.7));
-        margin-bottom: 2px;
-        width: 100%;
-        height: 75px;
+        display: grid;
+        align-items: center;
+        padding-right: 2em;
         background-color: $grey;
         transition: all 0.3s;
+        grid-template-columns: 75px repeat(2, minmax(auto, 40px) minmax(auto, 1fr)) repeat(2, minmax(auto, 80px));
+        grid-column-gap: 1em;
+        @media (max-width: $mobile-breakpoint) {
+          grid-template-columns: 75px minmax(auto, 1fr) minmax(auto, 30px)  minmax(auto, 1fr) auto;
+        }
         &:hover {
             background-color: rgba($white, 0.1);
             cursor: pointer;
@@ -137,9 +144,6 @@ export default {
         }
         .image-container {
             @include relative;
-            overflow: hidden;
-            width: 75px;
-            height: 75px;
             img {
                 transition: filter 0.3s;
             }
@@ -152,18 +156,12 @@ export default {
         }
         .index {
             @include font($size: 1.4em, $weight: 200, $color: $white);
-            padding-left: 20px;
             text-align: center;
         }
         .meta-container {
-            @include flex($flex: 1.3);
             overflow: hidden;
-            padding: 0 20px;
             text-overflow: ellipsis;
             white-space: nowrap;
-            @media (max-width: $breakpoint-mobile) {
-                padding: 0 15px;
-            }
             span {
                 @include font($size: 1.1em, $color: $white);
             }
@@ -178,7 +176,6 @@ export default {
         }
 
         .album-container {
-            @include flex($flex: 1);
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -187,28 +184,11 @@ export default {
             }
         }
 
-        .duration {
-            @include flex($flex: 0.3);
-            padding-right: 10px;
-            text-align: center;
-        }
-
         .label-container, .action-container  {
-          @include flex($display: flex, $align: center, $flex: 0.3);
-          padding: 0 30px;
+          @include flex($display: flex, $justify: space-between, $align: center);
           i {
               @include item-hover;
           }
-        }
-
-        .action-container  {
-          @include flex($justify: space-between);
-          max-width: 140px;
-        }
-
-        .label-container  {
-          @include flex($justify: center);
-          max-width: 100px;
         }
     }
 }

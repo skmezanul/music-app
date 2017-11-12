@@ -152,10 +152,10 @@ footer {
             @include flex($justify: flex-start, $align: center, $flex: 1);
             transition: transform 0.3s;
             will-change: transform;
-            @media (max-width: $breakpoint-mobile) {
+            @media (max-width: $mobile-breakpoint) {
                  @include flex($basis: 100%);
             }
-            @media (min-width: $breakpoint-mobile) {
+            @media (min-width: $mobile-breakpoint) {
                 &.cover-hidden {
                     transform: translateX(-60px);
                     .cover-container {
@@ -184,13 +184,13 @@ footer {
             }
 
             .currently-playing {
-                @media (min-width: $breakpoint-mobile) {
+                @media (min-width: $mobile-breakpoint) {
                     overflow: hidden;
                     max-width: 450px;
                     text-overflow: ellipsis;
                     white-space: nowrap;
                 }
-                @media (max-width: $breakpoint-mobile) {
+                @media (max-width: $mobile-breakpoint) {
                     width: 100%;
                     text-align: center;
                 }
@@ -211,7 +211,7 @@ footer {
         &.middle {
             @include flex($justify: space-between, $flex: 0.7);
             @include font($spacing: 2px);
-            @media (max-width: $breakpoint-mobile) {
+            @media (max-width: $mobile-breakpoint) {
                  @include flex($flex: 1);
                 margin-top: 10px;
             }

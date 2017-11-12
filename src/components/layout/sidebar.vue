@@ -79,7 +79,7 @@ export default {
 
 <style lang="scss">
 .sidebar-container {
-    width: 200px;
+  	grid-area: sidebar;
     border-right: 1px solid $border-color;
     background-color: $dark-grey;
 

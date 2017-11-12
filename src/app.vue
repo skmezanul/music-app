@@ -152,23 +152,38 @@ a {
 
 // vue instance container
 #app {
-  @include flex($display: flex);
+  display: grid;
+  grid-template-columns: minmax(auto, 200px) 1fr;
+  grid-template-rows: 1fr 80px;
+  grid-template-areas: "sidebar main" "footer footer";
   @include font($spacing: 1px, $color: $white);
   font-family: $font-family;
   user-select: none;
   // main-container containing header and view-container
   .main-container {
     @include relative;
-    width: 100%;
+    grid-area: main;
+    grid-column: span 2;
     // scrolling view-container containing view-parent
     .view-container {
       overflow-y: auto;
       height: 100vh;
       // view-parent element to render components and wrap stage and view-content
       .view-parent {
+        display: grid;
+        @include view-grid-columns;
+        grid-auto-rows: auto;
+        grid-template-areas: "stage stage stage" ". content .";
+        grid-row-gap: 2em;
         // view-content containing stacked sections
         .view-content {
-            @include flex($display: flex, $align: center, $direction: column);
+          grid-area: content;
+          display: grid;
+          grid-auto-rows: auto;
+          grid-row-gap: 2em;
+          @media (max-width: $mobile-breakpoint) {
+            grid-column: span 3;
+          }
         }
       }
     }
@@ -227,18 +242,6 @@ a {
             visibility: visible;
             opacity: 1;
         }
-    }
-}
-
-// width of page elements
-.header-container,
-.notice-inner,
-.view-section,
-.stage-container {
-    max-width: 1440px;
-    width: $large-width;
-    @media (max-width: 1440px) {
-        width: $small-width;
     }
 }
 

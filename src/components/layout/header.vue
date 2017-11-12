@@ -114,7 +114,7 @@ header {
       border-color: $border-color;
       background-color: $dark-grey;
         .header-container {
-          width: $small-width;
+          width: $small-viewport-width;
         }
     }
 
@@ -123,15 +123,16 @@ header {
         height: 42px;
         transition: width 0.3s;
         will-change: width;
-        @media (max-width: $breakpoint-mobile) {
-            width: 95%;
+        width: $large-viewport-width;
+        @media (max-width: $view-width-breakpoint) {
+            width: $small-viewport-width;
         }
 
         .header-inner {
             @include flex($display: flex, $align: center);
 
             &.left {
-                @media (min-width: $breakpoint-mobile) {
+                @media (min-width: $mobile-breakpoint) {
                     @include flex($justify: flex-start, $flex: 1);
                 }
 
@@ -144,10 +145,10 @@ header {
             &.middle {
                 @include relative;
                 margin: 0 10px;
-                @media (max-width: $breakpoint-mobile) {
+                @media (max-width: $mobile-breakpoint) {
                     width: 100%;
                 }
-                @media (min-width: $breakpoint-mobile) {
+                @media (min-width: $mobile-breakpoint) {
                     @include flex($flex: 2);
                 }
                 input {
@@ -179,7 +180,7 @@ header {
 
             &.right {
                 @include relative;
-                @media (min-width: $breakpoint-mobile) {
+                @media (min-width: $mobile-breakpoint) {
                     @include flex($justify: flex-end, $flex: 1);
                 }
 

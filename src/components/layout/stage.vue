@@ -68,15 +68,15 @@ export default {
 <style lang="scss">
 .stage {
     @include relative;
-    @include flex($display: flex, $justify: center, $align: flex-end);
+    display: grid;
     overflow: hidden;
-    margin-top: 0;
-    margin-bottom: 20px;
     padding-top: 69px;
     min-height: 350px;
-    width: 100%;
     height: 350px;
     transition: background-color 1s;
+    grid-area: stage;
+    grid-template-areas: ". content .";
+    @include view-grid-columns;
 
     &:not(.has-image) {
       background-color: var(--accent-color);
@@ -131,6 +131,7 @@ export default {
     .stage-container {
         @include flex($display: flex, $direction: column);
         z-index: 996;
+        grid-area: content;
 
         .cover-container {
             overflow: hidden;
@@ -152,7 +153,7 @@ export default {
         }
 
         .stage-inner {
-            @include flex($display: flex, $direction: column, $flex: 4);
+            @include flex($display: flex, $justify: flex-end, $direction: column, $flex: 4);
 
             h1 {
                 @include font($size: 3.5em);
