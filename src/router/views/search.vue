@@ -95,11 +95,6 @@ export default {
             subtitle: that.$tc('search', 1),
             title: `${that.$t('resultsfor')} '${that.$route.params.query}'`,
             image: res[0].data.tracks.items[0].album.images[0].url,
-            settings: {
-              large: false,
-              cover: false,
-              share: false,
-            },
           });
           that.$endLoading('data');
         });

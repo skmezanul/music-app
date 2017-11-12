@@ -1,5 +1,5 @@
 <template lang="pug">
-.stage(:class='{ "large" : stage.settings.large, "has-cover" : stage.settings.cover, "has-image" : stage.image }')
+.stage(:class='{ "is-large" : $route.meta.stage.large, "has-cover" : $route.meta.stage.cover, "has-image" : stage.image }')
 
   // background
   transition(v-if='stage.image', name='zoom-out', appear)
@@ -11,8 +11,8 @@
 
   .stage-container
     .cover-container(
-      v-if='stage.settings.cover && !$mq.phone',
-      :class='{ "small" : stage.settings.cover && $includes($route.name, "user") }')
+      v-if='$route.meta.stage.cover && !$mq.phone',
+      :class='{ "is-small" : $route.meta.stage.cover && $route.name === "user" }')
 
       img(
         :src='stage.image',
@@ -24,16 +24,21 @@
       h1(v-if='title || stage.title') {{ title || stage.title }}
       .meta-container(v-if='stage.meta && !$mq.phone')
         p(v-html='$formatValue(stage.meta)')
-      .button-container(v-if='stage.buttons')
-        .button-group
+      .button-container(v-if='stage.buttons || $route.meta.stage.shareButton')
+        .button-group(v-if='stage.buttons')
           ma-button(
             v-for='(button, index) in stage.buttons',
+            :key='index',
+            :ref='`button-${button.title}`',
             :type='{ "accent" : index === 0 }',
+            :class='button.title',
             :icon='button.icon',
             :title='button.title')
         ma-button(
-          v-if='stage.settings.share',
+          v-if='$route.meta.stage.shareButton',
+          :ref='button-share',
           type='transparent',
+          class='share',
           icon='share',
           title='share')
 
@@ -78,7 +83,7 @@ export default {
       filter: saturate(80%);
     }
 
-    &:not(.large) {
+    &:not(.is-large) {
       .background-container {
           img {
               filter: saturate(150%) blur(40px);
@@ -86,7 +91,7 @@ export default {
       }
     }
 
-    &.large {
+    &.is-large {
         height: 550px;
         .stage-container {
             .stage-inner {
@@ -111,7 +116,6 @@ export default {
         @include flex($display: flex, $justify: center, $align: center);
 
         img {
-          display: block;
           width: 100vw;
           height: 100vh;
           filter: saturate(130%);
@@ -136,11 +140,11 @@ export default {
             height: 250px;
             border-radius: 10px;
             box-shadow: $shadow;
-            &:not(.small) {
+            &:not(.is-small) {
               @include flex($flex: 1);
             }
 
-            &.small {
+            &.is-small {
                 min-width: 180px;
                 width: 180px;
                 height: 180px;

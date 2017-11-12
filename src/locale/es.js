@@ -40,6 +40,7 @@ export default {
   playall: 'Reproducir',
   follow: 'Seguir',
   save: 'Salvar',
+  edit: 'Editar',
   share: 'Compartir',
   shuffle: 'Aleatoria',
   repeat: 'Repetir',

@@ -36,11 +36,6 @@ export default {
             image: res[0].data.images[0].url,
             subtitle: that.$tc('user', 1),
             title: res[0].data.display_name,
-            settings: {
-              large: false,
-              cover: true,
-              share: false,
-            },
             navigation: [{
                 title: this.$t('overview'),
                 routeName: 'user',
@@ -55,9 +50,9 @@ export default {
               },
             ],
             buttons: [{
-              title: 'follow',
-              icon: 'add_circle',
-            }]
+                title: 'follow',
+                icon: 'add_circle',
+            }],
           });
           that.$endLoading('data');
         });

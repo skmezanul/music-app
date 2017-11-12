@@ -54,11 +54,6 @@ export default {
             subtitle: that.$tc('album', 1),
             title: res[0].data.name,
             meta: `${that.$t('by')} ${res[0].data.artists[0].name}`,
-            settings: {
-              large: false,
-              cover: true,
-              share: true,
-            },
             buttons: [{
                 title: 'playall',
                 icon: 'play_circle_filled',

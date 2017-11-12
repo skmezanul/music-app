@@ -81,7 +81,7 @@ export default {
     getPlayingState() {
       const that = this,
             isPlayingTrack = (that.currentPlayback.item.id === that.trackid),
-            isHistoryView = that.$includes(that.$route.name, 'history');
+            isHistoryView = that.$route.path === '/history';
 
       if (isPlayingTrack && !isHistoryView) {
         that.isPlaying = true;
@@ -141,8 +141,6 @@ export default {
             width: 75px;
             height: 75px;
             img {
-                width: auto;
-                height: 100%;
                 transition: filter 0.3s;
             }
             i {

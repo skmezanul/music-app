@@ -59,11 +59,6 @@ export default {
             image: res[0].data.images[0].url,
             subtitle: that.$tc('artist', 1),
             title: res[0].data.name,
-            settings: {
-              large: true,
-              cover: false,
-              share: true,
-            },
             navigation: [{
                 title: this.$t('overview'),
                 routeName: 'artist',

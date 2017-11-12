@@ -47,26 +47,46 @@ export default [{
   children: [{
     path: '',
     name: 'browse',
+    meta: {
+      stage: {
+      },
+    },
     component: browseOverview,
   },
   {
     path: 'charts',
     name: 'browseCharts',
+    meta: {
+      stage: {
+      },
+    },
     component: browseCharts,
   },
   {
     path: 'categories',
     name: 'browseCategories',
+    meta: {
+      stage: {
+      },
+    },
     component: browseCategories,
   },
   {
     path: 'releases',
     name: 'browseReleases',
+    meta: {
+      stage: {
+      },
+    },
     component: browseReleases,
   },
   {
     path: 'discover',
     name: 'browseDiscover',
+    meta: {
+      stage: {
+      },
+    },
     component: browseDiscover,
   },
   ],
@@ -77,16 +97,32 @@ export default [{
   children: [{
     path: '',
     name: 'artist',
+    meta: {
+      stage: {
+        large: true,
+        shareButton: true,
+      },
+    },
     component: artistOverview,
   },
   {
     path: 'related',
     name: 'artistRelated',
+    meta: {
+      stage: {
+        shareButton: true,
+      },
+    },
     component: artistRelated,
   },
   {
     path: 'about',
     name: 'artistAbout',
+    meta: {
+      stage: {
+        shareButton: true,
+      },
+    },
     component: artistAbout,
   },
   ],
@@ -97,16 +133,31 @@ export default [{
   children: [{
     path: '',
     name: 'user',
+    meta: {
+      stage: {
+        cover: true,
+      },
+    },
     component: userOverview,
   },
   {
     path: 'playlists',
     name: 'userPlaylists',
+    meta: {
+      stage: {
+        cover: true,
+      },
+    },
     component: userPlaylists,
   },
   {
     path: 'following',
     name: 'userFollowing',
+    meta: {
+      stage: {
+        cover: true,
+      },
+    },
     component: userFollowing,
   },
   ],
@@ -114,46 +165,87 @@ export default [{
 {
   path: '/album/:id',
   name: 'album',
+  meta: {
+    stage: {
+      cover: true,
+      shareButton: true,
+    },
+  },
   component: album,
 },
 {
   path: '/playlist/:owner/:id',
   name: 'playlist',
+  meta: {
+    stage: {
+      cover: true,
+      shareButton: true,
+    },
+  },
   component: playlist,
 },
 {
   path: '/category/:id',
   name: 'category',
+  meta: {
+    stage: {
+    },
+  },
   component: category,
 },
 {
   path: '/search/:query',
   name: 'search',
+  meta: {
+    stage: {
+    },
+  },
   component: search,
 },
 {
   path: '/history',
   name: 'mylibraryHistory',
+  meta: {
+    stage: {
+      large: true,
+    },
+  },
   component: mylibraryHistory,
 },
 {
   path: '/tracks',
   name: 'mylibraryTracks',
+  meta: {
+    stage: {
+    },
+  },
   component: mylibraryTracks,
 },
 {
   path: '/albums',
   name: 'mylibraryAlbums',
+  meta: {
+    stage: {
+    },
+  },
   component: mylibraryAlbums,
 },
 {
   path: '/settings',
   name: 'settings',
+  meta: {
+    stage: {
+    },
+  },
   component: settings,
 },
 {
   path: '/debug',
   name: 'debug',
+  meta: {
+    stage: {
+    },
+  },
   component: debug,
 },
 ];

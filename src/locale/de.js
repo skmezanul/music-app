@@ -40,6 +40,7 @@ export default {
   playall: 'Alles wiedergeben',
   follow: 'Folgen',
   save: 'Speichern',
+  edit: 'Bearbeiten',
   share: 'Teilen',
   shuffle: 'Zufällig',
   repeat: 'Wiederholen',

@@ -56,11 +56,6 @@ export default {
             image: res[0].data.items[0].track.album.images[0].url,
             subtitle: that.$t('library'),
             title: that.$t('recentlyplayed'),
-            settings: {
-              large: true,
-              cover: false,
-              share: false,
-            },
             buttons: [{
                 title: 'playall',
                 icon: 'play_circle_filled',

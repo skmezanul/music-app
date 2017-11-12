@@ -40,11 +40,7 @@ const store = new Vuex.Store({
       title: '',
       subtitle: '',
       navigation: [],
-      settings: {
-        large: false,
-        cover: false,
-        share: false,
-      },
+      buttons: [],
     },
     settings: {
       accentColor: '#ca2a59',

@@ -57,11 +57,6 @@ export default {
             subtitle: that.$tc('playlist', 1),
             title: res[0].data.name,
             meta: res[0].data.description,
-            settings: {
-              large: false,
-              cover: true,
-              share: true,
-            },
             buttons: [{
                 title: 'playall',
                 icon: 'play_circle_filled',

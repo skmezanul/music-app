@@ -50,11 +50,6 @@ export default {
             image: that.currentUser.images[0].url,
             subtitle: that.$t('browse'),
             title: that.getGreeting,
-            settings: {
-              large: false,
-              cover: false,
-              share: false,
-            },
             navigation: [{
                 title: this.$t('overview'),
                 routeName: 'browse',

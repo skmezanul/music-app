@@ -12,9 +12,6 @@ const router = new VueRouter({
   routes,
   linkActiveClass: 'active',
   linkExactActiveClass: 'exact-active',
-  scrollBehavior: () => ({
-    y: 0,
-  }),
 });
 
 /**
@@ -30,14 +27,16 @@ router.beforeEach((to, from, next) => {
     getToken();
     next();
   }
-  store.commit('SET_STAGE', {
-    options: {
-      large: false,
-      cover: false,
-      share: false,
-    },
-  });
   next();
+});
+
+/**
+ * Clear stage state between route changes.
+ */
+router.afterEach((to, from) => {
+  if (from.matched[0].path !== to.matched[0].path) {
+    store.commit('SET_STAGE', {});
+  }
 });
 
 export default router;

@@ -54,11 +54,6 @@ export default {
           that.setStage({
             subtitle: that.$tc('category', 1),
             title: res[0].data.name,
-            settings: {
-              large: false,
-              cover: false,
-              share: false,
-            },
           });
           that.$endLoading('data');
         });
