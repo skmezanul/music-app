@@ -1,22 +1,19 @@
 <template lang="pug">
 section.view-section(:class='{ "collapsed" : isCollapsed }')
-	// section header
-	.section-header(v-if='title')
-		h1 {{ title }}
+  // section header
+  .section-header(v-if='title')
+    h1 {{ title }}
 
-		// show more/less
-		.section-actions(@click='toggleCollapse', v-if='collapsible')
-			span(v-if='!collapsed')
-				| {{ $t("showless") }}
-				i.material-icons keyboard_arrow_up
-			span(v-if='collapsed')
-				| {{ $t("showmore") }}
-				i.material-icons keyboard_arrow_down
+    // show more/less
+    .section-actions(@click='toggleCollapse', v-if='collapsible')
+      .toggle-collapse
+        span {{ $t(collapsed ? 'showmore' : 'showless')}}
+        i.material-icons(:class='{ "collapsed" : isCollapsed }') keyboard_arrow_up
 
-	// section slot
-	slot
+  // section slot
+  slot
 
-	p.copyright(v-if='copyright') {{ copyright }}
+  p.copyright(v-if='copyright') {{ copyright }}
 </template>
 
 <script>
@@ -106,11 +103,17 @@ export default {
     .section-header {
         @include flex($display: flex, $justify: space-between, $align: center);
         .section-actions {
-            span {
-                @include item-hover;
-                @include flex($display: flex, $align: center);
-                white-space: nowrap;
-            }
+          .toggle-collapse {
+              @include item-hover;
+              @include flex($display: flex, $align: center);
+              white-space: nowrap;
+              i {
+                transition: transform 0.3s;
+                &.collapsed {
+                  transform: scaleY(-1);
+                }
+              }
+          }
         }
     }
 }

@@ -3,9 +3,9 @@ header(:class='{ "scrolled" : scrollPosition > 0 }')
   .header-container
     // navigation
     .header-inner.left
-      i.material-icons(@click='routerGo(-1)') keyboard_arrow_left
+      i.back.material-icons(@click='routerGo(-1)') keyboard_arrow_left
 
-      i.material-icons(@click='routerGo(1)') keyboard_arrow_right
+      i.forward.material-icons(@click='routerGo(1)') keyboard_arrow_right
     // search
     .header-inner.middle
       i.material-icons.search-icon search
@@ -19,23 +19,24 @@ header(:class='{ "scrolled" : scrollPosition > 0 }')
     .header-inner.right
       router-link.current-user(
         tag='div',
-        :to='$toRoute("user", { id: currentUser.id })')
+        :to='{ name: "user", params: { id: currentUser.id } }')
         .avatar-container
           img(
             :src='currentUser.images[0].url',
             :alt='currentUser.display_name')
 
         span(v-if='$mq.desktop') {{ currentUser.display_name }}
-      i.toggle.material-icons(@click='toggleDropdown') keyboard_arrow_down
+      i.toggle.material-icons(@click='toggleDropdown', :class='{ "is-open" : userDropdown }') keyboard_arrow_down
       // user dropdown
-      ul.dropdown(
-        v-if='userDropdown',
-        v-on-clickaway='toggleDropdown',
-        @click='toggleDropdown')
-        router-link(tag='li', :to='$toRoute("myaccount")') {{ $t('myaccount') }}
-        router-link(tag='li', :to='$toRoute("settings")') {{ $t('settings') }}
-        router-link(tag='li', :to='$toRoute("debug")') {{ $t('debug') }}
-        li {{ $t('logout') }}
+      transition(name='fade', :duration='250')
+        ul.dropdown(
+          v-if='userDropdown',
+          v-on-clickaway='toggleDropdown',
+          @click='toggleDropdown')
+          router-link(tag='li', :to='{ name: "myaccount" }') {{ $t('myaccount') }}
+          router-link(tag='li', :to='{ name: "settings" }') {{ $t('settings') }}
+          router-link(tag='li', :to='{ name: "debug" }') {{ $t('debug') }}
+          li {{ $t('logout') }}
 </template>
 
 <script>
@@ -139,6 +140,16 @@ header {
                 i {
                     @include item-hover;
                     @include font($size: 2.2em);
+                    &.back {
+                      &:hover {
+                        transform: translateX(-2px);
+                      }
+                    }
+                    &.forward {
+                      &:hover {
+                        transform: translateX(2px);
+                      }
+                    }
                 }
             }
 
@@ -205,7 +216,11 @@ header {
 
                 i {
                     @include item-hover;
-                    padding-left: 10px;
+                    margin-left: 10px;
+                    transform-origin: center;
+                    &.is-open {
+                      transform: scaleY(-1);
+                    }
                 }
             }
         }
