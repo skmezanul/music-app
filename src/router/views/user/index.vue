@@ -36,23 +36,20 @@ export default {
             image: res[0].data.images[0].url,
             subtitle: that.$tc('user', 1),
             title: res[0].data.display_name,
+            meta: `${res[0].data.followers.total} Followers`,
             navigation: [{
-                title: this.$t('overview'),
+                title: that.$t('overview'),
                 routeName: 'user',
               },
               {
-                title: this.$tc('playlist', 0),
+                title: that.$tc('playlist', 0),
                 routeName: 'userPlaylists',
               },
               {
-                title: `${this.$t('following')}`,
+                title: `${that.$t('following')}`,
                 routeName: 'userFollowing',
               },
             ],
-            buttons: [{
-                title: 'follow',
-                icon: 'add_circle',
-            }],
           });
           that.$endLoading('data');
         });
