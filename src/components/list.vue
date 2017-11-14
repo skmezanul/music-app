@@ -1,46 +1,48 @@
 <template lang="pug">
 li.list-item(
-	@dblclick='SET_PLAYBACK({ state: "play", trackid })',
-	:class='{ "playing" : isPlaying }')
+  @dblclick='SET_PLAYBACK({ state: "play", trackid })',
+  :class='{ "playing" : isPlaying }')
 
-	.index-container
-		// image
-		.image-container(v-if='image')
-			i.material-icons(@click='SET_PLAYBACK({ state: isPlaying ? "pause" : "play", trackid })') {{ isPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
+  .index-container
+    // image
+    .image-container(v-if='image')
+      i.playback-toggle.material-icons(
+        @click='SET_PLAYBACK({ state: isPlaying ? "pause" : "play", trackid })',
+        :class='[ isPlaying ? "pause" : "play" ]') {{ isPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
 
-			img(
-				:src='image[0].url',
-				:alt='title')
+      img(
+        :src='image[0].url',
+        :alt='title')
 
-		i.is-playing.material-icons(v-if='!$mq.phone && isPlaying') {{ currentPlayback.is_playing ? 'volume_up' : 'volume_down' }}
-		span.index(v-else-if='!$mq.phone') {{ $formatValue(index, 'index') }}
+    i.is-playing.material-icons(v-if='!$mq.phone && isPlaying') {{ currentPlayback.is_playing ? 'volume_up' : 'volume_down' }}
+    span.index(v-else-if='!$mq.phone') {{ $formatValue(index, 'index') }}
 
-	// meta
-	.meta-container
-		span.title {{ title }}
-		.artist-container(v-if='artists')
-			router-link(
-				v-for='artist in artists',
-				:key='artist.id',
-				:to='$toRoute("artist", { id: artist.id })') {{ artist.name }}
-	.label-container
-		i.material-icons(
-			v-if='explicit',
-			v-tooltip='{ content: $t("explicit") }') explicit
+  // meta
+  .meta-container
+    span.title {{ title }}
+    .artist-container(v-if='artists')
+      router-link(
+        v-for='artist in artists',
+        :key='artist.id',
+        :to='{ name: artist.type, params: { id: artist.id }}') {{ artist.name }}
+  .label-container
+    i.material-icons(
+      v-if='explicit',
+      v-tooltip='{ content: $t("explicit") }') explicit
 
-	// album name
-	.album-container(v-if='album')
-		router-link(:to='$toRoute("album", { id: album.id })') {{ album.name }}
+  // album name
+  .album-container(v-if='album')
+    router-link(:to='{ name: album.type, params: { id: album.id }}') {{ album.name }}
 
-	// duration
-	span.duration {{ $formatValue(duration, 'time') }}
+  // duration
+  span.duration {{ $formatValue(duration, 'time') }}
 
-	// actions
-	.action-container(v-if='!$mq.phone')
-		i.playlistadd.material-icons(
-			v-tooltip='{ content: $t("addtoplaylist") }') playlist_add
-		i.more.material-icons(
-			v-tooltip='{ content: $t("more") }') more_horiz
+  // actions
+  .action-container(v-if='!$mq.phone')
+    i.playlistadd.material-icons(
+      v-tooltip='{ content: $t("addtoplaylist") }') playlist_add
+    i.more.material-icons(
+      v-tooltip='{ content: $t("more") }') more_horiz
 </template>
 
 <script>
@@ -105,7 +107,7 @@ export default {
         align-items: center;
         padding-right: 2em;
         background-color: $grey;
-        transition: all 0.3s;
+        transition: background-color 0.3s;
         grid-template-columns: auto minmax(auto, 1fr) minmax(auto, 40px) minmax(auto, 1fr) repeat(2, minmax(auto, 80px));
         grid-template-areas: "index meta labels album duration actions";
         grid-column-gap: 1em;
@@ -117,11 +119,8 @@ export default {
             cursor: pointer;
             .index-container {
                 .image-container {
-                    i {
+                    .playback-toggle {
                         @include font($color: $white);
-                        &.playing {
-                            visibility: hidden;
-                        }
                     }
                     img {
                         filter: brightness(50%);
@@ -138,7 +137,7 @@ export default {
                 img {
                     transition: filter 0.3s;
                 }
-                i {
+                .playback-toggle {
                     @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 1);
                     @include flex($display: flex, $justify: center, $align: center);
                     @include font($size: 2.5em, $color: rgba($white, 0));

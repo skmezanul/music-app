@@ -20,14 +20,6 @@ new Vue({
   render: h => h(app),
 });
 
-Vue.prototype.$toRoute = function toTarget(name, params) {
-  const target = {
-    name,
-    params,
-  };
-  return target;
-};
-
 Vue.prototype.$formatValue = function formatValue(value, type) {
   let formattedValue = value;
 

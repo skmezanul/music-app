@@ -46,7 +46,7 @@
     nav.subnav-container(v-if='stage.navigation && !$mq.phone')
       ul
         li(v-for='navitem in stage.navigation')
-          router-link(:to='$toRoute(navitem.routeName, { id: $route.params.id })') {{ navitem.title }}
+          router-link(:to='{ name: navitem.routeName, params: { id: $route.params.id }}') {{ navitem.title }}
 </template>
 
 <script>

@@ -5,19 +5,25 @@ footer
     router-link.cover-container(
       v-if='$mq.desktop',
       tag='div',
-      :to='$toRoute("artist", { id: currentPlayback.item.artists[0].id })')
+      :to='{ name: "artist", params: { id: currentPlayback.item.artists[0].id }}')
       ma-button(type='overlay', @click.prevent.native='setAppSettings({ setting: "largeCover", value: true })', icon='keyboard_arrow_up')
       img(
         :src='currentPlayback.item.album.images[0].url',
         :alt='currentPlayback.item.name')
 
     .currently-playing
-      router-link.title(:to='$toRoute("album", { id: currentPlayback.item.album.id })') {{ currentPlayback.item.name }}
+      router-link.title(:to='{ name: "album", params: { id: currentPlayback.item.album.id }}') {{ currentPlayback.item.name }}
       .artist-container
         router-link.artist(
           v-for='artist in currentPlayback.item.artists',
           :key='artist.id',
-          :to='$toRoute("artist", { id: artist.id })') {{ artist.name }}
+          :to='{ name: "artist", params: { id: artist.id }}') {{ artist.name }}
+
+    transition(name='fade')
+      .background-container(v-if='!settings.largeCover && !$mq.phone',)
+        img(
+          :src='currentPlayback.item.album.images[0].url',
+          :alt='currentPlayback.item.name')
 
   // playback controls
   .footer-container.middle
@@ -140,6 +146,7 @@ export default {
 footer {
     @include absolute($right: 0, $bottom: 0, $left: 0, $z-index: 998);
     @include flex($display: flex, $align: center, $wrap: wrap);
+    overflow: hidden;
     padding: 15px 20px;
     border-top: 1px solid $border-color;
     background: $dark-grey;
@@ -162,6 +169,22 @@ footer {
                         opacity: 0;
                     }
                 }
+            }
+
+            .background-container {
+              @include absolute($top: -15px, $bottom: 0, $left: -20px, $z-index: -1);
+              @include flex($display: flex, $justify: center, $align: center);
+              overflow: hidden;
+              max-width: 400px;
+              height: 81px;
+              img {
+                filter: blur(3px);
+              }
+              &:before {
+                  @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 1);
+                  background: ease-in-out-sine-gradient(to left, $main-bg-color, rgba($main-bg-color, 0.5)), radial-gradient(circle, rgba($main-bg-color, 0.3), $main-bg-color);
+                  content: "";
+              }
             }
 
             .cover-container {

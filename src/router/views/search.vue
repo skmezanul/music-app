@@ -39,7 +39,7 @@
           :secondaryid='album.artists[0].id',
           :image='album.images',
           :title='album.name',
-          :artist='album.artists')
+          :artists='album.artists')
 
 		// artists
 		ma-section(

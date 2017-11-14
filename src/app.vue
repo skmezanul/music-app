@@ -43,7 +43,7 @@ import { mapActions, mapGetters } from 'vuex';
 import maHeader from '@/components/layout/header';
 import maFooter from '@/components/layout/footer';
 import maSidebar from '@/components/layout/sidebar';
-import maVideo from '@/components/video';
+import maVideo from '@/components/modals/video';
 import maLoading from '@/components/loader';
 
 export default {

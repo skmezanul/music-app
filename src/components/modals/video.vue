@@ -20,7 +20,7 @@ ma-modal(
             v-for='artist in currentPlayback.item.artists',
             :key='artist.id',
             @click.native='closeVideo',
-            :to='$toRoute("artist", { id: artist.id })') {{ artist.name }}
+            :to='{ name: "artist", params: { id: artist.id }}') {{ artist.name }}
       ma-button(
         type='overlay',
         @click.native='closeVideo',

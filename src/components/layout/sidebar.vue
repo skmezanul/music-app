@@ -33,7 +33,7 @@ nav.sidebar-container
 				li(
 					v-for='playlist in playlists',
 					:key='playlist.id')
-					router-link(:to='$toRoute("playlist", { id: playlist.id, owner: playlist.owner.id })')
+					router-link(:to='{ name: "playlist", params: { id: playlist.id, owner: playlist.owner.id }}')
 						i.material-icons playlist_play
 						span {{ playlist.name }}
 
@@ -47,7 +47,7 @@ nav.sidebar-container
 		transition(name='slide-up-margin')
 			router-link.cover-container(
 				tag='div',
-				:to='$toRoute("artist", { id: currentPlayback.item.artists[0].id })',
+				:to='{ name: "artist", params: { id: currentPlayback.item.artists[0].id }}',
 				v-if='settings.largeCover')
 				ma-button(type='overlay', @click.prevent.native='setAppSettings({ setting: "largeCover", value: false })', icon='close')
 				img(

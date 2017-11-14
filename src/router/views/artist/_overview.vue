@@ -34,7 +34,7 @@
         :secondaryid='album.artists[0].id',
         :image='album.images',
         :title='album.name',
-        :artist='album.artists')
+        :artists='album.artists')
 
 	// singles
 	ma-section(
@@ -51,7 +51,7 @@
         :secondaryid='single.artists[0].id',
         :image='single.images',
         :title='single.name',
-        :artist='single.artists')
+        :artists='single.artists')
 
 	// appears on
 	ma-section(
@@ -68,5 +68,5 @@
         :secondaryid='album.artists[0].id',
         :image='album.images',
         :title='album.name',
-        :artist='album.artists')
+        :artists='album.artists')
 </template>

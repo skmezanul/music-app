@@ -36,7 +36,7 @@ export default {
             image: res[0].data.images[0].url,
             subtitle: that.$tc('user', 1),
             title: res[0].data.display_name,
-            meta: `${res[0].data.followers.total} Followers`,
+            meta: `${res[0].data.followers.total} ${that.$tc('follower', 0)}`,
             navigation: [{
                 title: that.$t('overview'),
                 routeName: 'user',

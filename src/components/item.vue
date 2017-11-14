@@ -4,10 +4,10 @@ router-link.section-item(
 	:class='type',
 	@mouseover.native='overlay = true',
 	@mouseleave.native='overlay = false',
-	:to='$toRoute(type, { id: primaryid, owner: secondaryid })')
+	:to='{ name: type, params: { id: primaryid, owner: secondaryid }}')
 
 	// overlay
-	transition(name='fade')
+	transition(name='fade', @beforeEnter='getColorFromAlbumCover')
 		.item-overlay(
 			v-show='hasOverlay && overlay',
 			:style='{ background: color }')
@@ -15,13 +15,8 @@ router-link.section-item(
 			.overlay-inner
 				i.favorite.material-icons favorite
 
-				i.play.material-icons(
-					v-if='!playing',
-					@click.prevent='togglePlaying') play_circle_filled
-
-				i.play.material-icons(
-					v-if='playing',
-					@click.prevent='togglePlaying') pause_circle_filled
+				i.playback-toggle.material-icons(
+					@click.prevent='togglePlaying', :class='[ playing ? "pause" : "play" ]') {{ playing ? 'pause_circle_filled' : 'play_circle_filled' }}
 
 				i.more.material-icons more_horiz
 
@@ -35,11 +30,11 @@ router-link.section-item(
 	.meta-container
 		.meta-container-inner
 			span {{ title }}
-			.artist-container(v-if='artist')
+			.artist-container(v-if='artists')
 				router-link.artist(
-					v-for='item in artist',
-					:key='item.id',
-					:to='$toRoute("artist", { id: item.id })') {{ item.name }}
+					v-for='artist in artists',
+					:key='artist.id',
+					:to='{ name: artist.type, params: { id: artist.id }}') {{ artist.name }}
 </template>
 
 <script>
@@ -58,12 +53,9 @@ export default {
     'primaryid',
     'secondaryid',
     'title',
-    'artist',
+    'artists',
     'image',
   ],
-  watch: {
-    'overlay': 'getColorFromAlbumCover',
-  },
   methods: {
     // toggle playing state
     togglePlaying() {
@@ -73,15 +65,15 @@ export default {
     // get overlay color from album cover
     getColorFromAlbumCover() {
       const that = this,
-        overlayColor = that.color,
-        albumCover = that.image[0].url;
-      if (!overlayColor) {
+            overlayColor = that.color,
+            albumCover = that.image[0].url;
+      if (!overlayColor && albumCover) {
         Vibrant.from(albumCover).getPalette()
           .then((palette) => {
             const fromColor = `rgba(${palette.Muted.getRgb()}, 1)`,
               toColor = 'rgba(80, 80, 80, 0.5)';
 
-            that.color = `linear-gradient(to top, ${fromColor} 25%, ${toColor} 100%)`;
+            that.color = `linear-gradient(to top, ${fromColor} 30%, ${toColor} 100%)`;
           });
       }
     },
@@ -130,7 +122,7 @@ export default {
                 &:not(.play) {
                     @include item-hover;
                 }
-                &.play {
+                &.playback-toggle {
                     @include font($size: 4.5em);
                     transition: transform 0.3s;
                     &:hover {

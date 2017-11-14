@@ -15,7 +15,7 @@
           :primaryid='item.album.id',
           :image='item.album.images',
           :title='item.album.name',
-          :artist='item.album.artists')
+          :artists='item.album.artists')
 </template>
 
 <script>

@@ -11,5 +11,5 @@
         :primaryid='album.id',
         :image='album.images',
         :title='album.name',
-        :artist='album.artists')
+        :artists='album.artists')
 </template>
