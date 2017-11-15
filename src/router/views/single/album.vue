@@ -1,9 +1,9 @@
 <template lang="pug">
-.view-parent(v-if='!$isLoading("data")')
+.view-parent
 	// stage
-	ma-stage
+	ma-stage(v-show='!$isLoading("data")')
 
-	.view-content
+	.view-content(v-if='!$isLoading("data")')
 		// tracks
 		ma-section(:copyright='data.album.copyrights[0].text')
 

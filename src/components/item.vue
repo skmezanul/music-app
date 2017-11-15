@@ -71,7 +71,7 @@ export default {
         Vibrant.from(albumCover).getPalette()
           .then((palette) => {
             const fromColor = `rgba(${palette.Muted.getRgb()}, 1)`,
-              toColor = 'rgba(80, 80, 80, 0.5)';
+                  toColor = 'rgba(80, 80, 80, 0.5)';
 
             that.color = `linear-gradient(to top, ${fromColor} 30%, ${toColor} 100%)`;
           });

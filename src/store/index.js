@@ -34,6 +34,7 @@ const store = new Vuex.Store({
     currentPlayback: [],
     currentUser: [],
     playlists: [],
+    following: [],
     notices: [],
     stage: {
       image: '',

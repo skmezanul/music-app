@@ -1,10 +1,10 @@
 <template lang="pug">
-.view-parent(v-if='!$isLoading("data")')
+.view-parent
 	// stage
-	ma-stage
+	ma-stage(v-show='!$isLoading("data")')
 
 	// router view
-	router-view
+	router-view(v-if='!$isLoading("data")')
 </template>
 
 <script>

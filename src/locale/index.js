@@ -7,7 +7,7 @@ import ES from './es';
 
 Vue.use(VueI18n);
 
-let locale;
+let locale = 'EN';
 
 if (typeof store.getters.getCountry !== 'undefined') {
   // set language
@@ -15,16 +15,13 @@ if (typeof store.getters.getCountry !== 'undefined') {
     case 'DE':
       locale = 'DE';
       break;
-    case 'EN':
-    default:
-      locale = 'EN';
-      break;
     case 'ES':
       locale = 'ES';
       break;
+    default:
   }
   // set html lang attribute to current language
-  document.documentElement.lang = locale;
+  document.documentElement.lang = locale.toLowerCase();
 }
 
 const messages = {

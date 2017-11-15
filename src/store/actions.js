@@ -2,13 +2,31 @@ import Vue from 'vue';
 
 export default {
   // get the current user's profile
-  GET_CURRENT_USER({ commit }, type) {
+  GET_CURRENT_USER({ commit }, dataToFetch) {
+    let url;
+    let type;
+    switch (dataToFetch) {
+      case 'profile':
+      default:
+        url = '/me';
+        break;
+      case 'playlists':
+        url = '/me/playlists';
+        break;
+      case 'following':
+        url = '/me/following';
+        type = 'artist';
+        break;
+    }
     Vue.prototype.$spotifyApi({
       method: 'get',
-      url: (type === 'playlists') ? '/me/playlists' : '/me',
+      url,
+      params: {
+        type,
+      },
     }).then((res) => {
       commit('CURRENT_USER', {
-        type,
+        dataToFetch,
         data: res.data,
       });
     });

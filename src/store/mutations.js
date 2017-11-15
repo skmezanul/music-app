@@ -9,28 +9,30 @@ export default {
     that.expiryTime = expiryTime;
   },
 
-  // push the current playback to state
+  // push the current playback to store
   CURRENT_PLAYBACK(state, data) {
     const that = state;
     that.currentPlayback = data;
   },
 
-  // push the current users profile or playlists to state
+  // push the current users profile, playlists or following to store
   CURRENT_USER(state, payload) {
     const that = state;
-    let target;
+    let targetState;
 
-    switch (payload.type) {
-      default:
+    switch (payload.dataToFetch) {
       case 'profile':
-        target = 'currentUser';
+      default:
+        targetState = 'currentUser';
         break;
-
       case 'playlists':
-        target = 'playlists';
+        targetState = 'playlists';
+        break;
+      case 'following':
+        targetState = 'following';
         break;
     }
-    that[target] = payload.data;
+    that[targetState] = payload.data;
   },
 
   // add or remove notice
@@ -59,7 +61,7 @@ export default {
     that.settings[payload.setting] = payload.value;
   },
 
-  // set stage content
+  // push stage content to store
   SET_STAGE(state, payload) {
     const that = state;
     that.stage = payload;

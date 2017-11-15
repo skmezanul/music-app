@@ -31,7 +31,8 @@
             :key='index',
             :ref='`button-${button.title}`',
             :type='{ "accent" : index === 0 }',
-            :class='button.title',
+            :class='`button-${button.title}`',
+            @click.native='stageAction(button.title)',
             :icon='button.icon',
             :title='button.title')
         ma-button(
@@ -50,13 +51,43 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   props: [
     'title',
     'subtitle',
   ],
+  methods: {
+    ...mapActions(['GET_CURRENT_USER']),
+
+    stageAction(event) {
+      const that = this;
+
+      switch(event) {
+        case 'follow':
+        default:
+          that.follow();
+          break;
+      }
+    },
+    follow() {
+      const that = this;
+
+      if(that.$route.params.id) {
+        that.$spotifyApi({
+          method: 'put',
+          url: '/me/following',
+          params: {
+            type: 'artist',
+            ids: that.$route.params.id,
+          },
+        }).then(() => {
+          that.GET_CURRENT_USER('following');
+        });
+      }
+    },
+  },
   computed: {
     ...mapGetters({
       stage: 'getStageContent',

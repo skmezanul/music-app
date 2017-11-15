@@ -52,6 +52,7 @@ export default {
     // already being observed
     this.GET_CURRENT_USER('profile');
     this.GET_CURRENT_USER('playlists');
+    this.GET_CURRENT_USER('following');
     this.GET_CURRENT_PLAYBACK();
   },
   methods: {
