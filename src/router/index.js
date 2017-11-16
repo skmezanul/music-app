@@ -34,7 +34,7 @@ router.beforeEach((to, from, next) => {
  * Clear stage state between route changes.
  */
 router.afterEach((to, from) => {
-  if (from.matched[0].path !== to.matched[0].path) {
+  if (to.path !== from.path) {
     store.commit('SET_STAGE', {});
   }
 });

@@ -27,11 +27,11 @@ ma-modal(
         icon='close')
 
   iframe(
-    v-if='videoId',
+    v-if='videoid',
     width='100%',
     height='100%',
     frameborder='0',
-    :src='`https://www.youtube-nocookie.com/embed/${videoId}?${options}`')
+    :src='`https://www.youtube-nocookie.com/embed/${videoid}?${options}`')
 </template>
 
 <script>
@@ -41,7 +41,7 @@ import { stringify } from 'query-string';
 export default {
   data() {
     return {
-      videoId: '',
+      videoid: '',
       overlay: false,
       options: {
         autoplay: 1,
@@ -63,7 +63,7 @@ export default {
       that.axios.all([
           that.getVideoId(),
         ]).then((res) => {
-          that.videoId = res[0].data.items[0].id.videoId;
+          that.videoid = res[0].data.items[0].id.videoId;
         }).catch((err) => {
           that.$store.commit('ADD_NOTICE', `Error loading video: ${err.message}`);
         });

@@ -73,12 +73,12 @@ export default {
     },
 
     // get artist info from the api
-    getArtistInfo(artistId) {
+    getArtistInfo(artistid) {
       const that = this;
 
       that.$spotifyApi({
         method: 'get',
-        url: `/artists/${artistId}`,
+        url: `/artists/${artistid}`,
       }).then((res) => {
         that.data.artist = res.data;
       });

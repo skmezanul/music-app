@@ -39,7 +39,7 @@ const store = new Vuex.Store({
       image: '',
       title: '',
       subtitle: '',
-      artistId: '',
+      artistid: '',
       meta: '',
       buttons: {},
       navigation: [],

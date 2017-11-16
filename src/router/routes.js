@@ -49,8 +49,8 @@ export default [{
     name: 'browse',
     meta: {
       stage: {
-        buttons: {
-        },
+        cover: false,
+        large: false,
       },
     },
     component: browseOverview,
@@ -60,8 +60,8 @@ export default [{
     name: 'browseCharts',
     meta: {
       stage: {
-        buttons: {
-        },
+        cover: false,
+        large: false,
       },
     },
     component: browseCharts,
@@ -71,8 +71,8 @@ export default [{
     name: 'browseCategories',
     meta: {
       stage: {
-        buttons: {
-        },
+        cover: false,
+        large: false,
       },
     },
     component: browseCategories,
@@ -82,8 +82,8 @@ export default [{
     name: 'browseReleases',
     meta: {
       stage: {
-        buttons: {
-        },
+        cover: false,
+        large: false,
       },
     },
     component: browseReleases,
@@ -93,8 +93,8 @@ export default [{
     name: 'browseDiscover',
     meta: {
       stage: {
-        buttons: {
-        },
+        cover: false,
+        large: false,
       },
     },
     component: browseDiscover,
@@ -109,6 +109,7 @@ export default [{
     name: 'artist',
     meta: {
       stage: {
+        cover: false,
         large: true,
       },
     },
@@ -119,6 +120,8 @@ export default [{
     name: 'artistRelated',
     meta: {
       stage: {
+        cover: false,
+        large: false,
       },
     },
     component: artistRelated,
@@ -128,6 +131,8 @@ export default [{
     name: 'artistAbout',
     meta: {
       stage: {
+        cover: false,
+        large: false,
       },
     },
     component: artistAbout,
@@ -143,6 +148,7 @@ export default [{
     meta: {
       stage: {
         cover: true,
+        large: false,
       },
     },
     component: userOverview,
@@ -153,10 +159,7 @@ export default [{
     meta: {
       stage: {
         cover: true,
-        buttons: {
-          follow: true,
-          share: true,
-        },
+        large: false,
       },
     },
     component: userPlaylists,
@@ -167,6 +170,7 @@ export default [{
     meta: {
       stage: {
         cover: true,
+        large: false,
       },
     },
     component: userFollowing,
@@ -179,6 +183,7 @@ export default [{
   meta: {
     stage: {
       cover: true,
+      large: false,
     },
   },
   component: album,
@@ -189,6 +194,7 @@ export default [{
   meta: {
     stage: {
       cover: true,
+      large: false,
     },
   },
   component: playlist,
@@ -198,6 +204,8 @@ export default [{
   name: 'category',
   meta: {
     stage: {
+      cover: false,
+      large: false,
     },
   },
   component: category,
@@ -207,6 +215,8 @@ export default [{
   name: 'search',
   meta: {
     stage: {
+      cover: false,
+      large: false,
     },
   },
   component: search,
@@ -216,6 +226,7 @@ export default [{
   name: 'mylibraryHistory',
   meta: {
     stage: {
+      cover: false,
       large: true,
     },
   },
@@ -226,6 +237,8 @@ export default [{
   name: 'mylibraryTracks',
   meta: {
     stage: {
+      cover: false,
+      large: false,
     },
   },
   component: mylibraryTracks,
@@ -235,6 +248,8 @@ export default [{
   name: 'mylibraryAlbums',
   meta: {
     stage: {
+      cover: false,
+      large: false,
     },
   },
   component: mylibraryAlbums,
@@ -244,8 +259,8 @@ export default [{
   name: 'settings',
   meta: {
     stage: {
-      buttons: {
-      },
+      cover: false,
+      large: false,
     },
   },
   component: settings,
@@ -255,8 +270,8 @@ export default [{
   name: 'debug',
   meta: {
     stage: {
-      buttons: {
-      },
+      cover: false,
+      large: false,
     },
   },
   component: debug,
