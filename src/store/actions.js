@@ -4,7 +4,7 @@ export default {
   // get the current user's profile
   GET_CURRENT_USER({ commit }, dataToFetch) {
     let url;
-    let type;
+
     switch (dataToFetch) {
       case 'profile':
       default:
@@ -13,17 +13,11 @@ export default {
       case 'playlists':
         url = '/me/playlists';
         break;
-      case 'following':
-        url = '/me/following';
-        type = 'artist';
-        break;
     }
+
     Vue.prototype.$spotifyApi({
       method: 'get',
       url,
-      params: {
-        type,
-      },
     }).then((res) => {
       commit('CURRENT_USER', {
         dataToFetch,
@@ -40,6 +34,7 @@ export default {
     }).then((res) => {
       // push current playback to store
       commit('CURRENT_PLAYBACK', res.data);
+
       // re-fetch after track ended
       dispatch('REFETCH_TIMER', {
         playbackProgress: res.data.progress_ms,
@@ -51,6 +46,7 @@ export default {
   // TODO: refetch timer
   REFETCH_TIMER({ dispatch }, payload) {
     const remainingTime = (payload.trackDuration - payload.playbackProgress);
+
     new Promise(resolve => setTimeout(resolve, remainingTime)).then(() => {
       dispatch('GET_CURRENT_PLAYBACK');
     });

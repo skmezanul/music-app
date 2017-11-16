@@ -53,6 +53,10 @@ export default {
                 routeName: 'userFollowing',
               },
             ],
+            buttons: {
+              follow: true,
+              share: true,
+            },
           });
           that.$endLoading('data');
         });

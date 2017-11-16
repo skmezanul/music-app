@@ -51,23 +51,23 @@ export default {
             subtitle: that.$t('browse'),
             title: that.getGreeting,
             navigation: [{
-                title: this.$t('overview'),
+                title: that.$t('overview'),
                 routeName: 'browse',
               },
               {
-                title: this.$t('charts'),
+                title: that.$t('charts'),
                 routeName: 'browseCharts',
               },
               {
-                title: this.$tc('category', 0),
+                title: that.$tc('category', 0),
                 routeName: 'browseCategories',
               },
               {
-                title: this.$t('newreleases'),
+                title: that.$t('newreleases'),
                 routeName: 'browseReleases',
               },
               {
-                title: this.$t('discover'),
+                title: that.$t('discover'),
                 routeName: 'browseDiscover',
               },
             ],

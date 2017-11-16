@@ -57,15 +57,11 @@ export default {
             subtitle: that.$tc('playlist', 1),
             title: res[0].data.name,
             meta: res[0].data.description,
-            buttons: [{
-                title: 'playall',
-                icon: 'play_circle_filled',
-              },
-              {
-                title: 'follow',
-                icon: 'add_circle',
-              },
-            ],
+            buttons: {
+              playall: true,
+              save: true,
+              share: true,
+            },
           });
           that.$endLoading('data');
         });

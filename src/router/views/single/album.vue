@@ -53,16 +53,12 @@ export default {
             image: res[0].data.images[0].url,
             subtitle: that.$tc('album', 1),
             title: res[0].data.name,
-            meta: `${that.$t('by')} ${res[0].data.artists[0].name}`,
-            buttons: [{
-                title: 'playall',
-                icon: 'play_circle_filled',
-              },
-              {
-                title: 'save',
-                icon: 'save',
-              },
-            ],
+            artist: res[0].data.artists,
+            buttons: {
+              playall: true,
+              save: true,
+              share: true,
+            },
           });
           that.$endLoading('data');
         });

@@ -22,24 +22,34 @@
     .stage-inner
       h2(v-if='subtitle || stage.subtitle') {{ subtitle || stage.subtitle }}
       h1(v-if='title || stage.title') {{ title || stage.title }}
-      .meta-container(v-if='stage.meta && !$mq.phone')
-        p(v-html='$formatValue(stage.meta)')
-      .button-container(v-if='stage.buttons || $route.meta.stage.shareButton')
+      .meta-container(v-if='stage.meta || stage.artist && !$mq.phone')
+        p {{ stage.artist ? $t('by') : $formatValue(stage.meta) }}
+          router-link.artist(
+            v-if='stage.artist',
+            tag='span',
+            :to='{ name: "artist", params: { id: stage.artist[0].id } }') {{ stage.artist[0].name }}
+      .button-container(v-if='stage.buttons || stage.buttons && stage.buttons.share')
         .button-group(v-if='stage.buttons')
+          // play all
           ma-button(
-            v-for='(button, index) in stage.buttons',
-            :key='index',
-            :ref='`button-${button.title}`',
-            :type='{ "accent" : index === 0 }',
-            :class='`button-${button.title}`',
-            @click.native='stageAction(button.title)',
-            :icon='button.icon',
-            :title='button.title')
+            v-if='stage.buttons.playall',
+            type='accent',
+            icon='play_circle_filled',
+            title='playall')
+          // follow / unfollow
+          ma-button(
+            v-if='stage.buttons.follow',
+            :icon='following ? "check" : "add_circle"',
+            :title='following ? "following" : "follow"')
+          // save
+          ma-button(
+            v-if='stage.buttons.save',
+            icon='save',
+            title='save')
+        // share
         ma-button(
-          v-if='$route.meta.stage.shareButton',
-          :ref='button-share',
+          v-if='stage.buttons.share',
           type='transparent',
-          class='share',
           icon='share',
           title='share')
 
@@ -54,10 +64,21 @@
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
+  data() {
+    return {
+      following: false,
+    }
+  },
   props: [
     'title',
     'subtitle',
   ],
+  created() {
+    this.isFollowing();
+  },
+  beforeUpdate() {
+    this.isFollowing();
+  },
   methods: {
     ...mapActions(['GET_CURRENT_USER']),
 
@@ -71,10 +92,38 @@ export default {
           break;
       }
     },
+
+    // check if current user is following this artist or playlist
+    isFollowing() {
+      const that = this;
+
+      if (that.$route.params.id) {
+        switch (that.$route.name) {
+          case 'artist':
+          case 'user':
+            that.$spotifyApi({
+              method: 'get',
+              url: '/me/following/contains',
+              params: {
+                type: that.$route.name,
+                ids: that.$route.params.id,
+              },
+            }).then((res) => {
+              that.following = res.data[0];
+            });
+            break;
+
+          default:
+            return;
+        }
+      }
+    },
+
+    // follow or unfollow this artist or playlist
     follow() {
       const that = this;
 
-      if(that.$route.params.id) {
+      if (that.$route.params.id) {
         that.$spotifyApi({
           method: 'put',
           url: '/me/following',
@@ -201,12 +250,14 @@ export default {
                 p {
                     @include font($size: 1.2em, $line: 1.3em, $color: rgba($white, 0.7));
                     margin: 0;
-                    a:link {
-                        @include font($size: inherit);
-                        transition: color 0.3s;
-                        &:hover {
-                            @include font($color: $white);
-                        }
+                    .artist {
+                      transition: color 0.3s;
+                      display: inline-block;
+                      margin-left: 5px;
+                      &:hover {
+                        color: $white;
+                        cursor: pointer;
+                      }
                     }
                 }
             }

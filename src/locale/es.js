@@ -39,6 +39,8 @@ export default {
   },
   playall: 'Reproducir',
   follow: 'Seguir',
+  following: 'Siguiendo',
+  unfollow: 'Dejar de seguir',
   save: 'Salvar',
   edit: 'Editar',
   share: 'Compartir',
@@ -53,5 +55,4 @@ export default {
   continuetospotify: 'Continuar a spotify',
   user: 'Usuario | Usuarios',
   follower: 'Seguidor | Seguidores',
-  following: 'Siguiendo',
 };

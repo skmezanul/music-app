@@ -49,6 +49,8 @@ export default [{
     name: 'browse',
     meta: {
       stage: {
+        buttons: {
+        },
       },
     },
     component: browseOverview,
@@ -58,6 +60,8 @@ export default [{
     name: 'browseCharts',
     meta: {
       stage: {
+        buttons: {
+        },
       },
     },
     component: browseCharts,
@@ -67,6 +71,8 @@ export default [{
     name: 'browseCategories',
     meta: {
       stage: {
+        buttons: {
+        },
       },
     },
     component: browseCategories,
@@ -76,6 +82,8 @@ export default [{
     name: 'browseReleases',
     meta: {
       stage: {
+        buttons: {
+        },
       },
     },
     component: browseReleases,
@@ -85,6 +93,8 @@ export default [{
     name: 'browseDiscover',
     meta: {
       stage: {
+        buttons: {
+        },
       },
     },
     component: browseDiscover,
@@ -100,7 +110,6 @@ export default [{
     meta: {
       stage: {
         large: true,
-        shareButton: true,
       },
     },
     component: artistOverview,
@@ -110,7 +119,6 @@ export default [{
     name: 'artistRelated',
     meta: {
       stage: {
-        shareButton: true,
       },
     },
     component: artistRelated,
@@ -120,7 +128,6 @@ export default [{
     name: 'artistAbout',
     meta: {
       stage: {
-        shareButton: true,
       },
     },
     component: artistAbout,
@@ -146,6 +153,10 @@ export default [{
     meta: {
       stage: {
         cover: true,
+        buttons: {
+          follow: true,
+          share: true,
+        },
       },
     },
     component: userPlaylists,
@@ -168,7 +179,6 @@ export default [{
   meta: {
     stage: {
       cover: true,
-      shareButton: true,
     },
   },
   component: album,
@@ -179,7 +189,6 @@ export default [{
   meta: {
     stage: {
       cover: true,
-      shareButton: true,
     },
   },
   component: playlist,
@@ -235,6 +244,8 @@ export default [{
   name: 'settings',
   meta: {
     stage: {
+      buttons: {
+      },
     },
   },
   component: settings,
@@ -244,6 +255,8 @@ export default [{
   name: 'debug',
   meta: {
     stage: {
+      buttons: {
+      },
     },
   },
   component: debug,

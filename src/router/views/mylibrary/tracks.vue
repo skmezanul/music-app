@@ -56,15 +56,9 @@ export default {
             image: res[0].data.items[0].track.album.images[0].url,
             subtitle: that.$t('library'),
             title: that.$tc('track', 0),
-            buttons: [{
-                title: 'playall',
-                icon: 'play_circle_filled',
-              },
-              {
-                title: 'edit',
-                icon: 'mode_edit',
-              },
-            ],
+            buttons: {
+              playall: true,
+            },
           });
           that.$endLoading('data');
         });

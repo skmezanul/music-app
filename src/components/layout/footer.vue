@@ -178,7 +178,7 @@ footer {
               max-width: 400px;
               height: 81px;
               img {
-                filter: blur(3px);
+                filter: saturate(150%) blur(3px);
               }
               &:before {
                   @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 1);

@@ -60,27 +60,23 @@ export default {
             subtitle: that.$tc('artist', 1),
             title: res[0].data.name,
             navigation: [{
-                title: this.$t('overview'),
+                title: that.$t('overview'),
                 routeName: 'artist',
               },
               {
-                title: this.$t('relatedartists'),
+                title: that.$t('relatedartists'),
                 routeName: 'artistRelated',
               },
               {
-                title: this.$t('about'),
+                title: that.$t('about'),
                 routeName: 'artistAbout',
               },
             ],
-            buttons: [{
-                title: 'playall',
-                icon: 'play_circle_filled',
-              },
-              {
-                title: 'follow',
-                icon: 'add_circle',
-              },
-            ],
+            buttons: {
+              playall: true,
+              follow: true,
+              share: true,
+            },
           });
           that.$endLoading('data');
         });

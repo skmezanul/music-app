@@ -34,14 +34,15 @@ const store = new Vuex.Store({
     currentPlayback: [],
     currentUser: [],
     playlists: [],
-    following: [],
     notices: [],
     stage: {
       image: '',
       title: '',
       subtitle: '',
+      artistId: '',
+      meta: '',
+      buttons: {},
       navigation: [],
-      buttons: [],
     },
     settings: {
       accentColor: '#ca2a59',

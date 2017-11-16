@@ -3,7 +3,6 @@ export default {
   SET_CREDENTIALS(state, payload) {
     const that = state.credentials;
     const expiryTime = Date.now() + (payload.expires_in * 1000);
-
     that.accessToken = payload.access_token;
     that.refreshToken = payload.refresh_token;
     that.expiryTime = expiryTime;
@@ -28,10 +27,8 @@ export default {
       case 'playlists':
         targetState = 'playlists';
         break;
-      case 'following':
-        targetState = 'following';
-        break;
     }
+
     that[targetState] = payload.data;
   },
 
@@ -48,7 +45,6 @@ export default {
       case 'add':
         that.notices.unshift(notice);
         break;
-
       case 'remove':
         that.notices.shift();
         break;
