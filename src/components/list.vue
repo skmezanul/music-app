@@ -25,9 +25,8 @@ li.list-item(
         v-for='artist in artists',
         :key='artist.id',
         :to='{ name: artist.type, params: { id: artist.id }}') {{ artist.name }}
-  .label-container
-    i.material-icons(
-      v-if='explicit',
+  .label-container(v-if='explicit')
+    i.explicit.material-icons(
       v-tooltip='{ content: $t("explicit") }') explicit
 
   // album name
