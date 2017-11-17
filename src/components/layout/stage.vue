@@ -76,9 +76,6 @@ export default {
   created() {
     this.isFollowing();
   },
-  beforeUpdate() {
-    this.isFollowing();
-  },
   methods: {
     ...mapActions(['GET_CURRENT_USER']),
 

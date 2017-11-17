@@ -35,13 +35,9 @@ footer
 
     i.skip.material-icons(@click='SKIP("previous")') skip_previous
 
-    i.toggle.play.material-icons(
-      v-show='!currentPlayback.is_playing',
-      @click='SET_PLAYBACK({state: "play"})') play_circle_filled
-
-    i.toggle.pause.material-icons(
-      v-show='currentPlayback.is_playing',
-      @click='SET_PLAYBACK({state: "pause"})') pause_circle_filled
+    i.toggle.material-icons(
+      :class='currentPlayback.is_playing ? "pause" : "play"',
+      @click='SET_PLAYBACK({ state: currentPlayback.is_playing ? "pause" : "play" })') {{ currentPlayback.is_playing ? 'pause_circle_filled' : 'play_circle_filled' }}
 
     i.skip.material-icons(@click='SKIP("next")') skip_next
 
@@ -58,9 +54,7 @@ footer
 
   // volume and other controls
   .footer-container.right(v-if='$mq.desktop')
-    i.volume.material-icons(v-if='volume == 0') volume_mute
-    i.volume.material-icons(v-if='volume <= 50 && volume > 0') volume_down
-    i.volume.material-icons(v-if='volume > 50') volume_up
+    i.volume.material-icons {{ volume > 50 ? 'volume_up' : 'volume_down' }}
     ma-slider(
       ref='slider',
       v-model='volume',
@@ -281,6 +275,12 @@ footer {
 
         i {
             @include item-hover;
+            &:hover {
+              &.volume {
+                color: rgba($white, 0.7);
+                cursor: inherit;
+              }
+            }
             &.active {
                 @include font($color: var(--accent-color));
                 opacity: 1;

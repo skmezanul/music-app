@@ -8,7 +8,7 @@ li.list-item(
     .image-container(v-if='image')
       i.playback-toggle.material-icons(
         @click='SET_PLAYBACK({ state: isPlaying ? "pause" : "play", trackid })',
-        :class='[ isPlaying ? "pause" : "play" ]') {{ isPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
+        :class='isPlaying ? "pause" : "play"') {{ isPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
 
       img(
         :src='image[0].url',
