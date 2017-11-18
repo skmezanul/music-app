@@ -5,7 +5,7 @@ import { credentials } from '../config';
 const url = window.location;
 
 /**
- * Global toLogin() helper function.
+ * toLogin() helper function.
  * Redirects user to spotify login page with given scopes and redirect url.
  * User gets redirected to route /login after successful login.
  */
@@ -19,21 +19,20 @@ export function toLogin() {
 }
 
 /**
- * Global hasToken() helper function.
- * Checks if token is in vuex store and returns a boolean.
+ * getToken() helper function.
+ * Checks if token is in vuex store and returns it.
  */
-export function hasToken() {
-  const storedToken = credentials.accessToken;
-  return storedToken;
+export function getToken() {
+  return credentials.accessToken;
 }
 
 /**
- * Global getToken() helper function.
+ * getToken() helper function.
  * Extracts token from url and saves it to vuex store.
  * Works only on /login route as its the route
  * spotify redirects the user to after successful login.
  */
-export function getToken() {
+export function storeToken() {
   // get code from url
   const code = url.href.split('&state')[0].split('code=')[1];
 

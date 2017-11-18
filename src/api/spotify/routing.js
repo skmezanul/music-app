@@ -1,17 +1,17 @@
 import router from '@/router';
-import { hasToken, getToken, toLogin } from './helpers';
+import { getToken, storeToken, toLogin } from './helpers';
 
 /**
  * Check for spotify access token on each route change and get it if not already in vuex store.
  * Redirect to spotify login if no access token is stored.
  */
 router.beforeEach((to, from, next) => {
-  if (!hasToken() && to.path !== '/login') {
+  if (!getToken() && to.path !== '/login') {
     // redirect to spotify login page
     toLogin();
-  } else if (!hasToken() && to.path === '/login') {
+  } else if (!getToken() && to.path === '/login') {
     // get token from url
-    getToken();
+    storeToken();
     next();
   }
   next();

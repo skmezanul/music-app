@@ -21,7 +21,7 @@ export default {
   ],
   methods: {
     ...mapMutations({
-      removeNotice: 'SHOW_NOTICE',
+      removeNotice: 'NOTICE',
     }),
   },
 };

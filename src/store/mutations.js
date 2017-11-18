@@ -33,7 +33,7 @@ export default {
   },
 
   // add or remove notice
-  SHOW_NOTICE(state, payload) {
+  NOTICE(state, payload) {
     const that = state;
     const notice = {
       type: payload.type,
