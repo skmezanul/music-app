@@ -1,6 +1,8 @@
-import Vue from 'vue';
 import store from '@/store';
-import token from './';
+import backend from '../providers/backend/';
+import { credentials } from '../config';
+
+const url = window.location;
 
 /**
  * Global toLogin() helper function.
@@ -8,8 +10,7 @@ import token from './';
  * User gets redirected to route /login after successful login.
  */
 export function toLogin() {
-  const url = window.location;
-  Vue.prototype.$backendApi({
+  backend({
     method: 'get',
     url: `/getAuthURL?redirectURI=${url.protocol}//${url.host}/login`,
   }).then((res) => {
@@ -22,7 +23,7 @@ export function toLogin() {
  * Checks if token is in vuex store and returns a boolean.
  */
 export function hasToken() {
-  const storedToken = token;
+  const storedToken = credentials.accessToken;
   return storedToken;
 }
 
@@ -33,13 +34,11 @@ export function hasToken() {
  * spotify redirects the user to after successful login.
  */
 export function getToken() {
-  const url = window.location.href;
-
   // get code from url
-  const code = url.split('&state')[0].split('code=')[1];
+  const code = url.href.split('&state')[0].split('code=')[1];
 
   if (code) {
-    Vue.prototype.$backendApi({
+    backend({
       method: 'get',
       url: `/getToken?code=${code}`,
     }).then((res) => {

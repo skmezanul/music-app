@@ -1,5 +1,5 @@
 export default {
-  getAccessToken: state => state.credentials.accessToken,
+  getCredentials: state => state.credentials,
   getCurrentPlayback: state => state.currentPlayback,
   getPlaylists: state => state.playlists.items,
   getDuration: state => state.currentPlayback.item.duration_ms,
