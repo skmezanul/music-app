@@ -1,6 +1,6 @@
 import store from '@/store';
+import { parse } from 'query-string';
 import backend from '../providers/backend/';
-import { credentials } from '../config';
 
 const url = window.location;
 
@@ -15,27 +15,23 @@ export function toLogin() {
     url: `/getAuthURL?redirectURI=${url.protocol}//${url.host}/login`,
   }).then((res) => {
     url.href = res.data.url;
+  }).catch((err) => {
+    throw new Error(err);
   });
 }
 
 /**
- * getToken() helper function.
- * Checks if token is in vuex store and returns it.
- */
-export function getToken() {
-  return credentials.accessToken;
-}
-
-/**
- * getToken() helper function.
- * Extracts token from url and saves it to vuex store.
+ * storeToken() helper function.
+ * Sends code returned from spotify login to backend
+ * and saves returned accessToken to vuex store.
  * Works only on /login route as its the route
  * spotify redirects the user to after successful login.
  */
-export function storeToken() {
+export function storeToken(next) {
   // get code from url
-  const code = url.href.split('&state')[0].split('code=')[1];
+  const { code } = parse(url.search);
 
+  // exchange code for access token by sending it to the backend
   if (code) {
     backend({
       method: 'get',
@@ -43,6 +39,12 @@ export function storeToken() {
     }).then((res) => {
       // store token in vuex store
       store.commit('SET_CREDENTIALS', res.data);
+      url.reload();
+      next();
+    }).catch((err) => {
+      throw new Error(err);
     });
+  } else {
+    throw new Error("Missing paremeter 'code'.");
   }
 }

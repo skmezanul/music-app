@@ -276,4 +276,8 @@ export default [{
   },
   component: debug,
 },
+{
+  path: '/login',
+  name: 'login',
+},
 ];
