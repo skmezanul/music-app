@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       collapsed: true,
-      isCollapsible: false,
+      isCollapsible: true,
     };
   },
   props: [
@@ -34,12 +34,9 @@ export default {
     setTimeout(() => {
       const self = this;
       let visibleElementCount;
-      if (self.$children[0].$el.classList[0] === 'list-item') {
-        visibleElementCount = 3;
-      } else {
-        visibleElementCount = 5;
+      if (self.$route.name !== 'debug') {
+        self.isCollapsible = self.collapsible && self.$children.length > 5;
       }
-      self.isCollapsible = self.collapsible && self.$children.length > visibleElementCount;
     }, 0);
   },
   methods: {

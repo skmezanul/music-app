@@ -28,7 +28,7 @@ const store = new Vuex.Store({
       image: '',
       title: '',
       subtitle: '',
-      artistid: '',
+      artist: '',
       meta: '',
       buttons: {},
       navigation: [],

@@ -154,11 +154,9 @@ export default {
         url,
       }).then((res) => {
         commit('SET_CREDENTIALS', res.data);
-        if (action === 'refresh') {
-          router.push({
-            name: 'browse',
-          });
-        }
+        router.push({
+          name: 'browse',
+        });
       });
     }
   },
