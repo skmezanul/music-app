@@ -30,6 +30,7 @@ const store = new Vuex.Store({
       subtitle: '',
       artist: '',
       meta: '',
+      popularity: '',
       buttons: {},
       navigation: [],
     },

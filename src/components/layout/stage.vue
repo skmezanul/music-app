@@ -20,7 +20,9 @@
 
     // content
     .stage-inner
-      h2(v-if='subtitle || stage.subtitle') {{ subtitle || stage.subtitle }}
+      .subtitle-container
+        h2(v-if='subtitle || stage.subtitle') {{ subtitle || stage.subtitle }}
+        i.star.material-icons(v-if='stage.popularity && stage.popularity > 80') stars
       h1(v-if='title || stage.title') {{ title || stage.title }}
       .meta-container(v-if='stage.meta || stage.artist && !$mq.phone')
         p {{ stage.artist ? $t('by') : $formatValue(stage.meta) }}
@@ -39,6 +41,7 @@
           // follow / unfollow
           ma-button(
             v-if='stage.buttons.follow',
+            @click.native='follow',
             :icon='following ? "check" : "add_circle"',
             :title='following ? "following" : "follow"')
           // save
@@ -119,17 +122,18 @@ export default {
     // follow or unfollow this artist or playlist
     follow() {
       const self = this;
-
-      switch (self.$route.name) {
-        case 'user':
-          type = 'user';
-          break;
-        case 'artist':
-        default:
-          type = 'artist';
-      }
+      let type;
 
       if (self.$route.params.id) {
+        switch (self.$route.name) {
+          case 'user':
+            type = 'user';
+            break;
+          case 'artist':
+          default:
+            type = 'artist';
+        }
+
         self.$spotifyApi({
           method: 'put',
           url: '/me/following',
@@ -138,7 +142,7 @@ export default {
             ids: self.$route.params.id,
           },
         }).then(() => {
-          self.GET_CURRENT_USER('following');
+          self.isFollowing();
         });
       }
     },
@@ -246,8 +250,14 @@ export default {
                 margin-left: -3px;
             }
 
-            h2 {
-                margin-bottom: 5px;
+            .subtitle-container {
+              @include flex($display: flex, $align: center);
+              margin-bottom: 5px;
+
+              .star {
+                margin-left: 7px;
+                @include font($size: 1.3em, $color: rgba($white, 0.7));
+              }
             }
 
             .meta-container {

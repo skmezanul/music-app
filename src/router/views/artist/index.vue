@@ -59,6 +59,7 @@ export default {
             image: res[0].data.images[0].url,
             subtitle: self.$tc('artist', 1),
             title: res[0].data.name,
+            popularity: res[0].data.popularity,
             navigation: [{
                 title: self.$t('overview'),
                 routeName: 'artist',
