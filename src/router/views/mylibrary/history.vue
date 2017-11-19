@@ -44,31 +44,31 @@ export default {
     }),
 
     fetchData() {
-      const that = this;
-      that.$startLoading('data');
+      const self = this;
+      self.$startLoading('data');
 
-      that.axios.all([
-          that.getHistory(),
+      self.axios.all([
+          self.getHistory(),
         ]).then((res) => {
-          that.data.history = res[0].data.items;
+          self.data.history = res[0].data.items;
           // init stage
-          that.setStage({
+          self.setStage({
             image: res[0].data.items[0].track.album.images[0].url,
-            subtitle: that.$t('library'),
-            title: that.$t('recentlyplayed'),
+            subtitle: self.$t('library'),
+            title: self.$t('recentlyplayed'),
             buttons: {
               playall: true,
             },
           });
-          that.$endLoading('data');
+          self.$endLoading('data');
         });
     },
 
     // get get this user's history from the api
     getHistory() {
-      const that = this;
+      const self = this;
 
-      return that.$spotifyApi({
+      return self.$spotifyApi({
         method: 'get',
         url: '/me/player/recently-played',
         params: {

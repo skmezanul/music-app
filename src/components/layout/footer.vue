@@ -91,9 +91,9 @@ export default {
 
     // get progress of the current track in percent
     getProgress() {
-      const that = this,
-            duration = that.currentPlayback.item.duration_ms,
-            progress = that.currentPlayback.progress_ms,
+      const self = this,
+            duration = self.currentPlayback.item.duration_ms,
+            progress = self.currentPlayback.progress_ms,
             value = ((duration - progress) / duration) * 100,
             valueRounded = Math.round(value * 100) / 100;
 
@@ -102,11 +102,11 @@ export default {
 
     // set volume for the current playback
     setVolume(value) {
-      const that = this,
+      const self = this,
             volume_percent = value,
-            device_id = that.deviceId;
+            device_id = self.deviceId;
 
-      that.$spotifyApi({
+      self.$spotifyApi({
         method: 'put',
         url: '/me/player/volume',
         params: {

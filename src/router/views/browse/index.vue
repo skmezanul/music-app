@@ -32,56 +32,56 @@ export default {
     }),
 
     fetchData() {
-      const that = this;
-      that.$startLoading('data');
+      const self = this;
+      self.$startLoading('data');
 
-      that.axios.all([
-          that.getFeaturedPlaylists(),
-          that.getNewReleases(),
-          that.getCategories(),
-          that.getCharts(),
+      self.axios.all([
+          self.getFeaturedPlaylists(),
+          self.getNewReleases(),
+          self.getCategories(),
+          self.getCharts(),
         ]).then((res) => {
-          that.data.featured = res[0].data;
-          that.data.releases = res[1].data;
-          that.data.categories = res[2].data.categories;
-          that.data.charts = res[3].data.tracks.items;
+          self.data.featured = res[0].data;
+          self.data.releases = res[1].data;
+          self.data.categories = res[2].data.categories;
+          self.data.charts = res[3].data.tracks.items;
           // init stage
-          that.setStage({
-            image: that.currentUser.images[0].url,
-            subtitle: that.$t('browse'),
-            title: that.getGreeting,
+          self.setStage({
+            image: self.currentUser.images[0].url,
+            subtitle: self.$t('browse'),
+            title: self.getGreeting,
             navigation: [{
-                title: that.$t('overview'),
+                title: self.$t('overview'),
                 routeName: 'browse',
               },
               {
-                title: that.$t('charts'),
+                title: self.$t('charts'),
                 routeName: 'browseCharts',
               },
               {
-                title: that.$tc('category', 0),
+                title: self.$tc('category', 0),
                 routeName: 'browseCategories',
               },
               {
-                title: that.$t('newreleases'),
+                title: self.$t('newreleases'),
                 routeName: 'browseReleases',
               },
               {
-                title: that.$t('discover'),
+                title: self.$t('discover'),
                 routeName: 'browseDiscover',
               },
             ],
           });
-          that.$endLoading('data');
+          self.$endLoading('data');
         });
     },
 
     // get featured playlists from the api
     getFeaturedPlaylists() {
-      const that = this,
-        country = that.country;
+      const self = this,
+        country = self.country;
 
-      return that.$spotifyApi({
+      return self.$spotifyApi({
         method: 'get',
         url: '/browse/featured-playlists',
         params: {
@@ -92,10 +92,10 @@ export default {
 
     // get new releases from the api
     getNewReleases() {
-      const that = this,
-        country = that.country;
+      const self = this,
+        country = self.country;
 
-      return that.$spotifyApi({
+      return self.$spotifyApi({
         method: 'get',
         url: '/browse/new-releases',
         params: {
@@ -106,10 +106,10 @@ export default {
 
     // get categories from the api
     getCategories() {
-      const that = this,
-        locale = that.locale;
+      const self = this,
+        locale = self.locale;
 
-      return that.$spotifyApi({
+      return self.$spotifyApi({
         method: 'get',
         url: '/browse/categories',
         params: {
@@ -121,11 +121,11 @@ export default {
 
     // get charts from the api
     getCharts() {
-      const that = this,
+      const self = this,
         user = 'spotifycharts',
         playlist = '37i9dQZEVXbMDoHDwVN2tF';
 
-      return that.$spotifyApi({
+      return self.$spotifyApi({
         method: 'get',
         url: `/users/${user}/playlists/${playlist}`,
       });
@@ -140,24 +140,24 @@ export default {
 
     // greeting depending on time of day
     getGreeting() {
-      const that = this,
-        fullName = that.currentUser.display_name,
+      const self = this,
+        fullName = self.currentUser.display_name,
         firstName = fullName.split(' ')[0],
         hour = new Date().getHours();
 
       let greeting;
 
       if (hour >= 5 && hour < 12) {
-        greeting = that.$t('greetings.morning');
+        greeting = self.$t('greetings.morning');
 
       } else if (hour >= 12 && hour < 18) {
-        greeting = that.$t('greetings.afternoon');
+        greeting = self.$t('greetings.afternoon');
 
       } else if (hour >= 18 && hour < 23) {
-        greeting = that.$t('greetings.evening');
+        greeting = self.$t('greetings.evening');
 
       } else {
-        greeting = that.$t('greetings.night');
+        greeting = self.$t('greetings.night');
 
       }
 

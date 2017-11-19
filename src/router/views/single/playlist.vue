@@ -44,17 +44,17 @@ export default {
     }),
 
     fetchData() {
-      const that = this;
-      that.$startLoading('data');
+      const self = this;
+      self.$startLoading('data');
 
-      that.axios.all([
-          that.getSinglePlaylist(),
+      self.axios.all([
+          self.getSinglePlaylist(),
         ]).then((res) => {
-          that.data.playlist = res[0].data;
+          self.data.playlist = res[0].data;
           // init stage
-          that.setStage({
+          self.setStage({
             image: res[0].data.images[0].url,
-            subtitle: that.$tc('playlist', 1),
+            subtitle: self.$tc('playlist', 1),
             title: res[0].data.name,
             meta: res[0].data.description,
             buttons: {
@@ -63,18 +63,18 @@ export default {
               share: true,
             },
           });
-          that.$endLoading('data');
+          self.$endLoading('data');
         });
     },
 
     // get playlist from the api
     getSinglePlaylist() {
-      const that = this,
-            market = that.market;
+      const self = this,
+            market = self.market;
 
-      return that.$spotifyApi({
+      return self.$spotifyApi({
         method: 'get',
-        url: `/users/${that.$route.params.owner}/playlists/${that.$route.params.id}`,
+        url: `/users/${self.$route.params.owner}/playlists/${self.$route.params.id}`,
         params: {
           market,
         },

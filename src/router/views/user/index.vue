@@ -27,29 +27,29 @@ export default {
     }),
 
     fetchData() {
-      const that = this;
-      that.$startLoading('data');
+      const self = this;
+      self.$startLoading('data');
 
-      that.axios.all([
-          that.getUser(),
+      self.axios.all([
+          self.getUser(),
         ]).then((res) => {
-          that.user = res[0].data;
+          self.user = res[0].data;
           // init stage
-          that.setStage({
+          self.setStage({
             image: res[0].data.images[0].url,
-            subtitle: that.$tc('user', 1),
+            subtitle: self.$tc('user', 1),
             title: res[0].data.display_name,
-            meta: `${res[0].data.followers.total} ${that.$tc('follower', 0)}`,
+            meta: `${res[0].data.followers.total} ${self.$tc('follower', 0)}`,
             navigation: [{
-                title: that.$t('overview'),
+                title: self.$t('overview'),
                 routeName: 'user',
               },
               {
-                title: that.$tc('playlist', 0),
+                title: self.$tc('playlist', 0),
                 routeName: 'userPlaylists',
               },
               {
-                title: `${that.$t('following')}`,
+                title: `${self.$t('following')}`,
                 routeName: 'userFollowing',
               },
             ],
@@ -58,17 +58,17 @@ export default {
               share: true,
             },
           });
-          that.$endLoading('data');
+          self.$endLoading('data');
         });
     },
 
     // get user from the api
     getUser() {
-      const that = this;
+      const self = this;
 
-      return that.$spotifyApi({
+      return self.$spotifyApi({
         method: 'get',
-        url: `/users/${that.$route.params.id}`,
+        url: `/users/${self.$route.params.id}`,
       });
     },
   },

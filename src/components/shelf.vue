@@ -49,22 +49,22 @@ export default {
   },
   methods: {
     fetchData() {
-      const that = this;
+      const self = this;
 
-      that.axios.all([
-          that.getSinglePlaylist(),
+      self.axios.all([
+          self.getSinglePlaylist(),
         ]).then((res) => {
-          that.data.playlist = res[0].data;
+          self.data.playlist = res[0].data;
         });
     },
     // get playlist from the api
     getSinglePlaylist() {
-      const that = this,
-            market = that.market;
+      const self = this,
+            market = self.market;
 
-      return that.$spotifyApi({
+      return self.$spotifyApi({
         method: 'get',
-        url: `/users/${that.secondaryid}/playlists/${that.primaryid}`,
+        url: `/users/${self.secondaryid}/playlists/${self.primaryid}`,
         params: {
           market,
           limit: 3,
@@ -74,13 +74,13 @@ export default {
 
     // get artist info from the api
     getArtistInfo(artistid) {
-      const that = this;
+      const self = this;
 
-      that.$spotifyApi({
+      self.$spotifyApi({
         method: 'get',
         url: `/artists/${artistid}`,
       }).then((res) => {
-        that.data.artist = res.data;
+        self.data.artist = res.data;
       });
     },
   },

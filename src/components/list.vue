@@ -76,14 +76,14 @@ export default {
 
     // check if track is currently playing
     getPlayingState() {
-      const that = this,
-            isPlayingTrack = (that.currentPlayback.item.id === that.trackid),
-            isHistoryView = that.$route.path === '/history';
+      const self = this,
+            isPlayingTrack = (self.currentPlayback.item.id === self.trackid),
+            isHistoryView = self.$route.path === '/history';
 
       if (isPlayingTrack && !isHistoryView) {
-        that.isPlaying = true;
+        self.isPlaying = true;
       } else {
-        that.isPlaying = false;
+        self.isPlaying = false;
       }
     },
   },

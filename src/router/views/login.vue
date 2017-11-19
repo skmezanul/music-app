@@ -10,11 +10,11 @@ export default {
 
     // get code from query and exchange it for token
     getToken() {
-      const that = this,
-            { code } = that.$route.query,
+      const self = this,
+            { code } = self.$route.query,
             isToken = /^[AQ]{2}/.test(code);
       if (isToken) {
-        that.GET_TOKEN({
+        self.GET_TOKEN({
           action: 'get',
           code,
         });

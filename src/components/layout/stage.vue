@@ -80,33 +80,33 @@ export default {
     ...mapActions(['GET_CURRENT_USER']),
 
     stageAction(event) {
-      const that = this;
+      const self = this;
 
       switch(event) {
         case 'follow':
         default:
-          that.follow();
+          self.follow();
           break;
       }
     },
 
     // check if current user is following this artist or playlist
     isFollowing() {
-      const that = this;
+      const self = this;
 
-      if (that.$route.params.id) {
-        switch (that.$route.name) {
+      if (self.$route.params.id) {
+        switch (self.$route.name) {
           case 'artist':
           case 'user':
-            that.$spotifyApi({
+            self.$spotifyApi({
               method: 'get',
               url: '/me/following/contains',
               params: {
-                type: that.$route.name,
-                ids: that.$route.params.id,
+                type: self.$route.name,
+                ids: self.$route.params.id,
               },
             }).then((res) => {
-              that.following = res.data[0];
+              self.following = res.data[0];
             });
             break;
 
@@ -118,9 +118,9 @@ export default {
 
     // follow or unfollow this artist or playlist
     follow() {
-      const that = this;
+      const self = this;
 
-      switch (that.$route.name) {
+      switch (self.$route.name) {
         case 'user':
           type = 'user';
           break;
@@ -129,16 +129,16 @@ export default {
           type = 'artist';
       }
 
-      if (that.$route.params.id) {
-        that.$spotifyApi({
+      if (self.$route.params.id) {
+        self.$spotifyApi({
           method: 'put',
           url: '/me/following',
           params: {
             type,
-            ids: that.$route.params.id,
+            ids: self.$route.params.id,
           },
         }).then(() => {
-          that.GET_CURRENT_USER('following');
+          self.GET_CURRENT_USER('following');
         });
       }
     },

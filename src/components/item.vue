@@ -64,16 +64,16 @@ export default {
 
     // get overlay color from album cover
     getColorFromAlbumCover() {
-      const that = this,
-            overlayColor = that.color,
-            albumCover = that.image[0].url;
+      const self = this,
+            overlayColor = self.color,
+            albumCover = self.image[0].url;
       if (!overlayColor && albumCover) {
         Vibrant.from(albumCover).getPalette()
           .then((palette) => {
             const fromColor = `rgba(${palette.Muted.getRgb()}, 1)`,
                   toColor = 'rgba(80, 80, 80, 0.5)';
 
-            that.color = `linear-gradient(to top, ${fromColor} 30%, ${toColor} 100%)`;
+            self.color = `linear-gradient(to top, ${fromColor} 30%, ${toColor} 100%)`;
           });
       }
     },

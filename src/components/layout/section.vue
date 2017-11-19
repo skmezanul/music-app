@@ -32,14 +32,14 @@ export default {
   created() {
     // show toggle if element count exceeds the maximum visible
     setTimeout(() => {
-      const that = this;
+      const self = this;
       let visibleElementCount;
-      if (that.$children[0].$el.classList[0] === 'list-item') {
+      if (self.$children[0].$el.classList[0] === 'list-item') {
         visibleElementCount = 3;
       } else {
         visibleElementCount = 5;
       }
-      that.isCollapsible = that.collapsible && that.$children.length > visibleElementCount;
+      self.isCollapsible = self.collapsible && self.$children.length > visibleElementCount;
     }, 0);
   },
   methods: {
@@ -51,8 +51,8 @@ export default {
   computed: {
     // check if section is collapsed
     isCollapsed() {
-      const that = this,
-            isCollapsed = that.collapsible && that.collapsed;
+      const self = this,
+            isCollapsed = self.collapsible && self.collapsed;
 
       return isCollapsed;
     },

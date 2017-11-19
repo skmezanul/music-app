@@ -40,32 +40,32 @@ export default {
     }),
 
     fetchData() {
-      const that = this;
-      that.$startLoading('data');
+      const self = this;
+      self.$startLoading('data');
 
-      that.axios.all([
-          that.getSavedAlbums(),
+      self.axios.all([
+          self.getSavedAlbums(),
         ]).then((res) => {
-          that.data.albums = res[0].data.items;
+          self.data.albums = res[0].data.items;
           // init stage
-          that.setStage({
+          self.setStage({
             image: res[0].data.items[0].album.images[0].url,
-            subtitle: that.$t('library'),
-            title: that.$tc('album', 0),
+            subtitle: self.$t('library'),
+            title: self.$tc('album', 0),
             buttons: {
               playall: true,
             },
           });
-          that.$endLoading('data');
+          self.$endLoading('data');
         });
     },
 
     // get this user's saved tracks from the api
     getSavedAlbums() {
-      const that = this,
-            market = that.market;
+      const self = this,
+            market = self.market;
 
-      return that.$spotifyApi({
+      return self.$spotifyApi({
         method: 'get',
         url: '/me/albums',
         params: {

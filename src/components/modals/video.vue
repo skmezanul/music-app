@@ -58,24 +58,24 @@ export default {
     ...mapActions(['SET_PLAYBACK']),
 
     fetchData() {
-      const that = this;
+      const self = this;
 
-      that.axios.all([
-          that.getVideoId(),
+      self.axios.all([
+          self.getVideoId(),
         ]).then((res) => {
-          that.videoid = res[0].data.items[0].id.videoId;
+          self.videoid = res[0].data.items[0].id.videoId;
         }).catch((err) => {
-          that.$store.commit('ADD_NOTICE', `Error loading video: ${err.message}`);
+          self.$store.commit('ADD_NOTICE', `Error loading video: ${err.message}`);
         });
     },
 
     // get video from the youtube api
     getVideoId() {
-      const that = this,
-            title = that.currentPlayback.item.name,
-            artist = that.currentPlayback.item.artists[0].name;
+      const self = this,
+            title = self.currentPlayback.item.name,
+            artist = self.currentPlayback.item.artists[0].name;
 
-      return that.$youtubeApi({
+      return self.$youtubeApi({
         method: 'get',
         url: '/search',
         params: {

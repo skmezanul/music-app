@@ -83,30 +83,30 @@ export default {
     }),
 
     fetchData() {
-      const that = this;
-      that.$startLoading('data');
+      const self = this;
+      self.$startLoading('data');
 
-      that.axios.all([
-          that.getResults(),
+      self.axios.all([
+          self.getResults(),
         ]).then((res) => {
-          that.data.results = res[0].data;
+          self.data.results = res[0].data;
           // init stage
-          that.setStage({
-            subtitle: that.$tc('search', 1),
-            title: `${that.$t('resultsfor')} '${that.$route.params.query}'`,
+          self.setStage({
+            subtitle: self.$tc('search', 1),
+            title: `${self.$t('resultsfor')} '${self.$route.params.query}'`,
             image: res[0].data.tracks.items[0].album.images[0].url,
           });
-          that.$endLoading('data');
+          self.$endLoading('data');
         });
     },
 
     // get search results from the api
     getResults() {
-      const that = this,
-            market = that.market,
-            q = that.$route.params.query;
+      const self = this,
+            market = self.market,
+            q = self.$route.params.query;
 
-      return that.$spotifyApi({
+      return self.$spotifyApi({
         method: 'get',
         url: '/search',
         params: {

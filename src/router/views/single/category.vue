@@ -41,33 +41,33 @@ export default {
     }),
 
     fetchData() {
-      const that = this;
-      that.$startLoading('data');
+      const self = this;
+      self.$startLoading('data');
 
-      that.axios.all([
-          that.getCategoryInfo(),
-          that.getCategoriesPlaylists(),
+      self.axios.all([
+          self.getCategoryInfo(),
+          self.getCategoriesPlaylists(),
         ]).then((res) => {
-          that.data.category = res[0].data;
-          that.data.playlists = res[1].data.playlists.items;
+          self.data.category = res[0].data;
+          self.data.playlists = res[1].data.playlists.items;
           // init stage
-          that.setStage({
-            subtitle: that.$tc('category', 1),
+          self.setStage({
+            subtitle: self.$tc('category', 1),
             title: res[0].data.name,
           });
-          that.$endLoading('data');
+          self.$endLoading('data');
         });
     },
 
     // get category info from the api
     getCategoryInfo() {
-      const that = this,
-        locale = that.locale,
-        country = that.country;
+      const self = this,
+        locale = self.locale,
+        country = self.country;
 
-      return that.$spotifyApi({
+      return self.$spotifyApi({
         method: 'get',
-        url: `/browse/categories/${that.$route.params.id}`,
+        url: `/browse/categories/${self.$route.params.id}`,
         params: {
           locale,
           country,
@@ -77,13 +77,13 @@ export default {
 
     // get categories playlists from the api
     getCategoriesPlaylists() {
-      const that = this,
-        locale = that.locale,
-        country = that.country;
+      const self = this,
+        locale = self.locale,
+        country = self.country;
 
-      return that.$spotifyApi({
+      return self.$spotifyApi({
         method: 'get',
-        url: `/browse/categories/${that.$route.params.id}/playlists`,
+        url: `/browse/categories/${self.$route.params.id}/playlists`,
         params: {
           locale,
           country,
