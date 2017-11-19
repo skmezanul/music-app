@@ -12,8 +12,5 @@ import './providers/youtube/';
 import './spotify/interceptors/response';
 import './spotify/interceptors/request';
 
-// import router navigation guard
-import './spotify/routing';
-
 // register axios
 Vue.use(VueAxios, axios);

@@ -120,12 +120,21 @@ export default {
     follow() {
       const that = this;
 
+      switch (that.$route.name) {
+        case 'user':
+          type = 'user';
+          break;
+        case 'artist':
+        default:
+          type = 'artist';
+      }
+
       if (that.$route.params.id) {
         that.$spotifyApi({
           method: 'put',
           url: '/me/following',
           params: {
-            type: 'artist',
+            type,
             ids: that.$route.params.id,
           },
         }).then(() => {

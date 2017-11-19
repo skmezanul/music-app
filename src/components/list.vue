@@ -107,7 +107,7 @@ export default {
         padding-right: 2em;
         background-color: $grey;
         transition: background-color 0.3s;
-        grid-template-columns: auto minmax(auto, 1fr) minmax(auto, 40px) minmax(auto, 1fr) repeat(2, minmax(auto, 80px));
+        grid-template-columns: 140px minmax(auto, 1fr) minmax(auto, 40px) minmax(auto, 1fr) repeat(2, minmax(auto, 80px));
         grid-template-areas: "index meta labels album duration actions";
         grid-column-gap: 1em;
         @media (max-width: $mobile-breakpoint) {
@@ -147,7 +147,7 @@ export default {
             .index,
             .is-playing {
                 @include font($size: 1.4em, $weight: 200, $color: $white);
-                margin: 0 10px 0 25px;
+                margin: 0 auto;
             }
 
             .is-playing {

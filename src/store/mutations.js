@@ -2,10 +2,13 @@ export default {
   // set the api credentials (accessToken, refreshToken, expiry)
   SET_CREDENTIALS(state, payload) {
     const that = state.credentials;
-    const expiryTime = Date.now() + (payload.expires_in * 1000);
-    that.accessToken = payload.access_token;
-    that.refreshToken = payload.refresh_token;
-    that.expiryTime = expiryTime;
+    const { accessToken, refreshToken, expiresIn } = payload;
+    if (accessToken) that.accessToken = accessToken;
+    if (refreshToken) that.refreshToken = refreshToken;
+    if (expiresIn) {
+      const expiryTime = Date.now() + (payload.expires_in * 1000);
+      that.expiryTime = expiryTime;
+    }
   },
 
   // push the current playback to store

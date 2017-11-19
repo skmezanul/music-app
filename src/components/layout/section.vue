@@ -5,7 +5,7 @@ section.view-section(:class='{ "collapsed" : isCollapsed }')
     h1 {{ title }}
 
     // show more/less
-    .section-actions(@click='toggleCollapse', v-if='collapsible')
+    .section-actions(@click='toggleCollapse', v-if='isCollapsible')
       .toggle-collapse
         span {{ $t(collapsed ? 'showmore' : 'showless')}}
         i.material-icons(:class='{ "collapsed" : isCollapsed }') keyboard_arrow_up
@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       collapsed: true,
+      isCollapsible: false,
     };
   },
   props: [
@@ -28,6 +29,19 @@ export default {
     'collapsible',
     'copyright',
   ],
+  created() {
+    // show toggle if element count exceeds the maximum visible
+    setTimeout(() => {
+      const that = this;
+      let visibleElementCount;
+      if (that.$children[0].$el.classList[0] === 'list-item') {
+        visibleElementCount = 3;
+      } else {
+        visibleElementCount = 5;
+      }
+      that.isCollapsible = that.collapsible && that.$children.length > visibleElementCount;
+    }, 0);
+  },
   methods: {
     // toggle collapse
     toggleCollapse() {
@@ -37,11 +51,10 @@ export default {
   computed: {
     // check if section is collapsed
     isCollapsed() {
-      const isCollapsed = this.collapsible && this.collapsed;
-      if (isCollapsed) {
-        return true;
-      }
-      return false;
+      const that = this,
+            isCollapsed = that.collapsible && that.collapsed;
+
+      return isCollapsed;
     },
   }
 };

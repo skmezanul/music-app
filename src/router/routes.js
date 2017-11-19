@@ -38,10 +38,15 @@ const search = () => import(/* webpackChunkName: "search" */ './views/search');
 // component for general settings
 const settings = () => import(/* webpackChunkName: "settings" */ './views/settings');
 
-// component for debugging
-const debug = () => import(/* webpackChunkName: "debug" */ './views/debug');
+// other components
+const debug = () => import(/* webpackChunkName: "other" */ './views/debug');
+const login = () => import(/* webpackChunkName: "other" */ './views/login');
 
 export default [{
+  path: '',
+  redirect: { name: 'browse' },
+},
+{
   path: '/browse',
   component: browseIndex,
   children: [{
@@ -279,5 +284,6 @@ export default [{
 {
   path: '/login',
   name: 'login',
+  component: login,
 },
 ];

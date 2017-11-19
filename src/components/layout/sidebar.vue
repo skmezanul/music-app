@@ -4,7 +4,7 @@ nav.sidebar-container
 		// browse
 		.sidebar-section
 			li
-				router-link(to='/browse')
+				router-link(:to='{ name: "browse" }')
 					i.material-icons book
 					| {{ $t('browse') }}
 
@@ -13,15 +13,15 @@ nav.sidebar-container
 			li
 				h4 {{ $t('library') }}
 			li
-				router-link(to='/history')
+				router-link(:to='{ name: "mylibraryHistory" }')
 					i.material-icons history
 					| {{ $t('recentlyplayed') }}
 			li
-				router-link(to='/tracks')
+				router-link(:to='{ name: "mylibraryTracks" }')
 					i.material-icons music_note
 					| {{ $tc('track', 0) }}
 			li
-				router-link(to='/albums')
+				router-link(:to='{ name: "mylibraryAlbums" }')
 					i.material-icons album
 					| {{ $tc('album', 0) }}
 
@@ -33,7 +33,7 @@ nav.sidebar-container
 				li(
 					v-for='playlist in playlists',
 					:key='playlist.id')
-					router-link(:to='{ name: "playlist", params: { id: playlist.id, owner: playlist.owner.id }}')
+					router-link(:to='{ name: playlist.type, params: { id: playlist.id, owner: playlist.owner.id }}')
 						i.material-icons playlist_play
 						span {{ playlist.name }}
 
@@ -56,10 +56,7 @@ nav.sidebar-container
 </template>
 
 <script>
-import {
-  mapGetters,
-  mapMutations
-} from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   methods: {

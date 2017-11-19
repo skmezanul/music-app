@@ -33,13 +33,13 @@ footer
       :class='{ "active": currentPlayback.shuffle_state}',
       v-tooltip='{ content: $t("shuffle") }') shuffle
 
-    i.skip.material-icons(@click='SKIP("previous")') skip_previous
+    i.skip.material-icons(@click='SKIP({ direction: "previous" })') skip_previous
 
     i.toggle.material-icons(
       :class='currentPlayback.is_playing ? "pause" : "play"',
       @click='SET_PLAYBACK({ state: currentPlayback.is_playing ? "pause" : "play" })') {{ currentPlayback.is_playing ? 'pause_circle_filled' : 'play_circle_filled' }}
 
-    i.skip.material-icons(@click='SKIP("next")') skip_next
+    i.skip.material-icons(@click='SKIP({ direction: "next" })') skip_next
 
     i.repeat.material-icons(
       v-show='currentPlayback.repeat_state != "track"',
@@ -82,7 +82,7 @@ export default {
       'SKIP',
       'SET_PLAYBACK',
       'TOGGLE_REPEAT',
-      'SET_SHUFFLE'
+      'SET_SHUFFLE',
     ]),
 
     ...mapMutations({
@@ -92,10 +92,10 @@ export default {
     // get progress of the current track in percent
     getProgress() {
       const that = this,
-        duration = that.currentPlayback.item.duration_ms,
-        progress = that.currentPlayback.progress_ms,
-        value = ((duration - progress) / duration) * 100,
-        valueRounded = Math.round(value * 100) / 100;
+            duration = that.currentPlayback.item.duration_ms,
+            progress = that.currentPlayback.progress_ms,
+            value = ((duration - progress) / duration) * 100,
+            valueRounded = Math.round(value * 100) / 100;
 
       return `width: ${valueRounded}%;`;
     },
@@ -103,8 +103,8 @@ export default {
     // set volume for the current playback
     setVolume(value) {
       const that = this,
-        volume_percent = value,
-        device_id = that.deviceId;
+            volume_percent = value,
+            device_id = that.deviceId;
 
       that.$spotifyApi({
         method: 'put',
@@ -125,8 +125,7 @@ export default {
 
     volume: {
       get() {
-        const currentVolume = this.currentPlayback.device.volume_percent;
-        return currentVolume;
+        return this.currentPlayback.device.volume_percent;
       },
       set(value) {
         this.setVolume(value);

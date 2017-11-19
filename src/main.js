@@ -49,9 +49,3 @@ Vue.prototype.$formatValue = function formatValue(value, type) {
 
   return formattedValue;
 };
-
-Vue.prototype.$includes = function includes(object, query) {
-  const exp = new RegExp(query);
-  const test = exp.test(object, 'i');
-  return test;
-};
