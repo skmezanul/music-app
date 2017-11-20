@@ -57,7 +57,7 @@
           title='share')
 
       // navigation
-    nav.subnav-container(v-if='stage.navigation && !$mq.phone')
+    nav.stage-nav-container(v-if='stage.navigation && !$mq.phone')
       ul
         li(v-for='navitem in stage.navigation')
           router-link(:to='{ name: navitem.routeName, params: { id: $route.params.id }}') {{ navitem.title }}
@@ -195,7 +195,7 @@ export default {
     &.has-cover {
         .stage-container {
             @include flex($align: center, $direction: row, $wrap: wrap);
-            .subnav-container {
+            .stage-nav-container {
                 @include flex($basis: 100%);
             }
         }
@@ -282,7 +282,7 @@ export default {
 }
 
 nav {
-    &.subnav-container {
+    &.stage-nav-container {
         margin-top: 15px;
 
         ul {
