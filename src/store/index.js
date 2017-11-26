@@ -1,21 +1,14 @@
+/* eslint-disable one-var */
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { createVuexLoader } from 'vuex-loading';
-import VuexPersist from 'vuex-persist';
-import mutations from './mutations';
-import actions from './actions';
-import getters from './getters';
+import createPersistedState from 'vuex-persistedstate';
 
-const VuexStorage = new VuexPersist({
-  key: 'state',
-  storage: window.localStorage,
-  reducer: state => ({
-    credentials: state.credentials,
-    currentUser: state.currentUser,
-    currentPlayback: state.currentPlayback,
-    settings: state.settings,
-  }),
-});
+// import modules
+import user from './user';
+import playback from './playback';
+import auth from './auth';
+import app from './app';
 
 const VuexLoading = createVuexLoader({
   moduleName: 'loading',
@@ -30,35 +23,13 @@ Vue.use(VuexLoading);
 
 const store = new Vuex.Store({
   strict: true,
-  state: {
-    currentPlayback: [],
-    currentUser: [],
-    playlists: [],
-    notices: [],
-    stage: {
-      image: '',
-      title: '',
-      subtitle: '',
-      artist: '',
-      meta: '',
-      popularity: '',
-      buttons: {},
-      navigation: [],
-    },
-    settings: {
-      accentColor: '#ca2a59',
-      largeCover: false,
-    },
-    credentials: {
-      accessToken: '',
-      refreshToken: '',
-      expiryTime: '',
-    },
+  modules: {
+    app,
+    user,
+    playback,
+    auth,
   },
-  mutations,
-  actions,
-  getters,
-  plugins: [VuexLoading.Store, VuexStorage.plugin],
+  plugins: [VuexLoading.Store, createPersistedState()],
 });
 
 export default store;

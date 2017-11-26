@@ -27,21 +27,21 @@ ma-modal(
         icon='close')
 
   iframe(
-    v-if='videoid',
+    v-if='videoId',
     width='100%',
     height='100%',
     frameborder='0',
-    :src='`https://www.youtube-nocookie.com/embed/${videoid}?${options}`')
+    :src='`https://www.youtube-nocookie.com/embed/${videoId}?${options}`')
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import { stringify } from 'query-string';
 
 export default {
   data() {
     return {
-      videoid: '',
+      videoId: '',
       overlay: false,
       options: {
         autoplay: 1,
@@ -49,31 +49,38 @@ export default {
         showinfo: 0,
         controls: 0,
       },
-    }
+    };
   },
   created() {
     this.options = stringify(this.options);
   },
   methods: {
     ...mapActions(['SET_PLAYBACK']),
+    ...mapMutations({
+      showNotice: 'SET_NOTICE',
+    }),
 
     fetchData() {
       const self = this;
 
       self.axios.all([
-          self.getVideoId(),
-        ]).then((res) => {
-          self.videoid = res[0].data.items[0].id.videoId;
-        }).catch((err) => {
-          self.$store.commit('ADD_NOTICE', `Error loading video: ${err.message}`);
+        self.getVideoId(),
+      ]).then((res) => {
+        self.videoId = res[0].data.items[0].id.videoId;
+      }).catch((err) => {
+        self.showNotice({
+          action: 'add',
+          type: 'error',
+          message: `Error loading video: ${err.message}`,
         });
+      });
     },
 
     // get video from the youtube api
     getVideoId() {
       const self = this,
-            title = self.currentPlayback.item.name,
-            artist = self.currentPlayback.item.artists[0].name;
+        title = self.currentPlayback.item.name,
+        artist = self.currentPlayback.item.artists[0].name;
 
       return self.$youtubeApi({
         method: 'get',

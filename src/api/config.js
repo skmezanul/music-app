@@ -1,13 +1,13 @@
+/* eslint-disable one-var, max-len */
 import store from '@/store';
 
-// vuex credentials getter
-const credentialsGetter = store.getters.getCredentials;
+const { getters } = store;
 
 export const credentials = {
   // spotify api credentials
-  accessToken: credentialsGetter.accessToken,
-  refreshToken: credentialsGetter.refreshToken,
-  expiryTime: credentialsGetter.expiryTime,
+  accessToken: getters.getAccessToken,
+  refreshToken: getters.getRefreshToken,
+  expiryTime: getters.getExpiryTime,
 
   // spotify backend api token
   spotifyBackendToken: '',
@@ -19,6 +19,6 @@ export const credentials = {
 export const baseURL = {
   spotify: 'https://api.spotify.com/v1/',
   spotifyBackend: 'https://spclient.wg.spotify.com/open-backend-2/v1/',
-  backend: 'http://82.165.99.125:3000/music-app/v1/',
+  backend: 'http://api.micro100.de:3000/music-app/v1/',
   youtube: 'https://www.googleapis.com/youtube/v3/',
 };

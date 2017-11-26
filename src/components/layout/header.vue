@@ -67,7 +67,7 @@ export default {
             query,
           },
         });
-      };
+      }
     },
 
     // go one route back or forward
@@ -86,12 +86,14 @@ export default {
     }),
   },
   mounted() {
-    document.querySelector('.view-container').addEventListener('scroll', this.updateScroll, {
+    const element = document.querySelector('.view-container');
+    element.addEventListener('scroll', this.updateScroll, {
       passive: true,
     });
   },
   destroy() {
-    document.querySelector('.view-container').removeEventListener('scroll', this.updateScroll, {
+    const element = document.querySelector('.view-container');
+    element.removeEventListener('scroll', this.updateScroll, {
       passive: true,
     });
   },

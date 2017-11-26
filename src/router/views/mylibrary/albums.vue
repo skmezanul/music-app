@@ -44,26 +44,26 @@ export default {
       self.$startLoading('data');
 
       self.axios.all([
-          self.getSavedAlbums(),
-        ]).then((res) => {
-          self.data.albums = res[0].data.items;
-          // init stage
-          self.setStage({
-            image: res[0].data.items[0].album.images[0].url,
-            subtitle: self.$t('library'),
-            title: self.$tc('album', 0),
-            buttons: {
-              playall: true,
-            },
-          });
-          self.$endLoading('data');
+        self.getSavedAlbums(),
+      ]).then((res) => {
+        self.data.albums = res[0].data.items;
+        // init stage
+        self.setStage({
+          image: res[0].data.items[0].album.images[0].url,
+          subtitle: self.$t('library'),
+          title: self.$tc('album', 0),
+          buttons: {
+            playall: true,
+          },
         });
+        self.$endLoading('data');
+      });
     },
 
     // get this user's saved tracks from the api
     getSavedAlbums() {
       const self = this,
-            market = self.market;
+        { market } = self;
 
       return self.$spotifyApi({
         method: 'get',

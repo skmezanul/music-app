@@ -14,7 +14,7 @@
           :type='history.track.type',
           :image='history.track.album.images',
           :title='history.track.name',
-          :trackid='history.track.id',
+          :trackId='history.track.id',
           :artists='history.track.artists',
           :album='history.track.album',
           :explicit='history.track.explicit',
@@ -48,20 +48,20 @@ export default {
       self.$startLoading('data');
 
       self.axios.all([
-          self.getHistory(),
-        ]).then((res) => {
-          self.data.history = res[0].data.items;
-          // init stage
-          self.setStage({
-            image: res[0].data.items[0].track.album.images[0].url,
-            subtitle: self.$t('library'),
-            title: self.$t('recentlyplayed'),
-            buttons: {
-              playall: true,
-            },
-          });
-          self.$endLoading('data');
+        self.getHistory(),
+      ]).then((res) => {
+        self.data.history = res[0].data.items;
+        // init stage
+        self.setStage({
+          image: res[0].data.items[0].track.album.images[0].url,
+          subtitle: self.$t('library'),
+          title: self.$t('recentlyplayed'),
+          buttons: {
+            playall: true,
+          },
         });
+        self.$endLoading('data');
+      });
     },
 
     // get get this user's history from the api

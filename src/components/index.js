@@ -1,4 +1,4 @@
-// import
+// import dependencies
 import Vue from 'vue';
 import 'normalize.css/normalize.css';
 import 'material-design-icons/iconfont/material-icons.css';
@@ -9,11 +9,11 @@ import visibility from 'vue-observe-visibility';
 import viewports from 'vue-match-media/src';
 import modals from 'vue-js-modal';
 
+// import components
 import stage from './layout/stage';
 import section from './layout/section';
 import list from './list';
 import item from './item';
-import shelf from './shelf';
 import button from './button';
 import notice from './notice';
 
@@ -23,7 +23,6 @@ Vue.component('ma-stage', stage);
 Vue.component('ma-section', section);
 Vue.component('ma-list', list);
 Vue.component('ma-item', item);
-Vue.component('ma-shelf', shelf);
 Vue.component('ma-button', button);
 Vue.component('ma-notice', notice);
 
@@ -34,6 +33,7 @@ Vue.use(viewports);
 Vue.use(modals, { componentName: 'ma-modal' });
 Vue.use(tooltip, {
   defaultClass: '',
+  /* eslint-disable max-len */
   defaultTemplate: '<div class="tooltip" role="tooltip"><div class="tooltip-inner"></div></div>',
   defaultContainer: '.tooltip-container',
 });

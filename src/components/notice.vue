@@ -11,7 +11,7 @@
 
 <script>
 import {
-  mapMutations
+  mapMutations,
 } from 'vuex';
 
 export default {
@@ -21,7 +21,7 @@ export default {
   ],
   methods: {
     ...mapMutations({
-      removeNotice: 'NOTICE',
+      removeNotice: 'SET_NOTICE',
     }),
   },
 };

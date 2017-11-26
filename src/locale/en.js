@@ -27,6 +27,7 @@ export default {
   charts: 'Charts',
   category: 'Category | Categories',
   newreleases: 'New Releases',
+  released: 'Released',
   discover: 'Discover',
   relatedartists: 'Related Artists',
   relatedto: 'Related to',

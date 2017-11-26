@@ -20,23 +20,23 @@ export default {
   data() {
     return {
       accentColors: [{
-          name: 'red',
-          hex: '#ca2a59',
-        },
-        {
-          name: 'orange',
-          hex: '#e89700',
-        },
-        {
-          name: 'cyan',
-          hex: '#00e6e6',
-        },
-        {
-          name: 'green',
-          hex: '#1DB954',
-        },
+        name: 'red',
+        hex: '#ca2a59',
+      },
+      {
+        name: 'orange',
+        hex: '#e89700',
+      },
+      {
+        name: 'cyan',
+        hex: '#00e6e6',
+      },
+      {
+        name: 'green',
+        hex: '#1DB954',
+      },
       ],
-    }
+    };
   },
   methods: {
     ...mapMutations({

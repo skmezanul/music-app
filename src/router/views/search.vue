@@ -14,7 +14,7 @@
 				ma-list(
           v-for='(track, index) in data.results.tracks.items',
           :key='track.id',
-          :trackid='track.id',
+          :trackId='track.id',
           :type='track.type',
           :image='track.album.images',
           :title='track.name',
@@ -87,24 +87,24 @@ export default {
       self.$startLoading('data');
 
       self.axios.all([
-          self.getResults(),
-        ]).then((res) => {
-          self.data.results = res[0].data;
-          // init stage
-          self.setStage({
-            subtitle: self.$tc('search', 1),
-            title: `${self.$t('resultsfor')} '${self.$route.params.query}'`,
-            image: res[0].data.tracks.items[0].album.images[0].url,
-          });
-          self.$endLoading('data');
+        self.getResults(),
+      ]).then((res) => {
+        self.data.results = res[0].data;
+        // init stage
+        self.setStage({
+          subtitle: self.$tc('search', 1),
+          title: `${self.$t('resultsfor')} '${self.$route.params.query}'`,
+          image: res[0].data.tracks.items[0].album.images[0].url,
         });
+        self.$endLoading('data');
+      });
     },
 
     // get search results from the api
     getResults() {
       const self = this,
-            market = self.market,
-            q = self.$route.params.query;
+        { market } = self,
+        q = self.$route.params.query;
 
       return self.$spotifyApi({
         method: 'get',

@@ -10,13 +10,14 @@ router-link.section-item(
 	transition(name='fade', @beforeEnter='getColorFromAlbumCover')
 		.item-overlay(
 			v-show='hasOverlay && overlay',
-			:style='{ background: color }')
+			:style='{ background: `linear-gradient(to top, rgba(${color}, 1) 30%, rgba(80, 80, 80, 0.5) 100%)` }')
 
 			.overlay-inner
 				i.favorite.material-icons favorite
 
 				i.playback-toggle.material-icons(
-					@click.prevent='togglePlaying', :class='[ playing ? "pause" : "play" ]') {{ playing ? 'pause_circle_filled' : 'play_circle_filled' }}
+					@click.prevent='togglePlaying',
+          :class='playing ? "pause" : "play"') {{ playing ? 'pause_circle_filled' : 'play_circle_filled' }}
 
 				i.more.material-icons more_horiz
 
@@ -46,7 +47,7 @@ export default {
       playing: false,
       overlay: false,
       color: '',
-    }
+    };
   },
   props: [
     'type',
@@ -65,15 +66,12 @@ export default {
     // get overlay color from album cover
     getColorFromAlbumCover() {
       const self = this,
-            overlayColor = self.color,
-            albumCover = self.image[0].url;
+        overlayColor = self.color,
+        albumCover = self.image[0].url;
       if (!overlayColor && albumCover) {
         Vibrant.from(albumCover).getPalette()
           .then((palette) => {
-            const fromColor = `rgba(${palette.Muted.getRgb()}, 1)`,
-                  toColor = 'rgba(80, 80, 80, 0.5)';
-
-            self.color = `linear-gradient(to top, ${fromColor} 30%, ${toColor} 100%)`;
+            self.color = palette.Muted.getRgb();
           });
       }
     },
@@ -81,11 +79,9 @@ export default {
   computed: {
     // check if has overlay
     hasOverlay() {
-      const hasOverlay = this.type === 'album' || this.type === 'playlist';
-      if (hasOverlay) {
-        return true;
-      };
-      return false;
+      const self = this,
+        hasOverlay = /(album|playlist)/.test(self.type);
+      return hasOverlay;
     },
   },
 };

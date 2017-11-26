@@ -8,8 +8,8 @@ spotify.interceptors.response.use(res => res, (err) => {
   if (!inExecution) {
     inExecution = true;
 
-    const { config } = err;
-    const { message, status } = err.response.data.error;
+    const { config } = err,
+      { message, status } = err.response.data.error;
 
     if (status === 401 && message === 'The access token expired') {
       store.dispatch('GET_TOKEN', {
@@ -23,7 +23,7 @@ spotify.interceptors.response.use(res => res, (err) => {
 
     // commit notice to vuex store
     if (store.state.notices.length <= 3) {
-      store.commit('NOTICE', {
+      store.commit('SET_NOTICE', {
         action: 'add',
         type: 'error',
         message: `Error: ${err.message}.`,

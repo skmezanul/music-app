@@ -13,7 +13,7 @@
           :key='track.id',
           :type='track.type',
           :title='track.name',
-          :trackid='track.id',
+          :trackId='track.id',
           :explicit='track.explicit',
           :duration='track.duration_ms',
           :index='index')
@@ -45,29 +45,40 @@ export default {
       self.$startLoading('data');
 
       self.axios.all([
-          self.getSingleAlbum(),
-        ]).then((res) => {
-          self.data.album = res[0].data;
-          // init stage
-          self.setStage({
-            image: res[0].data.images[0].url,
-            subtitle: self.$tc('album', 1),
-            title: res[0].data.name,
-            artist: res[0].data.artists,
-            buttons: {
-              playall: true,
-              save: true,
-              share: true,
+        self.getSingleAlbum(),
+      ]).then((res) => {
+        const releaseDate = new Date(res[0].data.release_date);
+
+        self.data.album = res[0].data;
+        // init stage
+        self.setStage({
+          image: res[0].data.images[0].url,
+          subtitle: res[0].data.album_type,
+          title: res[0].data.name,
+          profile: res[0].data.artists[0],
+          buttons: {
+            playall: true,
+            save: true,
+            share: true,
+          },
+          info: [{
+              value: releaseDate.toLocaleDateString(),
+              subtitle: self.$t('released'),
             },
-          });
-          self.$endLoading('data');
+            {
+              value: res[0].data.tracks.total,
+              subtitle: self.$tc('track', 0),
+            },
+          ],
         });
+        self.$endLoading('data');
+      });
     },
 
     // get album from the api
     getSingleAlbum() {
       const self = this,
-            market = self.market;
+        { market } = self;
 
       return self.$spotifyApi({
         method: 'get',

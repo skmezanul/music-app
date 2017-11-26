@@ -39,48 +39,54 @@ export default {
       self.$startLoading('data');
 
       self.axios.all([
-          self.getArtistInfo(),
-          // self.getAdditionalInfo(),
-          self.getTopTracks(),
-          self.getAlbums(),
-          self.getSingles(),
-          self.getAppearsOn(),
-          self.getRelatedArtists(),
-        ]).then((res) => {
-          self.data.artistInfo = res[0].data;
-          // self.data.additionalInfo = res[1].data;
-          self.data.toptracks = res[1].data.tracks;
-          self.data.albums = res[2].data.items;
-          self.data.singles = res[3].data.items;
-          self.data.appearson = res[4].data.items;
-          self.data.related = res[5].data.artists;
-          // init stage
-          self.setStage({
-            image: res[0].data.images[0].url,
-            subtitle: self.$tc('artist', 1),
-            title: res[0].data.name,
-            popularity: res[0].data.popularity,
-            navigation: [{
-                title: self.$t('overview'),
-                routeName: 'artist',
-              },
-              {
-                title: self.$t('relatedartists'),
-                routeName: 'artistRelated',
-              },
-              {
-                title: self.$t('about'),
-                routeName: 'artistAbout',
-              },
-            ],
-            buttons: {
-              playall: true,
-              follow: true,
-              share: true,
-            },
-          });
-          self.$endLoading('data');
+        self.getArtistInfo(),
+        // self.getAdditionalInfo(),
+        self.getTopTracks(),
+        self.getAlbums(),
+        self.getSingles(),
+        self.getAppearsOn(),
+        self.getRelatedArtists(),
+      ]).then((res) => {
+        self.data.artistInfo = res[0].data;
+        // self.data.additionalInfo = res[1].data;
+        self.data.toptracks = res[1].data.tracks;
+        self.data.albums = res[2].data.items;
+        self.data.singles = res[3].data.items;
+        self.data.appearson = res[4].data.items;
+        self.data.related = res[5].data.artists;
+        // init stage
+        self.setStage({
+          image: res[0].data.images[0].url,
+          // image: res[1].data.headerImages[0].url,
+          subtitle: self.$tc('artist', 1),
+          title: res[0].data.name,
+          popularity: res[0].data.popularity,
+          navigation: [{
+            title: self.$t('overview'),
+            routeName: 'artist',
+          },
+          {
+            title: self.$t('relatedartists'),
+            routeName: 'artistRelated',
+          },
+          {
+            title: self.$t('about'),
+            routeName: 'artistAbout',
+          },
+          ],
+          buttons: {
+            playall: true,
+            follow: true,
+            share: true,
+          },
+          info: [{
+            value: res[0].data.followers.total.toLocaleString(),
+            subtitle: self.$tc('follower', 1),
+          },
+          ],
         });
+        self.$endLoading('data');
+      });
     },
 
     // get artist info from the api
@@ -105,8 +111,8 @@ export default {
 
     // Get this artist's top tracks from the api
     getTopTracks() {
-      const self = this;
-      const country = self.country;
+      const self = this,
+        { country } = self;
 
       return self.$spotifyApi({
         method: 'get',
@@ -119,8 +125,8 @@ export default {
 
     // Get this artist's albums from the api
     getAlbums() {
-      const self = this;
-      const market = self.market;
+      const self = this,
+        { market } = self;
 
       return self.$spotifyApi({
         method: 'get',
@@ -134,8 +140,8 @@ export default {
 
     // Get this artist's singles from the api
     getSingles() {
-      const self = this;
-      const market = self.market;
+      const self = this,
+        { market } = self;
 
       return self.$spotifyApi({
         method: 'get',
@@ -149,8 +155,8 @@ export default {
 
     // Get album's this artist appears on from the api
     getAppearsOn() {
-      const self = this;
-      const market = self.market;
+      const self = this,
+        { market } = self;
 
       return self.$spotifyApi({
         method: 'get',

@@ -31,35 +31,39 @@ export default {
       self.$startLoading('data');
 
       self.axios.all([
-          self.getUser(),
-        ]).then((res) => {
-          self.user = res[0].data;
-          // init stage
-          self.setStage({
-            image: res[0].data.images[0].url,
-            subtitle: self.$tc('user', 1),
-            title: res[0].data.display_name,
-            meta: `${res[0].data.followers.total} ${self.$tc('follower', 0)}`,
-            navigation: [{
-                title: self.$t('overview'),
-                routeName: 'user',
-              },
-              {
-                title: self.$tc('playlist', 0),
-                routeName: 'userPlaylists',
-              },
-              {
-                title: `${self.$t('following')}`,
-                routeName: 'userFollowing',
-              },
-            ],
-            buttons: {
-              follow: true,
-              share: true,
-            },
-          });
-          self.$endLoading('data');
+        self.getUser(),
+      ]).then((res) => {
+        self.user = res[0].data;
+        // init stage
+        self.setStage({
+          image: res[0].data.images[0].url,
+          subtitle: self.$tc('user', 1),
+          title: res[0].data.display_name,
+          navigation: [{
+            title: self.$t('overview'),
+            routeName: 'user',
+          },
+          {
+            title: self.$tc('playlist', 0),
+            routeName: 'userPlaylists',
+          },
+          {
+            title: `${self.$t('following')}`,
+            routeName: 'userFollowing',
+          },
+          ],
+          buttons: {
+            follow: true,
+            share: true,
+          },
+          info: [{
+            value: res[0].data.followers.total.toLocaleString(),
+            subtitle: self.$tc('follower', 0),
+          },
+          ],
         });
+        self.$endLoading('data');
+      });
     },
 
     // get user from the api

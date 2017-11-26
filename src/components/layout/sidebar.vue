@@ -106,8 +106,8 @@ export default {
                 @include flex($display: flex);
 
                 h4 {
-                    @include font($size: 0.9em, $weight: 200, $transform: uppercase, $color: rgba($white, 0.7));
                     padding: 5px 10px;
+										margin-bottom: 5px;
                 }
 
                 a {

@@ -44,18 +44,18 @@ import maHeader from '@/components/layout/header';
 import maFooter from '@/components/layout/footer';
 import maSidebar from '@/components/layout/sidebar';
 import maVideo from '@/components/modals/video';
-import maLoading from '@/components/loader';
+import maLoader from '@/components/loader';
 
 export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.GET_CURRENT_USER('profile');
-    this.GET_CURRENT_USER('playlists');
-    this.GET_CURRENT_PLAYBACK();
+    this.GET_USER('profile');
+    this.GET_USER('playlists');
+    this.GET_PLAYBACK();
   },
   methods: {
-    ...mapActions(['GET_CURRENT_USER', 'GET_CURRENT_PLAYBACK']),
+    ...mapActions(['GET_USER', 'GET_PLAYBACK']),
   },
   computed: {
     ...mapGetters({
@@ -68,7 +68,7 @@ export default {
     maFooter,
     maSidebar,
     maVideo,
-    maLoading,
+    maLoader,
   },
 };
 </script>
@@ -133,8 +133,8 @@ h1 {
     @include font($weight: 700, $spacing: 2.5px);
 }
 
-h2 {
-    @include font($size: 1.2em, $spacing: 2px, $transform: uppercase, $color: rgba($white, 0.7));
+h4 {
+    @include font($weight: 600, $spacing: 2px, $transform: uppercase, $color: rgba($white, 0.7));
 }
 
 pre {

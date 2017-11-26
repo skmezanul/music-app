@@ -36,50 +36,50 @@ export default {
       self.$startLoading('data');
 
       self.axios.all([
-          self.getFeaturedPlaylists(),
-          self.getNewReleases(),
-          self.getCategories(),
-          self.getCharts(),
-        ]).then((res) => {
-          self.data.featured = res[0].data;
-          self.data.releases = res[1].data;
-          self.data.categories = res[2].data.categories;
-          self.data.charts = res[3].data.tracks.items;
-          // init stage
-          self.setStage({
-            image: self.currentUser.images[0].url,
-            subtitle: self.$t('browse'),
-            title: self.getGreeting,
-            navigation: [{
-                title: self.$t('overview'),
-                routeName: 'browse',
-              },
-              {
-                title: self.$t('charts'),
-                routeName: 'browseCharts',
-              },
-              {
-                title: self.$tc('category', 0),
-                routeName: 'browseCategories',
-              },
-              {
-                title: self.$t('newreleases'),
-                routeName: 'browseReleases',
-              },
-              {
-                title: self.$t('discover'),
-                routeName: 'browseDiscover',
-              },
-            ],
-          });
-          self.$endLoading('data');
+        self.getFeaturedPlaylists(),
+        self.getNewReleases(),
+        self.getCategories(),
+        self.getCharts(),
+      ]).then((res) => {
+        self.data.featured = res[0].data;
+        self.data.releases = res[1].data;
+        self.data.categories = res[2].data.categories;
+        self.data.charts = res[3].data.tracks.items;
+        // init stage
+        self.setStage({
+          image: self.currentUser.images[0].url,
+          subtitle: self.$t('browse'),
+          title: self.getGreeting,
+          navigation: [{
+            title: self.$t('overview'),
+            routeName: 'browse',
+          },
+          {
+            title: self.$t('charts'),
+            routeName: 'browseCharts',
+          },
+          {
+            title: self.$tc('category', 0),
+            routeName: 'browseCategories',
+          },
+          {
+            title: self.$t('newreleases'),
+            routeName: 'browseReleases',
+          },
+          {
+            title: self.$t('discover'),
+            routeName: 'browseDiscover',
+          },
+          ],
         });
+        self.$endLoading('data');
+      });
     },
 
     // get featured playlists from the api
     getFeaturedPlaylists() {
       const self = this,
-        country = self.country;
+        { country } = self;
 
       return self.$spotifyApi({
         method: 'get',
@@ -93,7 +93,7 @@ export default {
     // get new releases from the api
     getNewReleases() {
       const self = this,
-        country = self.country;
+        { country } = self;
 
       return self.$spotifyApi({
         method: 'get',
@@ -107,7 +107,7 @@ export default {
     // get categories from the api
     getCategories() {
       const self = this,
-        locale = self.locale;
+        { locale } = self;
 
       return self.$spotifyApi({
         method: 'get',
@@ -149,16 +149,12 @@ export default {
 
       if (hour >= 5 && hour < 12) {
         greeting = self.$t('greetings.morning');
-
       } else if (hour >= 12 && hour < 18) {
         greeting = self.$t('greetings.afternoon');
-
       } else if (hour >= 18 && hour < 23) {
         greeting = self.$t('greetings.evening');
-
       } else {
         greeting = self.$t('greetings.night');
-
       }
 
       return `${greeting} ${firstName}`;

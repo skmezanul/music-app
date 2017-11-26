@@ -15,23 +15,6 @@ export default {
 </script>
 
 <style lang="scss">
-.button-container {
-    @include flex($display: flex, $align: center);
-    margin-top: 15px;
-
-    .button-group {
-        @include flex($display: flex);
-        overflow: hidden;
-        margin-right: 5px;
-        border-radius: 5px;
-
-        .button {
-            margin: 0;
-            border-radius: 0;
-        }
-    }
-}
-
 .button {
     @include flex($display: inline-flex);
     margin-right: 5px;

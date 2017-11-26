@@ -1,3 +1,4 @@
+/* eslint-disable one-var */
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 import store from '@/store';
@@ -7,11 +8,12 @@ import ES from './es';
 
 Vue.use(VueI18n);
 
+const country = store.getters.getCountry;
 let locale = 'EN';
 
-if (typeof store.getters.getCountry !== 'undefined') {
+if (typeof country !== 'undefined') {
   // set language
-  switch (store.getters.getCountry) {
+  switch (country) {
     case 'DE':
       locale = 'DE';
       break;
@@ -30,7 +32,6 @@ const messages = {
   ES,
 };
 
-/* eslint-disable no-new */
 const i18n = new VueI18n({
   locale,
   fallbackLocale: 'EN',

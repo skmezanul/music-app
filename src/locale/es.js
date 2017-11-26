@@ -27,6 +27,7 @@ export default {
   charts: 'Listas de éxitos',
   category: 'Categoría | Categorías',
   newreleases: 'Novedades',
+  released: 'Liberado',
   discover: 'Descubrir',
   relatedartists: 'Artistas relacionados',
   relatedto: 'Relacionado con',

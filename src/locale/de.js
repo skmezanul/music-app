@@ -27,6 +27,7 @@ export default {
   charts: 'Charts',
   category: 'Kategorie | Kategorien',
   newreleases: 'Neuerscheinungen',
+  released: 'Veröffentlicht',
   discover: 'Entdecken',
   relatedartists: 'Ähnliche Künstler',
   relatedto: 'Ähnlich wie',

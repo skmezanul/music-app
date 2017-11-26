@@ -5,7 +5,6 @@ import routes from './routes';
 
 Vue.use(VueRouter);
 
-/* eslint-disable no-new */
 const router = new VueRouter({
   mode: 'history',
   routes,

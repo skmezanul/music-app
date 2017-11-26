@@ -13,7 +13,7 @@ section.view-section(:class='{ "collapsed" : isCollapsed }')
   // section slot
   slot
 
-  p.copyright(v-if='copyright') {{ copyright }}
+  span.copyright(v-if='copyright') {{ copyright }}
 </template>
 
 <script>
@@ -33,7 +33,6 @@ export default {
     // show toggle if element count exceeds the maximum visible
     setTimeout(() => {
       const self = this;
-      let visibleElementCount;
       if (self.$route.name !== 'debug') {
         self.isCollapsible = self.collapsible && self.$children.length > 5;
       }
@@ -49,11 +48,11 @@ export default {
     // check if section is collapsed
     isCollapsed() {
       const self = this,
-            isCollapsed = self.collapsible && self.collapsed;
+        isCollapsed = self.collapsible && self.collapsed;
 
       return isCollapsed;
     },
-  }
+  },
 };
 </script>
 
@@ -61,7 +60,7 @@ export default {
 .view-section {
   display: grid;
   grid-auto-flow: auto;
-  grid-gap: 1em;
+  grid-gap: 1.7em;
     @media (max-width: $mobile-breakpoint) {
         padding: 1em;
     }
@@ -75,7 +74,7 @@ export default {
     .section-items-container {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        grid-gap: 1.2em;
+        grid-gap: 1.5em;
         @media (max-width: $mobile-breakpoint) {
             grid-template-columns: repeat(2, 1fr);
         }

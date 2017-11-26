@@ -10,7 +10,7 @@
 			ma-list(
         v-for='(track, index) in $parent.data.toptracks',
         :key='track.id',
-        :trackid='track.id',
+        :trackId='track.id',
         :type='track.type',
         :image='track.album.images',
         :album='track.album',

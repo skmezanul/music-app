@@ -14,7 +14,7 @@
           :type='item.track.type',
           :image='item.track.album.images',
           :title='item.track.name',
-          :trackid='item.track.id',
+          :trackId='item.track.id',
           :artists='item.track.artists',
           :album='item.track.album',
           :explicit='item.track.explicit',
@@ -48,26 +48,26 @@ export default {
       self.$startLoading('data');
 
       self.axios.all([
-          self.getSavedTracks(),
-        ]).then((res) => {
-          self.data.tracks = res[0].data.items;
-          // init stage
-          self.setStage({
-            image: res[0].data.items[0].track.album.images[0].url,
-            subtitle: self.$t('library'),
-            title: self.$tc('track', 0),
-            buttons: {
-              playall: true,
-            },
-          });
-          self.$endLoading('data');
+        self.getSavedTracks(),
+      ]).then((res) => {
+        self.data.tracks = res[0].data.items;
+        // init stage
+        self.setStage({
+          image: res[0].data.items[0].track.album.images[0].url,
+          subtitle: self.$t('library'),
+          title: self.$tc('track', 0),
+          buttons: {
+            playall: true,
+          },
         });
+        self.$endLoading('data');
+      });
     },
 
     // get this user's saved tracks from the api
     getSavedTracks() {
       const self = this,
-            market = self.market;
+        { market } = self;
 
       return self.$spotifyApi({
         method: 'get',

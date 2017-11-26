@@ -1,46 +1,60 @@
+/* eslint-disable one-var, max-len */
+
 // components for "browse"
-const browseIndex = () => import(/* webpackChunkName: "browse" */ './views/browse/index');
-const browseOverview = () => import(/* webpackChunkName: "browse" */ './views/browse/_overview');
-const browseCharts = () => import(/* webpackChunkName: "browse" */ './views/browse/_charts');
-const browseCategories = () => import(/* webpackChunkName: "browse" */ './views/browse/_categories');
-const browseReleases = () => import(/* webpackChunkName: "browse" */ './views/browse/_releases');
-const browseDiscover = () => import(/* webpackChunkName: "browse" */ './views/browse/_discover');
+const browseDir = './views/browse/',
+  browse = {
+    index: () => import(/* webpackChunkName: "browse" */ `${browseDir}index`),
+    overview: () => import(/* webpackChunkName: "browse" */ `${browseDir}_overview`),
+    charts: () => import(/* webpackChunkName: "browse" */ `${browseDir}_charts`),
+    categories: () => import(/* webpackChunkName: "browse" */ `${browseDir}_categories`),
+    releases: () => import(/* webpackChunkName: "browse" */ `${browseDir}_releases`),
+    discover: () => import(/* webpackChunkName: "browse" */ `${browseDir}_discover`),
+  };
 
 // components for "artist"
-const artistIndex = () => import(/* webpackChunkName: "artist" */ './views/artist/index');
-const artistOverview = () => import(/* webpackChunkName: "artist" */ './views/artist/_overview');
-const artistRelated = () => import(/* webpackChunkName: "artist" */ './views/artist/_related');
-const artistAbout = () => import(/* webpackChunkName: "artist" */ './views/artist/_about');
+const artistDir = './views/artist/',
+  artist = {
+    index: () => import(/* webpackChunkName: "artist" */ `${artistDir}index`),
+    overview: () => import(/* webpackChunkName: "artist" */ `${artistDir}_overview`),
+    related: () => import(/* webpackChunkName: "artist" */ `${artistDir}_related`),
+    about: () => import(/* webpackChunkName: "artist" */ `${artistDir}_about`),
+  };
 
 // components for "user"
-const userIndex = () => import(/* webpackChunkName: "user" */ './views/user/index');
-const userOverview = () => import(/* webpackChunkName: "user" */ './views/user/_overview');
-const userPlaylists = () => import(/* webpackChunkName: "user" */ './views/user/_playlists');
-const userFollowing = () => import(/* webpackChunkName: "user" */ './views/user/_following');
+const userDir = './views/user/',
+  user = {
+    index: () => import(/* webpackChunkName: "user" */ `${userDir}index`),
+    overview: () => import(/* webpackChunkName: "user" */ `${userDir}_overview`),
+    playlists: () => import(/* webpackChunkName: "user" */ `${userDir}_playlists`),
+    following: () => import(/* webpackChunkName: "user" */ `${userDir}_following`),
+  };
 
 // components for "mylibrary"
-const mylibraryHistory = () => import(/* webpackChunkName: "mylibrary" */ './views/mylibrary/history');
-const mylibraryTracks = () => import(/* webpackChunkName: "mylibrary" */ './views/mylibrary/tracks');
-const mylibraryAlbums = () => import(/* webpackChunkName: "mylibrary" */ './views/mylibrary/albums');
+const mylibraryDir = './views/mylibrary/',
+  mylibrary = {
+    history: () => import(/* webpackChunkName: "mylibrary" */ `${mylibraryDir}history`),
+    tracks: () => import(/* webpackChunkName: "mylibrary" */ `${mylibraryDir}tracks`),
+    albums: () => import(/* webpackChunkName: "mylibrary" */ `${mylibraryDir}albums`),
+  };
 
-// component for single album
-const album = () => import(/* webpackChunkName: "album" */ './views/single/album');
+// components for single views
+const singleDir = './views/single/',
+  single = {
+    album: () => import(/* webpackChunkName: "album" */ `${singleDir}album`),
+    playlist: () => import(/* webpackChunkName: "playlist" */ `${singleDir}playlist`),
+    category: () => import(/* webpackChunkName: "category" */ `${singleDir}category`),
+  };
 
-// component for single playlist
-const playlist = () => import(/* webpackChunkName: "playlist" */ './views/single/playlist');
-
-// component for single category
-const category = () => import(/* webpackChunkName: "category" */ './views/single/category');
-
-// component for search
-const search = () => import(/* webpackChunkName: "search" */ './views/search');
-
-// component for general settings
-const settings = () => import(/* webpackChunkName: "settings" */ './views/settings');
-
-// other components
-const debug = () => import(/* webpackChunkName: "other" */ './views/debug');
-const login = () => import(/* webpackChunkName: "other" */ './views/login');
+const otherDir = './views/',
+  other = {
+    // component for search
+    search: () => import(/* webpackChunkName: "search" */ `${otherDir}search`),
+    // component for general settings
+    settings: () => import(/* webpackChunkName: "settings" */ `${otherDir}settings`),
+    // other components
+    debug: () => import(/* webpackChunkName: "other" */ `${otherDir}debug`),
+    login: () => import(/* webpackChunkName: "other" */ `${otherDir}login`),
+  };
 
 export default [{
   path: '',
@@ -48,7 +62,7 @@ export default [{
 },
 {
   path: '/browse',
-  component: browseIndex,
+  component: browse.index,
   children: [{
     path: '',
     name: 'browse',
@@ -58,7 +72,7 @@ export default [{
         large: false,
       },
     },
-    component: browseOverview,
+    component: browse.overview,
   },
   {
     path: 'charts',
@@ -69,7 +83,7 @@ export default [{
         large: false,
       },
     },
-    component: browseCharts,
+    component: browse.charts,
   },
   {
     path: 'categories',
@@ -80,7 +94,7 @@ export default [{
         large: false,
       },
     },
-    component: browseCategories,
+    component: browse.categories,
   },
   {
     path: 'releases',
@@ -91,7 +105,7 @@ export default [{
         large: false,
       },
     },
-    component: browseReleases,
+    component: browse.releases,
   },
   {
     path: 'discover',
@@ -102,13 +116,13 @@ export default [{
         large: false,
       },
     },
-    component: browseDiscover,
+    component: browse.discover,
   },
   ],
 },
 {
   path: '/artist/:id',
-  component: artistIndex,
+  component: artist.index,
   children: [{
     path: '',
     name: 'artist',
@@ -118,7 +132,7 @@ export default [{
         large: true,
       },
     },
-    component: artistOverview,
+    component: artist.overview,
   },
   {
     path: 'related',
@@ -129,7 +143,7 @@ export default [{
         large: false,
       },
     },
-    component: artistRelated,
+    component: artist.related,
   },
   {
     path: 'about',
@@ -140,13 +154,13 @@ export default [{
         large: false,
       },
     },
-    component: artistAbout,
+    component: artist.about,
   },
   ],
 },
 {
   path: '/user/:id',
-  component: userIndex,
+  component: user.index,
   children: [{
     path: '',
     name: 'user',
@@ -156,7 +170,7 @@ export default [{
         large: false,
       },
     },
-    component: userOverview,
+    component: user.overview,
   },
   {
     path: 'playlists',
@@ -167,7 +181,7 @@ export default [{
         large: false,
       },
     },
-    component: userPlaylists,
+    component: user.playlists,
   },
   {
     path: 'following',
@@ -178,7 +192,7 @@ export default [{
         large: false,
       },
     },
-    component: userFollowing,
+    component: user.following,
   },
   ],
 },
@@ -191,7 +205,7 @@ export default [{
       large: false,
     },
   },
-  component: album,
+  component: single.album,
 },
 {
   path: '/playlist/:owner/:id',
@@ -202,7 +216,7 @@ export default [{
       large: false,
     },
   },
-  component: playlist,
+  component: single.playlist,
 },
 {
   path: '/category/:id',
@@ -213,7 +227,7 @@ export default [{
       large: false,
     },
   },
-  component: category,
+  component: single.category,
 },
 {
   path: '/search/:query',
@@ -224,7 +238,7 @@ export default [{
       large: false,
     },
   },
-  component: search,
+  component: other.search,
 },
 {
   path: '/history',
@@ -235,7 +249,7 @@ export default [{
       large: true,
     },
   },
-  component: mylibraryHistory,
+  component: mylibrary.history,
 },
 {
   path: '/tracks',
@@ -246,7 +260,7 @@ export default [{
       large: false,
     },
   },
-  component: mylibraryTracks,
+  component: mylibrary.tracks,
 },
 {
   path: '/albums',
@@ -257,7 +271,7 @@ export default [{
       large: false,
     },
   },
-  component: mylibraryAlbums,
+  component: mylibrary.albums,
 },
 {
   path: '/settings',
@@ -268,7 +282,7 @@ export default [{
       large: false,
     },
   },
-  component: settings,
+  component: other.settings,
 },
 {
   path: '/debug',
@@ -279,11 +293,11 @@ export default [{
       large: false,
     },
   },
-  component: debug,
+  component: other.debug,
 },
 {
   path: '/login',
   name: 'login',
-  component: login,
+  component: other.login,
 },
 ];

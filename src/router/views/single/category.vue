@@ -45,25 +45,25 @@ export default {
       self.$startLoading('data');
 
       self.axios.all([
-          self.getCategoryInfo(),
-          self.getCategoriesPlaylists(),
-        ]).then((res) => {
-          self.data.category = res[0].data;
-          self.data.playlists = res[1].data.playlists.items;
-          // init stage
-          self.setStage({
-            subtitle: self.$tc('category', 1),
-            title: res[0].data.name,
-          });
-          self.$endLoading('data');
+        self.getCategoryInfo(),
+        self.getCategoriesPlaylists(),
+      ]).then((res) => {
+        self.data.category = res[0].data;
+        self.data.playlists = res[1].data.playlists.items;
+        // init stage
+        self.setStage({
+          subtitle: self.$tc('category', 1),
+          title: res[0].data.name,
         });
+        self.$endLoading('data');
+      });
     },
 
     // get category info from the api
     getCategoryInfo() {
       const self = this,
-        locale = self.locale,
-        country = self.country;
+        { locale } = self,
+        { country } = self;
 
       return self.$spotifyApi({
         method: 'get',
@@ -78,8 +78,8 @@ export default {
     // get categories playlists from the api
     getCategoriesPlaylists() {
       const self = this,
-        locale = self.locale,
-        country = self.country;
+        { locale } = self,
+        { country } = self;
 
       return self.$spotifyApi({
         method: 'get',

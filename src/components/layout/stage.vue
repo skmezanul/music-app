@@ -21,16 +21,17 @@
     // content
     .stage-inner
       .subtitle-container
-        h2(v-if='subtitle || stage.subtitle') {{ subtitle || stage.subtitle }}
+        h4(v-if='subtitle || stage.subtitle') {{ stage.profile ? `${subtitle || stage.subtitle} ${$t('by')} ` :  subtitle || stage.subtitle }}
+          router-link(
+            v-if='stage.profile',
+            tag='span',
+            :class='stage.profile.type',
+            :to='{ name: stage.profile.type, params: { id: stage.profile.id } }') {{ stage.profile.name || stage.profile.display_name }}
         i.star.material-icons(v-if='stage.popularity && stage.popularity > 80') stars
       h1(v-if='title || stage.title') {{ title || stage.title }}
-      .meta-container(v-if='stage.meta || stage.artist && !$mq.phone')
-        p {{ stage.artist ? $t('by') : $formatValue(stage.meta) }}
-          router-link.artist(
-            v-if='stage.artist',
-            tag='span',
-            :to='{ name: "artist", params: { id: stage.artist[0].id } }') {{ stage.artist[0].name }}
-      .button-container(v-if='stage.buttons || stage.buttons && stage.buttons.share')
+      .meta-container(v-if='stage.meta && !$mq.phone')
+        p {{ $formatValue(stage.meta) }}
+      .action-container(v-if='stage.buttons || stage.buttons && stage.buttons.share')
         .button-group(v-if='stage.buttons')
           // play all
           ma-button(
@@ -56,6 +57,11 @@
           icon='share',
           title='share')
 
+        .info-container(v-if='stage.info')
+          .info-item(v-for='item in stage.info')
+            h4 {{ item.value }}
+            span.subtitle {{ item.subtitle }}
+
       // navigation
     nav.stage-nav-container(v-if='stage.navigation && !$mq.phone')
       ul
@@ -64,13 +70,16 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import {
+  mapActions,
+  mapGetters
+} from 'vuex';
 
 export default {
   data() {
     return {
       following: false,
-    }
+    };
   },
   props: [
     'title',
@@ -80,22 +89,25 @@ export default {
     this.isFollowing();
   },
   methods: {
-    ...mapActions(['GET_CURRENT_USER']),
+    ...mapActions(['GET_USER']),
 
     stageAction(event) {
       const self = this;
 
-      switch(event) {
+      switch (event) {
         case 'follow':
         default:
           self.follow();
-          break;
       }
     },
 
     // check if current user is following this artist or playlist
     isFollowing() {
-      const self = this;
+      const self = this,
+        {
+          name,
+          params
+        } = self.$route;
 
       if (self.$route.params.id) {
         switch (self.$route.name) {
@@ -105,16 +117,14 @@ export default {
               method: 'get',
               url: '/me/following/contains',
               params: {
-                type: self.$route.name,
-                ids: self.$route.params.id,
+                type: name,
+                ids: params.id,
               },
             }).then((res) => {
-              self.following = res.data[0];
+              [self.following] = res.data;
             });
             break;
-
           default:
-            return;
         }
       }
     },
@@ -158,6 +168,7 @@ export default {
 <style lang="scss">
 .stage {
     @include relative;
+    @include view-grid-columns;
     display: grid;
     overflow: hidden;
     padding-top: 69px;
@@ -166,19 +177,17 @@ export default {
     transition: background-color 1s;
     grid-area: stage;
     grid-template-areas: ". content .";
-    @include view-grid-columns;
-
     &:not(.has-image) {
-      background-color: var(--accent-color);
-      filter: saturate(80%);
+        background-color: var(--accent-color);
+        filter: saturate(80%);
     }
 
     &:not(.is-large) {
-      .background-container {
-          img {
-              filter: saturate(150%) blur(40px);
-          }
-      }
+        .background-container {
+            img {
+                filter: saturate(150%) blur(40px);
+            }
+        }
     }
 
     &.is-large {
@@ -206,10 +215,10 @@ export default {
         @include flex($display: flex, $justify: center, $align: center);
 
         img {
-          width: 100vw;
-          height: 100vh;
-          filter: saturate(130%);
-          object-fit: cover;
+            width: 100vw;
+            height: 100vh;
+            filter: saturate(130%);
+            object-fit: cover;
         }
     }
     &:after {
@@ -232,7 +241,7 @@ export default {
             border-radius: 10px;
             box-shadow: $shadow;
             &:not(.is-small) {
-              @include flex($flex: 1);
+                @include flex($flex: 1);
             }
 
             &.is-small {
@@ -248,70 +257,99 @@ export default {
             h1 {
                 @include font($size: 3.5em);
                 margin-left: -3px;
+                max-width: 70%;
             }
 
             .subtitle-container {
-              @include flex($display: flex, $align: center);
-              margin-bottom: 5px;
+                @include flex($display: flex, $align: center);
+                margin-bottom: 5px;
 
-              .star {
-                margin-left: 7px;
-                @include font($size: 1.3em, $color: rgba($white, 0.7));
-              }
+                span {
+                    transition: color 0.3s;
+                    &:hover {
+                        color: $white;
+                        cursor: pointer;
+                    }
+                }
+
+                .star {
+                    @include font($size: 1.2em, $color: rgba($white, 0.7));
+                    margin-left: 5px;
+                }
+            }
+            .action-container {
+                @include flex($display: flex, $align: center);
+                margin-top: 15px;
+
+                .button-group {
+                    overflow: hidden;
+                    margin-right: 5px;
+                    border-radius: 5px;
+
+                    .button {
+                        margin: 0;
+                        border-radius: 0;
+                    }
+                }
+
+                .info-container {
+                     @include flex($display: flex);
+                     margin-left: auto;
+                     .info-item {
+                       margin-left: 13px;
+                       padding-left: 10px;
+                       text-align: right;
+                       &:not(:first-child) {
+                         border-left: 1px solid rgba($white, 0.2);
+                       }
+                       .subtitle {
+                         @include font($size: 0.8em, $transform: uppercase, $color: rgba($white, 0.5));
+                       }
+                    }
+                }
             }
 
             .meta-container {
-                margin-top: 10px;
-                width: 80%;
+                margin-top: 4px;
+                max-width: 70%;
                 p {
-                    @include font($size: 1.2em, $line: 1.3em, $color: rgba($white, 0.7));
+                    @include font($size: 1.1em, $line: 1.2em, $color: rgba($white, 0.7));
                     margin: 0;
-                    .artist {
-                      transition: color 0.3s;
-                      display: inline-block;
-                      margin-left: 5px;
-                      &:hover {
-                        color: $white;
-                        cursor: pointer;
-                      }
-                    }
                 }
             }
         }
     }
 }
 
-nav {
-    &.stage-nav-container {
-        margin-top: 15px;
+.stage-nav-container {
+    margin-top: 15px;
 
-        ul {
-            @include flex($display: flex);
+    ul {
+        @include flex($display: flex);
 
-            li {
-                margin-right: 50px;
-                padding: 15px 0;
-                a {
-                    @include font($size: 0.9em, $spacing: 2px, $transform: uppercase, $color: rgba($white, 0.5));
-                    transition: color 0.5s;
+        li {
+            margin-right: 50px;
+            padding: 15px 0;
+            a {
+                @include font($size: 0.9em, $weight: 600, $spacing: 1.5px, $transform: uppercase, $color: rgba($white, 0.5));
+                transition: color 0.5s;
 
-                    &.exact-active {
-                        color: $white;
-                        &:after {
-                            @include relative;
-                            top: 0.9em;
-                            display: block;
-                            margin: 0 auto;
-                            width: 40px;
-                            height: 3px;
-                            background-color: var(--accent-color);
-                            content: "";
-                        }
+                &.exact-active {
+                    color: $white;
+                    &:after {
+                        @include relative;
+                        top: 0.7em;
+                        display: block;
+                        margin: 0 auto;
+                        width: 40px;
+                        height: 3px;
+                        background-color: var(--accent-color);
+                        content: "";
                     }
-                    &:not(.active):hover {
-                        @include font($color: rgba($white, 0.7));
-                        cursor: pointer;
-                    }
+                }
+                &:not(.active):hover {
+                    @include font($color: rgba($white, 0.7));
+                    cursor: pointer;
                 }
             }
         }

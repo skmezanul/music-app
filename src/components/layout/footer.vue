@@ -78,7 +78,7 @@ import { mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
   methods: {
     ...mapActions([
-      'GET_CURRENT_PLAYBACK',
+      'GET_PLAYBACK',
       'SKIP',
       'SET_PLAYBACK',
       'TOGGLE_REPEAT',
@@ -92,26 +92,24 @@ export default {
     // get progress of the current track in percent
     getProgress() {
       const self = this,
-            duration = self.currentPlayback.item.duration_ms,
-            progress = self.currentPlayback.progress_ms,
-            value = ((duration - progress) / duration) * 100,
-            valueRounded = Math.round(value * 100) / 100;
+        duration = self.currentPlayback.item.duration_ms,
+        progress = self.currentPlayback.progress_ms,
+        value = ((duration - progress) / duration) * 100,
+        valueRounded = Math.round(value * 100) / 100;
 
       return `width: ${valueRounded}%;`;
     },
 
     // set volume for the current playback
     setVolume(value) {
-      const self = this,
-            volume_percent = value,
-            device_id = self.deviceId;
+      const self = this;
 
       self.$spotifyApi({
         method: 'put',
         url: '/me/player/volume',
         params: {
-          volume_percent,
-          device_id,
+          volume_percent: value,
+          device_id: self.deviceId,
         },
       });
     },
