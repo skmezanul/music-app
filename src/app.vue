@@ -88,11 +88,18 @@ export default {
     src: url('../static/fonts/sanfranciscodisplay-regular-webfont.woff');
 }
 
+/** Medium */
+@font-face {
+    font-weight: 500;
+    font-family: 'San Francisco';
+    src: url('../static/fonts/sanfranciscodisplay-medium-webfont.woff');
+}
+
 /** Bold */
 @font-face {
-    font-weight: 700;
+    font-weight: 600;
     font-family: 'San Francisco';
-    src: url('../static/fonts/sanfranciscodisplay-bold-webfont.woff');
+    src: url('../static/fonts/sanfranciscodisplay-semibold-webfont.woff');
 }
 
 * {
@@ -130,11 +137,12 @@ h4 {
 }
 
 h1 {
-    @include font($weight: 700, $spacing: 2.5px);
+    @include font($weight: 600, $spacing: 2.5px);
+    -webkit-font-smoothing: antialiased;
 }
 
 h4 {
-    @include font($weight: 600, $spacing: 2px, $transform: uppercase, $color: rgba($white, 0.7));
+    @include font($weight: 600, $spacing: 1.5px, $transform: uppercase, $color: rgba($white, 0.7));
 }
 
 pre {
@@ -180,7 +188,7 @@ a {
           grid-area: content;
           display: grid;
           grid-auto-rows: auto;
-          grid-row-gap: 2em;
+          grid-row-gap: 3em;
           @media (max-width: $mobile-breakpoint) {
             grid-column: span 3;
           }

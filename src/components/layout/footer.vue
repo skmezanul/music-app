@@ -33,13 +33,13 @@ footer
       :class='{ "active": currentPlayback.shuffle_state}',
       v-tooltip='{ content: $t("shuffle") }') shuffle
 
-    i.skip.material-icons(@click='SKIP({ direction: "previous" })') skip_previous
+    i.skip.material-icons(@click='SKIP_TO({ direction: "previous" })') skip_previous
 
     i.toggle.material-icons(
       :class='currentPlayback.is_playing ? "pause" : "play"',
       @click='SET_PLAYBACK({ state: currentPlayback.is_playing ? "pause" : "play" })') {{ currentPlayback.is_playing ? 'pause_circle_filled' : 'play_circle_filled' }}
 
-    i.skip.material-icons(@click='SKIP({ direction: "next" })') skip_next
+    i.skip.material-icons(@click='SKIP_TO({ direction: "next" })') skip_next
 
     i.repeat.material-icons(
       v-show='currentPlayback.repeat_state != "track"',
@@ -68,8 +68,8 @@ footer
       span.track-duration {{ $formatValue(currentPlayback.item.duration_ms, 'time') }}
 
   // progress bar
-  .progress-container
-    .progress-bar(:style='getProgress()')
+  .progress-container(@click='getSeekTime')
+    .progress-bar(:style='getProgressBarWidth()')
 </template>
 
 <script>
@@ -79,7 +79,8 @@ export default {
   methods: {
     ...mapActions([
       'GET_PLAYBACK',
-      'SKIP',
+      'SKIP_TO',
+      'SEEK_TO',
       'SET_PLAYBACK',
       'TOGGLE_REPEAT',
       'SET_SHUFFLE',
@@ -90,11 +91,11 @@ export default {
     }),
 
     // get progress of the current track in percent
-    getProgress() {
+    getProgressBarWidth() {
       const self = this,
-        duration = self.currentPlayback.item.duration_ms,
-        progress = self.currentPlayback.progress_ms,
-        value = ((duration - progress) / duration) * 100,
+        trackDuration = self.currentPlayback.item.duration_ms,
+        trackProgress = self.currentPlayback.progress_ms,
+        value = ((trackDuration - trackProgress) / trackDuration) * 100,
         valueRounded = Math.round(value * 100) / 100;
 
       return `width: ${valueRounded}%;`;
@@ -112,6 +113,21 @@ export default {
           device_id: self.deviceId,
         },
       });
+    },
+
+    getSeekTime(event) {
+      const self = this,
+        progressBar = document.querySelector('.progress-container'),
+        progressBarWidth = progressBar.offsetWidth,
+        clickedPosition = (event.clientX / progressBarWidth) * 100,
+        trackDuration = self.currentPlayback.item.duration_ms,
+        positionRelativeToTrackLength = Math.round((trackDuration / 100) * clickedPosition);
+
+      if (progressBar && positionRelativeToTrackLength) {
+        self.SEEK_TO({
+          position: positionRelativeToTrackLength,
+        });
+      }
     },
   },
   computed: {
@@ -181,7 +197,7 @@ footer {
             .cover-container {
                 @include relative;
                 overflow: hidden;
-                margin-right: 10px;
+                margin-right: 15px;
                 width: 50px;
                 height: 50px;
                 border-radius: 3px;
@@ -209,7 +225,7 @@ footer {
                     text-align: center;
                 }
                 .title {
-                    @include font($size: 1.2em);
+                    @include font($size: 1.2em, $weight: 600);
                 }
                 .artist-container {
                     @include font($weight: 200);
@@ -223,10 +239,10 @@ footer {
         }
 
         &.middle {
-            @include flex($justify: space-between, $flex: 0.7);
+            @include flex($justify: space-between, $flex: 0.5);
             @include font($spacing: 2px);
             @media (max-width: $mobile-breakpoint) {
-                 @include flex($flex: 1);
+                @include flex($flex: 1);
                 margin-top: 10px;
             }
 

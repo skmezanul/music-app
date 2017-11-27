@@ -36,6 +36,7 @@ module.exports = {
     'one-var': ['error', 'always'],
     // ignore max line length in comments
     'max-len': ['error', {
+      'code': 100,
       'ignoreComments': true
     }],
     // allow debugger during development

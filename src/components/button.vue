@@ -20,7 +20,7 @@ export default {
     margin-right: 5px;
     padding: 13px;
     border-radius: 3px;
-    @include font($size: 0.9em, $weight: 700, $spacing: 1.5px, $transform: uppercase);
+    @include font($size: 0.9em, $weight: 600, $spacing: 1.5px, $transform: uppercase);
     transition: background-color 0.3s, color 0.3s;
 
     &:hover {

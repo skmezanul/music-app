@@ -138,6 +138,9 @@ export default {
             text-align: center;
             text-overflow: ellipsis;
             white-space: nowrap;
+            span {
+              @include font($weight: 600);
+            }
             .artist-container {
                 a {
                     @include comma-separated($size: 0.95em, $weight: 200);

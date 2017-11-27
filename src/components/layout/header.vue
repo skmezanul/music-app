@@ -175,7 +175,6 @@ header {
                     @include font($spacing: 1.3px, $color: $white);
                     transition: background-color 0.3s, box-shadow 0.3s;
                     -webkit-app-region: no-drag;
-                    -webkit-font-smoothing: subpixel-antialiased;
                     &:focus {
                         background-color: rgba($white,0.2);
                         box-shadow: $shadow;

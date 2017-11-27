@@ -161,7 +161,7 @@ export default {
             white-space: nowrap;
             grid-area: meta;
             span {
-                @include font($size: 1.1em, $color: $white);
+                @include font($size: 1.1em, $weight: 600, $color: $white);
             }
             .artist-container {
                 overflow: hidden;

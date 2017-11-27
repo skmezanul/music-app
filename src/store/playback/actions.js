@@ -43,7 +43,7 @@ const actions = {
   * @param { object } payload The function payload.
   * @param { string } [ payload.direction = 'next', 'previous' ] The direction to skip.
   */
-  SKIP({ dispatch, getters }, payload) {
+  SKIP_TO({ dispatch, getters }, payload) {
     const { direction } = payload;
 
     if (direction) {
@@ -51,6 +51,28 @@ const actions = {
         method: 'post',
         url: `/me/player/${direction}`,
         params: {
+          device_id: getters.getDeviceId,
+        },
+      }).then(() => {
+        dispatch('GET_PLAYBACK');
+      });
+    }
+  },
+
+  /**
+  * Seek to position in track,
+  * @param { object } payload The function payload.
+  * @param { number } payload.position The position to seek to.
+  */
+  SEEK_TO({ dispatch, getters }, payload) {
+    const { position } = payload;
+
+    if (position) {
+      Vue.prototype.$spotifyApi({
+        method: 'put',
+        url: '/me/player/seek',
+        params: {
+          position_ms: position,
           device_id: getters.getDeviceId,
         },
       }).then(() => {

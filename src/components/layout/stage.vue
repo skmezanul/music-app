@@ -1,5 +1,5 @@
 <template lang="pug">
-.stage(:class='{ "is-large" : $route.meta.stage.large, "has-cover" : $route.meta.stage.cover, "has-image" : stage.image }')
+.stage(:class='{ "is-large" : $route.meta.stage.large, "has-cover" : $route.meta.stage.cover, "has-image" : stage.image, "has-nav" : stage.navigation }')
 
   // background
   transition(v-if='stage.image', name='zoom-out', appear)
@@ -177,6 +177,14 @@ export default {
     transition: background-color 1s;
     grid-area: stage;
     grid-template-areas: ". content .";
+    &.has-nav {
+      .stage-inner {
+        .action-container {
+          margin-bottom: 15px;
+        }
+      }
+    }
+
     &:not(.has-image) {
         background-color: var(--accent-color);
         filter: saturate(80%);
@@ -254,12 +262,6 @@ export default {
         .stage-inner {
             @include flex($display: flex, $justify: flex-end, $direction: column, $flex: 4);
 
-            h1 {
-                @include font($size: 3.5em);
-                margin-left: -3px;
-                max-width: 70%;
-            }
-
             .subtitle-container {
                 @include flex($display: flex, $align: center);
                 margin-bottom: 5px;
@@ -277,6 +279,13 @@ export default {
                     margin-left: 5px;
                 }
             }
+
+            h1 {
+                @include font($size: 3.5em);
+                margin-left: -3px;
+                max-width: 70%;
+            }
+
             .action-container {
                 @include flex($display: flex, $align: center);
                 margin-top: 15px;
@@ -310,10 +319,10 @@ export default {
             }
 
             .meta-container {
-                margin-top: 4px;
+                margin-top: 6px;
                 max-width: 70%;
                 p {
-                    @include font($size: 1.1em, $line: 1.2em, $color: rgba($white, 0.7));
+                    @include font($line: 1.2em, $color: rgba($white, 0.7));
                     margin: 0;
                 }
             }
@@ -322,8 +331,6 @@ export default {
 }
 
 .stage-nav-container {
-    margin-top: 15px;
-
     ul {
         @include flex($display: flex);
 

@@ -116,6 +116,7 @@ export default {
               @include item-hover;
               @include flex($display: flex, $align: center);
               white-space: nowrap;
+              @include font($transform: uppercase, $spacing: 1.5px);
               i {
                 transition: transform 0.3s;
                 &.collapsed {
