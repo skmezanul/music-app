@@ -21,7 +21,7 @@ export default {
     return {
       accentColors: [{
         name: 'red',
-        hex: '#ca2a59',
+        hex: '#ce426b',
       },
       {
         name: 'orange',
