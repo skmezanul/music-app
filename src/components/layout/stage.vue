@@ -205,6 +205,9 @@ export default {
                 h1 {
                     @include font($size: 5.5em);
                 }
+                .action-container {
+                  margin-top: 15px;
+                }
             }
         }
     }
@@ -288,7 +291,7 @@ export default {
 
             .action-container {
                 @include flex($display: flex, $align: center);
-                margin-top: 15px;
+                margin-top: 25px;
 
                 .button-group {
                     overflow: hidden;

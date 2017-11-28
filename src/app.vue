@@ -138,7 +138,6 @@ h4 {
 
 h1 {
     @include font($weight: 600, $spacing: 2.5px);
-    -webkit-font-smoothing: antialiased;
 }
 
 h4 {
@@ -275,6 +274,19 @@ a {
 }
 .slide-down-transform-leave-to {
     transform: translateY(-100%);
+}
+
+// slide right transition with transform (sidebar panel)
+.slide-right-transform-enter-active,
+.slide-right-transform-leave-active {
+    transition: transform 0.3s;
+}
+
+.≈-enter {
+    transform: translateX(-100%);
+}
+.slide-right-transform-leave-to {
+    transform: translateX(-100%);
 }
 
 // slide up transition with margin (cover in sidebar)
