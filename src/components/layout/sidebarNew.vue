@@ -1,61 +1,36 @@
-<template>
-<div class="sidebar-container" :class="{ 'is-open' : panel }">
-  <ul class="sidebar-inner">
-    <li class="sidebar-section user">
-      <router-link class="avatar-container" tag="div" :to="{ name: 'user', params: { id: currentUser.id } }">
-        <img :src="currentUser.images[0].url" :alt="currentUser.display_name" />
-      </router-link>
-    </li>
-    <nav class="sidebar-section navigation">
-      <li>
-        <i @click="togglePanel('listen')" class="material-icons">history</i>
-      </li>
-      <li>
-        <i @click="togglePanel('share')" class="material-icons">music_note</i>
-      </li>
-      <li>
-        <i @click="togglePanel('radio')" class="material-icons">album</i>
-      </li>
-    </nav>
-    <li class="sidebar-section newplaylist">
-      <i class="material-icons">playlist_add</i>
-    </li>
-  </ul>
-  <!-- Panel -->
-  <transition name="slide-right-transform">
-    <div v-if="panel" class="sidebar-panel listen">
-      <transition-group name="fade">
-      <ul v-if="panel === 'listen'" class="panel-inner" :class="panel" key="listen">
-        <div class="sidebar-section navigation">
-          <li>
-            <router-link :to="{ name: 'browse' }">{{ $t('browse') }}</router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'mylibraryHistory' }">{{ $t('recentlyplayed') }}</router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'mylibraryTracks' }">{{ $tc('track', 0) }}</router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'mylibraryAlbums' }">{{ $tc('album', 0) }}</router-link>
-          </li>
-        </div>
-        <li class="sidebar-section newplaylist">
-          <a>{{ $t('newplaylist') }}</a>
-        </li>
-      </ul>
-
-      <div v-if="panel === 'share'" class="panel-inner" :class="panel" key="share">
-
-      </div>
-
-      <div v-if="panel === 'radio'" class="panel-inner" :class="panel" key="radio">
-
-      </div>
-      </transition-group>
-    </div>
-  </transition>
-</div>
+<template lang='pug'>
+  .sidebar-container(:class="{ 'is-open' : panel }")
+    ul.sidebar-inner
+      li.sidebar-section.user
+        router-link.avatar-container(tag='div', :to="{ name: 'user', params: { id: currentUser.id } }")
+          img(:src='currentUser.images[0].url', :alt='currentUser.display_name')
+      nav.sidebar-section.navigation
+        li
+          i.material-icons(@click="togglePanel('listen')") history
+        li
+          i.material-icons(@click="togglePanel('share')") music_note
+        li
+          i.material-icons(@click="togglePanel('radio')") album
+      li.sidebar-section.newplaylist
+        i.material-icons playlist_add
+    // Panel
+    transition(name='slide-right-transform')
+      .sidebar-panel.listen(v-if='panel')
+        transition-group(name='fade')
+          ul.panel-inner(v-if="panel === 'listen'", :class='panel', key='listen')
+            .sidebar-section.navigation
+              li
+                router-link(:to="{ name: 'browse' }") {{ $t('browse') }}
+              li
+                router-link(:to="{ name: 'mylibraryHistory' }") {{ $t('recentlyplayed') }}
+              li
+                router-link(:to="{ name: 'mylibraryTracks' }") {{ $tc('track', 0) }}
+              li
+                router-link(:to="{ name: 'mylibraryAlbums' }") {{ $tc('album', 0) }}
+            li.sidebar-section.newplaylist
+              a {{ $t('newplaylist') }}
+          .panel-inner(v-if="panel === 'share'", :class='panel', key='share')
+          .panel-inner(v-if="panel === 'radio'", :class='panel', key='radio')
 </template>
 
 <script>
