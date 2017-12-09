@@ -17,6 +17,7 @@ const app = {
     settings: {
       accentColor: '#ce426b',
       largeCover: false,
+      fixedSidebar: false,
     },
   },
   actions,

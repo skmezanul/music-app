@@ -64,13 +64,13 @@ export default {
             share: true,
           },
           info: [{
-              value: res[0].data.tracks.total,
-              subtitle: self.$tc('track', 0),
-            },
-            {
-              value: res[0].data.followers.total.toLocaleString(),
-              subtitle: self.$tc('follower', 0),
-            },
+            value: res[0].data.tracks.total,
+            subtitle: self.$tc('track', 0),
+          },
+          {
+            value: res[0].data.followers.total.toLocaleString(),
+            subtitle: self.$tc('follower', 0),
+          },
           ],
         });
         self.$endLoading('data');

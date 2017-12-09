@@ -72,7 +72,7 @@
 <script>
 import {
   mapActions,
-  mapGetters
+  mapGetters,
 } from 'vuex';
 
 export default {
@@ -106,7 +106,7 @@ export default {
       const self = this,
         {
           name,
-          params
+          params,
         } = self.$route;
 
       if (self.$route.params.id) {

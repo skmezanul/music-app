@@ -59,6 +59,11 @@ export default {
           buttons: {
             playall: true,
           },
+          info: [{
+            value: res[0].data.items.length,
+            subtitle: self.$tc('track', 0),
+          },
+          ],
         });
         self.$endLoading('data');
       });

@@ -62,13 +62,13 @@ export default {
             share: true,
           },
           info: [{
-              value: releaseDate.toLocaleDateString(),
-              subtitle: self.$t('released'),
-            },
-            {
-              value: res[0].data.tracks.total,
-              subtitle: self.$tc('track', 0),
-            },
+            value: releaseDate.toLocaleDateString(),
+            subtitle: self.$t('released'),
+          },
+          {
+            value: res[0].data.tracks.total,
+            subtitle: self.$tc('track', 0),
+          },
           ],
         });
         self.$endLoading('data');

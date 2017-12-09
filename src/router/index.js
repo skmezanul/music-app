@@ -12,9 +12,7 @@ const router = new VueRouter({
   linkExactActiveClass: 'exact-active',
 });
 
-/**
- * Clear stage state between route changes.
- */
+// clear stage state between route changes
 router.afterEach((to, from) => {
   if (to.path !== from.path) {
     store.commit('SET_STAGE', {});

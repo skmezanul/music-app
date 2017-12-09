@@ -44,7 +44,7 @@ li.list-item(
 <script>
 import {
   mapGetters,
-  mapActions
+  mapActions,
 } from 'vuex';
 
 export default {

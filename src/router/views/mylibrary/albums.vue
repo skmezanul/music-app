@@ -55,6 +55,11 @@ export default {
           buttons: {
             playall: true,
           },
+          info: [{
+            value: res[0].data.items.length,
+            subtitle: self.$tc('album', 0),
+          },
+          ],
         });
         self.$endLoading('data');
       });

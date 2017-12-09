@@ -1,5 +1,5 @@
 <template lang="pug">
-#app(:style='{ "--accent-color" : settings.accentColor }')
+#app(:style='{ "--accent-color" : settings.accentColor }', :class='{ "sidebar-is-fixed" : settings.fixedSidebar }')
 
   // navigation
   ma-sidebar(v-if='!$mq.phone')
@@ -166,6 +166,15 @@ a {
   @include font($spacing: 1px, $color: $white);
   font-family: $font-family;
   user-select: none;
+  &.sidebar-is-fixed {
+    grid-template-columns: minmax(auto, 330px) 1fr;
+    .view-parent, .stage {
+        grid-template-columns: auto 85% auto !important;
+    }
+    .header-container {
+      width: 85%;
+    }
+  }
   // main-container containing header and view-container
   .main-container {
     @include relative;
