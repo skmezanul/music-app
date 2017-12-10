@@ -151,7 +151,7 @@ export default {
 
 <style lang="scss">
 footer {
-    @include absolute($right: 0, $bottom: 0, $left: 0, $z-index: 998);
+    @include absolute($right: 0, $bottom: 0, $left: 0, $z-index: 999);
     @include flex($display: flex, $align: center, $wrap: wrap);
     overflow: hidden;
     padding: 15px 20px;

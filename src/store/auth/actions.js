@@ -38,6 +38,7 @@ const actions = {
         url = `/getToken?code=${code}`;
     }
 
+    // get credentials and push them to state
     if (code || refreshToken) {
       Vue.prototype.$backendApi({
         method: 'get',

@@ -1,8 +1,9 @@
 <template lang="pug">
-#app(:style='{ "--accent-color" : settings.accentColor }', :class='{ "sidebar-is-fixed" : settings.fixedSidebar }')
+#app(:style='{ "--accent-color" : settings.accentColor }')
 
   // navigation
-  ma-sidebar(v-if='!$mq.phone')
+  ma-alt-sidebar(v-if='!$mq.phone && settings.altSidebar')
+  ma-sidebar(v-if='!$mq.phone && !settings.altSidebar')
 
   main.main-container
     // notices
@@ -42,9 +43,10 @@ import { mapActions, mapGetters } from 'vuex';
 
 import maHeader from '@/components/layout/header';
 import maFooter from '@/components/layout/footer';
-import maSidebar from '@/components/layout/sidebar';
+import maSidebar from '@/components/layout/sidebar/index';
+import maAltSidebar from '@/components/layout/sidebar/alternative';
 import maVideo from '@/components/modals/video';
-import maLoader from '@/components/loader';
+import maLoading from '@/components/loader';
 
 export default {
   created() {
@@ -67,8 +69,9 @@ export default {
     maHeader,
     maFooter,
     maSidebar,
+    maAltSidebar,
     maVideo,
-    maLoader,
+    maLoading,
   },
 };
 </script>
@@ -160,21 +163,12 @@ a {
 // vue instance container
 #app {
   display: grid;
-  grid-template-columns: minmax(auto, 200px) 1fr;
+  grid-template-columns: auto 1fr;
   grid-template-rows: 1fr 80px;
   grid-template-areas: "sidebar main" "footer footer";
   @include font($spacing: 1px, $color: $white);
   font-family: $font-family;
   user-select: none;
-  &.sidebar-is-fixed {
-    grid-template-columns: minmax(auto, 330px) 1fr;
-    .view-parent, .stage {
-        grid-template-columns: auto 85% auto !important;
-    }
-    .header-container {
-      width: 85%;
-    }
-  }
   // main-container containing header and view-container
   .main-container {
     @include relative;
@@ -228,7 +222,7 @@ a {
 // tooltip styling
 .tooltip-container {
     .tooltip {
-        @include relative($z-index: 999);
+        @include relative($z-index: 1000);
         @include font($spacing: 1.5px);
         display: block !important;
         margin-bottom: 12px;
@@ -291,7 +285,7 @@ a {
     transition: transform 0.3s;
 }
 
-.≈-enter {
+.slide-right-transform-enter {
     transform: translateX(-100%);
 }
 .slide-right-transform-leave-to {
@@ -305,10 +299,10 @@ a {
 }
 
 .slide-up-margin-enter {
-    margin-bottom: -199px;
+    margin-bottom: -100%;
 }
 .slide-up-margin-leave-to {
-    margin-bottom: -199px;
+    margin-bottom: -100%;
 }
 
 // zoom out animation (stage background)

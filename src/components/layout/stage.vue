@@ -30,7 +30,7 @@
         i.star.material-icons(v-if='stage.popularity && stage.popularity > 80') stars
       h1(v-if='title || stage.title') {{ title || stage.title }}
       .meta-container(v-if='stage.meta && !$mq.phone')
-        p {{ $formatValue(stage.meta) }}
+        p(v-html='$formatValue(stage.meta)')
       .action-container(v-if='stage.buttons || stage.buttons && stage.buttons.share')
         .button-group(v-if='stage.buttons')
           // play all
@@ -63,7 +63,7 @@
             span.subtitle {{ item.subtitle }}
 
       // navigation
-    nav.stage-nav-container(v-if='stage.navigation && !$mq.phone')
+    nav.nav-container(v-if='stage.navigation && !$mq.phone')
       ul
         li(v-for='navitem in stage.navigation')
           router-link(:to='{ name: navitem.routeName, params: { id: $route.params.id }}') {{ navitem.title }}
@@ -215,7 +215,7 @@ export default {
     &.has-cover {
         .stage-container {
             @include flex($align: center, $direction: row, $wrap: wrap);
-            .stage-nav-container {
+            .nav-container {
                 @include flex($basis: 100%);
             }
         }
@@ -331,35 +331,34 @@ export default {
             }
         }
     }
-}
+    .nav-container {
+        ul {
+            @include flex($display: flex);
 
-.stage-nav-container {
-    ul {
-        @include flex($display: flex);
+            li {
+                margin-right: 50px;
+                padding: 15px 0;
+                a {
+                    @include font($size: 0.9em, $weight: 600, $spacing: 1.5px, $transform: uppercase, $color: rgba($white, 0.5));
+                    transition: color 0.5s;
 
-        li {
-            margin-right: 50px;
-            padding: 15px 0;
-            a {
-                @include font($size: 0.9em, $weight: 600, $spacing: 1.5px, $transform: uppercase, $color: rgba($white, 0.5));
-                transition: color 0.5s;
-
-                &.exact-active {
-                    color: $white;
-                    &:after {
-                        @include relative;
-                        top: 0.7em;
-                        display: block;
-                        margin: 0 auto;
-                        width: 40px;
-                        height: 3px;
-                        background-color: var(--accent-color);
-                        content: "";
+                    &.exact-active {
+                        color: $white;
+                        &:after {
+                            @include relative;
+                            top: 0.7em;
+                            display: block;
+                            margin: 0 auto;
+                            width: 40px;
+                            height: 3px;
+                            background-color: var(--accent-color);
+                            content: "";
+                        }
                     }
-                }
-                &:not(.active):hover {
-                    @include font($color: rgba($white, 0.7));
-                    cursor: pointer;
+                    &:not(.active):hover {
+                        @include font($color: rgba($white, 0.7));
+                        cursor: pointer;
+                    }
                 }
             }
         }

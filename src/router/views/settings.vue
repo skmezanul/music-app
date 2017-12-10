@@ -11,6 +11,8 @@
           :style='{ "background-color" : color.hex }',
           @click='setColor(color.hex)',
           v-tooltip='{ content: $t(color.name), offset: 5 }')
+    ma-section(title='Alternative Sidebar')
+      ma-button(type='accent', title='toggle', @click.native='setAppSettings({ setting: "altSidebar" })')
 </template>
 
 <script>

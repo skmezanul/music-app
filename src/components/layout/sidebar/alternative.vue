@@ -1,5 +1,5 @@
 <template lang='pug'>
-nav.sidebar-container
+.alt-sidebar-container
 	ul
 		// browse
 		.sidebar-section
@@ -75,10 +75,11 @@ export default {
 </script>
 
 <style lang="scss">
-.sidebar-container {
+.alt-sidebar-container {
   	grid-area: sidebar;
     border-right: 1px solid $border-color;
     background-color: $dark-grey;
+    max-width: 230px;
 
     ul {
         @include flex($display: flex, $direction: column);
@@ -140,7 +141,6 @@ export default {
     }
     .cover-container {
         @include relative;
-        height: 199px;
         border-top: 1px solid $border-color;
         .button {
             opacity: 0;

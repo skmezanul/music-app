@@ -23,15 +23,15 @@ const mutations = {
   /**
   * Push app settings to state.
   * @param { object } payload The function payload.
-  * @param { string } [ payload.setting = 'accentColor', 'largeCover' ] The state to push the data to.
+  * @param { string } [ payload.setting = 'accentColor', 'largeCover', 'fixedSidebar', 'altSidebar' ] The state to push the data to.
   * @param { string } payload.value The new value to save to the targeted state.
   */
   SET_APP_SETTINGS(state, payload) {
     const self = state,
       { setting, value } = payload;
-    if (payload.value) {
+    if (value && setting) {
       self.settings[setting] = value;
-    } else {
+    } else if (setting) {
       self.settings[setting] = !self.settings[setting];
     }
   },

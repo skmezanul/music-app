@@ -1,60 +1,38 @@
 <template lang='pug'>
 header(:class='{ "scrolled" : scrollPosition > 0 }')
-  .header-container
-    // navigation
-    .header-inner.left
-      i.back.material-icons(@click='routerGo(-1)') keyboard_arrow_left
+	.header-container
+		// navigation
+		.header-inner.left
+			i.back.material-icons(@click='routerGo(-1)') keyboard_arrow_left
 
-      i.forward.material-icons(@click='routerGo(1)') keyboard_arrow_right
-    // search
-    .header-inner.middle
-      i.material-icons.search-icon search
-      input(
-        type='text',
-        @keyup.enter='doSearch',
-        v-model='searchQuery',
-        :placeholder='$tc("search", 0)')
+			i.forward.material-icons(@click='routerGo(1)') keyboard_arrow_right
+		// search
+		.header-inner.middle
+			i.material-icons.search-icon search
+			input(
+				type='text',
+				@keyup.enter='doSearch',
+				v-model='searchQuery',
+				:placeholder='$tc("search", 0)')
 
-    // current user
-    .header-inner.right
-      router-link.current-user(
-        tag='div',
-        :to='{ name: "user", params: { id: currentUser.id } }')
-        .avatar-container
-          img(
-            :src='currentUser.images[0].url',
-            :alt='currentUser.display_name')
-
-        span(v-if='$mq.desktop') {{ currentUser.display_name }}
-      i.toggle.material-icons(@click='toggleDropdown', :class='{ "is-open" : userDropdown }') keyboard_arrow_down
-      // user dropdown
-      transition(name='fade', :duration='250')
-        ul.dropdown(
-          v-if='userDropdown',
-          v-on-clickaway='toggleDropdown',
-          @click='toggleDropdown')
-          router-link(tag='li', :to='{ name: "myaccount" }') {{ $t('myaccount') }}
-          router-link(tag='li', :to='{ name: "settings" }') {{ $t('settings') }}
-          router-link(tag='li', :to='{ name: "debug" }') {{ $t('debug') }}
-          li {{ $t('logout') }}
+		// current user
+		.header-inner.right
+			a.github-hint(href='https://github.com/microeinhundert/music-app', target='_blank') Visit on GitHub
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { directive as onClickaway } from 'vue-clickaway';
-
 export default {
   data() {
     return {
-      userDropdown: false,
       searchQuery: '',
       scrollPosition: null,
+      viewContainer: document.querySelector('.view-container'),
     };
   },
   methods: {
     // update scroll position
     updateScroll() {
-      this.scrollPosition = document.querySelector('.view-container').scrollTop;
+      this.scrollPosition = this.viewContainer.scrollTop;
     },
 
     // do the search
@@ -74,31 +52,16 @@ export default {
     routerGo(direction) {
       this.$router.go(direction);
     },
-
-    // toggle user dropdown
-    toggleDropdown() {
-      this.userDropdown = !this.userDropdown;
-    },
-  },
-  computed: {
-    ...mapGetters({
-      currentUser: 'getCurrentUser',
-    }),
   },
   mounted() {
-    const element = document.querySelector('.view-container');
-    element.addEventListener('scroll', this.updateScroll, {
+    this.viewContainer.addEventListener('scroll', this.updateScroll, {
       passive: true,
     });
   },
   destroy() {
-    const element = document.querySelector('.view-container');
-    element.removeEventListener('scroll', this.updateScroll, {
+    this.viewContainer.removeEventListener('scroll', this.updateScroll, {
       passive: true,
     });
-  },
-  directives: {
-    onClickaway,
   },
 };
 </script>
@@ -114,10 +77,10 @@ header {
     -webkit-app-region: drag;
 
     &.scrolled {
-      border-color: $border-color;
-      background-color: $dark-grey;
+        border-color: $border-color;
+        background-color: $dark-grey;
         .header-container {
-          width: $small-viewport-width;
+            width: $small-viewport-width;
         }
     }
 
@@ -136,21 +99,21 @@ header {
 
             &.left {
                 @media (min-width: $mobile-breakpoint) {
-                    @include flex($justify: flex-start, $flex: 1);
+                     @include flex($justify: flex-start, $flex: 1);
                 }
 
                 i {
                     @include item-hover;
                     @include font($size: 2.2em);
                     &.back {
-                      &:hover {
-                        transform: translateX(-2px);
-                      }
+                        &:hover {
+                            transform: translateX(-2px);
+                        }
                     }
                     &.forward {
-                      &:hover {
-                        transform: translateX(2px);
-                      }
+                        &:hover {
+                            transform: translateX(2px);
+                        }
                     }
                 }
             }
@@ -162,7 +125,7 @@ header {
                     width: 100%;
                 }
                 @media (min-width: $mobile-breakpoint) {
-                    @include flex($flex: 2);
+                     @include flex($flex: 2);
                 }
                 input {
                     z-index: 1;
@@ -181,7 +144,7 @@ header {
                     }
 
                     &::-webkit-input-placeholder {
-                      @include font($color: rgba($white,0.4));
+                        @include font($color: rgba($white,0.4));
                     }
                 }
                 .search-icon {
@@ -193,35 +156,15 @@ header {
             &.right {
                 @include relative;
                 @media (min-width: $mobile-breakpoint) {
-                    @include flex($justify: flex-end, $flex: 1);
+                     @include flex($justify: flex-end, $flex: 1);
                 }
-
-                .current-user {
-                  @include flex($display: flex, $align: center);
-                  &:hover {
-                    cursor: pointer;
-                  }
-
-                  .avatar-container {
-                      width: 34px;
-                      height: 34px;
-                      border-radius: 100%;
-                      overflow: hidden;
-                  }
-
-                  span {
-                      padding-left: 10px;
-                  }
-
-                }
-
-                i {
+                .github-hint {
+                    border: 2px solid rgba($white, 0.5);
+                    border-radius: 30px;
+                    font-size: 0.9em;
+                    padding: 7px 15px;
+                    text-transform: uppercase;
                     @include item-hover;
-                    margin-left: 10px;
-                    transform-origin: center;
-                    &.is-open {
-                      transform: scaleY(-1);
-                    }
                 }
             }
         }

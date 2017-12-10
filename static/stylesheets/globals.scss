@@ -5,7 +5,7 @@ $grey: #1e1e1e;
 $dark-grey: #0f0f0f;
 $border-color: rgba($white, 0.05);
 $main-bg-color: #121212;
-$large-viewport-width: 75%;
+$large-viewport-width: 85%;
 $small-viewport-width: 95%;
 $shadow: 0 20px 40px rgba($black, 0.15);
 $shadow-highlight: 0 20px 50px rgba($black, 0.4);
@@ -77,7 +77,7 @@ $view-width-breakpoint: 1440px;
 
 @mixin item-hover() {
   @include font($color: rgba($white, 0.7));
-  transition: color 0.3s, opacity 0.3s, transform 0.3s, background-color 0.1s;
+  transition: all 0.3s;
 
   &:hover {
     @include font($color: $white);

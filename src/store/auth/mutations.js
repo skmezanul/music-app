@@ -12,6 +12,7 @@ const mutations = {
     if (accessToken) self.accessToken = accessToken;
     if (refreshToken) self.refreshToken = refreshToken;
     if (expiresIn) {
+      // convert expiry time format
       const expiryTime = Date.now() + (payload.expires_in * 1000);
       self.expiryTime = expiryTime;
     }
