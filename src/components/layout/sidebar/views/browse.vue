@@ -1,21 +1,14 @@
 <template lang='pug'>
 .view-parent
-  ul
-    router-link(
-      v-for='item in items',
-      :key='item.name',
-      tag='li',
-      :to='{ name: item.routeName }',
-      @click.native='$emit("clicked-element", $event)')
-      span.title {{ $tc(item.name, 0) }}
-      .meta-container
-        span(v-if='item.meta') {{ item.meta }}
+  maPanelList(:items='items', @close-panel='$emit("close-panel")')
 </template>
 
 <script>
 import {
   mapGetters,
 } from 'vuex';
+
+import maPanelList from '../components/panelList';
 
 export default {
   data() {
@@ -46,9 +39,6 @@ export default {
   created() {
     this.fetchData();
   },
-  updated() {
-    this.fetchData();
-  },
   watch: {
     'currentPlayback.item': 'fetchData',
   },
@@ -72,7 +62,7 @@ export default {
     // get get currnt featured message from the api
     getFeaturedMessage() {
       const self = this,
-            { country } = self;
+        { country } = self;
 
       return self.$spotifyApi({
         method: 'get',
@@ -121,6 +111,9 @@ export default {
       country: 'getCountry',
       currentPlayback: 'getCurrentPlayback',
     }),
+  },
+  components: {
+    maPanelList,
   },
 };
 </script>

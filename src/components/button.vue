@@ -1,6 +1,6 @@
 <template lang="pug">
   a.button(:class='type')
-    i.material-icons(v-if='icon') {{ icon }}
+    ma-icon(v-if='icon') {{ icon }}
     | {{ $t(title) }}
 </template>
 
@@ -17,10 +17,10 @@ export default {
 <style lang="scss">
 .button {
     @include flex($display: inline-flex);
+    @include font($size: 0.9em, $weight: 600, $spacing: 1.5px, $transform: uppercase);
     margin-right: 5px;
     padding: 13px;
     border-radius: 5px;
-    @include font($size: 0.9em, $weight: 600, $spacing: 1.5px, $transform: uppercase);
     transition: background-color 0.3s, color 0.3s;
 
     &:hover {
@@ -33,19 +33,19 @@ export default {
             background-color: var(--accent-color);
         }
         &:hover {
-            background-color: $white;
             @include font($color: $black);
+            background-color: $white;
         }
     }
 
     &:not(.overlay) {
-      i {
+      .icon {
           @include font($size: 1em, $line: inherit);
       }
     }
 
     &:not(.icon):not(.overlay) {
-        i {
+        .icon {
             margin-right: 5px;
         }
     }

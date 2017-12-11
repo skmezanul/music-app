@@ -1,13 +1,13 @@
 <template lang="pug">
-footer
+footer.footer-container
   // current playback
-  .footer-container.left(:class='{ "cover-hidden" : settings.largeCover && !$mq.phone }')
+  .footer-inner.left(:class='{ "cover-hidden" : settings.largeCover && !$mq.phone }')
     router-link.cover-container(
       v-if='$mq.desktop',
       tag='div',
       :to='{ name: "artist", params: { id: currentPlayback.item.artists[0].id }}')
       ma-button(type='overlay', @click.prevent.native='setAppSettings({ setting: "largeCover", value: true })', icon='keyboard_arrow_up')
-      img(
+      img.cover-image(
         :src='currentPlayback.item.album.images[0].url',
         :alt='currentPlayback.item.name')
 
@@ -21,47 +21,51 @@ footer
 
     transition(name='fade')
       .background-container(v-if='!settings.largeCover && !$mq.phone',)
-        img(
+        img.cover-image(
           :src='currentPlayback.item.album.images[0].url',
           :alt='currentPlayback.item.name')
 
   // playback controls
-  .footer-container.middle
+  .footer-inner.middle
 
-    i.shuffle.material-icons(
-      @click='SET_SHUFFLE',
-      :class='{ "active": currentPlayback.shuffle_state}',
+    ma-icon.shuffle(
+      :hover='true',
+      @click.native='SET_SHUFFLE',
+      :class='{ "active": currentPlayback.shuffle_state }',
       v-tooltip='{ content: $t("shuffle") }') shuffle
 
-    i.skip.material-icons(@click='SKIP_TO({ direction: "previous" })') skip_previous
+    ma-icon.skip(:hover='true', @click.native='SKIP_TO({ direction: "previous" })') skip_previous
 
-    i.toggle.material-icons(
+    ma-icon.toggle(
       :class='currentPlayback.is_playing ? "pause" : "play"',
-      @click='SET_PLAYBACK({ state: currentPlayback.is_playing ? "pause" : "play" })') {{ currentPlayback.is_playing ? 'pause_circle_filled' : 'play_circle_filled' }}
+      @click.native='SET_PLAYBACK({ state: currentPlayback.is_playing ? "pause" : "play" })') {{ currentPlayback.is_playing ? 'pause_circle_filled' : 'play_circle_filled' }}
 
-    i.skip.material-icons(@click='SKIP_TO({ direction: "next" })') skip_next
+    ma-icon.skip(:hover='true', @click.native='SKIP_TO({ direction: "next" })') skip_next
 
-    i.repeat.material-icons(
-      v-show='currentPlayback.repeat_state != "track"',
-      @click='TOGGLE_REPEAT',
+    ma-icon.repeat(
+      :hover='true',
+      v-if='currentPlayback.repeat_state != "track"',
+      @click.native='TOGGLE_REPEAT',
       :class='{ "active": currentPlayback.repeat_state == "context" }',
       v-tooltip='{ content: $t("repeat") }') repeat
 
-    i.repeat.material-icons.active(
-      v-show='currentPlayback.repeat_state == "track"',
-      @click='TOGGLE_REPEAT',
+    ma-icon.repeat.active(
+      :hover='true',
+      v-if='currentPlayback.repeat_state == "track"',
+      @click.native='TOGGLE_REPEAT',
       v-tooltip='{ content: $t("repeat") }') repeat_one
 
   // volume and other controls
-  .footer-container.right(v-if='$mq.desktop')
-    i.volume.material-icons {{ volume > 50 ? 'volume_up' : 'volume_down' }}
+  .footer-inner.right(v-if='$mq.desktop')
+    ma-icon.volume(:hover='true') {{ volume > 50 ? 'volume_up' : 'volume_down' }}
     ma-slider(
       ref='slider',
       v-model='volume',
       width='100px',
       :tooltip='false')
-    i.material-icons(
-      @click='$modal.show("video")',
+    ma-icon(
+      :hover='true',
+      @click.native='$modal.show("video")',
       v-tooltip='{ content: $t("watchvideo") }') music_video
     .time-container
       span.track-progress {{ $formatValue(currentPlayback.progress_ms, 'time') }}
@@ -150,15 +154,15 @@ export default {
 </script>
 
 <style lang="scss">
-footer {
-    @include absolute($right: 0, $bottom: 0, $left: 0, $z-index: 999);
+.footer-container {
+    @include absolute($right: 0, $bottom: 0, $left: 0, $index: 999);
     @include flex($display: flex, $align: center, $wrap: wrap);
     overflow: hidden;
     padding: 15px 20px;
     border-top: 1px solid $border-color;
     background: $dark-grey;
 
-    .footer-container {
+    .footer-inner {
         @include flex($display: flex, $align: center);
         height: 50px;
 
@@ -179,16 +183,16 @@ footer {
             }
 
             .background-container {
-              @include absolute($top: -15px, $bottom: 0, $left: -20px, $z-index: -1);
+              @include absolute($top: -15px, $bottom: 0, $left: -20px, $index: -1);
               @include flex($display: flex, $justify: center, $align: center);
               overflow: hidden;
               max-width: 400px;
               height: 81px;
-              img {
+              .cover-image {
                 filter: saturate(150%) blur(3px);
               }
               &:before {
-                  @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 1);
+                  @include absolute($all: 0, $index: 1);
                   background: ease-in-out-sine-gradient(to left, $main-bg-color, rgba($main-bg-color, 0.5)), radial-gradient(circle, rgba($main-bg-color, 0.3), $main-bg-color);
                   content: "";
               }
@@ -287,7 +291,6 @@ footer {
         }
 
         i {
-            @include item-hover;
             &:hover {
               &.volume {
                 color: rgba($white, 0.7);

@@ -2,8 +2,7 @@
 #app(:style='{ "--accent-color" : settings.accentColor }')
 
   // navigation
-  ma-alt-sidebar(v-if='!$mq.phone && settings.altSidebar')
-  ma-sidebar(v-if='!$mq.phone && !settings.altSidebar')
+  ma-sidebar(v-if='!$mq.phone')
 
   main.main-container
     // notices
@@ -17,13 +16,14 @@
     // header
     ma-header
 
-    // loading spinner
+    // preloader
     transition(name='fade')
       ma-loading(v-if='$isLoading("data")')
         ma-loader(slot='spinner')
 
-    // router view
+    // view container
     .view-container
+      // router view
       transition(name='fade', mode='out-in')
         router-view(:key='$route.path')
 
@@ -44,7 +44,6 @@ import { mapActions, mapGetters } from 'vuex';
 import maHeader from '@/components/layout/header';
 import maFooter from '@/components/layout/footer';
 import maSidebar from '@/components/layout/sidebar/index';
-import maAltSidebar from '@/components/layout/sidebar/alternative';
 import maVideo from '@/components/modals/video';
 import maLoading from '@/components/loader';
 
@@ -69,7 +68,6 @@ export default {
     maHeader,
     maFooter,
     maSidebar,
-    maAltSidebar,
     maVideo,
     maLoading,
   },
@@ -202,7 +200,7 @@ a {
 
 // dropdown styling
 .dropdown {
-    @include absolute($top: 58px, $right: 0, $z-index: 999);
+    @include absolute($top: 58px, $right: 0, $index: 999);
     overflow: hidden;
     width: 150px;
     border-radius: 5px;
@@ -222,7 +220,7 @@ a {
 // tooltip styling
 .tooltip-container {
     .tooltip {
-        @include relative($z-index: 1000);
+        @include relative($index: 1000);
         @include font($spacing: 1.5px);
         display: block !important;
         margin-bottom: 12px;

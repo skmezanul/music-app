@@ -1,44 +1,44 @@
 <template lang="pug">
 li.list-item(
-	@dblclick='SET_PLAYBACK({ state: "play", trackId })',
-	:class='{ "playing" : isPlaying, "has-image" : image }')
+  @dblclick='SET_PLAYBACK({ state: "play", trackId })',
+  :class='{ "playing" : isPlaying, "has-image" : image }')
 
-	// image
-	.image-container(v-if='image')
-		i.playback-toggle.material-icons(
-			@click='SET_PLAYBACK({ state: isPlaying ? "pause" : "play", trackId })',
-			:class='isPlaying ? "pause" : "play"') {{ isPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
+  // image
+  .image-container(v-if='image')
+    ma-icon.playback-toggle(
+     @click.native='SET_PLAYBACK({ state: isPlaying ? "pause" : "play", trackId })',
+     :class='isPlaying ? "pause" : "play"') {{ isPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
 
-		img(
-			:src='image[0].url',
-			:alt='title')
+    img.cover-image(
+      :src='image[0].url',
+      :alt='title')
 
-	// index
-	i.is-playing.material-icons(v-if='!$mq.phone && isPlaying') {{ currentPlayback.is_playing ? 'volume_up' : 'volume_down' }}
-	span.index(v-else-if='!$mq.phone') {{ $formatValue(index, 'index') }}
+  // index
+  ma-icon.is-playing(v-if='!$mq.phone && isPlaying') {{ currentPlayback.is_playing ? 'volume_up' : 'volume_down' }}
+  span.index(v-else-if='!$mq.phone') {{ $formatValue(index, 'index') }}
 
-	// meta
-	.meta-container
-		span.title {{ title }}
-		.artist-container(v-if='artists')
-			router-link(
-				v-for='artist in artists',
-				:key='artist.id',
-				:to='{ name: artist.type, params: { id: artist.id }}') {{ artist.name }}
-	.label-container(v-if='explicit')
-		i.explicit.material-icons(v-tooltip='{ content: $t("explicit") }') explicit
+  // meta
+  .meta-container
+    span.title {{ title }}
+    .artist-container(v-if='artists')
+      router-link.artist(
+        v-for='artist in artists',
+        :key='artist.id',
+        :to='{ name: artist.type, params: { id: artist.id }}') {{ artist.name }}
+  .label-container(v-if='explicit')
+    ma-icon.explicit(:hover='true', v-tooltip='{ content: $t("explicit") }') explicit
 
-	// album name
-	.album-container(v-if='album')
-		router-link(:to='{ name: album.type, params: { id: album.id }}') {{ album.name }}
+  // album name
+  .album-container(v-if='album')
+    router-link.album(:to='{ name: album.type, params: { id: album.id }}') {{ album.name }}
 
-	// duration
-	span.duration {{ $formatValue(duration, 'time') }}
+  // duration
+  span.duration {{ $formatValue(duration, 'time') }}
 
-	// actions
-	.action-container(v-if='!$mq.phone')
-		i.playlistadd.material-icons(v-tooltip='{ content: $t("addtoplaylist") }') playlist_add
-		i.more.material-icons(v-tooltip='{ content: $t("more") }') more_horiz
+  // actions
+  .action-container(v-if='!$mq.phone')
+    ma-icon.playlistadd(:hover='true', v-tooltip='{ content: $t("addtoplaylist") }') playlist_add
+    ma-icon.explicit(:hover='true', v-tooltip='{ content: $t("more") }') more_horiz
 </template>
 
 <script>
@@ -124,7 +124,7 @@ export default {
                 .playback-toggle {
                     @include font($color: $white);
                 }
-                img {
+                .cover-image {
                     filter: brightness(50%);
                 }
             }
@@ -144,11 +144,11 @@ export default {
             @include relative;
             width: 75px;
             grid-area: image;
-            img {
+            .cover-image {
                 transition: filter 0.3s;
             }
             .playback-toggle {
-                @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 1);
+                @include absolute($all: 0, $index: 1);
                 @include flex($display: flex, $justify: center, $align: center);
                 @include font($size: 2.5em, $color: rgba($white, 0));
                 transition: color 0.3s;
@@ -160,14 +160,14 @@ export default {
             text-overflow: ellipsis;
             white-space: nowrap;
             grid-area: meta;
-            span {
+            .title {
                 @include font($size: 1.1em, $weight: 600, $color: $white);
             }
             .artist-container {
                 overflow: hidden;
                 margin-top: 5px;
                 text-overflow: ellipsis;
-                a {
+                .artist {
                     @include comma-separated($size: 1em, $weight: 200);
                 }
             }
@@ -178,7 +178,7 @@ export default {
             text-overflow: ellipsis;
             white-space: nowrap;
             grid-area: album;
-            a {
+            .album {
                 @include comma-separated($size: 1em, $weight: 400);
             }
         }
@@ -186,9 +186,6 @@ export default {
         .action-container,
         .label-container {
             @include flex($display: flex, $justify: space-between, $align: center);
-            i {
-                @include item-hover;
-            }
         }
 
         .label-container {

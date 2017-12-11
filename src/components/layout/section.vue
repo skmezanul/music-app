@@ -8,7 +8,7 @@ section.view-section(:class='{ "collapsed" : isCollapsed }')
     .section-actions(@click='toggleCollapse', v-if='isCollapsible')
       .toggle-collapse
         span {{ $t(collapsed ? 'showmore' : 'showless')}}
-        i.material-icons(:class='{ "collapsed" : isCollapsed }') keyboard_arrow_up
+        ma-icon(:class='{ "collapsed" : isCollapsed }') keyboard_arrow_up
 
   // section slot
   slot
@@ -117,7 +117,7 @@ export default {
               @include flex($display: flex, $align: center);
               white-space: nowrap;
               @include font($transform: uppercase, $spacing: 1.5px);
-              i {
+              .icon {
                 transition: transform 0.3s;
                 &.collapsed {
                   transform: scaleY(-1);

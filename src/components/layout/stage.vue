@@ -4,7 +4,7 @@
   // background
   transition(v-if='stage.image', name='zoom-out', appear)
     .background-container
-      img(
+      img.background-image(
         v-parallax='0.5',
         :src='stage.image',
         :alt='stage.title')
@@ -14,7 +14,7 @@
       v-if='$route.meta.stage.cover && !$mq.phone',
       :class='{ "is-small" : $route.meta.stage.cover && $route.name === "user" }')
 
-      img(
+      img.cover-image(
         :src='stage.image',
         :alt='stage.title')
 
@@ -22,13 +22,11 @@
     .stage-inner
       .subtitle-container
         h4(v-if='subtitle || stage.subtitle') {{ stage.profile ? `${subtitle || stage.subtitle} ${$t('by')} ` :  subtitle || stage.subtitle }}
-          router-link(
+          router-link.subtitle-link(
             v-if='stage.profile',
-            tag='span',
-            :class='stage.profile.type',
             :to='{ name: stage.profile.type, params: { id: stage.profile.id } }') {{ stage.profile.name || stage.profile.display_name }}
-        i.star.material-icons(v-if='stage.popularity && stage.popularity > 80') stars
-      h1(v-if='title || stage.title') {{ title || stage.title }}
+        ma-icon.star(v-if='stage.popularity && stage.popularity > 80') stars
+      h1.stage-title(v-if='title || stage.title') {{ title || stage.title }}
       .meta-container(v-if='stage.meta && !$mq.phone')
         p(v-html='$formatValue(stage.meta)')
       .action-container(v-if='stage.buttons || stage.buttons && stage.buttons.share')
@@ -59,7 +57,7 @@
 
         .info-container(v-if='stage.info')
           .info-item(v-for='item in stage.info')
-            h4 {{ item.value }}
+            h4.value {{ item.value }}
             span.subtitle {{ item.subtitle }}
 
       // navigation
@@ -202,7 +200,7 @@ export default {
         height: 550px;
         .stage-container {
             .stage-inner {
-                h1 {
+                .stage-title {
                     @include font($size: 5.5em);
                 }
                 .action-container {
@@ -222,10 +220,10 @@ export default {
     }
 
     .background-container {
-        @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 1);
+        @include absolute($all: 0, $index: 1);
         @include flex($display: flex, $justify: center, $align: center);
 
-        img {
+        .background-image {
             width: 100vw;
             height: 100vh;
             filter: saturate(130%);
@@ -233,7 +231,7 @@ export default {
         }
     }
     &:after {
-        @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 1);
+        @include absolute($all: 0, $index: 1);
         background: ease-in-out-sine-gradient(to top, $main-bg-color, rgba($main-bg-color, 0)), radial-gradient(circle, rgba($main-bg-color, 0), $main-bg-color);
         content: "";
     }
@@ -269,8 +267,9 @@ export default {
                 @include flex($display: flex, $align: center);
                 margin-bottom: 5px;
 
-                span {
+                .subtitle-link {
                     transition: color 0.3s;
+                    @include font($color: rgba($white, 0.7));
                     &:hover {
                         color: $white;
                         cursor: pointer;
@@ -283,7 +282,7 @@ export default {
                 }
             }
 
-            h1 {
+            .stage-title {
                 @include font($size: 3.5em);
                 margin-left: -3px;
                 max-width: 70%;

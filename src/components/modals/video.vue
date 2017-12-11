@@ -68,6 +68,7 @@ export default {
       ]).then((res) => {
         self.videoId = res[0].data.items[0].id.videoId;
       }).catch((err) => {
+        self.closeVideo();
         self.showNotice({
           action: 'add',
           type: 'error',
@@ -121,7 +122,7 @@ export default {
                     @include font($size: 3em);
                 }
                 .artist-container {
-                    a {
+                    .artist {
                         @include comma-separated($size: 1.2em, $weight: 200);
                     }
                 }

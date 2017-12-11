@@ -12,13 +12,13 @@ $shadow-highlight: 0 20px 50px rgba($black, 0.4);
 $mobile-breakpoint: 768px;
 $view-width-breakpoint: 1440px;
 
-@mixin position($position, $top: null, $right: null, $bottom: null, $left: null, $z-index: null) {
+@mixin position($position, $top: null, $right: null, $bottom: null, $left: null, $index: null, $all: null) {
   position: $position;
-  top: $top;
-  right: $right;
-  bottom: $bottom;
-  left: $left;
-  z-index: $z-index;
+  top: $all $top;
+  right: $all $right;
+  bottom: $all $bottom;
+  left: $all $left;
+  z-index: $index;
 }
 
 @mixin absolute($args...) {

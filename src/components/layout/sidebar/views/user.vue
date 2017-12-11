@@ -1,22 +1,14 @@
 <template lang='pug'>
 .view-parent
-  ul
-    router-link(
-      v-for='item in items',
-      :key='item.name',
-      tag='li',
-      :class='item.name',
-      :to='{ name: item.routeName, params: item.routeName === "user" ? { id: currentUser.id } : {}}',
-      @click.native='$emit("clicked-element", $event)')
-      span.title {{ $tc(item.name, 0) }}
-      .meta-container
-        span {{ item.routeName === 'logout' ? `${$t('loggedinas')} ${currentUser.display_name}` : $t(item.meta) }}
+  maPanelList(:items='items', @close-panel='$emit("close-panel")')
 </template>
 
 <script>
 import {
   mapGetters,
 } from 'vuex';
+
+import maPanelList from '../components/panelList';
 
 export default {
   data() {
@@ -51,6 +43,9 @@ export default {
     ...mapGetters({
       currentUser: 'getCurrentUser',
     }),
+  },
+  components: {
+    maPanelList,
   },
 };
 </script>

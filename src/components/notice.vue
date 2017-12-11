@@ -1,12 +1,12 @@
 <template lang="pug">
 .notice-container
-	.notice-inner
-		i.icon.material-icons(v-if='!$mq.phone') {{ type }}
-		// message
-		p {{ message }}
+  .notice-inner
+    ma-icon.notice-icon(v-if='!$mq.phone') {{ type }}
+    // message
+    p {{ message }}
 
-		// remove notice manually
-		i.close.material-icons(@click='removeNotice({ action: "remove" })') close
+    // remove notice manually
+    ma-icon.close-button(:hover='true', @click.native='removeNotice({ action: "remove" })') close
 </template>
 
 <script>
@@ -29,7 +29,7 @@ export default {
 
 <style lang="scss">
 .notice-container {
-    @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 999);
+    @include absolute($all: 0, $index: 999);
     @include view-grid-columns;
     display: grid;
     height: 69px;
@@ -49,16 +49,9 @@ export default {
             @include font($size: 1.2em);
             margin: 0;
         }
-        i {
-            &.icon {
-                position: absolute;
-                left: 0;
-                color: rgba($white, 0.2);
-                font-size: 7em;
-            }
-            &.close {
-                @include item-hover;
-            }
+        .notice-icon {
+          @include absolute($left: 0);
+          @include font($size: 7em, $color: rgba($white, 0.2));
         }
     }
 }

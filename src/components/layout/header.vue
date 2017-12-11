@@ -1,23 +1,23 @@
 <template lang='pug'>
 header(:class='{ "scrolled" : scrollPosition > 0 }')
-	.header-container
-		// navigation
-		.header-inner.left
-			i.back.material-icons(@click='routerGo(-1)') keyboard_arrow_left
+  .header-container
+    // navigation
+    .header-inner.left
+      ma-icon.navigation.back(:hover='true', @click.native='routerGo(-1)') keyboard_arrow_left
 
-			i.forward.material-icons(@click='routerGo(1)') keyboard_arrow_right
-		// search
-		.header-inner.middle
-			i.material-icons.search-icon search
-			input(
-				type='text',
-				@keyup.enter='doSearch',
-				v-model='searchQuery',
-				:placeholder='$tc("search", 0)')
+      ma-icon.navigation.forward(:hover='true', @click.native='routerGo(1)') keyboard_arrow_right
+    // search
+    .header-inner.middle
+      ma-icon.search-icon search
+      input.search-field(
+        type='text',
+        @keyup.enter='doSearch',
+        v-model='searchQuery',
+        :placeholder='$tc("search", 0)')
 
-		// current user
-		.header-inner.right
-			a.github-hint(href='https://github.com/microeinhundert/music-app', target='_blank') Visit on GitHub
+    // current user
+    .header-inner.right
+      a.github-hint(href='https://github.com/microeinhundert/music-app', target='_blank') Visit on GitHub
 </template>
 
 <script>
@@ -26,13 +26,12 @@ export default {
     return {
       searchQuery: '',
       scrollPosition: null,
-      viewContainer: document.querySelector('.view-container'),
     };
   },
   methods: {
     // update scroll position
     updateScroll() {
-      this.scrollPosition = this.viewContainer.scrollTop;
+      this.scrollPosition = document.querySelector('.view-container').scrollTop;
     },
 
     // do the search
@@ -54,12 +53,12 @@ export default {
     },
   },
   mounted() {
-    this.viewContainer.addEventListener('scroll', this.updateScroll, {
+    document.querySelector('.view-container').addEventListener('scroll', this.updateScroll, {
       passive: true,
     });
   },
   destroy() {
-    this.viewContainer.removeEventListener('scroll', this.updateScroll, {
+    document.querySelector('.view-container').removeEventListener('scroll', this.updateScroll, {
       passive: true,
     });
   },
@@ -68,7 +67,7 @@ export default {
 
 <style lang='scss'>
 header {
-    @include absolute($top: 0, $right: 0, $left: 0, $z-index: 998);
+    @include absolute($top: 0, $right: 0, $left: 0, $index: 998);
     @include flex($display: flex, $justify: center);
     padding: 13px 0;
     border-bottom: 1px solid;
@@ -102,8 +101,7 @@ header {
                      @include flex($justify: flex-start, $flex: 1);
                 }
 
-                i {
-                    @include item-hover;
+                .navigation {
                     @include font($size: 2.2em);
                     &.back {
                         &:hover {
@@ -127,7 +125,7 @@ header {
                 @media (min-width: $mobile-breakpoint) {
                      @include flex($flex: 2);
                 }
-                input {
+                .search-field {
                     z-index: 1;
                     padding: 12px 12px 12px 50px;
                     width: 100%;
@@ -148,7 +146,7 @@ header {
                     }
                 }
                 .search-icon {
-                    @include absolute($top: 9px, $left: 17px, $z-index: 2);
+                    @include absolute($top: 9px, $left: 17px, $index: 2);
                     @include font($color: rgba($white,0.5));
                 }
             }

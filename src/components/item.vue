@@ -1,41 +1,41 @@
 <template lang="pug">
 router-link.section-item(
-	tag='div',
-	:class='type',
-	@mouseover.native='overlay = true',
-	@mouseleave.native='overlay = false',
-	:to='{ name: type, params: { id: primaryid, owner: secondaryid }}')
+  tag='div',
+  :class='type',
+  @mouseover.native='overlay = true',
+  @mouseleave.native='overlay = false',
+  :to='{ name: type, params: { id: primaryid, owner: secondaryid }}')
 
-	// overlay
-	transition(name='fade', @beforeEnter='getColorFromAlbumCover')
-		.item-overlay(
-			v-show='hasOverlay && overlay',
-			:style='{ background: `linear-gradient(to top, rgba(${color}, 1) 30%, rgba(80, 80, 80, 0.5) 100%)` }')
+  // overlay
+  transition(name='fade', @beforeEnter='getColorFromAlbumCover')
+    .item-overlay(
+      v-show='hasOverlay && overlay',
+      :style='{ background: `linear-gradient(to top, rgba(${color}, 1) 30%, rgba(80, 80, 80, 0.5) 100%)` }')
 
-			.overlay-inner
-				i.favorite.material-icons favorite
+      .overlay-inner
+        ma-icon.overlay-icon.favorite(:hover='true') favorite
 
-				i.playback-toggle.material-icons(
-					@click.prevent='togglePlaying',
+        ma-icon.overlay-icon.playback-toggle(
+          @click.prevent.native='togglePlaying',
           :class='playing ? "pause" : "play"') {{ playing ? 'pause_circle_filled' : 'play_circle_filled' }}
 
-				i.more.material-icons more_horiz
+        ma-icon.overlay-icon.more(:hover='true') more_horiz
 
-	// image
-	.image-container(v-if='image')
-		img(
-			:src='image[0].url',
-			:alt='title')
+  // image
+  .image-container(v-if='image')
+    img.cover-image(
+      :src='image[0].url',
+      :alt='title')
 
-	// meta
-	.meta-container
-		.meta-container-inner
-			span {{ title }}
-			.artist-container(v-if='artists')
-				router-link.artist(
-					v-for='artist in artists',
-					:key='artist.id',
-					:to='{ name: artist.type, params: { id: artist.id }}') {{ artist.name }}
+  // meta
+  .meta-container
+    .meta-container-inner
+      span.meta {{ title }}
+      .artist-container(v-if='artists')
+        router-link.artist(
+          v-for='artist in artists',
+          :key='artist.id',
+          :to='{ name: artist.type, params: { id: artist.id }}') {{ artist.name }}
 </template>
 
 <script>
@@ -101,23 +101,14 @@ export default {
     .image-container {
         @include flex($display: flex, $justify: center, $align: center);
         overflow: hidden;
-        width: 100%;
-        height: auto;
-        img {
-            width: 100%;
-        }
     }
     .item-overlay {
-        @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 1);
+        @include absolute($all: 0, $index: 1);
         @include flex($display: flex, $justify: center);
         background: linear-gradient(to top, var(--accent-color) 25%, rgba(80, 80, 80, 0.5) 100%);
         .overlay-inner {
             @include flex($display: flex, $justify: space-around, $align: center, $flex: 0.8);
-            i {
-                transition: color 0.3s;
-                &:not(.play) {
-                    @include item-hover;
-                }
+            .overlay-icon {
                 &.playback-toggle {
                     @include font($size: 4.5em);
                     transition: transform 0.3s;
@@ -138,11 +129,11 @@ export default {
             text-align: center;
             text-overflow: ellipsis;
             white-space: nowrap;
-            span {
+            .meta {
               @include font($weight: 600);
             }
             .artist-container {
-                a {
+                .artist {
                     @include comma-separated($size: 0.95em, $weight: 200);
                 }
             }
@@ -152,7 +143,7 @@ export default {
     &.artist,
     &.category {
         .meta-container {
-            @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 1);
+            @include absolute($all: 0, $index: 1);
             @include item-hover;
             @include flex($justify: center, $align: flex-end);
             padding-bottom: 40px;
@@ -181,14 +172,14 @@ export default {
             background: linear-gradient(to top, rgba($black,0.7), rgba($black,0));
         }
         .image-container {
-            img {
+            .cover-image {
                 width: auto;
                 filter: brightness(70%) contrast(110%);
             }
         }
         &:hover {
             .image-container {
-                img {
+                .cover-image {
                     filter: brightness(100%) contrast(100%);
                 }
             }
@@ -196,7 +187,7 @@ export default {
     }
     &.category {
         .image-container {
-            img {
+            .cover-image {
                 transform: scale(1.02);
             }
         }

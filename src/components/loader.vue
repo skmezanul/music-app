@@ -1,75 +1,44 @@
-<template lang="pug">
-- let n = 0;
+<template lang='pug'>
 .loader-container
-  .loader-inner
-    while n <= 6
-      span
-      - n++
+  transition-group.loader-inner(tag='div', @enter='startLoadingAnimation', :css='false', appear)
+    span.wave-item(v-for='(n, index) in 6', :style='{ left: `${20 * index}px` }', :key='index', ref='loaderElement')
 </template>
 
-<style lang="scss" scoped>
+<script>
+import { TweenMax, Power2 } from 'gsap';
+
+export default {
+  methods: {
+    startLoadingAnimation(el, done) {
+      const self = this,
+        { loaderElement } = self.$refs;
+      TweenMax.staggerTo(loaderElement, 1, {
+        height: 60,
+        repeat: -1,
+        yoyo: true,
+        ease: Power2.easeInOut,
+        onComplete: done,
+      }, 0.1);
+    },
+  },
+};
+</script>
+
+<style lang='scss'>
 .loader-container {
-    @include absolute($top: 0, $right: 0, $bottom: 0, $left: 0, $z-index: 997);
+    @include absolute($all: 0, $index: 997);
     @include flex($display: flex, $justify: center, $align: center)
     background-color: $main-bg-color;
     .loader-inner {
         @include relative;
         width: 100px;
-        span {
+        .wave-item {
             @include absolute($bottom: 0);
             width: 5px;
-            height: 0;
             border-radius: 5px;
             background-color: var(--accent-color);
-            &:nth-child(1) {
-                left: 0;
-                animation: loading1 1s ease infinite 0.2s;
-            }
-            &:nth-child(2) {
-                left: 20px;
-                animation: loading2 1s ease infinite 0.3s;
-            }
-            &:nth-child(3) {
-                left: 40px;
-                animation: loading1 1s ease-in-out infinite 0.4s;
-            }
-            &:nth-child(4) {
-                left: 60px;
-                animation: loading2 1s ease-in infinite 0.5s;
-            }
-            &:nth-child(5) {
-                left: 80px;
-                animation: loading1 1s ease-in-out infinite 0.6s;
-            }
-            &:nth-child(6) {
-                left: 100px;
-                animation: loading2 1s ease infinite 0.7s;
-            }
+            height: 5px;
         }
-    }
-}
-
-// keyframe animations for loader
-@keyframes loading1 {
-    0% {
-        height: 10px;
-    }
-    50% {
-        height: 50px;
-    }
-    100% {
-        height: 10px;
-    }
-}
-@keyframes loading2 {
-    0% {
-        height: 20px;
-    }
-    50% {
-        height: 65px;
-    }
-    100% {
-        height: 20px;
     }
 }
 </style>
