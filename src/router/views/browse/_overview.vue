@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 .view-content(v-if='!$isLoading("data")')
   // featured playlists
   ma-section(
@@ -7,8 +7,8 @@
 
     .section-items-container
       ma-item(
-        v-for='playlist in $parent.data.featured.playlists.items',
-        :key='playlist.id',
+        v-for='(playlist, index) in $parent.data.featured.playlists.items',
+        :key='index',
         :type='playlist.type',
         :primaryid='playlist.id',
         :secondaryid='playlist.owner.id',
@@ -20,8 +20,8 @@
 
     .section-items-container
       ma-item(
-        v-for='album in $parent.data.releases.albums.items',
-        :key='album.id',
+        v-for='(album, index) in $parent.data.releases.albums.items',
+        :key='index',
         :type='album.type',
         :primaryid='album.id',
         :image='album.images',

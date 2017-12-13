@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 footer.footer-container
   // current playback
   .footer-inner.left(:class='{ "cover-hidden" : settings.largeCover && !$mq.phone }')
@@ -57,7 +57,7 @@ footer.footer-container
 
   // volume and other controls
   .footer-inner.right(v-if='$mq.desktop')
-    ma-icon.volume(:hover='true') {{ volume > 50 ? 'volume_up' : 'volume_down' }}
+    ma-icon.volume {{ volume > 50 ? 'volume_up' : 'volume_down' }}
     ma-slider(
       ref='slider',
       v-model='volume',
@@ -72,14 +72,24 @@ footer.footer-container
       span.track-duration {{ $formatValue(currentPlayback.item.duration_ms, 'time') }}
 
   // progress bar
-  .progress-container(@click='getSeekTime')
-    .progress-bar(:style='getProgressBarWidth()')
+  .progress-container(@click='getSeekTime', ref='progressContainer')
+    .progress-bar
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import {
+  mapActions,
+  mapGetters,
+  mapMutations,
+} from 'vuex';
+import {
+  TweenLite,
+} from 'gsap';
 
 export default {
+  created() {
+    this.getProgressBarWidth();
+  },
   methods: {
     ...mapActions([
       'GET_PLAYBACK',
@@ -97,12 +107,14 @@ export default {
     // get progress of the current track in percent
     getProgressBarWidth() {
       const self = this,
-        trackDuration = self.currentPlayback.item.duration_ms,
-        trackProgress = self.currentPlayback.progress_ms,
-        value = ((trackDuration - trackProgress) / trackDuration) * 100,
-        valueRounded = Math.round(value * 100) / 100;
+        { currentPlayback } = self,
+        trackDuration = currentPlayback.item.duration_ms,
+        trackProgress = currentPlayback.progress_ms,
+        value = ((trackDuration - trackProgress) / trackDuration) * 100;
 
-      return `width: ${valueRounded}%;`;
+      TweenLite.to('.progress-bar', 1, {
+        width: Math.round(value),
+      });
     },
 
     // set volume for the current playback
@@ -121,15 +133,17 @@ export default {
 
     getSeekTime(event) {
       const self = this,
-        progressBar = document.querySelector('.progress-container'),
-        progressBarWidth = progressBar.offsetWidth,
+        {
+          progressContainer,
+        } = self.$refs,
+        progressBarWidth = progressContainer.offsetWidth,
         clickedPosition = (event.clientX / progressBarWidth) * 100,
         trackDuration = self.currentPlayback.item.duration_ms,
-        positionRelativeToTrackLength = Math.round((trackDuration / 100) * clickedPosition);
+        position = Math.round((trackDuration / 100) * clickedPosition);
 
-      if (progressBar && positionRelativeToTrackLength) {
+      if (progressContainer && position) {
         self.SEEK_TO({
-          position: positionRelativeToTrackLength,
+          position,
         });
       }
     },
@@ -153,7 +167,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 .footer-container {
     @include absolute($right: 0, $bottom: 0, $left: 0, $index: 999);
     @include flex($display: flex, $align: center, $wrap: wrap);
@@ -183,19 +197,19 @@ export default {
             }
 
             .background-container {
-              @include absolute($top: -15px, $bottom: 0, $left: -20px, $index: -1);
-              @include flex($display: flex, $justify: center, $align: center);
-              overflow: hidden;
-              max-width: 400px;
-              height: 81px;
-              .cover-image {
-                filter: saturate(150%) blur(3px);
-              }
-              &:before {
-                  @include absolute($all: 0, $index: 1);
-                  background: ease-in-out-sine-gradient(to left, $main-bg-color, rgba($main-bg-color, 0.5)), radial-gradient(circle, rgba($main-bg-color, 0.3), $main-bg-color);
-                  content: "";
-              }
+                @include absolute($top: -15px, $bottom: 0, $left: -20px, $index: -1);
+                @include flex($display: flex, $justify: center, $align: center);
+                overflow: hidden;
+                max-width: 400px;
+                height: 81px;
+                .cover-image {
+                    filter: saturate(150%) blur(3px);
+                }
+                &:before {
+                    @include absolute($all: 0, $index: 1);
+                    background: ease-in-out-sine-gradient(to left, $main-bg-color, rgba($main-bg-color, 0.5)), radial-gradient(circle, rgba($main-bg-color, 0.3), $main-bg-color);
+                    content: "";
+                }
             }
 
             .cover-container {
@@ -246,7 +260,7 @@ export default {
             @include flex($justify: space-between, $flex: 0.5);
             @include font($spacing: 2px);
             @media (max-width: $mobile-breakpoint) {
-                @include flex($flex: 1);
+                 @include flex($flex: 1);
                 margin-top: 10px;
             }
 
@@ -291,11 +305,11 @@ export default {
         }
 
         i {
-            &:hover {
-              &.volume {
+            &.volume {
                 color: rgba($white, 0.7);
-                cursor: inherit;
-              }
+            }
+            &.toggle {
+                cursor: pointer;
             }
             &.active {
                 @include font($color: var(--accent-color));
@@ -306,13 +320,10 @@ export default {
     .progress-container {
         @include absolute($right: 0, $bottom: 0, $left: 0);
         height: 4px;
-        background-color: var(--accent-color);
         .progress-bar {
-            @include absolute($right: 0);
-            width: 100%;
+            @include absolute($left: 0);
             height: 100%;
-            background: $dark-grey;
-            transition: width 1s linear;
+            background-color: var(--accent-color);
         }
     }
 }

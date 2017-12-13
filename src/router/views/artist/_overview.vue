@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 .view-content(v-if='!$isLoading("data")')
 	// top tracks
 	ma-section(
@@ -9,13 +9,14 @@
 		ol.list
 			ma-list(
         v-for='(track, index) in $parent.data.toptracks',
-        :key='track.id',
+        :key='index',
         :trackId='track.id',
         :type='track.type',
         :image='track.album.images',
+        :title='track.name',
         :album='track.album',
         :explicit='track.explicit',
-        :title='track.name',
+        :popularity='track.popularity',
         :duration='track.duration_ms',
         :index='index')
 
@@ -27,8 +28,8 @@
 
 		.section-items-container
 			ma-item(
-        v-for='album in $parent.data.albums',
-        :key='album.id',
+        v-for='(album, index) in $parent.data.albums',
+        :key='index',
         :type='album.type',
         :primaryid='album.id',
         :secondaryid='album.artists[0].id',
@@ -44,8 +45,8 @@
 
 		.section-items-container
 			ma-item(
-        v-for='single in $parent.data.singles',
-        :key='single.id',
+        v-for='(single, index) in $parent.data.singles',
+        :key='index',
         :type='single.type',
         :primaryid='single.id',
         :secondaryid='single.artists[0].id',
@@ -61,8 +62,8 @@
 
 		.section-items-container
 			ma-item(
-        v-for='album in $parent.data.appearson',
-        :key='album.id',
+        v-for='(album, index) in $parent.data.appearson',
+        :key='index',
         :type='album.type',
         :primaryid='album.id',
         :secondaryid='album.artists[0].id',

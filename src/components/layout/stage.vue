@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 .stage(:class='{ "is-large" : $route.meta.stage.large, "has-cover" : $route.meta.stage.cover, "has-image" : stage.image, "has-nav" : stage.navigation }')
 
   // background
@@ -25,7 +25,7 @@
           router-link.subtitle-link(
             v-if='stage.profile',
             :to='{ name: stage.profile.type, params: { id: stage.profile.id } }') {{ stage.profile.name || stage.profile.display_name }}
-        ma-icon.star(v-if='stage.popularity && stage.popularity > 80') stars
+        ma-icon.popular(v-if='stage.popularity && stage.popularity > 80') stars
       h1.stage-title(v-if='title || stage.title') {{ title || stage.title }}
       .meta-container(v-if='stage.meta && !$mq.phone')
         p(v-html='$formatValue(stage.meta)')
@@ -79,10 +79,10 @@ export default {
       following: false,
     };
   },
-  props: [
-    'title',
-    'subtitle',
-  ],
+  props: {
+    title: String,
+    subtitle: String,
+  },
   created() {
     this.isFollowing();
   },
@@ -163,7 +163,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 .stage {
     @include relative;
     @include view-grid-columns;
@@ -276,7 +276,7 @@ export default {
                     }
                 }
 
-                .star {
+                .popular {
                     @include font($size: 1.2em, $color: rgba($white, 0.7));
                     margin-left: 5px;
                 }

@@ -8,7 +8,7 @@ import {
   mapGetters,
 } from 'vuex';
 
-import maPanelList from '../components/panelList';
+import maPanelList from '../panelList';
 
 export default {
   data() {
@@ -52,14 +52,23 @@ export default {
         self.getLibraryTrackCount(),
         self.getLibraryAlbumCount(),
       ]).then((res) => {
-        self.items[0].meta = res[0].data.message;
-        self.items[1].meta = res[1].data.items[0].track.artists[0].name;
-        self.items[2].meta = `${res[2].data.items.length} ${self.$tc('track', 0)}`;
-        self.items[3].meta = `${res[3].data.items.length} ${self.$tc('album', 0)}`;
+        const featuredMessage = res[0].data.message,
+          lastPlayedArtist = res[1].data.items[0].track.artists[0].name,
+          trackCount = res[2].data.items.length,
+          albumCount = res[3].data.items.length;
+
+        // featured message
+        self.items[0].meta = featuredMessage;
+        // last played artist
+        self.items[1].meta = lastPlayedArtist;
+        // library track count
+        self.items[2].meta = `${trackCount} ${self.$tc('track', trackCount > 1 ? 0 : 1)}`;
+        // library album count
+        self.items[3].meta = `${albumCount} ${self.$tc('album', albumCount > 1 ? 0 : 1)}`;
       });
     },
 
-    // get get currnt featured message from the api
+    // get get current featured message from the api
     getFeaturedMessage() {
       const self = this,
         { country } = self;

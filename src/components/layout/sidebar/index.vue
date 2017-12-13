@@ -26,10 +26,7 @@
 			// fixed sidebar toggle
 			ma-icon.toggle-fixed-sidebar(:hover='true', @click.native='toggleFixedSidebar') {{ settings.fixedSidebar ? 'lock' : 'lock_open' }}
 
-			transition(
-				@leave='panelInnerLeave',
-				mode='out-in',
-				:css='false')
+			transition(name='fade', mode='out-in')
 				// panel content
 				.panel-inner(
 					v-for='(panel, index) in panels',
@@ -54,29 +51,28 @@ import {
   mapGetters,
   mapMutations,
 } from 'vuex';
-import {
-  TweenMax,
-} from 'gsap';
+
 import {
   directive as onClickaway,
 } from 'vue-clickaway';
 
 // import dynamic components
-import user from './views/user';
-import browse from './views/browse';
-import playlists from './views/playlists';
-import newplaylist from './views/newplaylist';
+import user from './components/views/user';
+import browse from './components/views/browse';
+import playlists from './components/views/playlists';
+import newplaylist from './components/views/newplaylist';
+import listening from './components/views/listening';
 
 export default {
   data() {
     return {
-      activePanel: null,
+      activePanel: false,
       panels: [{
         name: 'user',
         component: user,
       },
       {
-        name: 'home',
+        name: 'browse',
         icon: 'music_note',
         component: browse,
       },
@@ -84,6 +80,11 @@ export default {
         name: 'playlists',
         icon: 'playlist_play',
         component: playlists,
+      },
+      {
+        name: 'listening',
+        icon: 'person_pin',
+        component: listening,
       },
       {
         name: 'newplaylist',
@@ -95,7 +96,7 @@ export default {
   },
   created() {
     // activePanel defaults to 0 if sidebar is fixed
-    this.activePanel = this.settings.fixedSidebar ? 1 : null;
+    this.activePanel = this.settings.fixedSidebar ? 1 : false;
   },
   methods: {
     ...mapMutations({
@@ -109,28 +110,21 @@ export default {
     },
 
     closePanel() {
-      const self = this;
-      if (self.activePanel !== null && !self.settings.fixedSidebar) {
-        self.activePanel = null;
+      const self = this,
+        { fixedSidebar } = self.settings;
+      if (self.activePanel && !fixedSidebar) {
+        self.activePanel = false;
       }
     },
 
     togglePanel(panel) {
-      const self = this;
-      if (self.activePanel === panel && !self.settings.fixedSidebar) {
-        self.activePanel = null;
+      const self = this,
+        { fixedSidebar } = self.settings;
+      if (self.activePanel === panel && !fixedSidebar) {
+        self.activePanel = false;
       } else if (typeof panel === 'number') {
         self.activePanel = panel;
       }
-    },
-
-    panelInnerLeave(el, done) {
-      const self = this,
-        { panelInner } = self.$refs;
-      TweenMax.to(panelInner, 0.3, {
-        autoAlpha: 0,
-        onComplete: done,
-      });
     },
   },
   computed: {
@@ -141,17 +135,13 @@ export default {
       settings: 'getAppSettings',
     }),
     isPanelOpen() {
-      return (this.settings.fixedSidebar || this.activePanel !== null);
+      const self = this,
+        isOpen = self.settings.fixedSidebar || self.activePanel;
+      return isOpen;
     },
   },
   directives: {
     onClickaway,
-  },
-  components: {
-    user,
-    browse,
-    playlists,
-    newplaylist,
   },
 };
 </script>
@@ -169,7 +159,7 @@ export default {
     &:not(.is-fixed) {
         .sidebar-panel {
             @include absolute($top: 0, $bottom: 0, $left: 100px, $index: 1);
-            @supports (backdrop-filter: blur(10px) saturate(200%)) {
+            @supports (backdrop-filter: blur(25px) saturate(250%)) {
                 backdrop-filter: blur(25px) saturate(250%);
             }
             background-color: rgba($dark-grey, 0.8);

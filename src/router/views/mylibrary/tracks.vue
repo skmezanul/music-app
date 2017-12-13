@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 .view-parent
 	// stage
 	ma-stage(v-show='!$isLoading("data")')
@@ -10,7 +10,7 @@
 			ol.list
 				ma-list(
           v-for='(item, index) in data.tracks',
-          :key='item.track.id',
+          :key='index',
           :type='item.track.type',
           :image='item.track.album.images',
           :title='item.track.name',
@@ -18,6 +18,7 @@
           :artists='item.track.artists',
           :album='item.track.album',
           :explicit='item.track.explicit',
+          :popularity='item.track.popularity',
           :duration='item.track.duration_ms',
           :index='index')
 </template>
@@ -50,18 +51,22 @@ export default {
       self.axios.all([
         self.getSavedTracks(),
       ]).then((res) => {
-        self.data.tracks = res[0].data.items;
+        const tracks = res[0].data.items,
+          trackCount = tracks.length,
+          stageImage = tracks[0].track.album.images[0].url;
+
+        self.data.tracks = tracks;
         // init stage
         self.setStage({
-          image: res[0].data.items[0].track.album.images[0].url,
+          image: stageImage,
           subtitle: self.$t('library'),
           title: self.$tc('track', 0),
           buttons: {
             playall: true,
           },
           info: [{
-            value: res[0].data.items.length,
-            subtitle: self.$tc('track', 0),
+            value: trackCount,
+            subtitle: self.$tc('track', trackCount > 1 ? 0 : 1),
           },
           ],
         });

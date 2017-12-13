@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 .view-parent
 	// stage
 	ma-stage(v-show='!$isLoading("data")')
@@ -41,15 +41,21 @@ export default {
         self.getCategories(),
         self.getCharts(),
       ]).then((res) => {
-        self.data.featured = res[0].data;
-        self.data.releases = res[1].data;
-        self.data.categories = res[2].data.categories;
-        self.data.charts = res[3].data.tracks.items;
+        const featured = res[0].data,
+          releases = res[1].data,
+          { categories } = res[2].data,
+          charts = res[3].data.tracks.items,
+          stageImage = self.currentUser.images[0].url;
+
+        self.data.featured = featured;
+        self.data.releases = releases;
+        self.data.categories = categories;
+        self.data.charts = charts;
         // init stage
         self.setStage({
-          image: self.currentUser.images[0].url,
+          image: stageImage,
           subtitle: self.$t('browse'),
-          title: self.getGreeting,
+          title: self.greeting,
           navigation: [{
             title: self.$t('overview'),
             routeName: 'browse',
@@ -139,7 +145,7 @@ export default {
     }),
 
     // greeting depending on time of day
-    getGreeting() {
+    greeting() {
       const self = this,
         fullName = self.currentUser.display_name,
         firstName = fullName.split(' ')[0],

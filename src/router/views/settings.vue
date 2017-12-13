@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 .view-parent
   // stage
   ma-stage(:title='$t("settings")')
@@ -58,7 +58,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 .color-picker {
   @include flex($display: flex);
   margin: 0 -7px;

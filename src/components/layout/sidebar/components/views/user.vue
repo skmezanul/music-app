@@ -8,7 +8,7 @@ import {
   mapGetters,
 } from 'vuex';
 
-import maPanelList from '../components/panelList';
+import maPanelList from '../panelList';
 
 export default {
   data() {

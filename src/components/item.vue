@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 router-link.section-item(
   tag='div',
   :class='type',
@@ -49,14 +49,14 @@ export default {
       color: '',
     };
   },
-  props: [
-    'type',
-    'primaryid',
-    'secondaryid',
-    'title',
-    'artists',
-    'image',
-  ],
+  props: {
+    type: String,
+    primaryid: String,
+    secondaryid: String,
+    title: String,
+    artists: Array,
+    image: Array,
+  },
   methods: {
     // toggle playing state
     togglePlaying() {
@@ -87,7 +87,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 .section-item {
     @include relative;
     @include flex($display: flex, $justify: space-between, $direction: column);

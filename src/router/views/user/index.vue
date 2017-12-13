@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 .view-parent
   // stage
   ma-stage(v-show='!$isLoading("data")')
@@ -33,12 +33,16 @@ export default {
       self.axios.all([
         self.getUser(),
       ]).then((res) => {
-        self.user = res[0].data;
+        const user = res[0].data,
+          followerCount = user.followers.total,
+          stageImage = user.images[0].url;
+
+        self.user = user;
         // init stage
         self.setStage({
-          image: res[0].data.images[0].url,
+          image: stageImage,
           subtitle: self.$tc('user', 1),
-          title: res[0].data.display_name,
+          title: user.display_name,
           navigation: [{
             title: self.$t('overview'),
             routeName: 'user',
@@ -57,8 +61,8 @@ export default {
             share: true,
           },
           info: [{
-            value: res[0].data.followers.total.toLocaleString(),
-            subtitle: self.$tc('follower', 0),
+            value: followerCount.toLocaleString(),
+            subtitle: self.$tc('follower', followerCount > 1 ? 0 : 1),
           },
           ],
         });

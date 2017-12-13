@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 .notice-container
   .notice-inner
     ma-icon.notice-icon(v-if='!$mq.phone') {{ type }}
@@ -15,10 +15,10 @@ import {
 } from 'vuex';
 
 export default {
-  props: [
-    'type',
-    'message',
-  ],
+  props: {
+    type: String,
+    message: String,
+  },
   methods: {
     ...mapMutations({
       removeNotice: 'SET_NOTICE',
@@ -27,7 +27,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 .notice-container {
     @include absolute($all: 0, $index: 999);
     @include view-grid-columns;

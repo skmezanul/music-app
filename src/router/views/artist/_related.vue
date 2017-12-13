@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 .view-content(v-if='!$isLoading("data")')
 	// related artists
 	ma-section(
@@ -7,9 +7,9 @@
 
 		.section-items-container
 			ma-item(
-        v-for='artist in $parent.data.related',
+        v-for='(artist, index) in $parent.data.related',
+        :key='index',
         :type='artist.type',
-        :key='artist.id',
         :image='artist.images',
         :title='artist.name',
         :primaryid='artist.id')

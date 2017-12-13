@@ -3,11 +3,14 @@ transition(@enter='panelListEnter', :css='false', appear)
   ul.panel-list
     .active-indicator(ref='activeIndicator')
     router-link.panel-list-item(
-      v-for='item in items',
-      :key='item.name',
+      v-for='(item, index) in items',
+      :key='index',
       tag='li',
-      :to='getRouteFromData(item)',
-      @click.native='updateActiveIndicator')
+      ref='listItem',
+      @click.native='animateItemClick',
+      @mouseover.native='animateItemMouseEnter',
+      @mouseleave.native='animateItemMouseLeave',
+      :to='getRouteFromData(item)')
       span.item-title {{ $tc(item.name, 0) }}
       .meta-container
         span {{ getMetaFromData(item) }}
@@ -23,10 +26,114 @@ import {
 } from 'vuex';
 
 export default {
+  data() {
+    return {
+      activeItem: null,
+    };
+  },
   props: {
     items: Array,
   },
+  updated() {
+    this.getActiveElement();
+  },
+  created() {
+    this.getActiveElement();
+  },
+  watch: {
+    // check which list item is active when route changes
+    $route() {
+      this.getActiveElement();
+    },
+  },
   methods: {
+    // stagger list items on enter
+    panelListEnter(el, done) {
+      TweenMax.staggerFrom('.panel-list-item', 0.5, {
+        autoAlpha: 0,
+        onComplete: done,
+      }, 0.05);
+    },
+
+    // check which list item is active
+    getActiveElement() {
+      const self = this,
+        listItems = self.$refs.listItem,
+        activeClass = 'exact-active';
+
+      if (typeof listItems !== 'undefined') {
+        self.$nextTick(() => {
+          listItems.forEach((value, i) => {
+            const el = listItems[i].$el,
+              isActive = el.classList.contains(activeClass);
+            if (isActive) {
+              self.updateActiveIndicator(el);
+              self.activeItem = i;
+            }
+          });
+        });
+      }
+    },
+
+    // update active element indicator
+    updateActiveIndicator(el) {
+      const self = this,
+        { activeIndicator } = self.$refs,
+        { fixedSidebar } = self.settings,
+        spaceAboveElement = el.offsetTop,
+        elementHeight = el.offsetHeight;
+
+      // tween active indicator
+      TweenMax.to(activeIndicator, 0.5, {
+        height: elementHeight,
+        y: spaceAboveElement,
+        onComplete: fixedSidebar ? null : self.$emit('close-panel'),
+      });
+    },
+
+    // hide active element indicator
+    hideActiveIndicator() {
+      const self = this,
+        { activeIndicator } = self.$refs;
+
+        // tween active indicator
+      TweenMax.to(activeIndicator, 0.5, {
+        height: 0,
+        onComplete: self.activeItem = null,
+      });
+    },
+
+    // tween on click
+    animateItemClick(event) {
+      const el = event.currentTarget;
+
+      TweenMax.to(el, 0.2, {
+        scale: 0.95,
+        pointerEvents: 'none',
+        repeat: 1,
+        yoyo: true,
+      });
+    },
+
+    // tween on click
+    animateItemMouseEnter(event) {
+      const el = event.currentTarget;
+
+      TweenMax.to(el, 0.5, {
+        x: 7,
+      });
+    },
+
+    // tween on click
+    animateItemMouseLeave(event) {
+      const el = event.currentTarget;
+
+      TweenMax.to(el, 0.5, {
+        x: 0,
+      });
+    },
+
+    // get target route for item
     getRouteFromData(item) {
       const self = this;
       let name = item.routeName,
@@ -44,6 +151,7 @@ export default {
       return { name, params: { id, owner } };
     },
 
+    // get meta for item
     getMetaFromData(item) {
       const self = this,
         displayName = self.currentUser.display_name,
@@ -55,40 +163,9 @@ export default {
       } else if (name === 'logout') {
         itemMeta = `${self.$t('loggedinas')} ${displayName}`;
       } else if (tracks) {
-        itemMeta = `${tracks.total} ${self.$tc('track', 0)}`;
+        itemMeta = `${tracks.total} ${self.$tc('track', tracks.total > 1 ? 0 : 1)}`;
       }
       return itemMeta;
-    },
-
-    // stagger list items on enter
-    panelListEnter(el, done) {
-      TweenMax.staggerFromTo('.panel-list-item', 0.5, {
-        autoAlpha: 0,
-      }, {
-        autoAlpha: 1,
-        onComplete: done,
-      }, 0.05);
-    },
-
-    // update active element indicator
-    updateActiveIndicator(event) {
-      const self = this,
-        { activeIndicator } = self.$refs,
-        clickedElement = event.target,
-        parentElement = clickedElement.closest('.panel-list-item'),
-        spaceAboveElement = parentElement.offsetTop,
-        elementHeight = parentElement.offsetHeight;
-      TweenMax.to(activeIndicator, 0.5, {
-        height: elementHeight,
-        y: spaceAboveElement,
-        onComplete: self.settings.fixedSidebar ? null : self.$emit('close-panel'),
-      });
-      TweenMax.to(parentElement, 0.1, {
-        scale: 0.7,
-        pointerEvents: 'none',
-        repeat: 1,
-        yoyo: true,
-      });
     },
   },
   computed: {
@@ -104,11 +181,7 @@ export default {
 .panel-list {
     .panel-list-item {
         margin-bottom: 1.5em;
-        transition: transform 0.5s;
-        &:hover {
-            cursor: pointer;
-            transform: translateX(7px);
-        }
+        cursor: pointer;
         .item-title {
             display: block;
             overflow: hidden;

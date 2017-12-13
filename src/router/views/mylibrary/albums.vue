@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 .view-parent
   // stage
   ma-stage(v-show='!$isLoading("data")')
@@ -9,8 +9,8 @@
 
       .section-items-container
         ma-item(
-          v-for='item in data.albums',
-          :key='item.album.id',
+          v-for='(item, index) in data.albums',
+          :key='index',
           :type='item.album.type',
           :primaryid='item.album.id',
           :image='item.album.images',
@@ -46,18 +46,22 @@ export default {
       self.axios.all([
         self.getSavedAlbums(),
       ]).then((res) => {
-        self.data.albums = res[0].data.items;
+        const albums = res[0].data.items,
+          albumCount = albums.length,
+          stageImage = albums[0].album.images[0].url;
+
+        self.data.albums = albums;
         // init stage
         self.setStage({
-          image: res[0].data.items[0].album.images[0].url,
+          image: stageImage,
           subtitle: self.$t('library'),
           title: self.$tc('album', 0),
           buttons: {
             playall: true,
           },
           info: [{
-            value: res[0].data.items.length,
-            subtitle: self.$tc('album', 0),
+            value: albumCount,
+            subtitle: self.$tc('album', albumCount > 1 ? 0 : 1),
           },
           ],
         });

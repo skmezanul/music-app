@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 .view-parent
 	// stage
 	ma-stage(v-show='!$isLoading("data")')
@@ -10,7 +10,7 @@
 			ol.list
 				ma-list(
           v-for='(history, index) in data.history',
-          :key='history.track.id',
+          :key='index',
           :type='history.track.type',
           :image='history.track.album.images',
           :title='history.track.name',
@@ -18,6 +18,7 @@
           :artists='history.track.artists',
           :album='history.track.album',
           :explicit='history.track.explicit',
+          :popularity='history.track.popularity',
           :duration='history.track.duration_ms',
           :index='index')
 </template>
@@ -50,10 +51,13 @@ export default {
       self.axios.all([
         self.getHistory(),
       ]).then((res) => {
-        self.data.history = res[0].data.items;
+        const history = res[0].data.items,
+          stageImage = history[0].track.album.images[0].url;
+
+        self.data.history = history;
         // init stage
         self.setStage({
-          image: res[0].data.items[0].track.album.images[0].url,
+          image: stageImage,
           subtitle: self.$t('library'),
           title: self.$t('recentlyplayed'),
           buttons: {

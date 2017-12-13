@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 .view-parent
 	// stage
 	ma-stage(v-show='!$isLoading("data")')
@@ -10,11 +10,12 @@
 			ol.list
 				ma-list(
           v-for='(track, index) in data.album.tracks.items',
-          :key='track.id',
+          :key='index',
           :type='track.type',
           :title='track.name',
           :trackId='track.id',
           :explicit='track.explicit',
+          :popularity='track.popularity',
           :duration='track.duration_ms',
           :index='index')
 </template>
@@ -47,15 +48,19 @@ export default {
       self.axios.all([
         self.getSingleAlbum(),
       ]).then((res) => {
-        const releaseDate = new Date(res[0].data.release_date);
+        const album = res[0].data,
+          { tracks } = album,
+          trackCount = tracks.total,
+          releaseDate = new Date(album.release_date),
+          stageImage = album.images[0].url;
 
-        self.data.album = res[0].data;
+        self.data.album = album;
         // init stage
         self.setStage({
-          image: res[0].data.images[0].url,
-          subtitle: res[0].data.album_type,
-          title: res[0].data.name,
-          profile: res[0].data.artists[0],
+          image: stageImage,
+          subtitle: album.album_type,
+          title: album.name,
+          profile: album.artists[0],
           buttons: {
             playall: true,
             save: true,
@@ -66,8 +71,8 @@ export default {
             subtitle: self.$t('released'),
           },
           {
-            value: res[0].data.tracks.total,
-            subtitle: self.$tc('track', 0),
+            value: trackCount,
+            subtitle: self.$tc('track', trackCount > 1 ? 0 : 1),
           },
           ],
         });

@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 section.view-section(:class='{ "collapsed" : isCollapsed }')
   // section header
   .section-header(v-if='title')
@@ -24,11 +24,11 @@ export default {
       isCollapsible: true,
     };
   },
-  props: [
-    'title',
-    'collapsible',
-    'copyright',
-  ],
+  props: {
+    title: String,
+    collapsible: Boolean,
+    copyright: String,
+  },
   created() {
     // show toggle if element count exceeds the maximum visible
     setTimeout(() => {
@@ -56,7 +56,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 .view-section {
   display: grid;
   grid-auto-flow: auto;

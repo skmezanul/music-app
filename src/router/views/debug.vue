@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 .view-parent
   // stage
   ma-stage(:title='$t("debug")')

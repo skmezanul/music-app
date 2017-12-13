@@ -18,7 +18,6 @@ const app = {
       accentColor: '#ce426b',
       largeCover: false,
       fixedSidebar: false,
-      altSidebar: false,
     },
   },
   actions,

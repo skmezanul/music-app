@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 .view-parent
 	// stage
 	ma-stage(v-show='!$isLoading("data")')
@@ -13,7 +13,7 @@
 			ol.list
 				ma-list(
           v-for='(track, index) in data.results.tracks.items',
-          :key='track.id',
+          :key='index',
           :trackId='track.id',
           :type='track.type',
           :image='track.album.images',
@@ -21,6 +21,7 @@
           :artists='track.artists',
           :album='track.album',
           :explicit='track.explicit',
+          :popularity='track.popularity',
           :duration='track.duration_ms',
           :index='index')
 
@@ -32,8 +33,8 @@
 
 			.section-items-container
 				ma-item(
-          v-for='album in data.results.albums.items',
-          :key='album.id',
+          v-for='(album, index) in data.results.albums.items',
+          :key='index',
           :type='album.type',
           :primaryid='album.id',
           :secondaryid='album.artists[0].id',
@@ -49,9 +50,9 @@
 
 			.section-items-container
 				ma-item(
-          v-for='artist in data.results.artists.items',
+          v-for='(artist, index) in data.results.artists.items',
+          :key='index',
           :type='artist.type',
-          :key='artist.id',
           :title='artist.name',
           :image='artist.images',
           :primaryid='artist.id')
@@ -89,12 +90,15 @@ export default {
       self.axios.all([
         self.getResults(),
       ]).then((res) => {
-        self.data.results = res[0].data;
+        const results = res[0].data,
+          stageImage = results.tracks.items[0].album.images[0].url;
+
+        self.data.results = results;
         // init stage
         self.setStage({
           subtitle: self.$tc('search', 1),
           title: `${self.$t('resultsfor')} '${self.$route.params.query}'`,
-          image: res[0].data.tracks.items[0].album.images[0].url,
+          image: stageImage,
         });
         self.$endLoading('data');
       });

@@ -1,16 +1,16 @@
-<template lang="pug">
+<template lang='pug'>
 .view-parent
 	// stage
 	ma-stage(v-show='!$isLoading("data")')
 
 	.view-content(v-if='!$isLoading("data")')
-		// playlists
+		// categories
 		ma-section
 
 			.section-items-container
 				ma-item(
-					v-for='playlist in data.playlists',
-					:key='playlist.id',
+					v-for='(playlist, index) in data.playlists',
+					:key='index',
 					:type='playlist.type',
 					:primaryid='playlist.id',
 					:secondaryid='playlist.owner.id',
@@ -48,12 +48,15 @@ export default {
         self.getCategoryInfo(),
         self.getCategoriesPlaylists(),
       ]).then((res) => {
-        self.data.category = res[0].data;
-        self.data.playlists = res[1].data.playlists.items;
+        const category = res[0].data,
+          playlists = res[1].data.playlists.items;
+
+        self.data.category = category;
+        self.data.playlists = playlists;
         // init stage
         self.setStage({
           subtitle: self.$tc('category', 1),
-          title: res[0].data.name,
+          title: category.name,
         });
         self.$endLoading('data');
       });
@@ -62,8 +65,7 @@ export default {
     // get category info from the api
     getCategoryInfo() {
       const self = this,
-        { locale } = self,
-        { country } = self;
+        { locale, country } = self;
 
       return self.$spotifyApi({
         method: 'get',
@@ -78,8 +80,7 @@ export default {
     // get categories playlists from the api
     getCategoriesPlaylists() {
       const self = this,
-        { locale } = self,
-        { country } = self;
+        { locale, country } = self;
 
       return self.$spotifyApi({
         method: 'get',

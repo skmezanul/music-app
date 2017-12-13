@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 li.list-item(
   @dblclick='SET_PLAYBACK({ state: "play", trackId })',
   :class='{ "playing" : isPlaying, "has-image" : image }')
@@ -25,8 +25,9 @@ li.list-item(
         v-for='artist in artists',
         :key='artist.id',
         :to='{ name: artist.type, params: { id: artist.id }}') {{ artist.name }}
-  .label-container(v-if='explicit')
-    ma-icon.explicit(:hover='true', v-tooltip='{ content: $t("explicit") }') explicit
+  .label-container(v-if='explicit || popularity')
+    ma-icon.explicit(v-if='explicit', :hover='true', v-tooltip='{ content: $t("explicit") }') explicit
+    ma-icon.popular(v-if='popularity && popularity > 80') stars
 
   // album name
   .album-container(v-if='album')
@@ -53,17 +54,18 @@ export default {
       isPlaying: false,
     };
   },
-  props: [
-    'index',
-    'type',
-    'title',
-    'artists',
-    'album',
-    'duration',
-    'trackId',
-    'image',
-    'explicit',
-  ],
+  props: {
+    index: Number,
+    type: String,
+    title: String,
+    artists: Array,
+    album: Object,
+    duration: Number,
+    trackId: String,
+    image: Array,
+    explicit: Boolean,
+    popularity: Number,
+  },
   created() {
     this.getPlayingState();
   },
@@ -95,7 +97,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 .list {
     display: grid;
     grid-auto-rows: 75px;
@@ -107,15 +109,15 @@ export default {
         padding-right: 2em;
         background-color: $grey;
         transition: background-color 0.3s;
-        grid-template-columns: 75px minmax(auto, 1fr) minmax(auto, 40px) minmax(auto, 1fr) repeat(2, minmax(auto, 80px));
+        grid-template-columns: 75px minmax(auto, 1fr) minmax(auto, 60px) minmax(auto, 1fr) repeat(2, minmax(auto, 80px));
         grid-template-areas: "index meta labels album duration actions";
-        &.has-image {
-            grid-template-columns: 75px 50px minmax(auto, 1fr) minmax(auto, 40px) minmax(auto, 1fr) repeat(2, minmax(auto, 80px));
-            grid-template-areas: "image index meta labels album duration actions";
-        }
         grid-column-gap: 1em;
         @media (max-width: $mobile-breakpoint) {
             grid-template-columns: 75px minmax(auto, 1fr) minmax(auto, 30px) minmax(auto, 1fr) auto;
+        }
+        &.has-image {
+            grid-template-columns: 75px 50px minmax(auto, 1fr) minmax(auto, 60px) minmax(auto, 1fr) repeat(2, minmax(auto, 80px));
+            grid-template-areas: "image index meta labels album duration actions";
         }
         &:hover {
             background-color: rgba($white, 0.1);
@@ -183,13 +185,9 @@ export default {
             }
         }
 
-        .action-container,
-        .label-container {
-            @include flex($display: flex, $justify: space-between, $align: center);
-        }
-
         .label-container {
             grid-area: labels;
+            @include flex($display: flex, $justify: space-between, $align: center);
         }
 
         .duration {
@@ -198,6 +196,7 @@ export default {
 
         .action-container {
             grid-area: actions;
+            @include flex($display: flex, $justify: space-between, $align: center);
         }
     }
 }

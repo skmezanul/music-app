@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 .view-parent
 	// stage
 	ma-stage(v-show='!$isLoading("data")')
@@ -10,7 +10,7 @@
 			ol.list
 				ma-list(
 					v-for='(playlist, index) in data.playlist.tracks.items',
-					:key='playlist.track.id',
+					:key='index',
 					:trackId='playlist.track.id',
 					:type='playlist.track.type',
 					:image='playlist.track.album.images',
@@ -18,6 +18,7 @@
 					:artists='playlist.track.artists',
 					:album='playlist.track.album',
 					:explicit='playlist.track.explicit',
+          :popularity='playlist.track.popularity',
 					:duration='playlist.track.duration_ms',
 					:index='index')
 </template>
@@ -50,26 +51,32 @@ export default {
       self.axios.all([
         self.getSinglePlaylist(),
       ]).then((res) => {
-        self.data.playlist = res[0].data;
+        const playlist = res[0].data,
+          { tracks } = playlist,
+          trackCount = tracks.total,
+          followerCount = playlist.followers.total,
+          stageImage = playlist.images[0].url;
+
+        self.data.playlist = playlist;
         // init stage
         self.setStage({
-          image: res[0].data.images[0].url,
+          image: stageImage,
           subtitle: self.$tc('playlist', 1),
-          title: res[0].data.name,
-          profile: res[0].data.owner,
-          meta: res[0].data.description,
+          title: playlist.name,
+          profile: playlist.owner,
+          meta: playlist.description,
           buttons: {
             playall: true,
             save: true,
             share: true,
           },
           info: [{
-            value: res[0].data.tracks.total,
-            subtitle: self.$tc('track', 0),
+            value: trackCount,
+            subtitle: self.$tc('track', trackCount > 1 ? 0 : 1),
           },
           {
-            value: res[0].data.followers.total.toLocaleString(),
-            subtitle: self.$tc('follower', 0),
+            value: followerCount.toLocaleString(),
+            subtitle: self.$tc('follower', followerCount > 1 ? 0 : 1),
           },
           ],
         });

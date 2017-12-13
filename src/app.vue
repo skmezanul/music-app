@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 #app(:style='{ "--accent-color" : settings.accentColor }')
 
   // navigation
@@ -74,7 +74,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 /** Thin */
 @font-face {
     font-weight: 200;

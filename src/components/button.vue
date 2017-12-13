@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
   a.button(:class='type')
     ma-icon(v-if='icon') {{ icon }}
     | {{ $t(title) }}
@@ -6,15 +6,15 @@
 
 <script>
 export default {
-  props: [
-    'type',
-    'icon',
-    'title',
-  ],
+  props: {
+    type: String,
+    icon: String,
+    title: String,
+  },
 };
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 .button {
     @include flex($display: inline-flex);
     @include font($size: 0.9em, $weight: 600, $spacing: 1.5px, $transform: uppercase);

@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 .view-parent
 	// stage
 	ma-stage(v-show='!$isLoading("data")')
@@ -15,12 +15,12 @@ export default {
     return {
       data: {
         artistInfo: [],
-        additionalInfo: [],
         toptracks: [],
         albums: [],
         singles: [],
         appearson: [],
         related: [],
+        additionalInfo: [],
       },
     };
   },
@@ -40,27 +40,36 @@ export default {
 
       self.axios.all([
         self.getArtistInfo(),
-        // self.getAdditionalInfo(),
         self.getTopTracks(),
         self.getAlbums(),
         self.getSingles(),
         self.getAppearsOn(),
         self.getRelatedArtists(),
+        // self.getAdditionalInfo(),
       ]).then((res) => {
-        self.data.artistInfo = res[0].data;
-        // self.data.additionalInfo = res[1].data;
-        self.data.toptracks = res[1].data.tracks;
-        self.data.albums = res[2].data.items;
-        self.data.singles = res[3].data.items;
-        self.data.appearson = res[4].data.items;
-        self.data.related = res[5].data.artists;
+        const artistInfo = res[0].data,
+          toptracks = res[1].data.tracks,
+          albums = res[2].data.items,
+          singles = res[3].data.items,
+          appearson = res[4].data.items,
+          related = res[5].data.artists,
+          // additionalInfo = res[6].data,
+          followerCount = artistInfo.followers.total,
+          stageImage = artistInfo.images[0].url; // additionalInfo.headerImages[0].url;
+
+        self.data.artistInfo = artistInfo;
+        self.data.toptracks = toptracks;
+        self.data.albums = albums;
+        self.data.singles = singles;
+        self.data.appearson = appearson;
+        self.data.related = related;
+        // self.data.additionalInfo = additionalInfo;
         // init stage
         self.setStage({
-          image: res[0].data.images[0].url,
-          // image: res[1].data.headerImages[0].url,
+          image: stageImage,
           subtitle: self.$tc('artist', 1),
-          title: res[0].data.name,
-          popularity: res[0].data.popularity,
+          title: artistInfo.name,
+          popularity: artistInfo.popularity,
           navigation: [{
             title: self.$t('overview'),
             routeName: 'artist',
@@ -80,8 +89,8 @@ export default {
             share: true,
           },
           info: [{
-            value: res[0].data.followers.total.toLocaleString(),
-            subtitle: self.$tc('follower', 1),
+            value: followerCount.toLocaleString(),
+            subtitle: self.$tc('follower', followerCount > 1 ? 0 : 1),
           },
           ],
         });

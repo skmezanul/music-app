@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
 ma-modal(
   name='video',
   height='100%',
@@ -105,7 +105,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 .v--modal-overlay {
     background: transparent;
     .v--modal {
