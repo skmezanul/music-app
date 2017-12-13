@@ -23,6 +23,7 @@ export default {
   album: 'Álbum | Álbumes',
   artist: 'Artista | Artistas',
   toptracks: 'Populares',
+  popular: 'Populares',
   single: 'Sencillo | Sencillos',
   appearson: 'Aparence en',
   playlist: 'Lista | Listas',
