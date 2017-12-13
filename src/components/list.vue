@@ -26,8 +26,8 @@ li.list-item(
         :key='artist.id',
         :to='{ name: artist.type, params: { id: artist.id }}') {{ artist.name }}
   .label-container(v-if='explicit || popularity')
-    ma-icon.explicit(v-if='explicit', :hover='true', v-tooltip='{ content: $t("explicit") }') explicit
     ma-icon.popular(v-if='popularity && popularity > 80') stars
+    ma-icon.explicit(v-if='explicit', :hover='true', v-tooltip='{ content: $t("explicit") }') explicit
 
   // album name
   .album-container(v-if='album')
