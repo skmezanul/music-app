@@ -56,10 +56,6 @@ export default {
             routeName: 'userFollowing',
           },
           ],
-          buttons: {
-            follow: true,
-            share: true,
-          },
           info: [{
             value: followerCount.toLocaleString(),
             subtitle: self.$tc('follower', followerCount > 1 ? 0 : 1),

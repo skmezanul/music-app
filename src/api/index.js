@@ -7,6 +7,7 @@ import './providers/spotify/';
 import './providers/spotify/backend';
 import './providers/backend/';
 import './providers/youtube/';
+import './providers/firebase/';
 
 // import interceptors
 import './spotify/interceptors/response';

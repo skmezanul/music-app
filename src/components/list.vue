@@ -1,45 +1,45 @@
 <template lang='pug'>
 li.list-item(
-  @dblclick='SET_PLAYBACK({ state: "play", trackId })',
-  :class='{ "playing" : isPlaying, "has-image" : image }')
+	@dblclick='SET_PLAYBACK({ state: "play", trackId })',
+	:class='{ "playing" : isPlaying, "has-image" : image }')
 
-  // image
-  .image-container(v-if='image')
-    ma-icon.playback-toggle(
-     @click.native='SET_PLAYBACK({ state: isPlaying ? "pause" : "play", trackId })',
-     :class='isPlaying ? "pause" : "play"') {{ isPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
+	// image
+	.image-container(v-if='image')
+		ma-icon.playback-toggle(
+			@click.native='SET_PLAYBACK({ state: isPlaying ? "pause" : "play", trackId })',
+			:class='isPlaying ? "pause" : "play"') {{ isPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
 
-    img.cover-image(
-      :src='image[0].url',
-      :alt='title')
+		img.cover-image(
+			:src='image[0].url',
+			:alt='title')
 
-  // index
-  ma-icon.is-playing(v-if='!$mq.phone && isPlaying') {{ currentPlayback.is_playing ? 'volume_up' : 'volume_down' }}
-  span.index(v-else-if='!$mq.phone') {{ $formatValue(index, 'index') }}
+	// index
+	ma-icon.is-playing(v-if='!$mq.phone && isPlaying') {{ currentPlayback.is_playing ? 'volume_up' : 'volume_down' }}
+	span.index(v-else-if='!$mq.phone') {{ formatIndex(index) }}
 
-  // meta
-  .meta-container
-    span.title {{ title }}
-    .artist-container(v-if='artists')
-      router-link.artist(
-        v-for='artist in artists',
-        :key='artist.id',
-        :to='{ name: artist.type, params: { id: artist.id }}') {{ artist.name }}
-  .label-container(v-if='explicit || popularity')
-    ma-icon.popular(v-if='popularity && popularity > 80', :hover='true', v-tooltip='{ content: $t("popular") }') stars
-    ma-icon.explicit(v-if='explicit', :hover='true', v-tooltip='{ content: $t("explicit") }') explicit
+	// meta
+	.meta-container
+		span.title {{ title }}
+		.artist-container(v-if='artists')
+			router-link.artist(
+				v-for='artist in artists',
+				:key='artist.id',
+				:to='{ name: artist.type, params: { id: artist.id }}') {{ artist.name }}
+	.label-container(v-if='explicit || popularity')
+		ma-icon.popular(v-if='popularity && popularity > 80', :hover='true', v-tooltip='{ content: $t("popular") }') stars
+		ma-icon.explicit(v-if='explicit', :hover='true', v-tooltip='{ content: $t("explicit") }') explicit
 
-  // album name
-  .album-container(v-if='album')
-    router-link.album(:to='{ name: album.type, params: { id: album.id }}') {{ album.name }}
+	// album name
+	.album-container(v-if='album')
+		router-link.album(:to='{ name: album.type, params: { id: album.id }}') {{ album.name }}
 
-  // duration
-  span.duration {{ $formatValue(duration, 'time') }}
+	// duration
+	span.duration {{ formatTime(duration) }}
 
-  // actions
-  .action-container(v-if='!$mq.phone')
-    ma-icon.playlistadd(:hover='true', v-tooltip='{ content: $t("addtoplaylist") }') playlist_add
-    ma-icon.explicit(:hover='true', v-tooltip='{ content: $t("more") }') more_horiz
+	// actions
+	.action-container(v-if='!$mq.phone')
+		ma-icon.playlistadd(:hover='true', v-tooltip='{ content: $t("addtoplaylist") }') playlist_add
+		ma-icon.explicit(:hover='true', v-tooltip='{ content: $t("more") }') more_horiz
 </template>
 
 <script>
@@ -88,6 +88,30 @@ export default {
         self.isPlaying = false;
       }
     },
+
+    // format index to 2 digits
+    formatIndex(value) {
+      let index = value;
+
+      if (index < 99) {
+        index = String(`0${value + 1}`).slice(-2);
+      } else {
+        index = (value + 1);
+      }
+      return index;
+    },
+
+    // time to human readable
+    formatTime(value) {
+      let time = value;
+      const minutes = Math.floor(value / 60000),
+        seconds = ((value % 60000) / 1000).toFixed(0);
+
+      if (typeof time === 'number') {
+        time = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+      }
+      return time;
+    },
   },
   computed: {
     ...mapGetters({
@@ -134,7 +158,7 @@ export default {
 
         .index,
         .is-playing {
-            @include font($size: 1.4em, $weight: 200, $color: $white);
+            @include font($size: 1.4em, $weight: 300, $color: $white);
             margin: auto;
         }
 
@@ -170,7 +194,7 @@ export default {
                 margin-top: 5px;
                 text-overflow: ellipsis;
                 .artist {
-                    @include comma-separated($size: 1em, $weight: 200);
+                    @include comma-separated($size: 1em);
                 }
             }
         }
@@ -181,7 +205,7 @@ export default {
             white-space: nowrap;
             grid-area: album;
             .album {
-                @include comma-separated($size: 1em, $weight: 400);
+                @include comma-separated($size: 1em);
             }
         }
 

@@ -15,7 +15,7 @@ const app = {
       navigation: [],
     },
     settings: {
-      accentColor: '#ce426b',
+      accentColor: '#f3376f',
       largeCover: false,
       fixedSidebar: false,
     },

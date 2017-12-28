@@ -45,7 +45,7 @@ export default {
         self.getSingles(),
         self.getAppearsOn(),
         self.getRelatedArtists(),
-        // self.getAdditionalInfo(),
+        self.getAdditionalInfo(),
       ]).then((res) => {
         const artistInfo = res[0].data,
           toptracks = res[1].data.tracks,
@@ -53,9 +53,9 @@ export default {
           singles = res[3].data.items,
           appearson = res[4].data.items,
           related = res[5].data.artists,
-          // additionalInfo = res[6].data,
+          additionalInfo = res[6].data,
           followerCount = artistInfo.followers.total,
-          stageImage = artistInfo.images[0].url; // additionalInfo.headerImages[0].url;
+          stageImage = additionalInfo.headerImages[0].url; // artistInfo.images[0].url;
 
         self.data.artistInfo = artistInfo;
         self.data.toptracks = toptracks;
@@ -63,7 +63,7 @@ export default {
         self.data.singles = singles;
         self.data.appearson = appearson;
         self.data.related = related;
-        // self.data.additionalInfo = additionalInfo;
+        self.data.additionalInfo = additionalInfo;
         // init stage
         self.setStage({
           image: stageImage,
@@ -85,8 +85,6 @@ export default {
           ],
           buttons: {
             playall: true,
-            follow: true,
-            share: true,
           },
           info: [{
             value: followerCount.toLocaleString(),

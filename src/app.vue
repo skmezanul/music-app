@@ -1,45 +1,48 @@
 <template lang='pug'>
 #app(:style='{ "--accent-color" : settings.accentColor }')
 
-  // navigation
-  ma-sidebar(v-if='!$mq.phone')
+	// navigation
+	ma-sidebar(v-if='!$mq.phone')
 
-  main.main-container
-    // notices
-    transition-group(name='slide-down-transform')
-      ma-notice(
-        v-for='(notice, index) in notices',
-        :key='index',
-        :type='notice.type',
-        :message='notice.message')
+	main.main-container
+		// notices
+		transition-group(name='slide-down-transform')
+			ma-notice(
+				v-for='(notice, index) in notices',
+				:key='index',
+				:type='notice.type',
+				:message='notice.message')
 
-    // header
-    ma-header
+		// header
+		ma-header
 
-    // preloader
-    transition(name='fade')
-      ma-loading(v-if='$isLoading("data")')
-        ma-loader(slot='spinner')
+		// preloader
+		transition(name='fade')
+			ma-loading(v-if='$isLoading("data")')
+				ma-loader(slot='spinner')
 
-    // view container
-    .view-container
-      // router view
-      transition(name='fade', mode='out-in')
-        router-view(:key='$route.path')
+		// view container
+		.view-container
+			// router view
+			transition(name='fade', mode='out-in')
+				router-view(:key='$route.path')
 
-  // footer
-  transition(name='fade')
-    ma-footer
+	// footer
+	transition(name='fade')
+		ma-footer
 
-  // tooltips
-  .tooltip-container
+	// tooltips
+	.tooltip-container
 
-  // music video
-  ma-video
+	// music video
+	ma-video
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import {
+  mapActions,
+  mapGetters
+} from 'vuex';
 
 import maHeader from '@/components/layout/header';
 import maFooter from '@/components/layout/footer';
@@ -77,7 +80,7 @@ export default {
 <style lang='scss'>
 /** Thin */
 @font-face {
-    font-weight: 200;
+    font-weight: 300;
     font-family: 'San Francisco';
     src: url('../static/fonts/sanfranciscodisplay-thin-webfont.woff');
 }
@@ -89,18 +92,18 @@ export default {
     src: url('../static/fonts/sanfranciscodisplay-regular-webfont.woff');
 }
 
-/** Medium */
-@font-face {
-    font-weight: 500;
-    font-family: 'San Francisco';
-    src: url('../static/fonts/sanfranciscodisplay-medium-webfont.woff');
-}
-
 /** Bold */
 @font-face {
     font-weight: 600;
     font-family: 'San Francisco';
     src: url('../static/fonts/sanfranciscodisplay-semibold-webfont.woff');
+}
+
+/** Bold */
+@font-face {
+    font-weight: 600;
+    font-family: 'Open Sans';
+    src: url("../static/fonts/OpenSans-Bold.ttf");
 }
 
 * {
@@ -133,16 +136,15 @@ h1,
 h2,
 h3,
 h4 {
-    @include font($weight: 400);
     margin: 0;
 }
 
 h1 {
-    @include font($weight: 600, $spacing: 2.5px);
+    @include font($spacing: 2px);
 }
 
 h4 {
-    @include font($weight: 600, $spacing: 1.5px, $transform: uppercase, $color: rgba($white, 0.7));
+    @include font($spacing: 2px, $transform: uppercase, $color: rgba($white, 0.7));
 }
 
 pre {
@@ -160,42 +162,42 @@ a {
 
 // vue instance container
 #app {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: 1fr 80px;
-  grid-template-areas: "sidebar main" "footer footer";
-  @include font($spacing: 1px, $color: $white);
-  font-family: $font-family;
-  user-select: none;
-  // main-container containing header and view-container
-  .main-container {
-    @include relative;
-    grid-area: main;
-    grid-column: span 2;
-    // scrolling view-container containing view-parent
-    .view-container {
-      overflow-y: auto;
-      height: 100vh;
-      // view-parent element to render components and wrap stage and view-content
-      .view-parent {
-        display: grid;
-        @include view-grid-columns;
-        grid-auto-rows: auto;
-        grid-template-areas: "stage stage stage" ". content .";
-        grid-row-gap: 2em;
-        // view-content containing stacked sections
-        .view-content {
-          grid-area: content;
-          display: grid;
-          grid-auto-rows: auto;
-          grid-row-gap: 3em;
-          @media (max-width: $mobile-breakpoint) {
-            grid-column: span 3;
-          }
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr 80px;
+    grid-template-areas: "sidebar main" "footer footer";
+    @include font($spacing: 1px, $color: $white);
+    font-family: $primary-family;
+    user-select: none;
+    // main-container containing header and view-container
+    .main-container {
+        @include relative;
+        grid-area: main;
+        grid-column: span 2;
+        // scrolling view-container containing view-parent
+        .view-container {
+            overflow-y: auto;
+            height: 100vh;
+            // view-parent element to render components and wrap stage and view-content
+            .view-parent {
+                display: grid;
+                @include view-grid-columns;
+                grid-auto-rows: auto;
+                grid-template-areas: "stage stage stage" ". content .";
+                grid-row-gap: 2em;
+                // view-content containing stacked sections
+                .view-content {
+                    grid-area: content;
+                    display: grid;
+                    grid-auto-rows: auto;
+                    grid-row-gap: 3em;
+                    @media (max-width: $mobile-breakpoint) {
+                        grid-column: span 3;
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 
 // dropdown styling
@@ -224,7 +226,7 @@ a {
         @include font($spacing: 1.5px);
         display: block !important;
         margin-bottom: 12px;
-        font-family: $font-family;
+        font-family: $primary-family;
         transition: opacity 0.3s, visibility 0.3s;
 
         .tooltip-inner {

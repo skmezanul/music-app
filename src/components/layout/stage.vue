@@ -1,70 +1,69 @@
 <template lang='pug'>
 .stage(:class='{ "is-large" : $route.meta.stage.large, "has-cover" : $route.meta.stage.cover, "has-image" : stage.image, "has-nav" : stage.navigation }')
 
-  // background
-  transition(v-if='stage.image', name='zoom-out', appear)
-    .background-container
-      img.background-image(
-        v-parallax='0.5',
-        :src='stage.image',
-        :alt='stage.title')
+	// background
+	transition(v-if='stage.image', name='zoom-out', appear)
+		.background-container
+			img.background-image(
+				v-parallax='0.5',
+				:src='stage.image',
+				:alt='stage.title')
 
-  .stage-container
-    .cover-container(
-      v-if='$route.meta.stage.cover && !$mq.phone',
-      :class='{ "is-small" : $route.meta.stage.cover && $route.name === "user" }')
+	.stage-container
+		.cover-container(
+			v-if='$route.meta.stage.cover && !$mq.phone',
+			:class='{ "is-small" : $route.meta.stage.cover && $route.name === "user" }')
 
-      img.cover-image(
-        :src='stage.image',
-        :alt='stage.title')
+			img.cover-image(
+				:src='stage.image',
+				:alt='stage.title')
 
-    // content
-    .stage-inner
-      .subtitle-container
-        h4(v-if='subtitle || stage.subtitle') {{ stage.profile ? `${subtitle || stage.subtitle} ${$t('by')} ` :  subtitle || stage.subtitle }}
-          router-link.subtitle-link(
-            v-if='stage.profile',
-            :to='{ name: stage.profile.type, params: { id: stage.profile.id } }') {{ stage.profile.name || stage.profile.display_name }}
-        ma-icon.popular(v-if='stage.popularity && stage.popularity > 80') stars
-      h1.stage-title(v-if='title || stage.title') {{ title || stage.title }}
-      .meta-container(v-if='stage.meta && !$mq.phone')
-        p(v-html='$formatValue(stage.meta)')
-      .action-container(v-if='stage.buttons || stage.buttons && stage.buttons.share')
-        .button-group(v-if='stage.buttons')
-          // play all
-          ma-button(
-            v-if='stage.buttons.playall',
-            type='accent',
-            icon='play_circle_filled',
-            title='playall')
-          // follow / unfollow
-          ma-button(
-            v-if='stage.buttons.follow',
-            @click.native='follow',
-            :icon='following ? "check" : "add_circle"',
-            :title='following ? "following" : "follow"')
-          // save
-          ma-button(
-            v-if='stage.buttons.save',
-            icon='save',
-            title='save')
-        // share
-        ma-button(
-          v-if='stage.buttons.share',
-          type='transparent',
-          icon='share',
-          title='share')
+		// content
+		.stage-inner
+			.subtitle-container
+				h4(v-if='subtitle || stage.subtitle') {{ stage.profile ? `${subtitle || stage.subtitle} ${$t('by')} ` :  subtitle || stage.subtitle }}
+					router-link.subtitle-link(
+						v-if='stage.profile',
+						:to='{ name: stage.profile.type, params: { id: stage.profile.id } }') {{ stage.profile.name || stage.profile.display_name }}
+				ma-icon.is-popular(v-if='stage.popularity && stage.popularity > 80') stars
+			h1.stage-title(v-if='title || stage.title') {{ title || stage.title }}
+			.meta-container(v-if='stage.meta && !$mq.phone')
+				p.meta(v-html='formatMeta(stage.meta)')
+			.action-container(v-if='stage.buttons')
+				// play all
+				ma-button(
+					v-if='stage.buttons.playall',
+					type='accent',
+					icon='play_circle_filled',
+					title='playall')
+					// follow / unfollow
+				ma-button(
+					v-if='canFollow',
+					@click.native='setFollowing',
+					v-tooltip='{ content: isFollowing ? $t("unfollow") : "" }'
+					:icon='isFollowing ? "check" : "add_circle"',
+					:title='isFollowing ? "following" : "follow"')
+				// save
+				ma-button(
+					v-if='stage.buttons.save',
+					icon='save',
+					title='save')
+				// edit
+				ma-button(
+					v-if='canEdit',
+					icon='edit',
+					title='edit')
 
-        .info-container(v-if='stage.info')
-          .info-item(v-for='item in stage.info')
-            h4.value {{ item.value }}
-            span.subtitle {{ item.subtitle }}
+				.info-container(v-if='stage.info')
+					.info-item(v-for='item in stage.info')
+						h4.value {{ item.value }}
+						span.subtitle {{ item.subtitle }}
 
-      // navigation
-    nav.nav-container(v-if='stage.navigation && !$mq.phone')
-      ul
-        li(v-for='navitem in stage.navigation')
-          router-link(:to='{ name: navitem.routeName, params: { id: $route.params.id }}') {{ navitem.title }}
+			// navigation
+		nav.nav-container(v-if='stage.navigation && !$mq.phone')
+			ul
+				li(v-for='navitem in stage.navigation')
+					router-link(:to='{ name: navitem.routeName, params: { id: $route.params.id }}') {{ navitem.title }}
 </template>
 
 <script>
@@ -76,89 +75,114 @@ import {
 export default {
   data() {
     return {
-      following: false,
+      isFollowing: false,
     };
   },
   props: {
     title: String,
     subtitle: String,
   },
-  created() {
-    this.isFollowing();
+  watch: {
+    $route() {
+      this.checkIfFollowing();
+    },
   },
   methods: {
     ...mapActions(['GET_USER']),
 
-    stageAction(event) {
-      const self = this;
-
-      switch (event) {
-        case 'follow':
-        default:
-          self.follow();
-      }
-    },
-
-    // check if current user is following this artist or playlist
-    isFollowing() {
+    // check if current user is following
+    checkIfFollowing() {
       const self = this,
         {
           name,
           params,
         } = self.$route;
 
-      if (self.$route.params.id) {
-        switch (self.$route.name) {
-          case 'artist':
-          case 'user':
-            self.$spotifyApi({
-              method: 'get',
-              url: '/me/following/contains',
-              params: {
-                type: name,
-                ids: params.id,
-              },
-            }).then((res) => {
-              [self.following] = res.data;
-            });
-            break;
-          default:
-        }
+      if (self.canFollow) {
+        self.$spotifyApi({
+          method: 'get',
+          url: '/me/following/contains',
+          params: {
+            type: name,
+            ids: params.id,
+          },
+        }).then((res) => {
+          self.isFollowing = res.data;
+        });
       }
     },
 
-    // follow or unfollow this artist or playlist
-    follow() {
-      const self = this;
+    // follow or unfollow
+    setFollowing() {
       let type;
+      const self = this,
+        {
+          name,
+          params,
+        } = self.$route,
+        isArtist = /artist/.test(name),
+        isUser = /user/.test(name);
 
-      if (self.$route.params.id) {
-        switch (self.$route.name) {
-          case 'user':
-            type = 'user';
-            break;
-          case 'artist':
-          default:
-            type = 'artist';
-        }
+      if (isArtist) {
+        type = 'artist';
+      } else if (isUser) {
+        type = 'user';
+      }
 
+      if (params.id && type) {
         self.$spotifyApi({
           method: 'put',
           url: '/me/following',
           params: {
             type,
-            ids: self.$route.params.id,
+            ids: params.id,
           },
-        }).then(() => {
-          self.isFollowing();
         });
       }
+    },
+
+    // remove 'Cover:' from meta
+    formatMeta(value) {
+      let meta = value;
+      const cover = 'Cover:',
+        exp = new RegExp(cover),
+        hasCoverMessage = exp.test(meta);
+
+      if (typeof meta === 'string' && hasCoverMessage) {
+        meta = meta.split(cover);
+      }
+      return meta;
     },
   },
   computed: {
     ...mapGetters({
       stage: 'getStageContent',
     }),
+
+    // check if show follow button
+    canFollow() {
+      const self = this,
+        exp = /artist|user/,
+        {
+          params,
+          name,
+        } = self.$route,
+        canFollow = params.id && exp.test(name);
+
+      return canFollow;
+    },
+
+    // check if show edit button
+    canEdit() {
+      const self = this,
+        exp = /mylibraryTracks|mylibraryAlbums/,
+        {
+          name,
+        } = self.$route,
+        canFollow = exp.test(name);
+
+      return canFollow;
+    },
   },
 };
 </script>
@@ -175,17 +199,20 @@ export default {
     transition: background-color 1s;
     grid-area: stage;
     grid-template-areas: ". content .";
-    &.has-nav {
-      .stage-inner {
-        .action-container {
-          margin-bottom: 15px;
-        }
-      }
-    }
 
     &:not(.has-image) {
         background-color: var(--accent-color);
         filter: saturate(80%);
+    }
+
+    &.has-nav {
+        .stage-container {
+            .stage-inner {
+                .action-container {
+                    margin-bottom: 20px;
+                }
+            }
+        }
     }
 
     &:not(.is-large) {
@@ -193,6 +220,11 @@ export default {
             img {
                 filter: saturate(150%) blur(40px);
             }
+        }
+        &:after {
+            @include absolute($all: 0, $index: 1);
+            background: ease-in-out-sine-gradient(to top, $main-bg-color, rgba($main-bg-color, 0)), radial-gradient(circle, rgba($main-bg-color, 0), $main-bg-color);
+            content: "";
         }
     }
 
@@ -203,10 +235,12 @@ export default {
                 .stage-title {
                     @include font($size: 5.5em);
                 }
-                .action-container {
-                  margin-top: 15px;
-                }
             }
+        }
+        &:after {
+            @include absolute($all: 0, $index: 1);
+            background: ease-in-out-sine-gradient(to top, $main-bg-color, rgba($main-bg-color, 0));
+            content: "";
         }
     }
 
@@ -230,11 +264,6 @@ export default {
             object-fit: cover;
         }
     }
-    &:after {
-        @include absolute($all: 0, $index: 1);
-        background: ease-in-out-sine-gradient(to top, $main-bg-color, rgba($main-bg-color, 0)), radial-gradient(circle, rgba($main-bg-color, 0), $main-bg-color);
-        content: "";
-    }
 
     .stage-container {
         @include flex($display: flex, $direction: column);
@@ -244,7 +273,7 @@ export default {
         .cover-container {
             overflow: hidden;
             margin-right: 35px;
-            min-width: 250px;
+            max-width: 250px;
             width: 250px;
             height: 250px;
             border-radius: 10px;
@@ -276,55 +305,47 @@ export default {
                     }
                 }
 
-                .popular {
+                .is-popular {
                     @include font($size: 1.2em, $color: rgba($white, 0.7));
                     margin-left: 5px;
                 }
             }
 
             .stage-title {
-                @include font($size: 3.5em);
-                margin-left: -3px;
-                max-width: 70%;
+                @include font($size: 3.5em, $line: 1.2em);
+                transform: translateX(-3px);
+								font-family: $secondary-family;
             }
 
             .action-container {
                 @include flex($display: flex, $align: center);
-                margin-top: 25px;
-
-                .button-group {
-                    overflow: hidden;
-                    margin-right: 5px;
-                    border-radius: 5px;
-
-                    .button {
-                        margin: 0;
-                        border-radius: 0;
-                    }
-                }
+                margin-top: 15px;
 
                 .info-container {
-                     @include flex($display: flex);
-                     margin-left: auto;
-                     .info-item {
-                       margin-left: 13px;
-                       padding-left: 10px;
-                       text-align: right;
-                       &:not(:first-child) {
-                         border-left: 1px solid rgba($white, 0.2);
-                       }
-                       .subtitle {
-                         @include font($size: 0.8em, $transform: uppercase, $color: rgba($white, 0.5));
-                       }
+                    @include flex($display: flex);
+                    margin-left: auto;
+                    .info-item {
+                        margin-left: 13px;
+                        padding-left: 10px;
+                        text-align: right;
+                        &:not(:first-child) {
+                            border-left: 1px solid rgba($white, 0.2);
+                        }
+                        .value {
+                            @include font($size: 1.2em);
+                        }
+                        .subtitle {
+                            @include font($size: 0.8em, $transform: uppercase, $color: rgba($white, 0.5));
+                        }
                     }
                 }
             }
 
             .meta-container {
-                margin-top: 6px;
+                margin: 10px 0;
                 max-width: 70%;
-                p {
-                    @include font($line: 1.2em, $color: rgba($white, 0.7));
+                .meta {
+                    @include font($size: 1.2em, $line: 1.2em, $color: rgba($white, 0.7));
                     margin: 0;
                 }
             }
@@ -348,8 +369,8 @@ export default {
                             top: 0.7em;
                             display: block;
                             margin: 0 auto;
-                            width: 40px;
-                            height: 3px;
+                            width: 3em;
+                            height: 1px;
                             background-color: var(--accent-color);
                             content: "";
                         }

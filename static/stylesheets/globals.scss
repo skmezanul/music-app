@@ -1,10 +1,11 @@
-$font-family: 'San Francisco', Helvetica, Arial, sans-serif;
+$primary-family: 'San Francisco', sans-serif;
+$secondary-family: 'Open Sans', sans-serif;
 $white: #fff;
 $black: #000;
-$grey: #1e1e1e;
-$dark-grey: #0f0f0f;
+$grey: #1A1D2C;
+$dark-grey: darken($grey, 10%);
 $border-color: rgba($white, 0.05);
-$main-bg-color: #121212;
+$main-bg-color: darken($grey, 5%);
 $large-viewport-width: 85%;
 $small-viewport-width: 95%;
 $shadow: 0 20px 40px rgba($black, 0.15);

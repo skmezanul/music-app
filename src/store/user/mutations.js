@@ -1,3 +1,5 @@
+import Vue from 'vue';
+
 const mutations = {
   /**
   * Push the current users profile or playlists to state.
@@ -9,7 +11,15 @@ const mutations = {
     const self = state,
       { userData, data } = payload;
 
-    self[userData] = data;
+    if (userData && data) {
+      self[userData] = data;
+    } else if (userData === 'profile') {
+      Vue.prototype.$database.ref(`users/${data.id}`).set({
+        images: data.images[0].url,
+        id: data.id,
+        name: data.display_name,
+      });
+    }
   },
 };
 

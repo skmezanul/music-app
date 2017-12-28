@@ -68,12 +68,12 @@ footer.footer-container
       @click.native='$modal.show("video")',
       v-tooltip='{ content: $t("watchvideo") }') music_video
     .time-container
-      span.track-progress {{ $formatValue(currentPlayback.progress_ms, 'time') }}
-      span.track-duration {{ $formatValue(currentPlayback.item.duration_ms, 'time') }}
+      span.track-progress {{ formatTime(currentPlayback.progress_ms) }}
+      span.track-duration {{ formatTime(currentPlayback.item.duration_ms) }}
 
   // progress bar
-  .progress-container(@click='getSeekTime', ref='progressContainer')
-    .progress-bar
+  .progress-container(@click='getSeekTime')
+    progress.progress-bar(ref='progressBar', :value='currentPlayback.progress_ms', :max='currentPlayback.item.duration_ms')
 </template>
 
 <script>
@@ -82,14 +82,8 @@ import {
   mapGetters,
   mapMutations,
 } from 'vuex';
-import {
-  TweenLite,
-} from 'gsap';
 
 export default {
-  created() {
-    this.getProgressBarWidth();
-  },
   methods: {
     ...mapActions([
       'GET_PLAYBACK',
@@ -104,17 +98,16 @@ export default {
       setAppSettings: 'SET_APP_SETTINGS',
     }),
 
-    // get progress of the current track in percent
-    getProgressBarWidth() {
-      const self = this,
-        { currentPlayback } = self,
-        trackDuration = currentPlayback.item.duration_ms,
-        trackProgress = currentPlayback.progress_ms,
-        value = ((trackDuration - trackProgress) / trackDuration) * 100;
+    // time to human readable
+    formatTime(value) {
+      let time = value;
+      const minutes = Math.floor(value / 60000),
+        seconds = ((value % 60000) / 1000).toFixed(0);
 
-      TweenLite.to('.progress-bar', 1, {
-        width: Math.round(value),
-      });
+      if (typeof time === 'number') {
+        time = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+      }
+      return time;
     },
 
     // set volume for the current playback
@@ -131,6 +124,7 @@ export default {
       });
     },
 
+    // get time to jump to
     getSeekTime(event) {
       const self = this,
         {
@@ -185,7 +179,7 @@ export default {
             transition: transform 0.3s;
             will-change: transform;
             @media (max-width: $mobile-breakpoint) {
-                 @include flex($basis: 100%);
+                @include flex($basis: 100%);
             }
             @media (min-width: $mobile-breakpoint) {
                 &.cover-hidden {
@@ -207,7 +201,7 @@ export default {
                 }
                 &:before {
                     @include absolute($all: 0, $index: 1);
-                    background: ease-in-out-sine-gradient(to left, $main-bg-color, rgba($main-bg-color, 0.5)), radial-gradient(circle, rgba($main-bg-color, 0.3), $main-bg-color);
+                    background: ease-in-out-sine-gradient(to left, $dark-grey, rgba($dark-grey, 0.5)), radial-gradient(circle, rgba($dark-grey, 0.3), $dark-grey);
                     content: "";
                 }
             }
@@ -246,11 +240,9 @@ export default {
                     @include font($size: 1.2em, $weight: 600);
                 }
                 .artist-container {
-                    @include font($weight: 200);
                     margin-top: 2px;
-
                     a {
-                        @include comma-separated($size: 0.9em, $weight: 200);
+                        @include comma-separated($size: 0.9em);
                     }
                 }
             }
@@ -260,7 +252,7 @@ export default {
             @include flex($justify: space-between, $flex: 0.5);
             @include font($spacing: 2px);
             @media (max-width: $mobile-breakpoint) {
-                 @include flex($flex: 1);
+                @include flex($flex: 1);
                 margin-top: 10px;
             }
 
@@ -285,6 +277,7 @@ export default {
                 width: 110px;
                 border-radius: 5px;
                 background-color: $grey;
+                @include font($weight: 600);
                 .track-progress {
                     margin-right: 5px;
                     &:after {
@@ -321,9 +314,17 @@ export default {
         @include absolute($right: 0, $bottom: 0, $left: 0);
         height: 4px;
         .progress-bar {
-            @include absolute($left: 0);
+            @include absolute();
             height: 100%;
+            width: 100%;
+            color: var(--accent-color);
             background-color: var(--accent-color);
+            &::-moz-progress-bar {
+              background-color: var(--accent-color);
+            }
+            &::-webkit-progress-value {
+              background-color: var(--accent-color);
+            }
         }
     }
 }

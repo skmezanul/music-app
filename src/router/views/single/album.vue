@@ -64,7 +64,6 @@ export default {
           buttons: {
             playall: true,
             save: true,
-            share: true,
           },
           info: [{
             value: releaseDate.toLocaleDateString(),

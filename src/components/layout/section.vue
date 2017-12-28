@@ -1,19 +1,19 @@
 <template lang='pug'>
 section.view-section(:class='{ "collapsed" : isCollapsed }')
-  // section header
-  .section-header(v-if='title')
-    h1 {{ title }}
+	// section header
+	.section-header(v-if='title')
+		h1 {{ title }}
 
-    // show more/less
-    .section-actions(@click='toggleCollapse', v-if='isCollapsible')
-      .toggle-collapse
-        span {{ $t(collapsed ? 'showmore' : 'showless')}}
-        ma-icon(:class='{ "collapsed" : isCollapsed }') keyboard_arrow_up
+		// show more/less
+		.section-actions(@click='toggleCollapse', v-if='isCollapsible')
+			.toggle-collapse
+				span {{ $t(collapsed ? 'showmore' : 'showless')}}
+				ma-icon(:class='{ "collapsed" : isCollapsed }') keyboard_arrow_up
 
-  // section slot
-  slot
+	// section slot
+	slot
 
-  span.copyright(v-if='copyright') {{ copyright }}
+	span.copyright(v-if='copyright') {{ copyright }}
 </template>
 
 <script>
@@ -58,9 +58,9 @@ export default {
 
 <style lang='scss'>
 .view-section {
-  display: grid;
-  grid-auto-flow: auto;
-  grid-gap: 1.7em;
+    display: grid;
+    grid-auto-flow: auto;
+    grid-gap: 1.7em;
     @media (max-width: $mobile-breakpoint) {
         padding: 1em;
     }
@@ -102,28 +102,26 @@ export default {
 
     .biography {
         margin: 0;
-        @include font($size: 1.1em, $weight: 200, $line: 1.5em, $color: rgba($white, 0.9));
+        @include font($size: 1.1em, $line: 1.5em, $color: rgba($white, 0.9));
     }
 
     .copyright {
-        @include font($size: 0.7em, $weight: 200, $color: rgba($white, 0.7));
+        @include font($size: 0.7em, $color: rgba($white, 0.7));
     }
 
     .section-header {
         @include flex($display: flex, $justify: space-between, $align: center);
         .section-actions {
-          .toggle-collapse {
-              @include item-hover;
-              @include flex($display: flex, $align: center);
-              white-space: nowrap;
-              @include font($transform: uppercase, $spacing: 1.5px);
-              .icon {
-                transition: transform 0.3s;
-                &.collapsed {
-                  transform: scaleY(-1);
+            .toggle-collapse {
+                @include flex($display: flex, $align: center);
+                @include item-hover;
+                .icon {
+                    transition: transform 0.3s;
+                    &.collapsed {
+                        transform: scaleY(-1);
+                    }
                 }
-              }
-          }
+            }
         }
     }
 }

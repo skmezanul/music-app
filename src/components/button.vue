@@ -1,7 +1,7 @@
 <template lang='pug'>
-  a.button(:class='type')
-    ma-icon(v-if='icon') {{ icon }}
-    | {{ $t(title) }}
+a.button(:class='type')
+	ma-icon(v-if='icon') {{ icon }}
+	span {{ $t(title) }}
 </template>
 
 <script>
@@ -17,20 +17,19 @@ export default {
 <style lang='scss'>
 .button {
     @include flex($display: inline-flex);
-    @include font($size: 0.9em, $weight: 600, $spacing: 1.5px, $transform: uppercase);
-    margin-right: 5px;
-    padding: 13px;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
-
-    &:hover {
-        cursor: pointer;
-    }
+    @include font($size: 0.9em, $weight: 600, $transform: uppercase);
+    padding: 0.8em 1.3em;
+    border-radius: 2em;
+    transition: all 0.3s;
+    cursor: pointer;
 
     &:not(.transparent):not(.overlay) {
-        background-color: $grey;
+        border: 2px solid;
+        background-color: rgba($white, 0.05);
+        border-color: rgba($white, 0.2);
         &.accent {
             background-color: var(--accent-color);
+            border-color: var(--accent-color);
         }
         &:hover {
             @include font($color: $black);
@@ -39,25 +38,24 @@ export default {
     }
 
     &:not(.overlay) {
-      .icon {
-          @include font($size: 1em, $line: inherit);
-      }
+        .icon {
+            @include font($size: 1em, $line: inherit);
+        }
     }
 
     &:not(.icon):not(.overlay) {
+        margin-right: 1em;
         .icon {
             margin-right: 5px;
         }
     }
 
     &.overlay {
-      @include absolute($top: 10px, $right: 10px);
-      @include item-hover;
-      @include flex($display: inline-flex);
-      margin-right: 0;
-      padding: 3px;
-      border-radius: 50%;
-      background-color: rgba($black, 0.5);
+        @include absolute($top: 10px, $right: 10px);
+        @include item-hover;
+        padding: 3px;
+        border-radius: 50%;
+        background-color: rgba($black, 0.5);
     }
 }
 </style>

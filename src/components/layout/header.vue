@@ -17,7 +17,7 @@ header(:class='{ "scrolled" : scrollPosition > 0 }')
 
     // current user
     .header-inner.right
-      a.github-hint(href='https://github.com/microeinhundert/music-app', target='_blank') Visit on GitHub
+      ma-button.github-hint(title='Visit on GitHub', href='https://github.com/microeinhundert/music-app', target='_blank')
 </template>
 
 <script>
@@ -157,12 +157,9 @@ header {
                      @include flex($justify: flex-end, $flex: 1);
                 }
                 .github-hint {
-                    border: 2px solid rgba($white, 0.5);
-                    border-radius: 30px;
-                    font-size: 0.9em;
-                    padding: 7px 15px;
-                    text-transform: uppercase;
-                    @include item-hover;
+                    &:not(:hover) {
+                      @include font($color: rgba($white, 0.7));
+                    }
                 }
             }
         }
