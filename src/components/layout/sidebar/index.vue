@@ -61,36 +61,30 @@ import user from './components/views/user';
 import browse from './components/views/browse';
 import playlists from './components/views/playlists';
 import newplaylist from './components/views/newplaylist';
-import listening from './components/views/listening';
 
 export default {
   data() {
     return {
       activePanel: false,
       panels: [{
-          name: 'user',
-          component: user,
-        },
-        {
-          name: 'browse',
-          icon: 'music_note',
-          component: browse,
-        },
-        {
-          name: 'playlists',
-          icon: 'playlist_play',
-          component: playlists,
-        },
-        {
-          name: 'listening',
-          icon: 'person_pin',
-          component: listening,
-        },
-        {
-          name: 'newplaylist',
-          icon: 'playlist_add',
-          component: newplaylist,
-        },
+        name: 'user',
+        component: user,
+      },
+      {
+        name: 'browse',
+        icon: 'music_note',
+        component: browse,
+      },
+      {
+        name: 'playlists',
+        icon: 'playlist_play',
+        component: playlists,
+      },
+      {
+        name: 'newplaylist',
+        icon: 'playlist_add',
+        component: newplaylist,
+      },
       ],
     };
   },
@@ -112,7 +106,7 @@ export default {
     closePanel() {
       const self = this,
         {
-          fixedSidebar
+          fixedSidebar,
         } = self.settings;
       if (self.activePanel && !fixedSidebar) {
         self.activePanel = false;
@@ -122,7 +116,7 @@ export default {
     togglePanel(panel) {
       const self = this,
         {
-          fixedSidebar
+          fixedSidebar,
         } = self.settings;
       if (self.activePanel === panel && !fixedSidebar) {
         self.activePanel = false;
@@ -193,7 +187,6 @@ export default {
                     }
                     .panel-select-icon {
                         background-color: $white;
-                        color: $white;
                         color: $black !important;
                     }
                 }

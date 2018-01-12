@@ -13,7 +13,7 @@
           :key='index',
           :type='track.type',
           :title='track.name',
-          :trackId='track.id',
+          :trackid='track.id',
           :explicit='track.explicit',
           :popularity='track.popularity',
           :duration='track.duration_ms',
@@ -71,7 +71,7 @@ export default {
           },
           {
             value: trackCount,
-            subtitle: self.$tc('track', trackCount > 1 ? 0 : 1),
+            subtitle: self.$tc('track', trackCount === 1 ? 1 : 0),
           },
           ],
         });

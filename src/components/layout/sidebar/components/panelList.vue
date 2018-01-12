@@ -187,13 +187,11 @@ export default {
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            font-weight: 600;
-            font-size: 1.1em;
+            @include font($size: 1.1em, $weight: 600);
         }
         .meta-container {
             margin-top: 5px;
-            color: rgba($white, 0.7);
-            font-size: 0.9em;
+            @include font($size: 0.9em, $color: rgba($white, 0.7));
         }
     }
 }

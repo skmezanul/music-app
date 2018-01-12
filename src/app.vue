@@ -151,6 +151,12 @@ pre {
     overflow-x: auto;
 }
 
+figure {
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+}
+
 a {
     &:active,
     &:link,

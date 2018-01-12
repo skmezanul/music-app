@@ -72,7 +72,7 @@ footer.footer-container
       span.track-duration {{ formatTime(currentPlayback.item.duration_ms) }}
 
   // progress bar
-  .progress-container(@click='getSeekTime')
+  .progress-container(@click='getSeekTime', ref='progressContainer')
     progress.progress-bar(ref='progressBar', :value='currentPlayback.progress_ms', :max='currentPlayback.item.duration_ms')
 </template>
 
@@ -84,6 +84,9 @@ import {
 } from 'vuex';
 
 export default {
+  watch: {
+    'currentPlayback.progress_ms': console.log('Test'),
+  },
   methods: {
     ...mapActions([
       'GET_PLAYBACK',
@@ -210,8 +213,7 @@ export default {
                 @include relative;
                 overflow: hidden;
                 margin-right: 15px;
-                width: 50px;
-                height: 50px;
+                size: 50px;
                 border-radius: 3px;
                 box-shadow: $shadow;
                 transition: opacity 0.3s;
@@ -299,7 +301,7 @@ export default {
 
         i {
             &.volume {
-                color: rgba($white, 0.7);
+                @include font($color: rgba($white, 0.7));
             }
             &.toggle {
                 cursor: pointer;
@@ -315,8 +317,7 @@ export default {
         height: 4px;
         .progress-bar {
             @include absolute();
-            height: 100%;
-            width: 100%;
+            size: 100%;
             color: var(--accent-color);
             background-color: var(--accent-color);
             &::-moz-progress-bar {

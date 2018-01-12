@@ -10,7 +10,7 @@
 				:type='item.track.type',
 				:image='item.track.album.images',
 				:title='item.track.name',
-				:trackId='item.track.id',
+				:trackid='item.track.id',
 				:artists='item.track.artists',
 				:album='item.track.album',
 				:explicit='item.track.explicit',

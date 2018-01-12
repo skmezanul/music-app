@@ -34,10 +34,9 @@ export default {
         width: 100px;
         .wave-item {
             @include absolute($bottom: 0);
-            width: 5px;
+            size: 5px;
             border-radius: 5px;
             background-color: var(--accent-color);
-            height: 5px;
         }
     }
 }

@@ -58,7 +58,7 @@ export default {
           ],
           info: [{
             value: followerCount.toLocaleString(),
-            subtitle: self.$tc('follower', followerCount > 1 ? 0 : 1),
+            subtitle: self.$tc('follower', followerCount === 1 ? 1 : 0),
           },
           ],
         });

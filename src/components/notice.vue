@@ -39,8 +39,7 @@ export default {
         @include flex($display: flex, $justify: space-between, $align: center);
         @include relative;
         overflow: hidden;
-        width: 100%;
-        height: 100%;
+        size: 100%;
         grid-area: content;
         @media (min-width: $mobile-breakpoint) {
             padding-left: 120px;

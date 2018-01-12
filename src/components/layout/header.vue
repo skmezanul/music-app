@@ -85,10 +85,9 @@ header {
 
     .header-container {
         @include flex($display: flex, $justify: space-between);
-        height: 42px;
         transition: width 0.3s;
         will-change: width;
-        width: $large-viewport-width;
+        size: $large-viewport-width 42px;
         @media (max-width: $view-width-breakpoint) {
             width: $small-viewport-width;
         }

@@ -61,7 +61,7 @@ export default {
     artists: Array,
     album: Object,
     duration: Number,
-    trackId: String,
+    trackid: String,
     image: Array,
     explicit: Boolean,
     popularity: Number,

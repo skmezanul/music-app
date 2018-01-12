@@ -62,9 +62,9 @@ export default {
         // last played artist
         self.items[1].meta = lastPlayedArtist;
         // library track count
-        self.items[2].meta = `${trackCount} ${self.$tc('track', trackCount > 1 ? 0 : 1)}`;
+        self.items[2].meta = `${trackCount} ${self.$tc('track', trackCount === 1 ? 1 : 0)}`;
         // library album count
-        self.items[3].meta = `${albumCount} ${self.$tc('album', albumCount > 1 ? 0 : 1)}`;
+        self.items[3].meta = `${albumCount} ${self.$tc('album', albumCount === 1 ? 1 : 0)}`;
       });
     },
 

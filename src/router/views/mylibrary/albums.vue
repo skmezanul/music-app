@@ -61,7 +61,7 @@ export default {
           },
           info: [{
             value: albumCount,
-            subtitle: self.$tc('album', albumCount > 1 ? 0 : 1),
+            subtitle: self.$tc('album', albumCount === 1 ? 1 : 0),
           },
           ],
         });

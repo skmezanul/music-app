@@ -20,6 +20,7 @@
 
 		// content
 		.stage-inner
+
 			.subtitle-container
 				h4(v-if='subtitle || stage.subtitle') {{ stage.profile ? `${subtitle || stage.subtitle} ${$t('by')} ` :  subtitle || stage.subtitle }}
 					router-link.subtitle-link(
@@ -27,6 +28,7 @@
 						:to='{ name: stage.profile.type, params: { id: stage.profile.id } }') {{ stage.profile.name || stage.profile.display_name }}
 				ma-icon.is-popular(v-if='stage.popularity && stage.popularity > 80') stars
 			h1.stage-title(v-if='title || stage.title') {{ title || stage.title }}
+
 			.meta-container(v-if='stage.meta && !$mq.phone')
 				p.meta(v-html='formatMeta(stage.meta)')
 			.action-container(v-if='stage.buttons')
@@ -258,8 +260,7 @@ export default {
         @include flex($display: flex, $justify: center, $align: center);
 
         .background-image {
-            width: 100vw;
-            height: 100vh;
+            size: 100vw 100vh;
             filter: saturate(130%);
             object-fit: cover;
         }
@@ -274,8 +275,7 @@ export default {
             overflow: hidden;
             margin-right: 35px;
             max-width: 250px;
-            width: 250px;
-            height: 250px;
+            size: 250px;
             border-radius: 10px;
             box-shadow: $shadow;
             &:not(.is-small) {
@@ -284,8 +284,7 @@ export default {
 
             &.is-small {
                 min-width: 180px;
-                width: 180px;
-                height: 180px;
+                size: 180px;
             }
         }
 
@@ -369,8 +368,7 @@ export default {
                             top: 0.7em;
                             display: block;
                             margin: 0 auto;
-                            width: 3em;
-                            height: 1px;
+                            size: 3em 1px;
                             background-color: var(--accent-color);
                             content: "";
                         }

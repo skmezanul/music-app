@@ -11,7 +11,7 @@
 				ma-list(
 					v-for='(playlist, index) in data.playlist.tracks.items',
 					:key='index',
-					:trackId='playlist.track.id',
+					:trackid='playlist.track.id',
 					:type='playlist.track.type',
 					:image='playlist.track.album.images',
 					:title='playlist.track.name',
@@ -71,11 +71,11 @@ export default {
           },
           info: [{
             value: trackCount,
-            subtitle: self.$tc('track', trackCount > 1 ? 0 : 1),
+            subtitle: self.$tc('track', trackCount === 1 ? 1 : 0),
           },
           {
             value: followerCount.toLocaleString(),
-            subtitle: self.$tc('follower', followerCount > 1 ? 0 : 1),
+            subtitle: self.$tc('follower', followerCount === 1 ? 1 : 0),
           },
           ],
         });
