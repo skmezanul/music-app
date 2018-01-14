@@ -2,7 +2,6 @@
 import Vue from 'vue';
 import 'normalize.css/normalize.css';
 import 'material-design-icons/iconfont/material-icons.css';
-import slider from 'vue-slider-component';
 import tooltip from 'v-tooltip';
 import parallax from 'vue-parallax-js';
 import visibility from 'vue-observe-visibility';
@@ -20,7 +19,6 @@ import icon from './icon';
 import carousel from './carousel/';
 
 // register components
-Vue.component('ma-slider', slider);
 Vue.component('ma-stage', stage);
 Vue.component('ma-section', section);
 Vue.component('ma-list', list);

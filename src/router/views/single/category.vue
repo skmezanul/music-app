@@ -10,7 +10,7 @@
 			.section-items-container
 				ma-item(
 					v-for='(playlist, index) in data.playlists',
-					:key='index',
+					:key='playlist.id',
 					:type='playlist.type',
 					:primaryid='playlist.id',
 					:secondaryid='playlist.owner.id',

@@ -8,7 +8,7 @@
 		.section-items-container
 			ma-item(
         v-for='(artist, index) in $parent.data.related',
-        :key='index',
+        :key='artist.id',
         :type='artist.type',
         :image='artist.images',
         :title='artist.name',

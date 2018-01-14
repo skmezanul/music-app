@@ -10,7 +10,7 @@
 			ol.list
 				ma-list(
           v-for='(history, index) in data.history',
-          :key='index',
+          :key='`${history.track.id}-${index}`',
           :type='history.track.type',
           :image='history.track.album.images',
           :title='history.track.name',

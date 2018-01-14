@@ -32,24 +32,28 @@
 			.meta-container(v-if='stage.meta && !$mq.phone')
 				p.meta(v-html='formatMeta(stage.meta)')
 			.action-container(v-if='stage.buttons')
+
 				// play all
 				ma-button(
 					v-if='stage.buttons.playall',
 					type='accent',
 					icon='play_circle_filled',
 					title='playall')
-					// follow / unfollow
+
+				// follow / unfollow
 				ma-button(
 					v-if='canFollow',
 					@click.native='setFollowing',
-					v-tooltip='{ content: isFollowing ? $t("unfollow") : "" }'
+					v-tooltip='{ content: isFollowing ? $t("unfollow") : null }'
 					:icon='isFollowing ? "check" : "add_circle"',
 					:title='isFollowing ? "following" : "follow"')
+
 				// save
 				ma-button(
 					v-if='stage.buttons.save',
 					icon='save',
 					title='save')
+
 				// edit
 				ma-button(
 					v-if='canEdit',
@@ -84,6 +88,9 @@ export default {
     title: String,
     subtitle: String,
   },
+  updated() {
+    this.checkIfFollowing();
+  },
   watch: {
     $route() {
       this.checkIfFollowing();
@@ -92,7 +99,7 @@ export default {
   methods: {
     ...mapActions(['GET_USER']),
 
-    // check if current user is following
+    // check if current user is following this artist or user
     checkIfFollowing() {
       const self = this,
         {
@@ -109,34 +116,28 @@ export default {
             ids: params.id,
           },
         }).then((res) => {
-          self.isFollowing = res.data;
+          const isFollowing = res.data[0];
+
+          if (isFollowing !== false) self.isFollowing = isFollowing;
         });
       }
     },
 
-    // follow or unfollow
+    // follow or unfollow this artist or user
     setFollowing() {
-      let type;
       const self = this,
         {
           name,
           params,
         } = self.$route,
-        isArtist = /artist/.test(name),
-        isUser = /user/.test(name);
+        isArtist = /artist/.test(name);
 
-      if (isArtist) {
-        type = 'artist';
-      } else if (isUser) {
-        type = 'user';
-      }
-
-      if (params.id && type) {
+      if (params.id && self.canFollow) {
         self.$spotifyApi({
           method: 'put',
           url: '/me/following',
           params: {
-            type,
+            type: isArtist ? 'artist' : 'user',
             ids: params.id,
           },
         });
@@ -150,9 +151,7 @@ export default {
         exp = new RegExp(cover),
         hasCoverMessage = exp.test(meta);
 
-      if (typeof meta === 'string' && hasCoverMessage) {
-        meta = meta.split(cover);
-      }
+      if (typeof meta === 'string' && hasCoverMessage) [meta] = meta.split(cover);
       return meta;
     },
   },
@@ -181,9 +180,9 @@ export default {
         {
           name,
         } = self.$route,
-        canFollow = exp.test(name);
+        canEdit = exp.test(name);
 
-      return canFollow;
+      return canEdit;
     },
   },
 };

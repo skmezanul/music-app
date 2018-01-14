@@ -55,14 +55,8 @@ footer.footer-container
       @click.native='TOGGLE_REPEAT',
       v-tooltip='{ content: $t("repeat") }') repeat_one
 
-  // volume and other controls
+  // other controls
   .footer-inner.right(v-if='$mq.desktop')
-    ma-icon.volume {{ volume > 50 ? 'volume_up' : 'volume_down' }}
-    ma-slider(
-      ref='slider',
-      v-model='volume',
-      width='100px',
-      :tooltip='false')
     ma-icon(
       :hover='true',
       @click.native='$modal.show("video")',
@@ -113,20 +107,6 @@ export default {
       return time;
     },
 
-    // set volume for the current playback
-    setVolume(value) {
-      const self = this;
-
-      self.$spotifyApi({
-        method: 'put',
-        url: '/me/player/volume',
-        params: {
-          volume_percent: value,
-          device_id: self.deviceId,
-        },
-      });
-    },
-
     // get time to jump to
     getSeekTime(event) {
       const self = this,
@@ -151,15 +131,6 @@ export default {
       deviceId: 'getDeviceId',
       settings: 'getAppSettings',
     }),
-
-    volume: {
-      get() {
-        return this.currentPlayback.device.volume_percent;
-      },
-      set(value) {
-        this.setVolume(value);
-      },
-    },
   },
 };
 </script>
@@ -300,9 +271,6 @@ export default {
         }
 
         i {
-            &.volume {
-                @include font($color: rgba($white, 0.7));
-            }
             &.toggle {
                 cursor: pointer;
             }

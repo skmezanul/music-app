@@ -6,7 +6,7 @@
 		.section-items-container
 			ma-item(
         v-for='(category, index) in $parent.data.categories.items',
-        :key='index',
+        :key='category.id',
         type='category',
         :primaryid='category.id',
         :image='category.icons',

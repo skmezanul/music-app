@@ -13,7 +13,7 @@
 			ol.list
 				ma-list(
           v-for='(track, index) in data.results.tracks.items',
-          :key='index',
+          :key='track.id',
           :trackid='track.id',
           :type='track.type',
           :image='track.album.images',
@@ -34,7 +34,7 @@
 			.section-items-container
 				ma-item(
           v-for='(album, index) in data.results.albums.items',
-          :key='index',
+          :key='album.id',
           :type='album.type',
           :primaryid='album.id',
           :secondaryid='album.artists[0].id',
@@ -51,7 +51,7 @@
 			.section-items-container
 				ma-item(
           v-for='(artist, index) in data.results.artists.items',
-          :key='index',
+          :key='artist.id',
           :type='artist.type',
           :title='artist.name',
           :image='artist.images',

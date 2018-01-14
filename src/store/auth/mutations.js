@@ -13,7 +13,7 @@ const mutations = {
     if (refreshToken) self.refreshToken = refreshToken;
     if (expiresIn) {
       // convert expiry time format
-      const expiryTime = Date.now() + (payload.expires_in * 1000);
+      const expiryTime = Date.now() + (payload.expiresIn * 1000);
       self.expiryTime = expiryTime;
     }
   },

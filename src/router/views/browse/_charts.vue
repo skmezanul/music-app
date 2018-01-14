@@ -6,7 +6,7 @@
 		ol.list
 			ma-list(
 				v-for='(item, index) in $parent.data.charts',
-				:key='index',
+				:key='item.track.id',
 				:type='item.track.type',
 				:image='item.track.album.images',
 				:title='item.track.name',

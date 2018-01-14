@@ -10,7 +10,7 @@
       .section-items-container
         ma-item(
           v-for='(item, index) in data.albums',
-          :key='index',
+          :key='item.album.id',
           :type='item.album.type',
           :primaryid='item.album.id',
           :image='item.album.images',

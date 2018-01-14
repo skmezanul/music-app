@@ -111,8 +111,8 @@ export default {
 }
 
 body {
-    background-color: $main-bg-color;
     overflow: hidden;
+    background-color: $main-bg-color;
 }
 
 input {
@@ -152,9 +152,9 @@ pre {
 }
 
 figure {
+  margin: 0;
   background-size: cover;
   background-repeat: no-repeat;
-  margin: 0;
 }
 
 a {
@@ -168,13 +168,13 @@ a {
 
 // vue instance container
 #app {
+    @include font($spacing: 1px, $color: $white);
     display: grid;
+    font-family: $primary-family;
+    user-select: none;
     grid-template-columns: auto 1fr;
     grid-template-rows: 1fr 80px;
     grid-template-areas: "sidebar main" "footer footer";
-    @include font($spacing: 1px, $color: $white);
-    font-family: $primary-family;
-    user-select: none;
     // main-container containing header and view-container
     .main-container {
         @include relative;
@@ -186,15 +186,15 @@ a {
             height: 100vh;
             // view-parent element to render components and wrap stage and view-content
             .view-parent {
-                display: grid;
                 @include view-grid-columns;
+                display: grid;
                 grid-auto-rows: auto;
                 grid-template-areas: "stage stage stage" ". content .";
                 grid-row-gap: 2em;
                 // view-content containing stacked sections
                 .view-content {
-                    grid-area: content;
                     display: grid;
+                    grid-area: content;
                     grid-auto-rows: auto;
                     grid-row-gap: 3em;
                     @media (max-width: $mobile-breakpoint) {
@@ -229,16 +229,17 @@ a {
 .tooltip-container {
     .tooltip {
         @include relative($index: 1000);
-        @include font($spacing: 1.5px);
         display: block !important;
         margin-bottom: 12px;
-        font-family: $primary-family;
         transition: opacity 0.3s, visibility 0.3s;
 
         .tooltip-inner {
+            @include font($spacing: 1.5px);
             padding: 7px 10px;
             border-radius: 3px;
             background: var(--accent-color);
+            font-weight: 600;
+            font-family: $primary-family;
             transition: background-color 0.3s;
             &:after {
                 @include absolute($top: 100%, $left: calc(50% - 8px));

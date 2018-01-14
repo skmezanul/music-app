@@ -6,7 +6,7 @@
 		.section-items-container
 			ma-item(
         v-for='(album, index) in $parent.data.releases.albums.items',
-        :key='index',
+        :key='album.id',
         :type='album.type',
         :primaryid='album.id',
         :image='album.images',

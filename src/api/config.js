@@ -19,7 +19,7 @@ export const credentials = {
 export const firebaseConfig = {
   apiKey: 'AIzaSyApFYAyjfvuYeCqH2os5i7A0ER9Nr6hkqw',
   authDomain: 'music-app-e05c2.firebaseapp.com',
-  projectId: 'music-app-e05c2',
+  databaseURL: 'https://music-app-e05c2.firebaseio.com/',
 };
 
 export const baseURL = {

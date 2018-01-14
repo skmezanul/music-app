@@ -10,7 +10,7 @@
 			ol.list
 				ma-list(
           v-for='(track, index) in data.album.tracks.items',
-          :key='index',
+          :key='track.id',
           :type='track.type',
           :title='track.name',
           :trackid='track.id',

@@ -103,16 +103,6 @@ export default {
       });
     },
 
-    closePanel() {
-      const self = this,
-        {
-          fixedSidebar,
-        } = self.settings;
-      if (self.activePanel && !fixedSidebar) {
-        self.activePanel = false;
-      }
-    },
-
     togglePanel(panel) {
       const self = this,
         {
@@ -122,6 +112,16 @@ export default {
         self.activePanel = false;
       } else if (typeof panel === 'number') {
         self.activePanel = panel;
+      }
+    },
+
+    closePanel() {
+      const self = this,
+        {
+          fixedSidebar,
+        } = self.settings;
+      if (self.activePanel && !fixedSidebar) {
+        self.activePanel = false;
       }
     },
   },
@@ -151,12 +151,10 @@ export default {
     margin-bottom: 81px;
     grid-area: sidebar;
     box-shadow: $shadow;
+		background-color: lighten($dark-grey, 2%);
 
-    &.is-fixed {
-        @include flex($display: flex);
-        background-color: lighten($dark-grey, 2%);
-    }
     &:not(.is-fixed) {
+			background-color: transparent;
         .sidebar-panel {
             @include absolute($top: 0, $bottom: 0, $left: 100px, $index: 1);
             @supports (backdrop-filter: blur(25px) saturate(250%)) {

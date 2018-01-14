@@ -19,17 +19,7 @@ const mutations = {
     if (playback) {
       self.current = playback;
       if (getCurrentUser.id) {
-        const data = {
-            album,
-            artists,
-            id,
-            name,
-          },
-          usersCollectionRef = Vue.prototype.$database.collection('users'),
-          userDocumentRef = usersCollectionRef.doc(getCurrentUser.id);
-
-        // write data to database
-        userDocumentRef.set(data);
+        Vue.prototype.$database.ref(`users/${getCurrentUser.id}/currentPlayback`).set(playback);
       }
     }
   },

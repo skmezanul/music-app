@@ -9,7 +9,7 @@
 		ol.list
 			ma-list(
         v-for='(track, index) in $parent.data.toptracks',
-        :key='index',
+        :key='track.id',
         :trackid='track.id',
         :type='track.type',
         :image='track.album.images',
@@ -29,7 +29,7 @@
 		.section-items-container
 			ma-item(
         v-for='(album, index) in $parent.data.albums',
-        :key='index',
+        :key='album.id',
         :type='album.type',
         :primaryid='album.id',
         :secondaryid='album.artists[0].id',
@@ -46,7 +46,7 @@
 		.section-items-container
 			ma-item(
         v-for='(single, index) in $parent.data.singles',
-        :key='index',
+        :key='single.id',
         :type='single.type',
         :primaryid='single.id',
         :secondaryid='single.artists[0].id',
@@ -63,7 +63,7 @@
 		.section-items-container
 			ma-item(
         v-for='(album, index) in $parent.data.appearson',
-        :key='index',
+        :key='album.id',
         :type='album.type',
         :primaryid='album.id',
         :secondaryid='album.artists[0].id',
