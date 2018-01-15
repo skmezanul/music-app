@@ -13,7 +13,7 @@
           :key='track.id',
           :type='track.type',
           :title='track.name',
-          :trackid='track.id',
+          :trackId='track.id',
           :explicit='track.explicit',
           :popularity='track.popularity',
           :duration='track.duration_ms',

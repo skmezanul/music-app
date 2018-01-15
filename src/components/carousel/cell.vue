@@ -79,7 +79,7 @@ export default {
     overflow: hidden;
     margin: 0 1em;
     border-radius: 1em;
-    background-color: $grey;
+    background-color: $blue;
     box-shadow: $shadow;
     cursor: pointer;
     size: 500px 300px;

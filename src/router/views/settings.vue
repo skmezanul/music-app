@@ -61,14 +61,13 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss'>
 .color-picker {
-    @include flex($display: flex);
-    margin: 0 -7px;
+    display: grid;
+    grid-template-columns: repeat(4, 70px);
+    grid-column-gap: 1em;
     .color {
-        height: 70px;
-        width: 70px;
-        margin: 0 7px;
+        size: 100% 70px;
         border-radius: 5px;
         transition: transform 0.3s;
         &:hover {

@@ -8,7 +8,7 @@ footer.footer-container
       :to='{ name: "artist", params: { id: currentPlayback.item.artists[0].id }}')
       ma-button(type='overlay', @click.prevent.native='setAppSettings({ setting: "largeCover", value: true })', icon='keyboard_arrow_up')
       img.cover-image(
-        :src='currentPlayback.item.album.images[0].url',
+        v-lazy='currentPlayback.item.album.images[0].url',
         :alt='currentPlayback.item.name')
 
     .currently-playing
@@ -22,7 +22,7 @@ footer.footer-container
     transition(name='fade')
       .background-container(v-if='!settings.largeCover && !$mq.phone',)
         img.cover-image(
-          :src='currentPlayback.item.album.images[0].url',
+          v-lazy='currentPlayback.item.album.images[0].url',
           :alt='currentPlayback.item.name')
 
   // playback controls
@@ -78,9 +78,6 @@ import {
 } from 'vuex';
 
 export default {
-  watch: {
-    'currentPlayback.progress_ms': console.log('Test'),
-  },
   methods: {
     ...mapActions([
       'GET_PLAYBACK',
@@ -137,12 +134,13 @@ export default {
 
 <style lang='scss'>
 .footer-container {
-    @include absolute($right: 0, $bottom: 0, $left: 0, $index: 999);
+    @include fixed($right: 0, $bottom: 0, $left: 0, $index: 999);
     @include flex($display: flex, $align: center, $wrap: wrap);
     overflow: hidden;
     padding: 15px 20px;
     border-top: 1px solid $border-color;
-    background: $dark-grey;
+    transform: translateZ(0);
+    background: $dark-blue;
 
     .footer-inner {
         @include flex($display: flex, $align: center);
@@ -175,7 +173,7 @@ export default {
                 }
                 &:before {
                     @include absolute($all: 0, $index: 1);
-                    background: ease-in-out-sine-gradient(to left, $dark-grey, rgba($dark-grey, 0.5)), radial-gradient(circle, rgba($dark-grey, 0.3), $dark-grey);
+                    background: ease-in-out-sine-gradient(to left, $dark-blue, rgba($dark-blue, 0.5)), radial-gradient(circle, rgba($dark-blue, 0.3), $dark-blue);
                     content: "";
                 }
             }
@@ -249,7 +247,7 @@ export default {
                 padding: 5px 10px;
                 width: 110px;
                 border-radius: 5px;
-                background-color: $grey;
+                background-color: $blue;
                 @include font($weight: 600);
                 .track-progress {
                     margin-right: 5px;

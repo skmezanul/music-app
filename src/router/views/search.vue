@@ -14,7 +14,7 @@
 				ma-list(
           v-for='(track, index) in data.results.tracks.items',
           :key='track.id',
-          :trackid='track.id',
+          :trackId='track.id',
           :type='track.type',
           :image='track.album.images',
           :title='track.name',

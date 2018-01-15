@@ -1,10 +1,10 @@
 <template lang='pug'>
-#app(:style='{ "--accent-color" : settings.accentColor }')
+#app(:style='{ "--accent-color" : settings.accentColor, "--sidebar-margin" : `${settings.fixedSidebar ? 350 : 100}px` }')
 
 	// navigation
 	ma-sidebar(v-if='!$mq.phone')
 
-	main.main-container
+	main.main-container.sidebar-margin
 		// notices
 		transition-group(name='slide-down-transform')
 			ma-notice(
@@ -21,11 +21,9 @@
 			ma-loading(v-if='$isLoading("data")')
 				ma-loader(slot='spinner')
 
-		// view container
-		.view-container
-			// router view
-			transition(name='fade', mode='out-in')
-				router-view(:key='$route.path')
+		// router view
+		transition(name='fade', mode='out-in')
+			router-view(:key='$route.path')
 
 	// footer
 	transition(name='fade')
@@ -41,7 +39,7 @@
 <script>
 import {
   mapActions,
-  mapGetters
+  mapGetters,
 } from 'vuex';
 
 import maHeader from '@/components/layout/header';
@@ -82,21 +80,21 @@ export default {
 @font-face {
     font-weight: 300;
     font-family: 'San Francisco';
-    src: url('../static/fonts/sanfranciscodisplay-thin-webfont.woff');
+    src: url("../static/fonts/sanfranciscodisplay-thin-webfont.woff");
 }
 
 /** Regular */
 @font-face {
     font-weight: 400;
     font-family: 'San Francisco';
-    src: url('../static/fonts/sanfranciscodisplay-regular-webfont.woff');
+    src: url("../static/fonts/sanfranciscodisplay-regular-webfont.woff");
 }
 
 /** Bold */
 @font-face {
     font-weight: 600;
     font-family: 'San Francisco';
-    src: url('../static/fonts/sanfranciscodisplay-semibold-webfont.woff');
+    src: url("../static/fonts/sanfranciscodisplay-semibold-webfont.woff");
 }
 
 /** Bold */
@@ -111,7 +109,6 @@ export default {
 }
 
 body {
-    overflow: hidden;
     background-color: $main-bg-color;
 }
 
@@ -152,9 +149,9 @@ pre {
 }
 
 figure {
-  margin: 0;
-  background-size: cover;
-  background-repeat: no-repeat;
+    margin: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 a {
@@ -169,40 +166,35 @@ a {
 // vue instance container
 #app {
     @include font($spacing: 1px, $color: $white);
-    display: grid;
     font-family: $primary-family;
     user-select: none;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: 1fr 80px;
-    grid-template-areas: "sidebar main" "footer footer";
     // main-container containing header and view-container
     .main-container {
-        @include relative;
-        grid-area: main;
-        grid-column: span 2;
-        // scrolling view-container containing view-parent
-        .view-container {
-            overflow-y: auto;
-            height: 100vh;
-            // view-parent element to render components and wrap stage and view-content
-            .view-parent {
-                @include view-grid-columns;
+        // view-parent element to render components and wrap stage and view-content
+        .view-parent {
+            @include view-grid-columns;
+            display: grid;
+            grid-auto-rows: auto;
+            grid-template-areas: "stage stage stage" ". content .";
+            grid-row-gap: 2em;
+            // view-content containing stacked sections
+            .view-content {
                 display: grid;
+                grid-area: content;
                 grid-auto-rows: auto;
-                grid-template-areas: "stage stage stage" ". content .";
-                grid-row-gap: 2em;
-                // view-content containing stacked sections
-                .view-content {
-                    display: grid;
-                    grid-area: content;
-                    grid-auto-rows: auto;
-                    grid-row-gap: 3em;
-                    @media (max-width: $mobile-breakpoint) {
-                        grid-column: span 3;
-                    }
+                grid-row-gap: 3em;
+                @media (max-width: $mobile-breakpoint) {
+                    grid-column: span 3;
                 }
             }
         }
+    }
+}
+
+.sidebar-margin {
+    margin-left: var(--sidebar-margin);
+    @media (max-width: $mobile-breakpoint) {
+        margin-left: 0;
     }
 }
 
@@ -212,14 +204,14 @@ a {
     overflow: hidden;
     width: 150px;
     border-radius: 5px;
-    background-color: $dark-grey;
+    background-color: $dark-blue;
 
     li {
         @include font($size: 0.9em);
         padding: 15px;
         transition: background-color 0.3s;
         &:hover {
-            background-color: $grey;
+            background-color: $blue;
             cursor: pointer;
         }
     }

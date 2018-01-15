@@ -11,7 +11,7 @@
 				ma-list(
 					v-for='(playlist, index) in data.playlist.tracks.items',
 					:key='playlist.track.id',
-					:trackid='playlist.track.id',
+					:trackId='playlist.track.id',
 					:type='playlist.track.type',
 					:image='playlist.track.album.images',
 					:title='playlist.track.name',

@@ -2,11 +2,12 @@
 import Vue from 'vue';
 import 'normalize.css/normalize.css';
 import 'material-design-icons/iconfont/material-icons.css';
-import tooltip from 'v-tooltip';
+import lazyload from 'vue-lazyload';
 import parallax from 'vue-parallax-js';
 import visibility from 'vue-observe-visibility';
 import viewports from 'vue-match-media/src';
 import modals from 'vue-js-modal';
+import tooltip from 'v-tooltip';
 
 // import components
 import stage from './layout/stage';
@@ -29,6 +30,7 @@ Vue.component('ma-icon', icon);
 Vue.component('ma-carousel', carousel);
 
 // register plugins
+Vue.use(lazyload);
 Vue.use(parallax);
 Vue.use(visibility);
 Vue.use(viewports);

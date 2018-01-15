@@ -14,7 +14,7 @@
           :type='history.track.type',
           :image='history.track.album.images',
           :title='history.track.name',
-          :trackid='history.track.id',
+          :trackId='history.track.id',
           :artists='history.track.artists',
           :album='history.track.album',
           :explicit='history.track.explicit',

@@ -1,9 +1,9 @@
 <template lang='pug'>
-.notice-container
+.notice-container.sidebar-margin
   .notice-inner
     ma-icon.notice-icon(v-if='!$mq.phone') {{ type }}
     // message
-    p {{ message }}
+    p.message {{ message }}
 
     // remove notice manually
     ma-icon.close-button(:hover='true', @click.native='removeNotice({ action: "remove" })') close
@@ -29,7 +29,7 @@ export default {
 
 <style lang='scss'>
 .notice-container {
-    @include absolute($all: 0, $index: 999);
+    @include fixed($top: 0, $right: 0, $left: 0, $index: 999);
     @include view-grid-columns;
     display: grid;
     height: 69px;
@@ -44,7 +44,7 @@ export default {
         @media (min-width: $mobile-breakpoint) {
             padding-left: 120px;
         }
-        p {
+        .message {
             @include font($size: 1.2em);
             margin: 0;
         }

@@ -1,5 +1,5 @@
 <template lang='pug'>
-header(:class='{ "scrolled" : scrollPosition > 0 }')
+header.header.sidebar-margin(:class='{ "scrolled" : scrollPosition > 0 }')
   .header-container
     // navigation
     .header-inner.left
@@ -31,7 +31,7 @@ export default {
   methods: {
     // update scroll position
     updateScroll() {
-      this.scrollPosition = document.querySelector('.view-container').scrollTop;
+      this.scrollPosition = window.scrollY;
     },
 
     // do the search
@@ -53,12 +53,12 @@ export default {
     },
   },
   mounted() {
-    document.querySelector('.view-container').addEventListener('scroll', this.updateScroll, {
+    window.addEventListener('scroll', this.updateScroll, {
       passive: true,
     });
   },
   destroy() {
-    document.querySelector('.view-container').removeEventListener('scroll', this.updateScroll, {
+    window.removeEventListener('scroll', this.updateScroll, {
       passive: true,
     });
   },
@@ -66,18 +66,19 @@ export default {
 </script>
 
 <style lang='scss'>
-header {
-    @include absolute($top: 0, $right: 0, $left: 0, $index: 998);
+.header {
+    @include fixed($top: 0, $right: 0, $left: 0, $index: 998);
     @include flex($display: flex, $justify: center);
     padding: 13px 0;
     border-bottom: 1px solid;
     border-color: transparent;
+    transform: translateZ(0);
     transition: background-color 0.3s, border-color 0.3s;
     -webkit-app-region: drag;
 
     &.scrolled {
         border-color: $border-color;
-        background-color: $dark-grey;
+        background-color: $dark-blue;
         .header-container {
             width: $small-viewport-width;
         }

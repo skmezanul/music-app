@@ -22,7 +22,7 @@
 		.stage-inner
 
 			.subtitle-container
-				h4(v-if='subtitle || stage.subtitle') {{ stage.profile ? `${subtitle || stage.subtitle} ${$t('by')} ` :  subtitle || stage.subtitle }}
+				h4(v-if='subtitle || stage.subtitle') {{ stage.profile ? `${subtitle || stage.subtitle} ${$t('by')} ` : subtitle || stage.subtitle }}
 					router-link.subtitle-link(
 						v-if='stage.profile',
 						:to='{ name: stage.profile.type, params: { id: stage.profile.id } }') {{ stage.profile.name || stage.profile.display_name }}
@@ -310,7 +310,7 @@ export default {
             }
 
             .stage-title {
-                @include font($size: 3.5em, $line: 1.2em);
+                @include font($size: 3.5em, $line: 1.3em);
                 transform: translateX(-3px);
 								font-family: $secondary-family;
             }

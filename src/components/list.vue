@@ -10,12 +10,12 @@ li.list-item(
 			:class='isPlaying ? "pause" : "play"') {{ isPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
 
 		img.cover-image(
-			:src='image[0].url',
+			v-lazy='image[0].url',
 			:alt='title')
 
 	// index
 	ma-icon.is-playing(v-if='!$mq.phone && isPlaying') {{ currentPlayback.is_playing ? 'volume_up' : 'volume_down' }}
-	span.index(v-else-if='!$mq.phone') {{ formatIndex(index) }}
+	span.index(v-else-if='!image || !$mq.phone') {{ formatIndex(index) }}
 
 	// meta
 	.meta-container
@@ -61,7 +61,7 @@ export default {
     artists: Array,
     album: Object,
     duration: Number,
-    trackid: String,
+    trackId: String,
     image: Array,
     explicit: Boolean,
     popularity: Number,
@@ -131,17 +131,21 @@ export default {
         display: grid;
         align-items: center;
         padding-right: 2em;
-        background-color: $grey;
+        background-color: $blue;
         transition: background-color 0.3s;
         grid-template-columns: 75px minmax(auto, 1fr) minmax(auto, 60px) minmax(auto, 1fr) repeat(2, minmax(auto, 80px));
         grid-template-areas: "index meta labels album duration actions";
         grid-column-gap: 1em;
         @media (max-width: $mobile-breakpoint) {
-            grid-template-columns: 75px minmax(auto, 1fr) minmax(auto, 30px) minmax(auto, 1fr) auto;
+            grid-template-columns: 75px minmax(auto, 1fr) minmax(auto, 30px);
         }
         &.has-image {
             grid-template-columns: 75px 50px minmax(auto, 1fr) minmax(auto, 60px) minmax(auto, 1fr) repeat(2, minmax(auto, 80px));
             grid-template-areas: "image index meta labels album duration actions";
+            @media (max-width: $mobile-breakpoint) {
+              grid-template-columns: 75px minmax(auto, 1fr) minmax(auto, 60px) minmax(auto, 1fr) minmax(auto, 50px);
+              grid-template-areas: "image meta labels album duration";
+            }
         }
         &:hover {
             background-color: rgba($white, 0.1);
@@ -170,8 +174,9 @@ export default {
             @include relative;
             width: 75px;
             grid-area: image;
+            background-color: lighten($blue, 2%);
             .cover-image {
-                transition: filter 0.3s;
+               @include lazy-fadein;
             }
             .playback-toggle {
                 @include absolute($all: 0, $index: 1);

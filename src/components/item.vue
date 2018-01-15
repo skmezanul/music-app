@@ -24,7 +24,7 @@ router-link.section-item(
 	// image
 	.image-container(v-if='image')
 		img.cover-image(
-			:src='image[0].url',
+			v-lazy='image[0].url',
 			:alt='title')
 
 	// meta
@@ -93,8 +93,7 @@ export default {
     @include flex($display: flex, $justify: space-between, $direction: column);
     overflow: hidden;
     height: 100%;
-    background-color: $grey;
-    box-shadow: $shadow;
+    background-color: $blue;
     cursor: pointer;
     transition: box-shadow 0.3s;
     &:hover {
@@ -102,7 +101,11 @@ export default {
     }
     .image-container {
         @include flex($display: flex, $justify: center, $align: center);
+        background-color: lighten($blue, 2%);
         overflow: hidden;
+        .cover-image {
+           @include lazy-fadein;
+        }
     }
     .item-overlay {
         @include absolute($all: 0, $index: 1);
@@ -155,14 +158,14 @@ export default {
             }
         }
         .image-container {
-            img {
+            .cover-image {
                 transition: transform 0.7s, filter 0.3s;
                 will-change: transform;
             }
         }
         &:hover {
             .image-container {
-                img {
+                .cover-image {
                     transform: scale(1.07);
                 }
             }

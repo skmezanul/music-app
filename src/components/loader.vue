@@ -1,5 +1,5 @@
 <template lang='pug'>
-.loader-container
+.loader-container.sidebar-margin
   transition-group.loader-inner(tag='div', @enter='startLoadingAnimation', :css='false', appear)
     span.wave-item(v-for='(n, index) in 6', :style='{ left: `${20 * index}px` }', :key='index', ref='loaderElement')
 </template>
@@ -26,7 +26,7 @@ export default {
 
 <style lang='scss'>
 .loader-container {
-    @include absolute($all: 0, $index: 997);
+    @include fixed($all: 0, $index: 997);
     @include flex($display: flex, $justify: center, $align: center)
     background-color: $main-bg-color;
     .loader-inner {

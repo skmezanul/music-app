@@ -8,13 +8,7 @@ const mutations = {
   */
   SET_PLAYBACK(state, playback) {
     const self = state,
-      { getCurrentUser } = store.getters,
-      {
-        album,
-        artists,
-        id,
-        name,
-      } = playback.item;
+      { getCurrentUser } = store.getters;
 
     if (playback) {
       self.current = playback;

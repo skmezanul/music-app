@@ -147,11 +147,9 @@ export default {
 <style lang='scss'>
 .sidebar-container {
     @include flex($display: flex);
-    @include relative($index: 999);
-    margin-bottom: 81px;
-    grid-area: sidebar;
-    box-shadow: $shadow;
-		background-color: lighten($dark-grey, 2%);
+    @include fixed($top: 0, $bottom: 81px, $left: 0, $index: 999);
+		transform: translateZ(0);
+		background-color: lighten($dark-blue, 2%);
 
     &:not(.is-fixed) {
 			background-color: transparent;
@@ -160,7 +158,7 @@ export default {
             @supports (backdrop-filter: blur(25px) saturate(250%)) {
                 backdrop-filter: blur(25px) saturate(250%);
             }
-            background-color: rgba($dark-grey, 0.8);
+            background-color: rgba($dark-blue, 0.8);
         }
     }
 
@@ -170,7 +168,7 @@ export default {
         padding-top: 10em;
         width: 100px;
         border-right: 1px solid $border-color;
-        background-color: $dark-grey;
+        background-color: $dark-blue;
         .panel-select {
             @include flex($display: flex, $direction: column);
             height: 100%;

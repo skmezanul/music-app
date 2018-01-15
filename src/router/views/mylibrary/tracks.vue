@@ -14,7 +14,7 @@
           :type='item.track.type',
           :image='item.track.album.images',
           :title='item.track.name',
-          :trackid='item.track.id',
+          :trackId='item.track.id',
           :artists='item.track.artists',
           :album='item.track.album',
           :explicit='item.track.explicit',
