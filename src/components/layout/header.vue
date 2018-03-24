@@ -54,15 +54,15 @@ export default {
   },
 
   mounted() {
-    window.addEventListener('scroll', this.updateScroll, {
-      passive: true,
+    // add event listeners
+    window.addEventListener('scroll', () => {
+      this.updateScroll();
     });
   },
 
   destroy() {
-    window.removeEventListener('scroll', this.updateScroll, {
-      passive: true,
-    });
+    // remove event listeners
+    window.removeEventListener('scroll');
   },
 
 };
