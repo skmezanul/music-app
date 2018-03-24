@@ -23,7 +23,7 @@ footer.footer-container
           :to='{ name: "artist", params: { id: artist.id }}') {{ artist.name }}
 
     transition(name='fade')
-      .background-container(v-if='!settings.largeCover && !$mq.phone')
+      .background-container(v-show='!settings.largeCover && !$mq.phone')
         img.cover-image(
           v-lazy='currentPlayback.item.album.images[0].url',
           :alt='currentPlayback.item.name')
@@ -70,7 +70,7 @@ footer.footer-container
 
   // progress bar
   .progress-container(@click='getSeekTime', ref='progressContainer')
-    progress.progress-bar(ref='progressBar', :value='progress', :max='currentPlayback.item.duration_ms')
+    progress.progress-bar(ref='progressBar', :max='currentPlayback.item.duration_ms')
 </template>
 
 <script>
@@ -79,6 +79,8 @@ import {
   mapGetters,
   mapMutations,
 } from 'vuex';
+
+import { TweenLite, Linear } from 'gsap';
 
 export default {
 
@@ -106,7 +108,15 @@ export default {
     progress(value) {
       const self = this,
         { currentPlayback } = self,
+        { progressBar } = self.$refs,
         trackDuration = currentPlayback.item.duration_ms;
+
+      TweenLite.to(progressBar, 0.5, {
+        attr: {
+          value,
+        },
+        ease: Linear.easeNone,
+      });
 
       if (value >= trackDuration) {
         clearInterval(self.progressInterval);
@@ -133,8 +143,8 @@ export default {
         { currentPlayback } = self,
         progress = currentPlayback.progress_ms,
         isPlaying = currentPlayback.is_playing,
-        // one second in milliseconds
-        oneSecond = 1000;
+        // half a second in milliseconds
+        halfSecond = 500;
 
       // clear the interval before starting a new one
       clearInterval(self.progressInterval);
@@ -143,10 +153,10 @@ export default {
       self.progress = progress;
 
       if (isPlaying) {
-        // count up one second every second
+        // count up 500 milliseconds every 500 milliseconds
         self.progressInterval = setInterval(() => {
-          self.progress += oneSecond;
-        }, oneSecond);
+          self.progress += halfSecond;
+        }, halfSecond);
       }
     },
 
