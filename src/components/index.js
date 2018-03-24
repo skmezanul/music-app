@@ -17,7 +17,6 @@ import item from './item';
 import button from './button';
 import notice from './notice';
 import icon from './icon';
-import carousel from './carousel/';
 
 // register components
 Vue.component('ma-stage', stage);
@@ -27,7 +26,6 @@ Vue.component('ma-item', item);
 Vue.component('ma-button', button);
 Vue.component('ma-notice', notice);
 Vue.component('ma-icon', icon);
-Vue.component('ma-carousel', carousel);
 
 // register plugins
 Vue.use(lazyload);

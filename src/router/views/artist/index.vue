@@ -55,7 +55,7 @@ export default {
           related = res[5].data.artists,
           // additionalInfo = res[6].data,
           followerCount = artistInfo.followers.total,
-          stageImage = artistInfo.images[0].url; // additionalInfo.headerImages[0].url;
+          stageImage = artistInfo.images[0].url; // additionalInfo.artistInsights.images[0].uri;
 
         self.data.artistInfo = artistInfo;
         self.data.toptracks = toptracks;

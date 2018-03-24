@@ -52,12 +52,12 @@ export default {
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
+    this.INIT_PLAYER();
     this.GET_USER('profile');
     this.GET_USER('playlists');
-    this.GET_PLAYBACK();
   },
   methods: {
-    ...mapActions(['GET_USER', 'GET_PLAYBACK']),
+    ...mapActions(['INIT_PLAYER', 'GET_USER', 'GET_PLAYBACK']),
   },
   computed: {
     ...mapGetters({

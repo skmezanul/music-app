@@ -17,6 +17,16 @@ const mutations = {
       }
     }
   },
+
+  /**
+  * Push the Spotify Web Playback SDK instance to state.
+  * @param { object } player Playback SDK instance.
+  */
+  SET_PLAYER(state, player) {
+    const self = state;
+
+    if (player) self.player = player;
+  },
 };
 
 export default mutations;

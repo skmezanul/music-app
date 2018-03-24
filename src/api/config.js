@@ -23,8 +23,8 @@ export const firebaseConfig = {
 };
 
 export const baseURL = {
-  spotify: 'https://api.spotify.com/v1/',
+  spotify: '',
   spotifyBackend: '',
-  backend: 'http://api.micro100.de:3000/music-app/v1/',
-  youtube: 'https://www.googleapis.com/youtube/v3/',
+  backend: '',
+  youtube: '',
 };

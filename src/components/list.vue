@@ -74,7 +74,7 @@ export default {
     'currentPlayback.item.id': 'getPlayingState',
   },
   methods: {
-    ...mapActions(['GET_PLAYBACK', 'SET_PLAYBACK']),
+    ...mapActions(['SET_PLAYBACK']),
 
     // check if track is currently playing
     getPlayingState() {

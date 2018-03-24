@@ -80,7 +80,6 @@ import {
 export default {
   methods: {
     ...mapActions([
-      'GET_PLAYBACK',
       'SKIP_TO',
       'SEEK_TO',
       'SET_PLAYBACK',
@@ -125,7 +124,6 @@ export default {
   computed: {
     ...mapGetters({
       currentPlayback: 'getCurrentPlayback',
-      deviceId: 'getDeviceId',
       settings: 'getAppSettings',
     }),
   },

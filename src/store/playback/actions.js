@@ -2,39 +2,55 @@ import Vue from 'vue';
 
 const actions = {
   /**
-   * Get the current playback and commit it to state.
-   * Dispatch [REFETCH_TIMER] in promise.
+   * Initialize Web Playback SDK instance and p u s it to state.
+   * Creates a Spotify Connect Playback device
    */
-  GET_PLAYBACK({ commit, dispatch }) {
-    setTimeout(() => {
-      Vue.prototype.$spotifyApi({
-        method: 'get',
-        url: '/me/player',
-      }).then((res) => {
-        // push current playback to store
-        commit('SET_PLAYBACK', res.data);
-
-        // re-fetch after track ended
-        dispatch('REFETCH_TIMER', {
-          playbackProgress: res.data.progress_ms,
-          trackDuration: res.data.item.duration_ms,
+  INIT_PLAYER({ dispatch, getters, commit }) {
+    window.onSpotifyWebPlaybackSDKReady = () => {
+      const currentUser = getters.getCurrentUser,
+        player = new Spotify.Player({
+          name: `Music App - ${currentUser.display_name}`,
+          getOAuthToken: (callback) => {
+          // Run code to get a fresh access token
+            dispatch('GET_TOKEN', { action: 'refresh' }).then(() => {
+              const newToken = getters.getAccessToken;
+              callback(newToken);
+            });
+          },
+          volume: 0.5,
         });
+
+      player.connect().then((success) => {
+        if (success) {
+          commit('SET_PLAYER', player);
+          dispatch('GET_PLAYBACK');
+          dispatch('WATCH_PLAYBACK');
+        }
       });
-    }, 500);
+    };
   },
 
   /**
-  * Dispatches action [GET_PLAYBACK] after timeout has ended.
-  * @param { object } payload The function payload.
-  * @param { number } payload.trackDuration The duration of the track.
-  * @param { number } payload.playbackProgress The progress of the track.
-  */
-  REFETCH_TIMER({ dispatch }, payload) {
-    const { trackDuration, playbackProgress } = payload,
-      remainingTime = (trackDuration - playbackProgress);
+   * Watch the current playback and commit it to state.
+   */
+  WATCH_PLAYBACK({ state, dispatch }) {
+    state.player.addListener('player_state_changed', () => {
+      setTimeout(() => {
+        dispatch('GET_PLAYBACK');
+      }, 500);
+    });
+  },
 
-    new Promise(resolve => setTimeout(resolve, remainingTime)).then(() => {
-      dispatch('GET_PLAYBACK');
+  /**
+  * Get the current playback and commit it to state.
+  */
+  GET_PLAYBACK({ commit }) {
+    Vue.prototype.$spotifyApi({
+      method: 'get',
+      url: '/me/player',
+    }).then((res) => {
+      // push current playback to store
+      commit('SET_PLAYBACK', res.data);
     });
   },
 
@@ -43,7 +59,7 @@ const actions = {
   * @param { object } payload The function payload.
   * @param { string } [ payload.direction = 'next', 'previous' ] The direction to skip.
   */
-  SKIP_TO({ dispatch, getters }, payload) {
+  SKIP_TO({ getters }, payload) {
     const { direction } = payload;
 
     if (direction) {
@@ -53,8 +69,6 @@ const actions = {
         params: {
           device_id: getters.getDeviceId,
         },
-      }).then(() => {
-        dispatch('GET_PLAYBACK');
       });
     }
   },
@@ -64,7 +78,7 @@ const actions = {
   * @param { object } payload The function payload.
   * @param { number } payload.position The position to seek to.
   */
-  SEEK_TO({ dispatch, getters }, payload) {
+  SEEK_TO({ getters }, payload) {
     const { position } = payload;
 
     if (position) {
@@ -75,8 +89,6 @@ const actions = {
           position_ms: position,
           device_id: getters.getDeviceId,
         },
-      }).then(() => {
-        dispatch('GET_PLAYBACK');
       });
     }
   },
@@ -87,7 +99,7 @@ const actions = {
   * @param { string } [ payload.state = 'play', 'pause' ] State to change the playback to.
   * @param { string } payload.trackId ID of the track to play.
   */
-  SET_PLAYBACK({ dispatch, getters }, payload) {
+  SET_PLAYBACK({ getters }, payload) {
     let uris;
 
     // play track if trackId in request payload and state set to 'play'
@@ -105,8 +117,6 @@ const actions = {
       params: {
         device_id: getters.getDeviceId,
       },
-    }).then(() => {
-      dispatch('GET_PLAYBACK');
     });
   },
 
