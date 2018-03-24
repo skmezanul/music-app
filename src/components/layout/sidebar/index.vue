@@ -52,9 +52,7 @@ import {
   mapMutations,
 } from 'vuex';
 
-import {
-  directive as onClickaway,
-} from 'vue-clickaway';
+import { directive as onClickaway } from 'vue-clickaway';
 
 // import dynamic components
 import user from './components/views/user';
@@ -63,35 +61,36 @@ import playlists from './components/views/playlists';
 import newplaylist from './components/views/newplaylist';
 
 export default {
-  data() {
-    return {
-      activePanel: false,
-      panels: [{
-        name: 'user',
-        component: user,
-      },
-      {
-        name: 'browse',
-        icon: 'music_note',
-        component: browse,
-      },
-      {
-        name: 'playlists',
-        icon: 'playlist_play',
-        component: playlists,
-      },
-      {
-        name: 'newplaylist',
-        icon: 'playlist_add',
-        component: newplaylist,
-      },
-      ],
-    };
-  },
+
+  data: () => ({
+    activePanel: false,
+    panels: [{
+      name: 'user',
+      component: user,
+    },
+    {
+      name: 'browse',
+      icon: 'music_note',
+      component: browse,
+    },
+    {
+      name: 'playlists',
+      icon: 'playlist_play',
+      component: playlists,
+    },
+    {
+      name: 'newplaylist',
+      icon: 'playlist_add',
+      component: newplaylist,
+    },
+    ],
+  }),
+
   created() {
     // activePanel defaults to 0 if sidebar is fixed
     this.activePanel = this.settings.fixedSidebar ? 1 : false;
   },
+
   methods: {
     ...mapMutations({
       setAppSettings: 'SET_APP_SETTINGS',
@@ -125,6 +124,7 @@ export default {
       }
     },
   },
+
   computed: {
     ...mapGetters({
       currentPlayback: 'getCurrentPlayback',
@@ -138,9 +138,11 @@ export default {
       return isOpen;
     },
   },
+
   directives: {
     onClickaway,
   },
+
 };
 </script>
 

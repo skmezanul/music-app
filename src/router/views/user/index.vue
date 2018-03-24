@@ -11,16 +11,19 @@
 import { mapMutations } from 'vuex';
 
 export default {
-  data() {
-    return {
+
+  data: () => ({
+    data: {
       user: [],
-    };
-  },
+    },
+  }),
+
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
     this.fetchData();
   },
+
   methods: {
     ...mapMutations({
       setStage: 'SET_STAGE',
@@ -37,7 +40,7 @@ export default {
           followerCount = user.followers.total,
           stageImage = user.images[0].url;
 
-        self.user = user;
+        self.data.user = user;
         // init stage
         self.setStage({
           image: stageImage,
@@ -76,5 +79,6 @@ export default {
       });
     },
   },
+
 };
 </script>

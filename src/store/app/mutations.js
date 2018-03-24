@@ -29,7 +29,7 @@ const mutations = {
   SET_APP_SETTINGS(state, payload) {
     const self = state,
       { setting, value } = payload;
-    if (value && setting) {
+    if (value && self.settings[setting]) {
       self.settings[setting] = value;
     } else if (setting) {
       self.settings[setting] = !self.settings[setting];

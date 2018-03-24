@@ -6,7 +6,10 @@ footer.footer-container
       v-if='$mq.desktop',
       tag='div',
       :to='{ name: "artist", params: { id: currentPlayback.item.artists[0].id }}')
-      ma-button(type='overlay', @click.prevent.native='setAppSettings({ setting: "largeCover", value: true })', icon='keyboard_arrow_up')
+      ma-button(
+        type='overlay',
+        @click.prevent.native='setAppSettings({ setting: "largeCover", value: true })',
+        icon='keyboard_arrow_up')
       img.cover-image(
         v-lazy='currentPlayback.item.album.images[0].url',
         :alt='currentPlayback.item.name')
@@ -20,7 +23,7 @@ footer.footer-container
           :to='{ name: "artist", params: { id: artist.id }}') {{ artist.name }}
 
     transition(name='fade')
-      .background-container(v-if='!settings.largeCover && !$mq.phone',)
+      .background-container(v-if='!settings.largeCover && !$mq.phone')
         img.cover-image(
           v-lazy='currentPlayback.item.album.images[0].url',
           :alt='currentPlayback.item.name')
@@ -62,12 +65,12 @@ footer.footer-container
       @click.native='$modal.show("video")',
       v-tooltip='{ content: $t("watchvideo") }') music_video
     .time-container
-      span.track-progress {{ formatTime(currentPlayback.progress_ms) }}
-      span.track-duration {{ formatTime(currentPlayback.item.duration_ms) }}
+      span.track-progress {{ trackProgress }}
+      span.track-duration {{ trackDuration }}
 
   // progress bar
   .progress-container(@click='getSeekTime', ref='progressContainer')
-    progress.progress-bar(ref='progressBar', :value='currentPlayback.progress_ms', :max='currentPlayback.item.duration_ms')
+    progress.progress-bar(ref='progressBar', :value='progress', :max='currentPlayback.item.duration_ms')
 </template>
 
 <script>
@@ -78,6 +81,39 @@ import {
 } from 'vuex';
 
 export default {
+
+  data: () => ({
+    progress: 0,
+    progressInterval: null,
+  }),
+
+  created() {
+    this.updateProgress();
+  },
+
+  watch: {
+    // watch the progress and update it when it changes
+    'currentPlayback.progress_ms': function watchProgress() {
+      this.updateProgress();
+    },
+
+    // watch the playback state and start / stop the interval accordingly
+    'currentPlayback.is_playing': function watchPlaybackState() {
+      this.updateProgress();
+    },
+
+    // reset timeout when playback is at the end of the track
+    progress(value) {
+      const self = this,
+        { currentPlayback } = self,
+        trackDuration = currentPlayback.item.duration_ms;
+
+      if (value >= trackDuration) {
+        clearInterval(self.progressInterval);
+      }
+    },
+  },
+
   methods: {
     ...mapActions([
       'SKIP_TO',
@@ -91,27 +127,37 @@ export default {
       setAppSettings: 'SET_APP_SETTINGS',
     }),
 
-    // time to human readable
-    formatTime(value) {
-      let time = value;
-      const minutes = Math.floor(value / 60000),
-        seconds = ((value % 60000) / 1000).toFixed(0);
+    // add one second to the progress every second
+    updateProgress() {
+      const self = this,
+        { currentPlayback } = self,
+        progress = currentPlayback.progress_ms,
+        isPlaying = currentPlayback.is_playing,
+        // one second in milliseconds
+        oneSecond = 1000;
 
-      if (typeof time === 'number') {
-        time = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+      // clear the interval before starting a new one
+      clearInterval(self.progressInterval);
+
+      // set local progress to current progress from the api
+      self.progress = progress;
+
+      if (isPlaying) {
+        // count up one second every second
+        self.progressInterval = setInterval(() => {
+          self.progress += oneSecond;
+        }, oneSecond);
       }
-      return time;
     },
 
     // get time to jump to
     getSeekTime(event) {
       const self = this,
-        {
-          progressContainer,
-        } = self.$refs,
+        { currentPlayback } = self,
+        { progressContainer } = self.$refs,
         progressBarWidth = progressContainer.offsetWidth,
         clickedPosition = (event.clientX / progressBarWidth) * 100,
-        trackDuration = self.currentPlayback.item.duration_ms,
+        trackDuration = currentPlayback.item.duration_ms,
         position = Math.round((trackDuration / 100) * clickedPosition);
 
       if (progressContainer && position) {
@@ -121,12 +167,35 @@ export default {
       }
     },
   },
+
   computed: {
     ...mapGetters({
       currentPlayback: 'getCurrentPlayback',
       settings: 'getAppSettings',
     }),
+
+    // get human readable track progress
+    trackProgress() {
+      const self = this,
+        { progress } = self,
+        minutes = Math.floor(progress / 60000),
+        seconds = ((progress % 60000) / 1000).toFixed(0);
+
+      return progress >= 0 ? `${minutes}:${seconds < 10 ? '0' : ''}${seconds}` : 0;
+    },
+
+    // get human readable track duration
+    trackDuration() {
+      const self = this,
+        { currentPlayback } = self,
+        trackDuration = currentPlayback.item.duration_ms,
+        minutes = Math.floor(trackDuration / 60000),
+        seconds = ((trackDuration % 60000) / 1000).toFixed(0);
+
+      return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    },
   },
+
 };
 </script>
 

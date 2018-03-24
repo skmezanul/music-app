@@ -4,44 +4,44 @@
 </template>
 
 <script>
-import {
-  mapGetters,
-} from 'vuex';
+import { mapGetters } from 'vuex';
 
 import maPanelList from '../panelList';
 
 export default {
-  data() {
-    return {
-      items: [{
-        name: 'browse',
-        routeName: 'browse',
-        meta: '...',
-      },
-      {
-        name: 'recentlyplayed',
-        routeName: 'mylibraryHistory',
-        meta: '...',
-      },
-      {
-        name: 'track',
-        routeName: 'mylibraryTracks',
-        meta: '...',
-      },
-      {
-        name: 'album',
-        routeName: 'mylibraryAlbums',
-        meta: '...',
-      },
-      ],
-    };
-  },
+
+  data: () => ({
+    items: [{
+      name: 'browse',
+      routeName: 'browse',
+      meta: '...',
+    },
+    {
+      name: 'recentlyplayed',
+      routeName: 'mylibraryHistory',
+      meta: '...',
+    },
+    {
+      name: 'track',
+      routeName: 'mylibraryTracks',
+      meta: '...',
+    },
+    {
+      name: 'album',
+      routeName: 'mylibraryAlbums',
+      meta: '...',
+    },
+    ],
+  }),
+
   created() {
     this.fetchData();
   },
+
   watch: {
     'currentPlayback.item': 'fetchData',
   },
+
   methods: {
     fetchData() {
       const self = this;
@@ -115,14 +115,17 @@ export default {
       });
     },
   },
+
   computed: {
     ...mapGetters({
       country: 'getCountry',
       currentPlayback: 'getCurrentPlayback',
     }),
   },
+
   components: {
     maPanelList,
   },
+
 };
 </script>

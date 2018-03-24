@@ -27,18 +27,19 @@
 import { mapMutations } from 'vuex';
 
 export default {
-  data() {
-    return {
-      data: {
-        history: [],
-      },
-    };
-  },
+
+  data: () => ({
+    data: {
+      history: [],
+    },
+  }),
+
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
     this.fetchData();
   },
+
   methods: {
     ...mapMutations({
       setStage: 'SET_STAGE',
@@ -81,5 +82,6 @@ export default {
       });
     },
   },
+
 };
 </script>

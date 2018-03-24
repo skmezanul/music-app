@@ -6,9 +6,11 @@ p Logging in...
 import { mapActions } from 'vuex';
 
 export default {
+
   created() {
     this.getTokenFromURL();
   },
+
   methods: {
     ...mapActions(['GET_TOKEN']),
 
@@ -26,5 +28,6 @@ export default {
       }
     },
   },
+
 };
 </script>

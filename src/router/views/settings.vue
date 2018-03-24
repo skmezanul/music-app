@@ -16,31 +16,31 @@
 <script>
 import {
   mapGetters,
-  mapMutations
+  mapMutations,
 } from 'vuex';
 
 export default {
-  data() {
-    return {
-      accentColors: [{
-          name: 'red',
-          hex: '#f3376f',
-        },
-        {
-          name: 'orange',
-          hex: '#e89700',
-        },
-        {
-          name: 'cyan',
-          hex: '#00e6e6',
-        },
-        {
-          name: 'green',
-          hex: '#1DB954',
-        },
-      ],
-    };
-  },
+
+  data: () => ({
+    accentColors: [{
+      name: 'red',
+      hex: '#f3376f',
+    },
+    {
+      name: 'orange',
+      hex: '#e89700',
+    },
+    {
+      name: 'cyan',
+      hex: '#00e6e6',
+    },
+    {
+      name: 'green',
+      hex: '#1DB954',
+    },
+    ],
+  }),
+
   methods: {
     ...mapMutations({
       setAppSettings: 'SET_APP_SETTINGS',
@@ -53,11 +53,13 @@ export default {
       });
     },
   },
+
   computed: {
     ...mapGetters({
       settings: 'getAppSettings',
     }),
   },
+
 };
 </script>
 

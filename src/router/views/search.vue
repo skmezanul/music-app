@@ -62,22 +62,26 @@
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
-  data() {
-    return {
-      data: {
-        results: [],
-      },
-    };
-  },
+
+  data: () => ({
+    data: {
+      results: [],
+    },
+  }),
+
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
     this.fetchData();
   },
+
   watch: {
     // get results when query changes
-    '$route.params.query': 'getResults',
+    '$route.params.query': function getResults() {
+      this.getResults();
+    },
   },
+
   methods: {
     ...mapMutations({
       setStage: 'SET_STAGE',
@@ -122,10 +126,12 @@ export default {
       });
     },
   },
+
   computed: {
     ...mapGetters({
       market: 'getMarket',
     }),
   },
+
 };
 </script>

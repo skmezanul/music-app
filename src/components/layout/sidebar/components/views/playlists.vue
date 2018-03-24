@@ -4,20 +4,21 @@
 </template>
 
 <script>
-import {
-  mapGetters,
-} from 'vuex';
+import { mapGetters } from 'vuex';
 
 import maPanelList from '../panelList';
 
 export default {
+
   computed: {
     ...mapGetters({
       playlists: 'getPlaylists',
     }),
   },
+
   components: {
     maPanelList,
   },
+
 };
 </script>

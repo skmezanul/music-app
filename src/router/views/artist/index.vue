@@ -11,24 +11,25 @@
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
-  data() {
-    return {
-      data: {
-        artistInfo: [],
-        toptracks: [],
-        albums: [],
-        singles: [],
-        appearson: [],
-        related: [],
-        additionalInfo: [],
-      },
-    };
-  },
+
+  data: () => ({
+    data: {
+      artistInfo: [],
+      toptracks: [],
+      albums: [],
+      singles: [],
+      appearson: [],
+      related: [],
+      additionalInfo: [],
+    },
+  }),
+
   created() {
     // fetch the data when the view is created and the data is
     // already being observedself.
     this.fetchData();
   },
+
   methods: {
     ...mapMutations({
       setStage: 'SET_STAGE',
@@ -185,11 +186,13 @@ export default {
       });
     },
   },
+
   computed: {
     ...mapGetters({
       country: 'getCountry',
       market: 'getMarket',
     }),
   },
+
 };
 </script>

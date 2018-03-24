@@ -38,28 +38,27 @@ ma-modal(
 import {
   mapActions,
   mapGetters,
-  mapMutations
+  mapMutations,
 } from 'vuex';
-import {
-  stringify
-} from 'query-string';
+import { stringify } from 'query-string';
 
 export default {
-  data() {
-    return {
-      videoId: '',
-      overlay: false,
-      options: {
-        autoplay: 1,
-        iv_load_policy: 3,
-        showinfo: 0,
-        controls: 0,
-      },
-    };
-  },
+
+  data: () => ({
+    videoId: '',
+    overlay: false,
+    options: {
+      autoplay: 1,
+      iv_load_policy: 3,
+      showinfo: 0,
+      controls: 0,
+    },
+  }),
+
   created() {
     this.options = stringify(this.options);
   },
+
   methods: {
     ...mapActions(['SET_PLAYBACK']),
     ...mapMutations({
@@ -103,11 +102,13 @@ export default {
       this.$modal.hide('video');
     },
   },
+
   computed: {
     ...mapGetters({
       currentPlayback: 'getCurrentPlayback',
     }),
   },
+
 };
 </script>
 

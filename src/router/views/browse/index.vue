@@ -11,21 +11,22 @@
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
-  data() {
-    return {
-      data: {
-        featured: [],
-        releases: [],
-        categories: [],
-        charts: [],
-      },
-    };
-  },
+
+  data: () => ({
+    data: {
+      featured: [],
+      releases: [],
+      categories: [],
+      charts: [],
+    },
+  }),
+
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
     this.fetchData();
   },
+
   methods: {
     ...mapMutations({
       setStage: 'SET_STAGE',
@@ -137,6 +138,7 @@ export default {
       });
     },
   },
+
   computed: {
     ...mapGetters({
       currentUser: 'getCurrentUser',
@@ -166,5 +168,6 @@ export default {
       return `${greeting} ${firstName}`;
     },
   },
+
 };
 </script>

@@ -8,10 +8,12 @@
 import { TweenMax, Power2 } from 'gsap';
 
 export default {
+
   methods: {
     startLoadingAnimation(el, done) {
       const self = this,
         { loaderElement } = self.$refs;
+
       TweenMax.staggerTo(loaderElement, 1, {
         height: 60,
         repeat: -1,
@@ -21,6 +23,7 @@ export default {
       }, 0.1);
     },
   },
+
 };
 </script>
 

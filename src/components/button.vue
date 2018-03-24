@@ -6,11 +6,22 @@ a.button(:class='type')
 
 <script>
 export default {
+
   props: {
-    type: String,
-    icon: String,
-    title: String,
+    type: {
+      type: String,
+      default: '',
+    },
+    icon: {
+      type: String,
+      default: '',
+    },
+    title: {
+      type: String,
+      default: '',
+    },
   },
+
 };
 </script>
 

@@ -79,23 +79,32 @@ import {
 } from 'vuex';
 
 export default {
-  data() {
-    return {
-      isFollowing: false,
-    };
-  },
+
+  data: () => ({
+    isFollowing: false,
+  }),
+
   props: {
-    title: String,
-    subtitle: String,
+    title: {
+      type: String,
+      default: '',
+    },
+    subtitle: {
+      type: String,
+      default: '',
+    },
   },
+
   updated() {
     this.checkIfFollowing();
   },
+
   watch: {
     $route() {
       this.checkIfFollowing();
     },
   },
+
   methods: {
     ...mapActions(['GET_USER']),
 
@@ -155,6 +164,7 @@ export default {
       return meta;
     },
   },
+
   computed: {
     ...mapGetters({
       stage: 'getStageContent',
@@ -185,6 +195,7 @@ export default {
       return canEdit;
     },
   },
+
 };
 </script>
 

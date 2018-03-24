@@ -10,20 +10,27 @@
 </template>
 
 <script>
-import {
-  mapMutations,
-} from 'vuex';
+import { mapMutations } from 'vuex';
 
 export default {
+
   props: {
-    type: String,
-    message: String,
+    type: {
+      type: String,
+      required: true,
+    },
+    message: {
+      type: String,
+      required: true,
+    },
   },
+
   methods: {
     ...mapMutations({
       removeNotice: 'SET_NOTICE',
     }),
   },
+
 };
 </script>
 

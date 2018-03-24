@@ -18,17 +18,27 @@ section.view-section(:class='{ "collapsed" : isCollapsed }')
 
 <script>
 export default {
-  data() {
-    return {
-      collapsed: true,
-      isCollapsible: true,
-    };
-  },
+
+  data: () => ({
+    collapsed: true,
+    isCollapsible: true,
+  }),
+
   props: {
-    title: String,
-    collapsible: Boolean,
-    copyright: String,
+    title: {
+      type: String,
+      default: '',
+    },
+    collapsible: {
+      type: Boolean,
+      default: false,
+    },
+    copyright: {
+      type: String,
+      default: '',
+    },
   },
+
   created() {
     // show toggle if element count exceeds the maximum visible
     setTimeout(() => {
@@ -38,12 +48,14 @@ export default {
       }
     }, 0);
   },
+
   methods: {
     // toggle collapse
     toggleCollapse() {
       this.collapsed = !this.collapsed;
     },
   },
+
   computed: {
     // check if section is collapsed
     isCollapsed() {
@@ -53,6 +65,7 @@ export default {
       return isCollapsed;
     },
   },
+
 };
 </script>
 

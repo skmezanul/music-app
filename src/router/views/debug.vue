@@ -33,6 +33,7 @@
 import { mapGetters } from 'vuex';
 
 export default {
+
   computed: {
     ...mapGetters({
       currentUser: 'getCurrentUser',
@@ -41,5 +42,6 @@ export default {
       deviceId: 'getDeviceId',
     }),
   },
+
 };
 </script>

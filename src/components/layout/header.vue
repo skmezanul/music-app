@@ -22,12 +22,12 @@ header.header.sidebar-margin(:class='{ "scrolled" : scrollPosition > 0 }')
 
 <script>
 export default {
-  data() {
-    return {
-      searchQuery: '',
-      scrollPosition: null,
-    };
-  },
+
+  data: () => ({
+    searchQuery: '',
+    scrollPosition: null,
+  }),
+
   methods: {
     // update scroll position
     updateScroll() {
@@ -52,16 +52,19 @@ export default {
       this.$router.go(direction);
     },
   },
+
   mounted() {
     window.addEventListener('scroll', this.updateScroll, {
       passive: true,
     });
   },
+
   destroy() {
     window.removeEventListener('scroll', this.updateScroll, {
       passive: true,
     });
   },
+
 };
 </script>
 

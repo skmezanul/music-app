@@ -24,18 +24,19 @@
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
-  data() {
-    return {
-      data: {
-        album: [],
-      },
-    };
-  },
+
+  data: () => ({
+    data: {
+      album: [],
+    },
+  }),
+
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
     this.fetchData();
   },
+
   methods: {
     ...mapMutations({
       setStage: 'SET_STAGE',
@@ -93,10 +94,12 @@ export default {
       });
     },
   },
+
   computed: {
     ...mapGetters({
       market: 'getMarket',
     }),
   },
+
 };
 </script>

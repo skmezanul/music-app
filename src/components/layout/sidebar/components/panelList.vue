@@ -17,35 +17,38 @@ transition(@enter='panelListEnter', :css='false', appear)
 </template>
 
 <script>
-import {
-  TweenMax,
-} from 'gsap';
+import { TweenMax } from 'gsap';
 
-import {
-  mapGetters,
-} from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
-  data() {
-    return {
-      activeItem: null,
-    };
-  },
+
+  data: () => ({
+    activeItem: null,
+  }),
+
   props: {
-    items: Array,
+    items: {
+      type: Array,
+      required: true,
+    },
   },
+
   updated() {
     this.getActiveElement();
   },
+
   created() {
     this.getActiveElement();
   },
+
   watch: {
     // check which list item is active when route changes
     $route() {
       this.getActiveElement();
     },
   },
+
   methods: {
     // stagger list items on enter
     panelListEnter(el, done) {
@@ -168,12 +171,14 @@ export default {
       return itemMeta;
     },
   },
+
   computed: {
     ...mapGetters({
       settings: 'getAppSettings',
       currentUser: 'getCurrentUser',
     }),
   },
+
 };
 </script>
 

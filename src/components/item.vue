@@ -42,21 +42,39 @@ router-link.section-item(
 import * as Vibrant from 'node-vibrant';
 
 export default {
-  data() {
-    return {
-      playing: false,
-      overlay: false,
-      color: '',
-    };
-  },
+  data: () => ({
+    playing: false,
+    overlay: false,
+    color: '',
+  }),
+
   props: {
-    type: String,
-    primaryid: String,
-    secondaryid: String,
-    title: String,
-    artists: Array,
-    image: Array,
+    type: {
+      type: String,
+      default: 'album',
+    },
+    primaryid: {
+      type: String,
+      required: true,
+    },
+    secondaryid: {
+      type: String,
+      default: '',
+    },
+    title: {
+      tyoe: String,
+      required: true,
+    },
+    artists: {
+      type: Array,
+      default: () => [],
+    },
+    image: {
+      type: Array,
+      required: true,
+    },
   },
+
   methods: {
     // toggle playing state
     togglePlaying() {
@@ -76,6 +94,7 @@ export default {
       }
     },
   },
+
   computed: {
     // check if has overlay
     hasOverlay() {
@@ -84,6 +103,7 @@ export default {
       return hasOverlay;
     },
   },
+
 };
 </script>
 

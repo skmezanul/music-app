@@ -5,9 +5,14 @@ i.icon.material-icons(:class='{ "can-hover" : hover }')
 
 <script>
 export default {
+
   props: {
-    hover: Boolean,
+    hover: {
+      type: Boolean,
+      default: false,
+    },
   },
+
 };
 </script>
 

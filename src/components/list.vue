@@ -1,10 +1,10 @@
 <template lang='pug'>
 li.list-item(
 	@dblclick='SET_PLAYBACK({ state: "play", trackId })',
-	:class='{ "playing" : isPlaying, "has-image" : image }')
+	:class='{ "playing" : isPlaying, "has-image" : image[0] }')
 
 	// image
-	.image-container(v-if='image')
+	.image-container(v-if='image[0]')
 		ma-icon.playback-toggle(
 			@click.native='SET_PLAYBACK({ state: isPlaying ? "pause" : "play", trackId })',
 			:class='isPlaying ? "pause" : "play"') {{ isPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
@@ -49,30 +49,54 @@ import {
 } from 'vuex';
 
 export default {
-  data() {
-    return {
-      isPlaying: false,
-    };
-  },
+
+  data: () => ({
+    isPlaying: false,
+  }),
+
   props: {
-    index: Number,
-    type: String,
-    title: String,
-    artists: Array,
-    album: Object,
-    duration: Number,
-    trackId: String,
-    image: Array,
-    explicit: Boolean,
-    popularity: Number,
+    index: {
+      type: Number,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    artists: {
+      type: Array,
+      default: () => [],
+    },
+    album: {
+      type: Object,
+      default: () => {},
+    },
+    duration: {
+      type: Number,
+      required: true,
+    },
+    trackId: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: Array,
+      default: () => [],
+    },
+    explicit: {
+      type: Boolean,
+      default: false,
+    },
+    popularity: {
+      type: Number,
+      default: null,
+    },
   },
+
   created() {
     this.getPlayingState();
   },
-  watch: {
-    // call again if value changes
-    'currentPlayback.item.id': 'getPlayingState',
-  },
+
   methods: {
     ...mapActions(['SET_PLAYBACK']),
 
@@ -113,11 +137,13 @@ export default {
       return time;
     },
   },
+
   computed: {
     ...mapGetters({
       currentPlayback: 'getCurrentPlayback',
     }),
   },
+
 };
 </script>
 

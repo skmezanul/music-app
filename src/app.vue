@@ -49,22 +49,23 @@ import maVideo from '@/components/modals/video';
 import maLoading from '@/components/loader';
 
 export default {
+
   created() {
-    // fetch the data when the view is created and the data is
-    // already being observed
-    this.INIT_PLAYER();
-    this.GET_USER('profile');
-    this.GET_USER('playlists');
+    // initialize the app on itnitial load
+    this.INIT_APP();
   },
+
   methods: {
-    ...mapActions(['INIT_PLAYER', 'GET_USER', 'GET_PLAYBACK']),
+    ...mapActions(['INIT_APP']),
   },
+
   computed: {
     ...mapGetters({
       notices: 'getNotices',
       settings: 'getAppSettings',
     }),
   },
+
   components: {
     maHeader,
     maFooter,
@@ -72,6 +73,7 @@ export default {
     maVideo,
     maLoading,
   },
+
 };
 </script>
 

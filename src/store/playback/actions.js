@@ -2,12 +2,13 @@ import Vue from 'vue';
 
 const actions = {
   /**
-   * Initialize Web Playback SDK instance and p u s it to state.
-   * Creates a Spotify Connect Playback device
-   */
+  * Initialize Web Playback SDK instance and push the player instance to state.
+  * Creates a Spotify Connect Playback device.
+  */
   INIT_PLAYER({ dispatch, getters, commit }) {
     window.onSpotifyWebPlaybackSDKReady = () => {
       const currentUser = getters.getCurrentUser,
+        /* eslint-disable no-undef */
         player = new Spotify.Player({
           name: `Music App - ${currentUser.display_name}`,
           getOAuthToken: (callback) => {
@@ -25,14 +26,20 @@ const actions = {
           commit('SET_PLAYER', player);
           dispatch('GET_PLAYBACK');
           dispatch('WATCH_PLAYBACK');
+        } else {
+          commit('SET_NOTICE', {
+            action: 'add',
+            type: 'error',
+            message: 'Error: Failed to connect to the Spotify Web Player.',
+          });
         }
       });
     };
   },
 
   /**
-   * Watch the current playback and commit it to state.
-   */
+  * Watch the current playback and commit changes state.
+  */
   WATCH_PLAYBACK({ state, dispatch }) {
     state.player.addListener('player_state_changed', () => {
       setTimeout(() => {
