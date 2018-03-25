@@ -26,7 +26,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations({
+    ...mapMutations('app', {
       removeNotice: 'SET_NOTICE',
     }),
   },

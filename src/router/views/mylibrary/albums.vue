@@ -36,7 +36,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations({
+    ...mapMutations('app', {
       setStage: 'SET_STAGE',
     }),
 
@@ -86,7 +86,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
+    ...mapGetters('user', {
       market: 'getMarket',
     }),
   },

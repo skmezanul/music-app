@@ -6,6 +6,7 @@ import createPersistedState from 'vuex-persistedstate';
 
 // import modules
 import user from './user';
+import player from './player';
 import playback from './playback';
 import auth from './auth';
 import app from './app';
@@ -26,6 +27,7 @@ const store = new Vuex.Store({
   modules: {
     app,
     user,
+    player,
     playback,
     auth,
   },

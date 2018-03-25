@@ -28,7 +28,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations({
+    ...mapMutations('app', {
       setStage: 'SET_STAGE',
     }),
 
@@ -140,7 +140,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
+    ...mapGetters('user', {
       currentUser: 'getCurrentUser',
       country: 'getCountry',
       locale: 'getLocale',

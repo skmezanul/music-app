@@ -8,7 +8,7 @@ footer.footer-container
       :to='{ name: "artist", params: { id: currentPlayback.item.artists[0].id }}')
       ma-button(
         type='overlay',
-        @click.prevent.native='setAppSettings({ setting: "largeCover", value: true })',
+        @click.prevent.native='setAppSettings({ largeCover: true })',
         icon='keyboard_arrow_up')
       img.cover-image(
         v-lazy='currentPlayback.item.album.images[0].url',
@@ -33,29 +33,29 @@ footer.footer-container
 
     ma-icon.shuffle(
       :hover='true',
-      @click.native='SET_SHUFFLE',
+      @click.native='setShuffle',
       :class='{ "active": currentPlayback.shuffle_state }',
       v-tooltip='{ content: $t("shuffle") }') shuffle
 
-    ma-icon.skip(:hover='true', @click.native='SKIP_TO({ direction: "previous" })') skip_previous
+    ma-icon.skip(:hover='true', @click.native='skipTo({ direction: "previous" })') skip_previous
 
     ma-icon.toggle(
       :class='currentPlayback.is_playing ? "pause" : "play"',
-      @click.native='SET_PLAYBACK({ state: currentPlayback.is_playing ? "pause" : "play" })') {{ currentPlayback.is_playing ? 'pause_circle_filled' : 'play_circle_filled' }}
+      @click.native='togglePlayback') {{ currentPlayback.is_playing ? 'pause_circle_filled' : 'play_circle_filled' }}
 
-    ma-icon.skip(:hover='true', @click.native='SKIP_TO({ direction: "next" })') skip_next
+    ma-icon.skip(:hover='true', @click.native='skipTo({ direction: "next" })') skip_next
 
     ma-icon.repeat(
       :hover='true',
       v-if='currentPlayback.repeat_state != "track"',
-      @click.native='TOGGLE_REPEAT',
+      @click.native='toggleRepeat',
       :class='{ "active": currentPlayback.repeat_state == "context" }',
       v-tooltip='{ content: $t("repeat") }') repeat
 
     ma-icon.repeat.active(
       :hover='true',
       v-if='currentPlayback.repeat_state == "track"',
-      @click.native='TOGGLE_REPEAT',
+      @click.native='toggleRepeat',
       v-tooltip='{ content: $t("repeat") }') repeat_one
 
   // other controls
@@ -125,15 +125,16 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      'SKIP_TO',
-      'SEEK_TO',
-      'SET_PLAYBACK',
-      'TOGGLE_REPEAT',
-      'SET_SHUFFLE',
-    ]),
+    ...mapActions({
+      skipTo: 'playback/SKIP_TO',
+      seekTo: 'playback/SEEK_TO',
+      setPlayback: 'playback/SET_PLAYBACK',
+      toggleRepeat: 'playback/TOGGLE_REPEAT',
+      setShuffle: 'playback/SET_SHUFFLE',
+      togglePlayback: 'player/TOGGLE_PLAYBACK',
+    }),
 
-    ...mapMutations({
+    ...mapMutations('app', {
       setAppSettings: 'SET_APP_SETTINGS',
     }),
 
@@ -171,7 +172,7 @@ export default {
         position = Math.round((trackDuration / 100) * clickedPosition);
 
       if (progressContainer && position) {
-        self.SEEK_TO({
+        self.seekTo({
           position,
         });
       }
@@ -180,8 +181,8 @@ export default {
 
   computed: {
     ...mapGetters({
-      currentPlayback: 'getCurrentPlayback',
-      settings: 'getAppSettings',
+      currentPlayback: 'playback/getCurrentPlayback',
+      settings: 'app/getAppSettings',
     }),
 
     // get human readable track progress

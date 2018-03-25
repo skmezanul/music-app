@@ -45,9 +45,13 @@ const actions = {
         url,
       }).then((res) => {
         commit('SET_CREDENTIALS', res.data);
-        router.push({
-          name: 'browse',
-        });
+        router.push({ name: 'browse' });
+      }).catch((err) => {
+        commit('app/SET_NOTICE', {
+          action: 'add',
+          type: 'error',
+          message: `Error: ${err}`,
+        }, { root: true });
       });
     }
   },

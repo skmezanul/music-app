@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export default {
   search: 'Search | Search',
   resultsfor: 'Results for',
@@ -63,4 +64,8 @@ export default {
   continuetospotify: 'Continue to Spotify',
   user: 'User | Users',
   follower: 'Follower | Followers',
+  listeningOn: 'You are listening on:',
+  splash: {
+    listeningOnAnotherDevice: 'You are currently listening on another device. Please select {deviceName} in your Spotify Connect menu or close Spotify and reload this page.',
+  },
 };

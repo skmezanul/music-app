@@ -1,7 +1,7 @@
 <template lang='pug'>
 .view-parent
 	// stage
-	ma-stage(:title='$t("settings")')
+	ma-stage
 
 	.view-content
 		ma-section(:title='$t("accentcolor")')
@@ -41,21 +41,23 @@ export default {
     ],
   }),
 
+  created() {
+    this.setStage({ title: this.$t('settings') });
+  },
+
   methods: {
-    ...mapMutations({
+    ...mapMutations('app', {
       setAppSettings: 'SET_APP_SETTINGS',
+      setStage: 'SET_STAGE',
     }),
 
     setColor(value) {
-      this.setAppSettings({
-        setting: 'accentColor',
-        value,
-      });
+      this.setAppSettings({ accentColor: value });
     },
   },
 
   computed: {
-    ...mapGetters({
+    ...mapGetters('app', {
       settings: 'getAppSettings',
     }),
   },

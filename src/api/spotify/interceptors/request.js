@@ -8,7 +8,7 @@ spotify.interceptors.request.use((instance) => {
     { accessToken } = credentials;
 
   if (!accessToken) {
-    store.dispatch('LOGIN_USER').then(() => config);
+    store.dispatch('auth/LOGIN_USER').then(() => config);
   } else {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }

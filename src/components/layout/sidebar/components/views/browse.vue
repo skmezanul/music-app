@@ -39,7 +39,9 @@ export default {
   },
 
   watch: {
-    'currentPlayback.item': 'fetchData',
+    'currentPlayback.item': function watchPlayback() {
+      this.fetchData();
+    },
   },
 
   methods: {
@@ -118,8 +120,8 @@ export default {
 
   computed: {
     ...mapGetters({
-      country: 'getCountry',
-      currentPlayback: 'getCurrentPlayback',
+      country: 'user/getCountry',
+      currentPlayback: 'playback/getCurrentPlayback',
     }),
   },
 

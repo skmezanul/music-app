@@ -27,13 +27,11 @@ const mutations = {
   * @param { string } payload.value The new value to save to the targeted state.
   */
   SET_APP_SETTINGS(state, payload) {
-    const self = state,
-      { setting, value } = payload;
-    if (value && self.settings[setting]) {
-      self.settings[setting] = value;
-    } else if (setting) {
-      self.settings[setting] = !self.settings[setting];
-    }
+    const self = state;
+
+    Object.keys(payload).forEach((key) => {
+      self.settings[key] = payload[key];
+    });
   },
 
   /**
@@ -51,7 +49,14 @@ const mutations = {
   */
   SET_STAGE(state, payload) {
     const self = state;
-    self.stage = payload;
+
+    // clear stage state
+    self.stage = {};
+
+    // push new stage content to state
+    Object.keys(payload).forEach((key) => {
+      self.stage[key] = payload[key];
+    });
   },
 };
 

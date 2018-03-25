@@ -2,9 +2,9 @@ import actions from './actions';
 import mutations from './mutations';
 
 const playback = {
+  namespaced: true,
   state: {
     current: [],
-    player: {},
   },
   actions,
   mutations,
@@ -12,8 +12,6 @@ const playback = {
     getCurrentPlayback: state => state.current,
     getDuration: state => state.current.item.duration_ms,
     getProgress: state => state.current.progress_ms,
-    getPlayer: state => state.player,
-    getDeviceId: state => state.player['_options'].id,
   },
 };
 

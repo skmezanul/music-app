@@ -8,24 +8,19 @@ const mutations = {
   */
   SET_PLAYBACK(state, playback) {
     const self = state,
-      { getCurrentUser } = store.getters;
+      currentUser = store.getters['user/getCurrentUser'];
 
     if (playback) {
       self.current = playback;
-      if (getCurrentUser.id) {
-        Vue.prototype.$database.ref(`users/${getCurrentUser.id}/currentPlayback`).set(playback);
+      if (currentUser.id) {
+        Vue.prototype.$database.ref(`users/${currentUser.id}/currentPlayback`).set({
+          track: playback.item.name,
+          artist: playback.item.artists[0].name,
+          album: playback.item.album.name,
+          trackId: playback.item.id,
+        });
       }
     }
-  },
-
-  /**
-  * Push the Spotify Web Playback SDK instance to state.
-  * @param { object } player Playback SDK instance.
-  */
-  SET_PLAYER(state, player) {
-    const self = state;
-
-    if (player) self.player = player;
   },
 };
 

@@ -2,53 +2,6 @@ import Vue from 'vue';
 
 const actions = {
   /**
-  * Initialize Web Playback SDK instance and push the player instance to state.
-  * Creates a Spotify Connect Playback device.
-  */
-  INIT_PLAYER({ dispatch, getters, commit }) {
-    window.onSpotifyWebPlaybackSDKReady = () => {
-      const currentUser = getters.getCurrentUser,
-        /* eslint-disable no-undef */
-        player = new Spotify.Player({
-          name: `Music App - ${currentUser.display_name}`,
-          getOAuthToken: (callback) => {
-          // Run code to get a fresh access token
-            dispatch('GET_TOKEN', { action: 'refresh' }).then(() => {
-              const newToken = getters.getAccessToken;
-              callback(newToken);
-            });
-          },
-          volume: 0.5,
-        });
-
-      player.connect().then((success) => {
-        if (success) {
-          commit('SET_PLAYER', player);
-          dispatch('GET_PLAYBACK');
-          dispatch('WATCH_PLAYBACK');
-        } else {
-          commit('SET_NOTICE', {
-            action: 'add',
-            type: 'error',
-            message: 'Error: Failed to connect to the Spotify Web Player.',
-          });
-        }
-      });
-    };
-  },
-
-  /**
-  * Watch the current playback and commit changes state.
-  */
-  WATCH_PLAYBACK({ state, dispatch }) {
-    state.player.addListener('player_state_changed', () => {
-      setTimeout(() => {
-        dispatch('GET_PLAYBACK');
-      }, 500);
-    });
-  },
-
-  /**
   * Get the current playback and commit it to state.
   */
   GET_PLAYBACK({ commit }) {
@@ -66,7 +19,7 @@ const actions = {
   * @param { object } payload The function payload.
   * @param { string } [ payload.direction = 'next', 'previous' ] The direction to skip.
   */
-  SKIP_TO({ getters }, payload) {
+  SKIP_TO({ rootGetters }, payload) {
     const { direction } = payload;
 
     if (direction) {
@@ -74,7 +27,7 @@ const actions = {
         method: 'post',
         url: `/me/player/${direction}`,
         params: {
-          device_id: getters.getDeviceId,
+          device_id: rootGetters['player/getDeviceId'],
         },
       });
     }
@@ -85,7 +38,7 @@ const actions = {
   * @param { object } payload The function payload.
   * @param { number } payload.position The position to seek to.
   */
-  SEEK_TO({ getters }, payload) {
+  SEEK_TO({ rootGetters }, payload) {
     const { position } = payload;
 
     if (position) {
@@ -94,7 +47,7 @@ const actions = {
         url: '/me/player/seek',
         params: {
           position_ms: position,
-          device_id: getters.getDeviceId,
+          device_id: rootGetters['player/getDeviceId'],
         },
       });
     }
@@ -106,12 +59,11 @@ const actions = {
   * @param { string } [ payload.state = 'play', 'pause' ] State to change the playback to.
   * @param { string } payload.trackId ID of the track to play.
   */
-  SET_PLAYBACK({ getters }, payload) {
+  SET_PLAYBACK({ rootGetters }, payload) {
     let uris;
 
     // play track if trackId in request payload and state set to 'play'
-    const playTrack = payload.state === 'play' && payload.trackId;
-    if (playTrack) {
+    if (payload.state === 'play' && payload.trackId) {
       uris = [`spotify:track:${payload.trackId}`];
     }
 
@@ -122,7 +74,7 @@ const actions = {
         uris,
       },
       params: {
-        device_id: getters.getDeviceId,
+        device_id: rootGetters['player/getDeviceId'],
       },
     });
   },
@@ -130,13 +82,13 @@ const actions = {
   /**
   * Toggle repeat for the current playback.
   */
-  TOGGLE_REPEAT({ getters }) {
+  TOGGLE_REPEAT({ rootGetters }) {
     Vue.prototype.$spotifyApi({
       method: 'put',
       url: '/me/player/repeat',
       params: {
         state: 'context',
-        device_id: getters.getDeviceId,
+        device_id: rootGetters['player/getDeviceId'],
       },
     });
   },
@@ -144,13 +96,13 @@ const actions = {
   /**
   * Set shuffle state for the current playback.
   */
-  SET_SHUFFLE({ getters }) {
+  SET_SHUFFLE({ rootGetters }) {
     Vue.prototype.$spotifyApi({
       method: 'put',
       url: '/me/player/shuffle',
       params: {
-        state: !getters.getCurrentPlayback.shuffle_state,
-        device_id: getters.getDeviceId,
+        state: !rootGetters['playback/getCurrentPlayback'].shuffle_state,
+        device_id: rootGetters['player/getDeviceId'],
       },
     });
   },

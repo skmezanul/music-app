@@ -36,10 +36,10 @@ export default {
 
   computed: {
     ...mapGetters({
-      currentUser: 'getCurrentUser',
-      currentPlayback: 'getCurrentPlayback',
-      accessToken: 'getAccessToken',
-      deviceId: 'getDeviceId',
+      currentUser: 'user/getCurrentUser',
+      currentPlayback: 'playback/getCurrentPlayback',
+      accessToken: 'auth/getAccessToken',
+      deviceId: 'player/getDeviceId',
     }),
   },
 

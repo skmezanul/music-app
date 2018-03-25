@@ -8,20 +8,9 @@ import ES from './es';
 
 Vue.use(VueI18n);
 
-const country = store.getters.getCountry;
-let locale = 'EN';
+const locale = store.getters['user/getCountry'];
 
-if (typeof country !== 'undefined') {
-  // set language
-  switch (country) {
-    case 'DE':
-      locale = 'DE';
-      break;
-    case 'ES':
-      locale = 'ES';
-      break;
-    default:
-  }
+if (locale) {
   // set html lang attribute to current language
   document.documentElement.lang = locale.toLowerCase();
 }

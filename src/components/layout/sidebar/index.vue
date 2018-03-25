@@ -40,7 +40,7 @@
 					tag='div',
 					:to='{ name: "artist", params: { id: currentPlayback.item.artists[0].id }}',
 					v-if='settings.largeCover')
-						ma-button(type='overlay', @click.prevent.native='setAppSettings({ setting: "largeCover", value: false })', icon='close')
+						ma-button(type='overlay', @click.prevent.native='setAppSettings({ largeCover: false })', icon='close')
 						img.cover-image(
 							:src='currentPlayback.item.album.images[0].url',
 							:alt='currentPlayback.item.name')
@@ -92,21 +92,24 @@ export default {
   },
 
   methods: {
-    ...mapMutations({
+    ...mapMutations('app', {
       setAppSettings: 'SET_APP_SETTINGS',
     }),
 
+    // toggle the fixed sidebar
     toggleFixedSidebar() {
-      this.setAppSettings({
-        setting: 'fixedSidebar',
+      const self = this;
+
+      self.setAppSettings({
+        fixedSidebar: !self.settings.fixedSidebar,
       });
     },
 
+    // toggle the panel
     togglePanel(panel) {
       const self = this,
-        {
-          fixedSidebar,
-        } = self.settings;
+        { fixedSidebar } = self.settings;
+
       if (self.activePanel === panel && !fixedSidebar) {
         self.activePanel = false;
       } else if (typeof panel === 'number') {
@@ -114,11 +117,11 @@ export default {
       }
     },
 
+    // close the panel
     closePanel() {
       const self = this,
-        {
-          fixedSidebar,
-        } = self.settings;
+        { fixedSidebar } = self.settings;
+
       if (self.activePanel && !fixedSidebar) {
         self.activePanel = false;
       }
@@ -127,11 +130,13 @@ export default {
 
   computed: {
     ...mapGetters({
-      currentPlayback: 'getCurrentPlayback',
-      currentUser: 'getCurrentUser',
-      playlists: 'getPlaylists',
-      settings: 'getAppSettings',
+      currentPlayback: 'playback/getCurrentPlayback',
+      currentUser: 'user/getCurrentUser',
+      playlists: 'user/getPlaylists',
+      settings: 'app/getAppSettings',
     }),
+
+    // check if panel currently open
     isPanelOpen() {
       const self = this,
         isOpen = self.settings.fixedSidebar || self.activePanel;

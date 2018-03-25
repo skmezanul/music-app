@@ -55,6 +55,7 @@ export default {
       TweenMax.staggerFrom('.panel-list-item', 0.5, {
         autoAlpha: 0,
         onComplete: done,
+        clearProps: 'all',
       }, 0.05);
     },
 
@@ -118,7 +119,7 @@ export default {
       });
     },
 
-    // tween on click
+    // tween on hover
     animateItemMouseEnter(event) {
       const el = event.currentTarget;
 
@@ -127,7 +128,7 @@ export default {
       });
     },
 
-    // tween on click
+    // tween on mouse leave
     animateItemMouseLeave(event) {
       const el = event.currentTarget;
 
@@ -174,8 +175,8 @@ export default {
 
   computed: {
     ...mapGetters({
-      settings: 'getAppSettings',
-      currentUser: 'getCurrentUser',
+      settings: 'app/getAppSettings',
+      currentUser: 'user/getCurrentUser',
     }),
   },
 
@@ -184,6 +185,12 @@ export default {
 
 <style lang='scss'>
 .panel-list {
+    .active-indicator {
+        @include absolute($left: -1px, $index: 3);
+        width: 1px;
+        background-color: var(--accent-color);
+        will-change: transform;
+    }
     .panel-list-item {
         margin-bottom: 1.5em;
         cursor: pointer;
@@ -199,11 +206,5 @@ export default {
             @include font($size: 0.9em, $color: rgba($white, 0.7));
         }
     }
-}
-
-.active-indicator {
-    @include absolute($left: -1px, $index: 3);
-    width: 1px;
-    background-color: var(--accent-color);
 }
 </style>

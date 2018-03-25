@@ -1,11 +1,11 @@
 <template lang='pug'>
-header.header.sidebar-margin(:class='{ "scrolled" : scrollPosition > 0 }')
+header.header.sidebar-margin(:class='{ "is-scrolled" : scrollPosition > 0 }')
   .header-container
     // navigation
     .header-inner.left
-      ma-icon.navigation.back(:hover='true', @click.native='routerGo(-1)') keyboard_arrow_left
+      ma-icon.navigation.back(:hover='true', @click.native='$router.go(-1)') keyboard_arrow_left
 
-      ma-icon.navigation.forward(:hover='true', @click.native='routerGo(1)') keyboard_arrow_right
+      ma-icon.navigation.forward(:hover='true', @click.native='$router.go(1)') keyboard_arrow_right
     // search
     .header-inner.middle
       ma-icon.search-icon search
@@ -36,20 +36,17 @@ export default {
 
     // do the search
     doSearch() {
-      const query = this.searchQuery;
+      const self = this,
+        query = self.searchQuery;
+
       if (query.length > 0) {
-        this.$router.push({
+        self.$router.push({
           name: 'search',
           params: {
             query,
           },
         });
       }
-    },
-
-    // go one route back or forward
-    routerGo(direction) {
-      this.$router.go(direction);
     },
   },
 
@@ -79,7 +76,7 @@ export default {
     transition: background-color 0.3s, border-color 0.3s;
     -webkit-app-region: drag;
 
-    &.scrolled {
+    &.is-scrolled {
         border-color: $border-color;
         background-color: $dark-blue;
         .header-container {

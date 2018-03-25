@@ -5,9 +5,9 @@ const { getters } = store;
 
 export const credentials = {
   // spotify api credentials
-  accessToken: getters.getAccessToken,
-  refreshToken: getters.getRefreshToken,
-  expiryTime: getters.getExpiryTime,
+  accessToken: getters['auth/getAccessToken'],
+  refreshToken: getters['auth/getRefreshToken'],
+  expiryTime: getters['auth/getExpiryTime'],
 
   // spotify backend api token
   spotifyBackendToken: '',

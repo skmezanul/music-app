@@ -11,7 +11,7 @@ import maPanelList from '../panelList';
 export default {
 
   computed: {
-    ...mapGetters({
+    ...mapGetters('user', {
       playlists: 'getPlaylists',
     }),
   },

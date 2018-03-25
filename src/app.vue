@@ -1,39 +1,42 @@
 <template lang='pug'>
 #app(:style='{ "--accent-color" : settings.accentColor, "--sidebar-margin" : `${settings.fixedSidebar ? 350 : 100}px` }')
 
-	// navigation
-	ma-sidebar(v-if='!$mq.phone')
+  // navigation
+  ma-sidebar(v-if='!$mq.phone')
 
-	main.main-container.sidebar-margin
-		// notices
-		transition-group(name='slide-down-transform')
-			ma-notice(
-				v-for='(notice, index) in notices',
-				:key='index',
-				:type='notice.type',
-				:message='notice.message')
+  main.main-container.sidebar-margin(v-if='isPlaybackDevice')
+    // notices
+    transition-group(name='slide-down-transform')
+      ma-notice(
+        v-for='(notice, index) in notices',
+        :key='index',
+        :type='notice.type',
+        :message='notice.message')
 
-		// header
-		ma-header
+    // header
+    ma-header
 
-		// preloader
-		transition(name='fade')
-			ma-loading(v-if='$isLoading("data")')
-				ma-loader(slot='spinner')
+    // preloader
+    transition(name='fade')
+      ma-loading(v-if='$isLoading("data")')
+        ma-loader(slot='spinner')
 
-		// router view
-		transition(name='fade', mode='out-in')
-			router-view(:key='$route.path')
+    // router view
+    transition(name='fade', mode='out-in')
+      router-view(:key='$route.path')
 
-	// footer
-	transition(name='fade')
-		ma-footer
+  // footer
+  transition(name='fade')
+    ma-footer(v-if='isPlaybackDevice')
 
-	// tooltips
-	.tooltip-container
+  // tooltips
+  .tooltip-container
 
-	// music video
-	ma-video
+  // music video
+  ma-video
+
+  transition(name='fade')
+    ma-device-splash(v-if='!isPlaybackDevice')
 </template>
 
 <script>
@@ -47,23 +50,37 @@ import maFooter from '@/components/layout/footer';
 import maSidebar from '@/components/layout/sidebar/index';
 import maVideo from '@/components/modals/video';
 import maLoading from '@/components/loader';
+import maDeviceSplash from '@/components/splash/device';
 
 export default {
 
   created() {
-    // initialize the app on itnitial load
-    this.INIT_APP();
+    // initialize the app on initial load
+    this.initApp();
   },
 
   methods: {
-    ...mapActions(['INIT_APP']),
+    ...mapActions({
+      initApp: 'app/INIT_APP',
+    }),
   },
 
   computed: {
     ...mapGetters({
-      notices: 'getNotices',
-      settings: 'getAppSettings',
+      notices: 'app/getNotices',
+      settings: 'app/getAppSettings',
+      currentPlayback: 'playback/getCurrentPlayback',
+      deviceId: 'player/getDeviceId',
     }),
+
+    // check if is current Spotify Connect playback device
+    isPlaybackDevice() {
+      const self = this,
+        { currentPlayback, deviceId } = self,
+        isPlaybackDevice = currentPlayback.device.id === deviceId;
+
+      return isPlaybackDevice;
+    },
   },
 
   components: {
@@ -72,6 +89,7 @@ export default {
     maSidebar,
     maVideo,
     maLoading,
+    maDeviceSplash,
   },
 
 };

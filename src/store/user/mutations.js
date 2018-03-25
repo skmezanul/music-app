@@ -15,8 +15,8 @@ const mutations = {
       self[userData] = data;
     } else if (userData === 'profile') {
       Vue.prototype.$database.ref(`users/${data.id}`).set({
-        images: data.images[0].url,
-        id: data.id,
+        profileImage: data.images[0].url,
+        userId: data.id,
         name: data.display_name,
       });
     }

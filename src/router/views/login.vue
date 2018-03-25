@@ -12,7 +12,9 @@ export default {
   },
 
   methods: {
-    ...mapActions(['GET_TOKEN']),
+    ...mapActions({
+      getToken: 'auth/GET_TOKEN',
+    }),
 
     // get code from query and exchange it for token
     getTokenFromURL() {
@@ -21,7 +23,7 @@ export default {
         isToken = /^[AQ]{2}/.test(code);
 
       if (isToken && code) {
-        self.GET_TOKEN({
+        self.getToken({
           action: 'get',
           code,
         });

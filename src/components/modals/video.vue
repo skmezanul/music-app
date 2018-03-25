@@ -9,8 +9,8 @@ ma-modal(
 	@mouseover.native='overlay = true',
 	@mouseleave.native='overlay = false',
 	@before-open='fetchData',
-	@opened='SET_PLAYBACK({state: "pause"})',
-	@closed='SET_PLAYBACK({state: "play"})')
+	@opened='setPlayback({state: "pause"})',
+	@closed='setPlayback({state: "play"})')
 	transition(name='fade')
 		.overlay-container(v-show='overlay')
 			.overlay-inner
@@ -60,8 +60,11 @@ export default {
   },
 
   methods: {
-    ...mapActions(['SET_PLAYBACK']),
-    ...mapMutations({
+    ...mapActions({
+      setPlayback: 'playback/setPlayback',
+    }),
+
+    ...mapMutations('app', {
       showNotice: 'SET_NOTICE',
     }),
 
@@ -104,7 +107,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
+    ...mapGetters('playback', {
       currentPlayback: 'getCurrentPlayback',
     }),
   },

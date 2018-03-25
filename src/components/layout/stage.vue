@@ -1,5 +1,5 @@
 <template lang='pug'>
-.stage(:class='{ "is-large" : $route.meta.stage.large, "has-cover" : $route.meta.stage.cover, "has-image" : stage.image, "has-nav" : stage.navigation }')
+.stage(:class='stageClasses')
 
 	// background
 	transition(v-if='stage.image', name='zoom-out', appear)
@@ -73,10 +73,7 @@
 </template>
 
 <script>
-import {
-  mapActions,
-  mapGetters,
-} from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
 
@@ -106,8 +103,6 @@ export default {
   },
 
   methods: {
-    ...mapActions(['GET_USER']),
-
     // check if current user is following this artist or user
     checkIfFollowing() {
       const self = this,
@@ -166,9 +161,20 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
+    ...mapGetters('app', {
       stage: 'getStageContent',
     }),
+
+    // stage classes
+    stageClasses() {
+      const self = this;
+      return {
+        'is-large': self.$route.meta.stage.large,
+        'has-cover': self.$route.meta.stage.cover,
+        'has-image': self.stage.image,
+        'has-nav': self.stage.navigation,
+      };
+    },
 
     // check if show follow button
     canFollow() {

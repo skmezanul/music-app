@@ -42,6 +42,7 @@ router-link.section-item(
 import * as Vibrant from 'node-vibrant';
 
 export default {
+
   data: () => ({
     playing: false,
     overlay: false,

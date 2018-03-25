@@ -1,12 +1,12 @@
 <template lang='pug'>
 li.list-item(
-	@dblclick='SET_PLAYBACK({ state: "play", trackId })',
+	@dblclick='setPlayback({ state: "play", trackId })',
 	:class='{ "playing" : isPlaying, "has-image" : image[0] }')
 
 	// image
 	.image-container(v-if='image[0]')
 		ma-icon.playback-toggle(
-			@click.native='SET_PLAYBACK({ state: isPlaying ? "pause" : "play", trackId })',
+			@click.native='setPlayback({ state: isPlaying ? "pause" : "play", trackId })',
 			:class='isPlaying ? "pause" : "play"') {{ isPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
 
 		img.cover-image(
@@ -98,7 +98,9 @@ export default {
   },
 
   methods: {
-    ...mapActions(['SET_PLAYBACK']),
+    ...mapActions({
+      setPlayback: 'playback/SET_PLAYBACK',
+    }),
 
     // check if track is currently playing
     getPlayingState() {
@@ -139,7 +141,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
+    ...mapGetters('playback', {
       currentPlayback: 'getCurrentPlayback',
     }),
   },

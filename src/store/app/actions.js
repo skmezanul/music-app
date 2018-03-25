@@ -4,11 +4,11 @@ const actions = {
   */
   INIT_APP({ dispatch }) {
     // init Spotify Web Playback SDK
-    dispatch('INIT_PLAYER');
+    dispatch('player/INIT_PLAYER', null, { root: true });
     // get current user's profile
-    dispatch('GET_USER', 'profile');
+    dispatch('user/GET_USER', 'profile', { root: true });
     // get current user's playlists
-    dispatch('GET_USER', 'playlists');
+    dispatch('user/GET_USER', 'playlists', { root: true });
   },
 };
 

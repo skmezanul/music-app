@@ -41,7 +41,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations({
+    ...mapMutations('app', {
       setStage: 'SET_STAGE',
     }),
 
