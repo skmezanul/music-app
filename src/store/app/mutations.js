@@ -31,7 +31,7 @@ const mutations = {
 
     if (payload) {
       Object.keys(payload).forEach((key) => {
-        if (self.settings[key]) self.settings[key] = payload[key];
+        self.settings[key] = payload[key];
       });
     }
   },
