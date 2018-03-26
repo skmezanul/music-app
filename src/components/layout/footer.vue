@@ -40,8 +40,8 @@ footer.footer-container
     ma-icon.skip(:hover='true', @click.native='skipTo({ direction: "previous" })') skip_previous
 
     ma-icon.toggle(
-      :class='currentPlayback.is_playing ? "pause" : "play"',
-      @click.native='togglePlayback') {{ currentPlayback.is_playing ? 'pause_circle_filled' : 'play_circle_filled' }}
+      :class='isPlaying ? "pause" : "play"',
+      @click.native='togglePlayback') {{ isPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
 
     ma-icon.skip(:hover='true', @click.native='skipTo({ direction: "next" })') skip_next
 
@@ -69,8 +69,8 @@ footer.footer-container
       span.track-duration {{ trackDuration }}
 
   // progress bar
-  .progress-container(@click='getSeekTime', ref='progressContainer')
-    progress.progress-bar(ref='progressBar', :max='currentPlayback.item.duration_ms')
+  .progress-container(@click='jumpToProgress', ref='progressContainer')
+    progress.progress-bar(ref='progressBar', :max='duration')
 </template>
 
 <script>
@@ -85,7 +85,7 @@ import { TweenLite, Linear } from 'gsap';
 export default {
 
   data: () => ({
-    progress: 0,
+    currentProgress: 0,
     progressInterval: null,
   }),
 
@@ -95,30 +95,28 @@ export default {
 
   watch: {
     // watch the progress and update it when it changes
-    'currentPlayback.progress_ms': function watchProgress() {
+    progress() {
       this.updateProgress();
     },
 
     // watch the playback state and start / stop the interval accordingly
-    'currentPlayback.is_playing': function watchPlaybackState() {
+    isPlaying() {
       this.updateProgress();
     },
 
     // reset timeout when playback is at the end of the track
-    progress(value) {
+    currentProgress(value) {
       const self = this,
-        { currentPlayback } = self,
-        { progressBar } = self.$refs,
-        trackDuration = currentPlayback.item.duration_ms;
+        { progressBar } = self.$refs;
 
-      TweenLite.to(progressBar, 0.5, {
+      TweenLite.to(progressBar, 1, {
         attr: {
           value,
         },
         ease: Linear.easeNone,
       });
 
-      if (value >= trackDuration) {
+      if (value >= self.duration) {
         clearInterval(self.progressInterval);
       }
     },
@@ -128,7 +126,6 @@ export default {
     ...mapActions({
       skipTo: 'playback/SKIP_TO',
       seekTo: 'playback/SEEK_TO',
-      setPlayback: 'playback/SET_PLAYBACK',
       toggleRepeat: 'playback/TOGGLE_REPEAT',
       setShuffle: 'playback/SET_SHUFFLE',
       togglePlayback: 'player/TOGGLE_PLAYBACK',
@@ -141,39 +138,37 @@ export default {
     // add one second to the progress every second
     updateProgress() {
       const self = this,
-        { currentPlayback } = self,
-        progress = currentPlayback.progress_ms,
-        isPlaying = currentPlayback.is_playing,
         // half a second in milliseconds
-        halfSecond = 500;
+        oneSecond = 1000;
 
       // clear the interval before starting a new one
       clearInterval(self.progressInterval);
 
       // set local progress to current progress from the api
-      self.progress = progress;
+      self.currentProgress = self.progress;
 
-      if (isPlaying) {
+      if (self.isPlaying) {
         // count up 500 milliseconds every 500 milliseconds
         self.progressInterval = setInterval(() => {
-          self.progress += halfSecond;
-        }, halfSecond);
+          self.currentProgress += oneSecond;
+        }, oneSecond);
       }
     },
 
-    // get time to jump to
-    getSeekTime(event) {
+    // jump to progress
+    jumpToProgress(event) {
       const self = this,
         { currentPlayback } = self,
         { progressContainer } = self.$refs,
         progressBarWidth = progressContainer.offsetWidth,
         clickedPosition = (event.clientX / progressBarWidth) * 100,
-        trackDuration = currentPlayback.item.duration_ms,
-        position = Math.round((trackDuration / 100) * clickedPosition);
+        position = Math.round((self.duration / 100) * clickedPosition);
 
       if (progressContainer && position) {
         self.seekTo({
           position,
+        }).then(() => {
+          self.currentProgress = position;
         });
       }
     },
@@ -183,25 +178,25 @@ export default {
     ...mapGetters({
       currentPlayback: 'playback/getCurrentPlayback',
       settings: 'app/getAppSettings',
+      duration: 'playback/getDuration',
+      progress: 'playback/getProgress',
+      isPlaying: 'playback/getPlayingState',
     }),
 
     // get human readable track progress
     trackProgress() {
       const self = this,
-        { progress } = self,
-        minutes = Math.floor(progress / 60000),
-        seconds = ((progress % 60000) / 1000).toFixed(0);
+        minutes = Math.floor(self.currentProgress / 60000),
+        seconds = ((self.currentProgress % 60000) / 1000).toFixed(0);
 
-      return progress >= 0 ? `${minutes}:${seconds < 10 ? '0' : ''}${seconds}` : 0;
+      return self.currentProgress >= 0 ? `${minutes}:${seconds < 10 ? '0' : ''}${seconds}` : 0;
     },
 
     // get human readable track duration
     trackDuration() {
       const self = this,
-        { currentPlayback } = self,
-        trackDuration = currentPlayback.item.duration_ms,
-        minutes = Math.floor(trackDuration / 60000),
-        seconds = ((trackDuration % 60000) / 1000).toFixed(0);
+        minutes = Math.floor(self.duration / 60000),
+        seconds = ((self.duration % 60000) / 1000).toFixed(0);
 
       return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     },

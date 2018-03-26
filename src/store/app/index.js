@@ -4,6 +4,7 @@ import mutations from './mutations';
 const app = {
   namespaced: true,
   state: {
+    initialized: false,
     notices: [],
     stage: {
       image: '',
@@ -27,6 +28,7 @@ const app = {
     getNotices: state => state.notices,
     getAppSettings: state => state.settings,
     getStageContent: state => state.stage,
+    getInitState: state => state.initialized,
   },
 };
 

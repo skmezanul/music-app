@@ -10,7 +10,7 @@ const mutations = {
     const self = state;
 
     Object.keys(payload).forEach((key) => {
-      if (self[key]) self[key] = payload[key];
+      self[key] = payload[key];
     });
   },
 };

@@ -29,9 +29,11 @@ const mutations = {
   SET_APP_SETTINGS(state, payload) {
     const self = state;
 
-    Object.keys(payload).forEach((key) => {
-      self.settings[key] = payload[key];
-    });
+    if (payload) {
+      Object.keys(payload).forEach((key) => {
+        if (self.settings[key]) self.settings[key] = payload[key];
+      });
+    }
   },
 
   /**
@@ -50,13 +52,25 @@ const mutations = {
   SET_STAGE(state, payload) {
     const self = state;
 
-    // clear stage state
+    // clear the stage
     self.stage = {};
 
-    // push new stage content to state
-    Object.keys(payload).forEach((key) => {
-      self.stage[key] = payload[key];
-    });
+    if (payload) {
+      // push new stage content to state
+      Object.keys(payload).forEach((key) => {
+        self.stage[key] = payload[key];
+      });
+    }
+  },
+
+  /**
+  * Set the app's init state.
+  * @param { boolean } initialized Is the app initialized.
+  */
+  SET_INIT(state, initialized) {
+    const self = state;
+
+    if (typeof initialized === 'boolean') self.initialized = initialized;
   },
 };
 

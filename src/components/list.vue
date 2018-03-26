@@ -1,20 +1,20 @@
 <template lang='pug'>
 li.list-item(
 	@dblclick='setPlayback({ state: "play", trackId })',
-	:class='{ "playing" : isPlaying, "has-image" : image[0] }')
+	:class='{ "playing" : isCurrentlyPlaying, "has-image" : image[0] }')
 
 	// image
 	.image-container(v-if='image[0]')
 		ma-icon.playback-toggle(
-			@click.native='setPlayback({ state: isPlaying ? "pause" : "play", trackId })',
-			:class='isPlaying ? "pause" : "play"') {{ isPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
+			@click.native='setPlayback({ state: isCurrentlyPlaying ? "pause" : "play", trackId })',
+			:class='isCurrentlyPlaying ? "pause" : "play"') {{ isCurrentlyPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
 
 		img.cover-image(
 			v-lazy='image[0].url',
 			:alt='title')
 
 	// index
-	ma-icon.is-playing(v-if='!$mq.phone && isPlaying') {{ currentPlayback.is_playing ? 'volume_up' : 'volume_down' }}
+	ma-icon.is-playing(v-if='!$mq.phone && isCurrentlyPlaying') {{ isCurrentlyPlaying ? 'volume_up' : 'volume_down' }}
 	span.index(v-else-if='!image || !$mq.phone') {{ formatIndex(index) }}
 
 	// meta
@@ -49,10 +49,6 @@ import {
 } from 'vuex';
 
 export default {
-
-  data: () => ({
-    isPlaying: false,
-  }),
 
   props: {
     index: {
@@ -93,27 +89,10 @@ export default {
     },
   },
 
-  created() {
-    this.getPlayingState();
-  },
-
   methods: {
     ...mapActions({
       setPlayback: 'playback/SET_PLAYBACK',
     }),
-
-    // check if track is currently playing
-    getPlayingState() {
-      const self = this,
-        isPlayingTrack = (self.currentPlayback.item.id === self.trackId),
-        isHistoryView = self.$route.path === '/history';
-
-      if (isPlayingTrack && !isHistoryView) {
-        self.isPlaying = true;
-      } else {
-        self.isPlaying = false;
-      }
-    },
 
     // format index to 2 digits
     formatIndex(value) {
@@ -143,7 +122,18 @@ export default {
   computed: {
     ...mapGetters('playback', {
       currentPlayback: 'getCurrentPlayback',
+      isPlaying: 'getPlayingState',
     }),
+
+    // check if track is currently playing
+    isCurrentlyPlaying() {
+      const self = this,
+        isPlayingTrack = (self.currentPlayback.item.id === self.trackId),
+        isHistoryView = self.$route.path === '/history',
+        isCurrentlyPlaying = isPlayingTrack && !isHistoryView;
+
+      return isCurrentlyPlaying;
+    },
   },
 
 };

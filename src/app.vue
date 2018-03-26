@@ -4,30 +4,31 @@
   // navigation
   ma-sidebar(v-if='!$mq.phone')
 
-  main.main-container.sidebar-margin(v-if='isPlaybackDevice')
-    // notices
-    transition-group(name='slide-down-transform')
-      ma-notice(
-        v-for='(notice, index) in notices',
-        :key='index',
-        :type='notice.type',
-        :message='notice.message')
+  transition(name='fade', appear)
+    main.main-container.sidebar-margin
+      // notices
+      transition-group(name='slide-down-transform')
+        ma-notice(
+          v-for='(notice, index) in notices',
+          :key='index',
+          :type='notice.type',
+          :message='notice.message')
 
-    // header
-    ma-header
+      // header
+      ma-header
 
-    // preloader
-    transition(name='fade')
-      ma-loading(v-if='$isLoading("data")')
-        ma-loader(slot='spinner')
+      // preloader
+      transition(name='fade')
+        ma-loading(v-if='$isLoading("data")')
+          ma-loader(slot='spinner')
 
-    // router view
-    transition(name='fade', mode='out-in')
-      router-view(:key='$route.path')
+      // router view
+      transition(name='fade', mode='out-in')
+        router-view(:key='$route.path')
 
   // footer
   transition(name='fade')
-    ma-footer(v-if='isPlaybackDevice')
+    ma-footer
 
   // tooltips
   .tooltip-container
@@ -35,8 +36,7 @@
   // music video
   ma-video
 
-  transition(name='fade')
-    ma-device-splash(v-if='!isPlaybackDevice')
+  ma-device-splash
 </template>
 
 <script>
@@ -66,21 +66,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      notices: 'app/getNotices',
-      settings: 'app/getAppSettings',
-      currentPlayback: 'playback/getCurrentPlayback',
-      deviceId: 'player/getDeviceId',
+    ...mapGetters('app', {
+      notices: 'getNotices',
+      settings: 'getAppSettings',
+      initialized: 'getInitState',
     }),
-
-    // check if is current Spotify Connect playback device
-    isPlaybackDevice() {
-      const self = this,
-        { currentPlayback, deviceId } = self,
-        isPlaybackDevice = currentPlayback.device.id === deviceId;
-
-      return isPlaybackDevice;
-    },
   },
 
   components: {

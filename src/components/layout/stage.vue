@@ -5,7 +5,6 @@
 	transition(v-if='stage.image', name='zoom-out', appear)
 		.background-container
 			img.background-image(
-				v-parallax='0.5',
 				:src='stage.image',
 				:alt='stage.title')
 
@@ -169,12 +168,30 @@ export default {
     stageClasses() {
       const self = this;
       return {
-        'is-large': self.$route.meta.stage.large,
-        'has-cover': self.$route.meta.stage.cover,
+        'is-large': self.isLarge,
+        'has-cover': self.hasCover,
         'has-image': self.stage.image,
         'has-nav': self.stage.navigation,
       };
     },
+
+    // check if stage is large
+    isLarge() {
+      const self = this,
+        { meta } = self.$route,
+        isLarge = meta.stage.large;
+
+      return isLarge;
+    },
+
+		// check if stage has cover
+		hasCover() {
+			const self = this,
+				{ meta } = self.$route,
+				hasCover = meta.stage.cover;
+
+			return hasCover;
+		},
 
     // check if show follow button
     canFollow() {

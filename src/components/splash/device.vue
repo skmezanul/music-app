@@ -1,25 +1,26 @@
 <template lang='pug'>
-.device-splash
-  .splash-inner
-    .connect-menu
-      img.connect-menu-image(src='/static/images/connect_header.png')
-      .connect-menu-item.is-highlighted
-        .item-icon
-          .screen
-          .keyboard
-        .item-description
-          p.item-title {{ $t("listeningOn") }}
-          p.item-subtitle {{ currentPlayback.device.name }}
-      .connect-menu-item
-        .item-icon
-          .screen
-          .keyboard
-        .item-description
-          p.item-title Music App - {{ currentUser.display_name }}
-          p.item-subtitle Spotify Connect
-        ma-icon.arrow arrow_back
-    i18n.message(path='splash.listeningOnAnotherDevice', tag='p')
-      span.device-name(place='deviceName') Music App - {{ currentUser.display_name }}
+transition(name='fade')
+	.device-splash(v-if='isNotPlaybackDevice')
+		.splash-inner
+			.connect-menu
+				img.connect-menu-image(src='/static/images/connect_header.png')
+				.connect-menu-item.is-highlighted
+					.item-icon
+						.screen
+						.keyboard
+					.item-description
+						p.item-title {{ $t("listeningOn") }}
+						p.item-subtitle {{ currentPlayback.device.name }}
+				.connect-menu-item
+					.item-icon
+						.screen
+						.keyboard
+					.item-description
+						p.item-title {{ deviceName }}
+						p.item-subtitle Spotify Connect
+					ma-icon.arrow arrow_back
+			i18n.message(path='splash.listeningOnAnotherDevice', tag='p')
+				span.device-name(place='deviceName') {{ deviceName }}
 </template>
 
 <script>
@@ -31,7 +32,31 @@ export default {
     ...mapGetters({
       currentUser: 'user/getCurrentUser',
       currentPlayback: 'playback/getCurrentPlayback',
+      deviceId: 'player/getDeviceId',
     }),
+
+    // check if is current Spotify Connect playback device
+    isNotPlaybackDevice() {
+      const self = this,
+        {
+          currentPlayback,
+          deviceId
+        } = self,
+        isNotPlaybackDevice = currentPlayback.device.id !== deviceId;
+
+      return isNotPlaybackDevice;
+    },
+
+    // get device name
+    deviceName() {
+      const self = this,
+        {
+          currentUser
+        } = self,
+        deviceName = `Music App - ${currentUser.display_name || currentUser.email}`;
+
+      return deviceName
+    },
   },
 
 };
@@ -47,8 +72,8 @@ export default {
         width: 100%;
         .connect-menu {
             .connect-menu-image {
-                max-width: 200px;
                 margin: auto auto 3em;
+                max-width: 200px;
             }
 
             .connect-menu-item {
@@ -57,7 +82,7 @@ export default {
                 margin-bottom: 2em;
 
                 &.is-highlighted {
-                    color: var(--accent-color);
+                    @include font($color: var(--accent-color));
                     .item-icon {
                         .screen {
                             border: 2px solid var(--accent-color);
@@ -75,28 +100,27 @@ export default {
                 }
 
                 .item-icon {
-                    width: 60px;
                     margin-right: 2em;
+                    width: 60px;
                     .screen {
-                        width: 80%;
                         margin: auto;
-                        border-radius: 3px;
+                        width: 80%;
                         height: 35px;
                         border: 2px solid $white;
+                        border-radius: 3px;
                     }
                     .keyboard {
                         margin-top: 10px;
-                        height: 2px;
                         width: 100%;
+                        height: 2px;
                         background-color: $white;
                     }
                 }
 
                 .item-description {
                     .item-title {
-                        font-weight: 600;
-                        letter-spacing: 2px;
                         margin: 0;
+                        @include font($spacing: 2px, $weight: 600);
                     }
 
                     .item-subtitle {
@@ -107,13 +131,13 @@ export default {
             }
         }
         .message {
-            line-height: 1.5em;
-            border-top: 1px solid $border-color;
-            padding-top: 20px;
             margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid $border-color;
+            @include font($line: 1.5em);
             .device-name {
-                display: block;
                 @include font($size: 1.3em, $weight: 600, $color: var(--accent-color));
+                display: block;
                 margin: 10px 0;
             }
         }
