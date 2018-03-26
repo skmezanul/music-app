@@ -19,7 +19,7 @@ const app = {
     settings: {
       accentColor: '#f3376f',
       largeCover: false,
-      fixedSidebar: false,
+      fixedSidebar: true,
     },
   },
   actions,
