@@ -1,16 +1,23 @@
 <template lang='pug'>
-.view-parent
-	// stage
-	ma-stage(v-show='!$isLoading("data")')
+api-request.view-parent(:resource='dataToFetch', v-model='response')
 
-	.view-content(v-if='!$isLoading("data")')
-		// tracks
-		ma-section
+  // stage
+  ma-stage(
+    v-if='response.history',
+    :image='response.history.items[0].track.album.images',
+    :subtitle='$t("library")',
+    :title='$t("recentlyplayed")',
+    :navigation='getNavigation',
+    :buttons='getButtons')
 
-			ol.list
-				ma-list(
-          v-for='(history, index) in data.history',
-          :key='`${history.track.id}-${index}`',
+  .view-content(v-if='response.history')
+    // tracks
+    ma-section
+
+      ol.list
+        ma-list(
+          v-for='(history, index) in response.history.items',
+          :key='index',
           :type='history.track.type',
           :image='history.track.album.images',
           :title='history.track.name',
@@ -24,62 +31,28 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-
 export default {
 
   data: () => ({
-    data: {
-      history: [],
-    },
+    response: {},
   }),
 
-  created() {
-    // fetch the data when the view is created and the data is
-    // already being observed
-    this.fetchData();
-  },
+  computed: {
+    // get data to fetch from api
+    dataToFetch() {
+      const self = this,
+        api = self.$api;
 
-  methods: {
-    ...mapMutations('app', {
-      setStage: 'SET_STAGE',
-    }),
-
-    fetchData() {
-      const self = this;
-      self.$startLoading('data');
-
-      self.axios.all([
-        self.getHistory(),
-      ]).then((res) => {
-        const history = res[0].data.items,
-          stageImage = history[0].track.album.images[0].url;
-
-        self.data.history = history;
-        // init stage
-        self.setStage({
-          image: stageImage,
-          subtitle: self.$t('library'),
-          title: self.$t('recentlyplayed'),
-          buttons: {
-            playall: true,
-          },
-        });
-        self.$endLoading('data');
-      });
+      return {
+        history: () => api.getMyPlaybackHistory('track'),
+      };
     },
 
-    // get get this user's history from the api
-    getHistory() {
-      const self = this;
-
-      return self.$spotifyApi({
-        method: 'get',
-        url: '/me/player/recently-played',
-        params: {
-          type: 'track',
-        },
-      });
+    // get stage buttons
+    getButtons() {
+      return {
+        playall: true,
+      };
     },
   },
 

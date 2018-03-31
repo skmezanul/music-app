@@ -1,14 +1,15 @@
 <template lang='pug'>
-.view-content(v-if='!$isLoading("data")')
+.view-content
+
 	// top tracks
 	ma-section(
-    v-if='$parent.data.toptracks.length > 0',
+    v-if='parentData.topTracks.tracks',
     :title='$t("toptracks")',
     :collapsible='true')
 
 		ol.list
 			ma-list(
-        v-for='(track, index) in $parent.data.toptracks',
+        v-for='(track, index) in parentData.topTracks.tracks',
         :key='track.id',
         :trackId='track.id',
         :type='track.type',
@@ -22,13 +23,13 @@
 
 	// albums
 	ma-section(
-    v-if='$parent.data.albums.length > 0',
+    v-if='parentData.albums.items',
     :title='$tc("album", 0)',
     :collapsible='true')
 
 		.section-items-container
 			ma-item(
-        v-for='(album, index) in $parent.data.albums',
+        v-for='album in parentData.albums.items',
         :key='album.id',
         :type='album.type',
         :primaryid='album.id',
@@ -39,13 +40,13 @@
 
 	// singles
 	ma-section(
-    v-if='$parent.data.singles.length > 0',
+    v-if='parentData.singles.items',
     :title='$tc("single", 0)',
     :collapsible='true')
 
 		.section-items-container
 			ma-item(
-        v-for='(single, index) in $parent.data.singles',
+        v-for='single in parentData.singles.items',
         :key='single.id',
         :type='single.type',
         :primaryid='single.id',
@@ -56,13 +57,13 @@
 
 	// appears on
 	ma-section(
-    v-if='$parent.data.appearson.length > 0',
+    v-if='parentData.appearsOn.items',
     :title='$t("appearson")',
     :collapsible='true')
 
 		.section-items-container
 			ma-item(
-        v-for='(album, index) in $parent.data.appearson',
+        v-for='album in parentData.appearsOn.items',
         :key='album.id',
         :type='album.type',
         :primaryid='album.id',
@@ -71,3 +72,17 @@
         :title='album.name',
         :artists='album.artists')
 </template>
+
+
+<script>
+export default {
+
+  props: {
+    parentData: {
+      type: Object,
+      required: true,
+    },
+  },
+
+};
+</script>

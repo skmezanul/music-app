@@ -1,83 +1,86 @@
 <template lang='pug'>
 .stage(:class='stageClasses')
 
-	// background
-	transition(v-if='stage.image', name='zoom-out', appear)
-		.background-container
-			img.background-image(
-				:src='stage.image',
-				:alt='stage.title')
+  // background
+  transition(v-if='image', name='zoom-out', appear)
+    .background-container
+      img.background-image(
+        :src='image[0].url',
+        :alt='title')
 
-	.stage-container
-		.cover-container(
-			v-if='$route.meta.stage.cover && !$mq.phone',
-			:class='{ "is-small" : $route.meta.stage.cover && $route.name === "user" }')
+  .stage-container
+    .cover-container(
+      v-if='$route.meta.stage.cover && !$mq.phone',
+      :class='{ "is-small" : $route.meta.stage.cover && $route.name === "user" }')
 
-			img.cover-image(
-				:src='stage.image',
-				:alt='stage.title')
+      img.cover-image(
+        :src='image[0].url',
+        :alt='title')
 
-		// content
-		.stage-inner
+    // content
+    .stage-inner
 
-			.subtitle-container
-				h4(v-if='subtitle || stage.subtitle') {{ stage.profile ? `${subtitle || stage.subtitle} ${$t('by')} ` : subtitle || stage.subtitle }}
-					router-link.subtitle-link(
-						v-if='stage.profile',
-						:to='{ name: stage.profile.type, params: { id: stage.profile.id } }') {{ stage.profile.name || stage.profile.display_name }}
-				ma-icon.is-popular(v-if='stage.popularity && stage.popularity > 80') stars
-			h1.stage-title(v-if='title || stage.title') {{ title || stage.title }}
+      .subtitle-container
+        h4(v-if='subtitle') {{ profile ? `${subtitle || stage.subtitle} ${$t('by')} ` : subtitle }}
+          router-link.subtitle-link(
+            v-if='profile',
+            :to='{ name: profile.type, params: { id: profile.id } }') {{ profile.name || profile.display_name }}
+        ma-icon.is-popular(v-if='popularity && popularity > 80') stars
+      h1.stage-title(v-if='title') {{ title }}
 
-			.meta-container(v-if='stage.meta && !$mq.phone')
-				p.meta(v-html='formatMeta(stage.meta)')
-			.action-container(v-if='stage.buttons')
+      .meta-container(v-if='meta && !$mq.phone')
+        p.meta(v-html='formatMeta(meta)')
+      .action-container(v-if='buttons')
 
-				// play all
-				ma-button(
-					v-if='stage.buttons.playall',
-					type='accent',
-					icon='play_circle_filled',
-					title='playall')
+        // play all
+        ma-button(
+          v-if='buttons.playall',
+          type='accent',
+          icon='play_circle_filled',
+          title='playall')
 
-				// follow / unfollow
-				ma-button(
-					v-if='canFollow',
-					@click.native='setFollowing',
-					v-tooltip='{ content: isFollowing ? $t("unfollow") : null }'
-					:icon='isFollowing ? "check" : "add_circle"',
-					:title='isFollowing ? "following" : "follow"')
+        // follow / unfollow
+        api-request(
+          v-if='canFollow',
+          :resource='$api.isFollowing',
+          :params='{ type: $route.name, ids: $route.params.id }',
+          v-model='isFollowing')
 
-				// save
-				ma-button(
-					v-if='stage.buttons.save',
-					icon='save',
-					title='save')
+          ma-button(
+            @click.native='setFollowing',
+            v-tooltip='{ content: isFollowing[0] ? $t("unfollow") : null }'
+            :icon='isFollowing[0] ? "check" : "add_circle"',
+            :title='isFollowing[0] ? "following" : "follow"')
 
-				// edit
-				ma-button(
-					v-if='canEdit',
-					icon='edit',
-					title='edit')
+        // save
+        ma-button(
+          v-if='buttons.save',
+          icon='save',
+          title='save')
 
-				.info-container(v-if='stage.info')
-					.info-item(v-for='item in stage.info')
-						h4.value {{ item.value }}
-						span.subtitle {{ item.subtitle }}
+        // edit
+        ma-button(
+          v-if='canEdit',
+          icon='edit',
+          title='edit')
 
-			// navigation
-		nav.nav-container(v-if='stage.navigation && !$mq.phone')
-			ul
-				li(v-for='navitem in stage.navigation')
-					router-link(:to='{ name: navitem.routeName, params: { id: $route.params.id }}') {{ navitem.title }}
+        .info-container(v-if='info')
+          .info-item(v-for='item in info')
+            h4.value {{ item.value }}
+            span.subtitle {{ item.subtitle }}
+
+      // navigation
+    nav.nav-container(v-if='navigation && !$mq.phone')
+      ul
+        li(v-for='navitem in navigation')
+          router-link(:to='{ name: navitem.routeName, params: { id: $route.params.id }}') {{ navitem.title }}
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
 
   data: () => ({
-    isFollowing: false,
+    isFollowing: [],
   }),
 
   props: {
@@ -89,43 +92,41 @@ export default {
       type: String,
       default: '',
     },
-  },
-
-  updated() {
-    this.checkIfFollowing();
-  },
-
-  watch: {
-    $route() {
-      this.checkIfFollowing();
+    image: {
+      type: Array,
+      default: () => [],
+    },
+    artist: {
+      type: Object,
+      default: () => {},
+    },
+    meta: {
+      type: String,
+      default: '',
+    },
+    popularity: {
+      type: Number,
+      default: null,
+    },
+    buttons: {
+      type: Object,
+      default: () => {},
+    },
+    navigation: {
+      type: Array,
+      default: () => [],
+    },
+    profile: {
+      type: Object,
+      default: () => {},
+    },
+    info: {
+      type: Array,
+      default: () => [],
     },
   },
 
   methods: {
-    // check if current user is following this artist or user
-    checkIfFollowing() {
-      const self = this,
-        {
-          name,
-          params,
-        } = self.$route;
-
-      if (self.canFollow) {
-        self.$spotifyApi({
-          method: 'get',
-          url: '/me/following/contains',
-          params: {
-            type: name,
-            ids: params.id,
-          },
-        }).then((res) => {
-          const isFollowing = res.data[0];
-
-          if (isFollowing !== false) self.isFollowing = isFollowing;
-        });
-      }
-    },
-
     // follow or unfollow this artist or user
     setFollowing() {
       const self = this,
@@ -160,38 +161,34 @@ export default {
   },
 
   computed: {
-    ...mapGetters('app', {
-      stage: 'getStageContent',
-    }),
-
     // stage classes
     stageClasses() {
       const self = this;
       return {
         'is-large': self.isLarge,
         'has-cover': self.hasCover,
-        'has-image': self.stage.image,
-        'has-nav': self.stage.navigation,
+        'has-image': self.image,
+        'has-nav': self.navigation,
       };
     },
 
     // check if stage is large
     isLarge() {
       const self = this,
-        { meta } = self.$route,
+        { meta } = self.$route,
         isLarge = meta.stage.large;
 
       return isLarge;
     },
 
-		// check if stage has cover
-		hasCover() {
-			const self = this,
-				{ meta } = self.$route,
-				hasCover = meta.stage.cover;
+    // check if stage has cover
+    hasCover() {
+      const self = this,
+        { meta } = self.$route,
+        hasCover = meta.stage.cover;
 
-			return hasCover;
-		},
+      return hasCover;
+    },
 
     // check if show follow button
     canFollow() {
@@ -346,7 +343,7 @@ export default {
             .stage-title {
                 @include font($size: 3.5em, $line: 1.3em);
                 transform: translateX(-3px);
-								font-family: $secondary-family;
+                font-family: $secondary-family;
             }
 
             .action-container {

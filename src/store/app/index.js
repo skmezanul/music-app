@@ -6,18 +6,24 @@ const app = {
   state: {
     initialized: false,
     notices: [],
-    stage: {
-      image: '',
-      title: '',
-      subtitle: '',
-      artist: {},
-      meta: '',
-      popularity: '',
-      buttons: {},
-      navigation: [],
-    },
     settings: {
-      accentColor: '#f3376f',
+      currentAccentColor: '#f3376f',
+      accentColors: [{
+        name: 'red',
+        hex: '#f3376f',
+      },
+      {
+        name: 'orange',
+        hex: '#e89700',
+      },
+      {
+        name: 'cyan',
+        hex: '#00e6e6',
+      },
+      {
+        name: 'green',
+        hex: '#1DB954',
+      }],
       largeCover: false,
       fixedSidebar: true,
     },
@@ -27,7 +33,6 @@ const app = {
   getters: {
     getNotices: state => state.notices,
     getAppSettings: state => state.settings,
-    getStageContent: state => state.stage,
     getInitState: state => state.initialized,
   },
 };

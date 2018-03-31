@@ -1,15 +1,24 @@
 <template lang='pug'>
-.view-parent
-	// stage
-	ma-stage(v-show='!$isLoading("data")')
+api-request.view-parent(:resource='dataToFetch', v-model='response')
 
-	.view-content(v-if='!$isLoading("data")')
-		// playlists
-		ma-section
+  // stage
+  ma-stage(
+    v-if='response.playlist',
+    :image='response.playlist.images',
+    :subtitle='$tc("playlist", 1)',
+    :title='response.playlist.name',
+    :info='getInfo',
+    :buttons='getButtons',
+    :profile='response.playlist.owner',
+    :meta='response.playlist.description')
 
-			ol.list
-				ma-list(
-					v-for='(playlist, index) in data.playlist.tracks.items',
+  .view-content(v-if='response.playlist')
+    // tracks
+    ma-section
+
+      ol.list
+        ma-list(
+					v-for='(playlist, index) in response.playlist.tracks.items',
 					:key='playlist.track.id',
 					:trackId='playlist.track.id',
 					:type='playlist.track.type',
@@ -24,86 +33,48 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
-
 export default {
 
   data: () => ({
-    data: {
-      playlist: [],
-    },
+    response: {},
   }),
 
-  created() {
-    // fetch the data when the view is created and the data is
-    // already being observed
-    this.fetchData();
-  },
-
-  methods: {
-    ...mapMutations('app', {
-      setStage: 'SET_STAGE',
-    }),
-
-    fetchData() {
-      const self = this;
-      self.$startLoading('data');
-
-      self.axios.all([
-        self.getSinglePlaylist(),
-      ]).then((res) => {
-        const playlist = res[0].data,
-          { tracks } = playlist,
-          trackCount = tracks.total,
-          followerCount = playlist.followers.total,
-          stageImage = playlist.images[0].url;
-
-        self.data.playlist = playlist;
-        // init stage
-        self.setStage({
-          image: stageImage,
-          subtitle: self.$tc('playlist', 1),
-          title: playlist.name,
-          profile: playlist.owner,
-          meta: playlist.description,
-          buttons: {
-            playall: true,
-            save: true,
-          },
-          info: [{
-            value: trackCount,
-            subtitle: self.$tc('track', trackCount === 1 ? 1 : 0),
-          },
-          {
-            value: followerCount.toLocaleString(),
-            subtitle: self.$tc('follower', followerCount === 1 ? 1 : 0),
-          },
-          ],
-        });
-        self.$endLoading('data');
-      });
-    },
-
-    // get playlist from the api
-    getSinglePlaylist() {
+  computed: {
+    // get data to fetch from api
+    dataToFetch() {
       const self = this,
-        { market } = self,
+        api = self.$api,
         { owner, id } = self.$route.params;
 
-      return self.$spotifyApi({
-        method: 'get',
-        url: `/users/${owner}/playlists/${id}`,
-        params: {
-          market,
-        },
-      });
+      return {
+        playlist: () => api.getPlaylist(owner, id),
+      };
     },
-  },
 
-  computed: {
-    ...mapGetters('user', {
-      market: 'getMarket',
-    }),
+    // get stage info
+    getInfo() {
+      const self = this,
+        { playlist } = self.response,
+        trackCount = playlist.tracks.total,
+        followerCount = playlist.followers.total;
+
+      return [{
+        value: trackCount,
+        subtitle: self.$tc('track', trackCount === 1 ? 1 : 0),
+      },
+      {
+        value: followerCount.toLocaleString(),
+        subtitle: self.$tc('follower', followerCount === 1 ? 1 : 0),
+      }];
+    },
+
+    // get stage buttons
+    getButtons() {
+      return {
+        playall: true,
+        save: true,
+      };
+    },
   },
 
 };

@@ -1,11 +1,12 @@
 <template lang='pug'>
-.view-content(v-if='!$isLoading("data")')
+.view-content
+
 	// new releases
 	ma-section(:title='$t("newreleases")')
 
 		.section-items-container
 			ma-item(
-        v-for='(album, index) in $parent.data.releases.albums.items',
+        v-for='album in parentData.releases.albums.items',
         :key='album.id',
         :type='album.type',
         :primaryid='album.id',
@@ -13,3 +14,16 @@
         :title='album.name',
         :artists='album.artists')
 </template>
+
+<script>
+export default {
+
+  props: {
+    parentData: {
+      type: Object,
+      required: true,
+    },
+  },
+
+};
+</script>

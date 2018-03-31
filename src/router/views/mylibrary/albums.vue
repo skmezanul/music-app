@@ -1,15 +1,22 @@
 <template lang='pug'>
-.view-parent
-  // stage
-  ma-stage(v-show='!$isLoading("data")')
+api-request.view-parent(:resource='dataToFetch', v-model='response')
 
-  .view-content(v-if='!$isLoading("data")')
+  // stage
+  ma-stage(
+    v-if='response.albums',
+    :image='response.albums.items[0].album.images',
+    :subtitle='$t("library")',
+    :title='$tc("album", 0)',
+    :info='getInfo',
+    :buttons='getButtons')
+
+  .view-content(v-if='response.albums')
     // albums
     ma-section
 
       .section-items-container
         ma-item(
-          v-for='(item, index) in data.albums',
+          v-for='item in response.albums.items',
           :key='item.album.id',
           :type='item.album.type',
           :primaryid='item.album.id',
@@ -19,76 +26,41 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
-
 export default {
 
   data: () => ({
-    data: {
-      albums: [],
-    },
+    response: {},
   }),
 
-  created() {
-    // fetch the data when the view is created and the data is
-    // already being observed
-    this.fetchData();
-  },
-
-  methods: {
-    ...mapMutations('app', {
-      setStage: 'SET_STAGE',
-    }),
-
-    fetchData() {
-      const self = this;
-      self.$startLoading('data');
-
-      self.axios.all([
-        self.getSavedAlbums(),
-      ]).then((res) => {
-        const albums = res[0].data.items,
-          albumCount = albums.length,
-          stageImage = albums[0].album.images[0].url;
-
-        self.data.albums = albums;
-        // init stage
-        self.setStage({
-          image: stageImage,
-          subtitle: self.$t('library'),
-          title: self.$tc('album', 0),
-          buttons: {
-            playall: true,
-          },
-          info: [{
-            value: albumCount,
-            subtitle: self.$tc('album', albumCount === 1 ? 1 : 0),
-          },
-          ],
-        });
-        self.$endLoading('data');
-      });
-    },
-
-    // get this user's saved tracks from the api
-    getSavedAlbums() {
-      const self = this,
-        { market } = self;
-
-      return self.$spotifyApi({
-        method: 'get',
-        url: '/me/albums',
-        params: {
-          market,
-        },
-      });
-    },
-  },
-
   computed: {
-    ...mapGetters('user', {
-      market: 'getMarket',
-    }),
+    // get data to fetch from api
+    dataToFetch() {
+      const self = this,
+        api = self.$api;
+
+      return {
+        albums: () => api.getMySaved('albums'),
+      };
+    },
+
+    // get stage info
+    getInfo() {
+      const self = this,
+        { albums } = self.response,
+        albumCount = albums.items.length;
+
+      return [{
+        value: albumCount,
+        subtitle: self.$tc('album', albumCount === 1 ? 1 : 0),
+      }];
+    },
+
+    // get stage buttons
+    getButtons() {
+      return {
+        playall: true,
+      };
+    },
   },
 
 };

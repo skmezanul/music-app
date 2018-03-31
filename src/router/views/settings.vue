@@ -1,15 +1,17 @@
 <template lang='pug'>
 .view-parent
+
 	// stage
-	ma-stage
+	ma-stage(:title='$t("settings")')
 
 	.view-content
 		ma-section(:title='$t("accentcolor")')
 			.color-picker
 				.color(
-					v-for='color in accentColors',
-					:style='{ "background-color" : color.hex }',
-					@click='setColor(color.hex)',
+					v-for='color in settings.accentColors',
+          :class='{ "active" : accentColor.current === color.hex }',
+					:style='{ backgroundColor : color.hex }',
+					@click='accentColor = color.hex',
 					v-tooltip='{ content: $t(color.name), offset: 5 }')
 </template>
 
@@ -21,45 +23,25 @@ import {
 
 export default {
 
-  data: () => ({
-    accentColors: [{
-      name: 'red',
-      hex: '#f3376f',
-    },
-    {
-      name: 'orange',
-      hex: '#e89700',
-    },
-    {
-      name: 'cyan',
-      hex: '#00e6e6',
-    },
-    {
-      name: 'green',
-      hex: '#1DB954',
-    },
-    ],
-  }),
-
-  created() {
-    this.setStage({ title: this.$t('settings') });
-  },
-
   methods: {
     ...mapMutations('app', {
       setAppSettings: 'SET_APP_SETTINGS',
-      setStage: 'SET_STAGE',
     }),
-
-    setColor(value) {
-      this.setAppSettings({ accentColor: value });
-    },
   },
 
   computed: {
     ...mapGetters('app', {
       settings: 'getAppSettings',
     }),
+
+    accentColor: {
+      get() {
+        return this.settings.currentAccentColor;
+      },
+      set(value) {
+        this.setAppSettings({ currentAccentColor: value });
+      },
+    },
   },
 
 };
@@ -74,8 +56,14 @@ export default {
         size: 100% 70px;
         border-radius: 5px;
         transition: transform 0.3s;
+        border: 3px solid;
+        border-color: transparent;
         &:hover {
             transform: scale(1.1);
+        }
+
+        &.active {
+          border-color: $white;
         }
     }
 }

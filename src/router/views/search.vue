@@ -1,18 +1,23 @@
 <template lang='pug'>
-.view-parent
-	// stage
-	ma-stage(v-show='!$isLoading("data")')
+api-request.view-parent(:resource='dataToFetch', v-model='response')
 
-	.view-content(v-if='!$isLoading("data")')
+	// stage
+	ma-stage(
+    v-if='response.results',
+    :image='response.results.tracks.items[0].album.images',
+    :subtitle='$tc("search", 1)',
+    :title='`${self.$t("resultsfor")} "${self.$route.params.query}"`')
+
+	.view-content
 		// tracks
 		ma-section(
-      v-if='data.results.tracks.items',
-      :title='`${$tc("track", 0)} (${data.results.tracks.items.length})`',
+      v-if='response.results.tracks.items',
+      :title='`${$tc("track", 0)} (${response.results.tracks.items.length})`',
       :collapsible='true')
 
 			ol.list
 				ma-list(
-          v-for='(track, index) in data.results.tracks.items',
+          v-for='(track, index) in response.results.tracks.items',
           :key='track.id',
           :trackId='track.id',
           :type='track.type',
@@ -27,13 +32,13 @@
 
 		// albums
 		ma-section(
-      v-if='data.results.albums.items',
-      :title='`${$tc("album", 0)} (${data.results.albums.items.length})`',
+      v-if='response.results.albums.items',
+      :title='`${$tc("album", 0)} (${response.results.albums.items.length})`',
       :collapsible='true')
 
 			.section-items-container
 				ma-item(
-          v-for='(album, index) in data.results.albums.items',
+          v-for='album in response.results.albums.items',
           :key='album.id',
           :type='album.type',
           :primaryid='album.id',
@@ -44,13 +49,13 @@
 
 		// artists
 		ma-section(
-      v-if='data.results.artists.items',
-      :title='`${$tc("artist", 0)} (${data.results.artists.items.length})`',
+      v-if='response.results.artists.items',
+      :title='`${$tc("artist", 0)} (${response.results.artists.items.length})`',
       :collapsible='true')
 
 			.section-items-container
 				ma-item(
-          v-for='(artist, index) in data.results.artists.items',
+          v-for='artist in response.results.artists.items',
           :key='artist.id',
           :type='artist.type',
           :title='artist.name',
@@ -58,79 +63,25 @@
           :primaryid='artist.id')
 </template>
 
-<script>
-import { mapGetters, mapMutations } from 'vuex';
 
+<script>
 export default {
 
   data: () => ({
-    data: {
-      results: [],
-    },
+    response: {},
   }),
 
-  created() {
-    // fetch the data when the view is created and the data is
-    // already being observed
-    this.fetchData();
-  },
-
-  watch: {
-    // get results when query changes
-    '$route.params.query': function getResults() {
-      this.getResults();
-    },
-  },
-
-  methods: {
-    ...mapMutations('app', {
-      setStage: 'SET_STAGE',
-    }),
-
-    fetchData() {
-      const self = this;
-      self.$startLoading('data');
-
-      self.axios.all([
-        self.getResults(),
-      ]).then((res) => {
-        const results = res[0].data,
-          stageImage = results.tracks.items[0].album.images[0].url;
-
-        self.data.results = results;
-        // init stage
-        self.setStage({
-          subtitle: self.$tc('search', 1),
-          title: `${self.$t('resultsfor')} '${self.$route.params.query}'`,
-          image: stageImage,
-        });
-        self.$endLoading('data');
-      });
-    },
-
-    // get search results from the api
-    getResults() {
-      const self = this,
-        { market } = self,
-        q = self.$route.params.query;
-
-      return self.$spotifyApi({
-        method: 'get',
-        url: '/search',
-        params: {
-          type: 'album,artist,track',
-          market,
-          limit: 12,
-          q,
-        },
-      });
-    },
-  },
-
   computed: {
-    ...mapGetters('user', {
-      market: 'getMarket',
-    }),
+    // get data to fetch from api
+    dataToFetch() {
+      const self = this,
+        api = self.$api,
+        { query } = self.$route.params;
+
+      return {
+        results: () => api.getSearchResults('album,artist,track', query),
+      };
+    },
   },
 
 };

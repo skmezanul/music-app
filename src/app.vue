@@ -1,30 +1,23 @@
 <template lang='pug'>
-#app(:style='{ "--accent-color" : settings.accentColor, "--sidebar-margin" : `${settings.fixedSidebar ? 350 : 100}px` }')
+#app(:style='{ "--accent-color" : settings.currentAccentColor, "--sidebar-margin" : `${settings.fixedSidebar ? 350 : 100}px` }')
 
   // navigation
   ma-sidebar(v-if='!$mq.phone')
 
-  transition(name='fade', appear)
-    main.main-container.sidebar-margin
-      // notices
-      transition-group(name='slide-down-transform')
-        ma-notice(
-          v-for='(notice, index) in notices',
-          :key='index',
-          :type='notice.type',
-          :message='notice.message')
+  main.main-container.sidebar-margin
+    // notices
+    transition-group(name='slide-down-transform')
+      ma-notice(
+        v-for='(notice, index) in notices',
+        :key='index',
+        :type='notice.type',
+        :message='notice.message')
 
-      // header
-      ma-header
+    // header
+    ma-header
 
-      // preloader
-      transition(name='fade')
-        ma-loading(v-if='$isLoading("data")')
-          ma-loader(slot='spinner')
-
-      // router view
-      transition(name='fade', mode='out-in')
-        router-view(:key='$route.path')
+    // router view
+    router-view(:key='$route.params.id')
 
   // footer
   transition(name='fade')
@@ -36,7 +29,7 @@
   // music video
   ma-video
 
-  ma-device-splash
+  // ma-device-splash
 </template>
 
 <script>

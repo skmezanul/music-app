@@ -1,82 +1,68 @@
 <template lang='pug'>
-.view-parent
+api-request.view-parent(:resource='dataToFetch', v-model='response')
+
   // stage
-  ma-stage(v-show='!$isLoading("data")')
+  ma-stage(
+    v-if='response.user',
+    :image='response.user.images',
+    :subtitle='$tc("user", 1)',
+    :title='response.user.display_name',
+    :navigation='getNavigation',
+    :info='getInfo')
 
   // router view
-  router-view(v-if='!$isLoading("data")')
+  transition(name='fade', mode='out-in')
+    keep-alive
+      router-view(:parent-data='response')
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-
 export default {
 
   data: () => ({
-    data: {
-      user: [],
-    },
+    response: {},
   }),
 
-  created() {
-    // fetch the data when the view is created and the data is
-    // already being observed
-    this.fetchData();
-  },
+  computed: {
+    // get data to fetch from api
+    dataToFetch() {
+      const self = this,
+        api = self.$api,
+        { id } = self.$route.params;
 
-  methods: {
-    ...mapMutations('app', {
-      setStage: 'SET_STAGE',
-    }),
-
-    fetchData() {
-      const self = this;
-      self.$startLoading('data');
-
-      self.axios.all([
-        self.getUser(),
-      ]).then((res) => {
-        const user = res[0].data,
-          followerCount = user.followers.total,
-          stageImage = user.images[0].url;
-
-        self.data.user = user;
-        // init stage
-        self.setStage({
-          image: stageImage,
-          subtitle: self.$tc('user', 1),
-          title: user.display_name,
-          navigation: [{
-            title: self.$t('overview'),
-            routeName: 'user',
-          },
-          {
-            title: self.$tc('playlist', 0),
-            routeName: 'userPlaylists',
-          },
-          {
-            title: `${self.$t('following')}`,
-            routeName: 'userFollowing',
-          },
-          ],
-          info: [{
-            value: followerCount.toLocaleString(),
-            subtitle: self.$tc('follower', followerCount === 1 ? 1 : 0),
-          },
-          ],
-        });
-        self.$endLoading('data');
-      });
+      return {
+        user: () => api.getUser(id),
+      };
     },
 
-    // get user from the api
-    getUser() {
+    // get stage navigation
+    getNavigation() {
       const self = this;
 
-      return self.$spotifyApi({
-        method: 'get',
-        url: `/users/${self.$route.params.id}`,
-      });
+      return [{
+        title: self.$t('overview'),
+        routeName: 'user',
+      },
+      {
+        title: self.$tc('playlist', 0),
+        routeName: 'userPlaylists',
+      },
+      {
+        title: `${self.$t('following')}`,
+        routeName: 'userFollowing',
+      }];
+    },
+
+    // get stage info
+    getInfo() {
+      const self = this,
+        { user } = self.response,
+        followerCount = user.followers.total;
+
+      return [{
+        value: followerCount.toLocaleString(),
+        subtitle: self.$tc('follower', followerCount === 1 ? 1 : 0),
+      }];
     },
   },
 

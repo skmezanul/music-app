@@ -1,5 +1,6 @@
 <template lang='pug'>
-.view-content(v-if='!$isLoading("data")')
+.view-content
+
 	// discover
 	ma-section(:title='$t("discover")')
 </template>

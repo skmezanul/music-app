@@ -1,104 +1,71 @@
 <template lang='pug'>
-.view-parent
-	// stage
-	ma-stage(v-show='!$isLoading("data")')
+api-request.view-parent(:resource='dataToFetch', v-model='response')
 
-	.view-content(v-if='!$isLoading("data")')
-		// categories
-		ma-section
+  // stage
+  ma-stage(
+    v-if='response.categoryInfo',
+    :subtitle='$tc("category", 1)',
+    :title='response.categoryInfo.name')
 
-			.section-items-container
-				ma-item(
-					v-for='(playlist, index) in data.playlists',
-					:key='playlist.id',
-					:type='playlist.type',
-					:primaryid='playlist.id',
-					:secondaryid='playlist.owner.id',
-					:image='playlist.images',
-					:title='playlist.name')
+  .view-content(v-if='response.category')
+    // tracks
+    ma-section
+
+      .section-items-container
+        ma-item(
+          v-for='playlist in response.category.playlists.items',
+          :key='playlist.id',
+          :type='playlist.type',
+          :primaryid='playlist.id',
+          :secondaryid='playlist.owner.id',
+          :image='playlist.images',
+          :title='playlist.name')
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
-
 export default {
 
   data: () => ({
-    data: {
-      category: [],
-      playlists: [],
-    },
+    response: {},
   }),
 
-  created() {
-    // fetch the data when the view is created and the data is
-    // already being observed
-    this.fetchData();
-  },
-
-  methods: {
-    ...mapMutations('app', {
-      setStage: 'SET_STAGE',
-    }),
-
-    fetchData() {
-      const self = this;
-      self.$startLoading('data');
-
-      self.axios.all([
-        self.getCategoryInfo(),
-        self.getCategoriesPlaylists(),
-      ]).then((res) => {
-        const category = res[0].data,
-          playlists = res[1].data.playlists.items;
-
-        self.data.category = category;
-        self.data.playlists = playlists;
-        // init stage
-        self.setStage({
-          subtitle: self.$tc('category', 1),
-          title: category.name,
-        });
-        self.$endLoading('data');
-      });
-    },
-
-    // get category info from the api
-    getCategoryInfo() {
-      const self = this,
-        { locale, country } = self;
-
-      return self.$spotifyApi({
-        method: 'get',
-        url: `/browse/categories/${self.$route.params.id}`,
-        params: {
-          locale,
-          country,
-        },
-      });
-    },
-
-    // get categories playlists from the api
-    getCategoriesPlaylists() {
-      const self = this,
-        { locale, country } = self;
-
-      return self.$spotifyApi({
-        method: 'get',
-        url: `/browse/categories/${self.$route.params.id}/playlists`,
-        params: {
-          locale,
-          country,
-        },
-      });
-    },
-  },
-
   computed: {
-    ...mapGetters('user', {
-      country: 'getCountry',
-      locale: 'getLocale',
-    }),
+    // get data to fetch from api
+    dataToFetch() {
+      const self = this,
+        api = self.$api,
+        { id } = self.$route.params;
+
+      return {
+        categoryInfo: () => api.getCategoryInfo(id),
+        category: () => api.getCategoryPlaylists(id),
+      };
+    },
+
+    // get stage info
+    getInfo() {
+      const self = this,
+        { album } = self.response,
+        trackCount = album.tracks.total,
+        releaseDate = new Date(album.release_date);
+
+      return [{
+        value: releaseDate.toLocaleDateString(),
+        subtitle: self.$t('released'),
+      },
+      {
+        value: trackCount,
+        subtitle: self.$tc('track', trackCount === 1 ? 1 : 0),
+      }];
+    },
+
+    // get stage buttons
+    getButtons() {
+      return {
+        playall: true,
+        save: true,
+      };
+    },
   },
 
 };

@@ -37,33 +37,6 @@ const mutations = {
   },
 
   /**
-  * Push stage content to state.
-  * @param { object } payload The function payload.
-  * @param { string } payload.image Background or cover image url.
-  * @param { string } payload.title Stage title.
-  * @param { string } payload.subtitle Stage subtitle.
-  * @param { object } payload.profile Artist or user data for single album or playlist page.
-  * @param { string } payload.meta Stage meta text.
-  * @param { number } payload.popularity Artist popularity.
-  * @param { object } payload.buttons Buttons to show.
-  * @param { array } payload.info Stage info items.
-  * @param { array } payload.navigation Stage navigation items.
-  */
-  SET_STAGE(state, payload) {
-    const self = state;
-
-    // clear the stage
-    self.stage = {};
-
-    if (payload) {
-      // push new stage content to state
-      Object.keys(payload).forEach((key) => {
-        self.stage[key] = payload[key];
-      });
-    }
-  },
-
-  /**
   * Set the app's init state.
   * @param { boolean } initialized Is the app initialized.
   */

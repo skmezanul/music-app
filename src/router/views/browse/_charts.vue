@@ -1,11 +1,12 @@
 <template lang='pug'>
-.view-content(v-if='!$isLoading("data")')
+.view-content
+
 	// charts
 	ma-section(:title='$t("charts")')
 
 		ol.list
 			ma-list(
-				v-for='(item, index) in $parent.data.charts',
+				v-for='(item, index) in parentData.charts.tracks.items',
 				:key='item.track.id',
 				:type='item.track.type',
 				:image='item.track.album.images',
@@ -18,3 +19,16 @@
 				:duration='item.track.duration_ms',
 				:index='index')
 </template>
+
+<script>
+export default {
+
+  props: {
+    parentData: {
+      type: Object,
+      required: true,
+    },
+  },
+
+};
+</script>

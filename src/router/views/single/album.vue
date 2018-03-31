@@ -1,15 +1,22 @@
 <template lang='pug'>
-.view-parent
-	// stage
-	ma-stage(v-show='!$isLoading("data")')
+api-request.view-parent(:resource='dataToFetch', v-model='response')
 
-	.view-content(v-if='!$isLoading("data")')
-		// tracks
-		ma-section(:copyright='data.album.copyrights[0].text')
+  // stage
+  ma-stage(
+    v-if='response.album',
+    :image='response.album.images',
+    :subtitle='response.album.album_type',
+    :title='response.album.name',
+    :info='getInfo',
+    :buttons='getButtons')
 
-			ol.list
-				ma-list(
-          v-for='(track, index) in data.album.tracks.items',
+  .view-content(v-if='response.album')
+    // tracks
+    ma-section(:copyright='response.album.copyrights[0].text')
+
+      ol.list
+        ma-list(
+          v-for='(track, index) in response.album.tracks.items',
           :key='track.id',
           :type='track.type',
           :title='track.name',
@@ -21,84 +28,48 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
-
 export default {
 
   data: () => ({
-    data: {
-      album: [],
-    },
+    response: {},
   }),
 
-  created() {
-    // fetch the data when the view is created and the data is
-    // already being observed
-    this.fetchData();
-  },
-
-  methods: {
-    ...mapMutations('app', {
-      setStage: 'SET_STAGE',
-    }),
-
-    fetchData() {
-      const self = this;
-      self.$startLoading('data');
-
-      self.axios.all([
-        self.getSingleAlbum(),
-      ]).then((res) => {
-        const album = res[0].data,
-          { tracks } = album,
-          trackCount = tracks.total,
-          releaseDate = new Date(album.release_date),
-          stageImage = album.images[0].url;
-
-        self.data.album = album;
-        // init stage
-        self.setStage({
-          image: stageImage,
-          subtitle: album.album_type,
-          title: album.name,
-          profile: album.artists[0],
-          buttons: {
-            playall: true,
-            save: true,
-          },
-          info: [{
-            value: releaseDate.toLocaleDateString(),
-            subtitle: self.$t('released'),
-          },
-          {
-            value: trackCount,
-            subtitle: self.$tc('track', trackCount === 1 ? 1 : 0),
-          },
-          ],
-        });
-        self.$endLoading('data');
-      });
-    },
-
-    // get album from the api
-    getSingleAlbum() {
-      const self = this,
-        { market } = self;
-
-      return self.$spotifyApi({
-        method: 'get',
-        url: `/albums/${self.$route.params.id}`,
-        params: {
-          market,
-        },
-      });
-    },
-  },
-
   computed: {
-    ...mapGetters('user', {
-      market: 'getMarket',
-    }),
+    // get data to fetch from api
+    dataToFetch() {
+      const self = this,
+        api = self.$api,
+        { id } = self.$route.params;
+
+      return {
+        album: () => api.getAlbum(id),
+      };
+    },
+
+    // get stage info
+    getInfo() {
+      const self = this,
+        { album } = self.response,
+        trackCount = album.tracks.total,
+        releaseDate = new Date(album.release_date);
+
+      return [{
+        value: releaseDate.toLocaleDateString(),
+        subtitle: self.$t('released'),
+      },
+      {
+        value: trackCount,
+        subtitle: self.$tc('track', trackCount === 1 ? 1 : 0),
+      }];
+    },
+
+    // get stage buttons
+    getButtons() {
+      return {
+        playall: true,
+        save: true,
+      };
+    },
   },
 
 };
