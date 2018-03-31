@@ -8,44 +8,42 @@ const actions = {
   LOGIN_USER({ state }) {
     const { protocol, host } = window.location;
 
-    Vue.prototype.$backendApi({
-      method: 'get',
-      url: `/getAuthURL?redirectURI=${protocol}//${host}/login`,
-    }).then((res) => {
+    Vue.prototype.$api.getAuthURL(protocol, host).then((res) => {
       if (!state.accessToken) window.location.href = res.data.url;
     });
   },
 
   /**
-  * Call the backend api and save returned credentials to state.
+  * Call the backend api and get an access token.
   * @param { object } payload The function payload.
   * @param { string } payload.code The code returned from spotify login page.
-  * @param { string } [ payload.action = 'get', 'refresh' ] Get the token or refresh it.
   */
-  GET_TOKEN({ commit, getters }, payload) {
-    const refreshToken = getters.getRefreshToken,
-      { code, action } = payload;
-    let url;
+  GET_TOKEN({ commit }, payload) {
+    const { code } = payload;
 
-    switch (action) {
-      case 'refresh':
-        // Refresh an expired token by calling /refreshToken
-        url = `/refreshToken?token=${refreshToken}`;
-        break;
-      case 'get':
-      default:
-        // Exchange the code for the full credentials by calling /getToken
-        url = `/getToken?code=${code}`;
-    }
-
-    // get credentials and push them to state
-    if (code || refreshToken) {
-      Vue.prototype.$backendApi({
-        method: 'get',
-        url,
-      }).then((res) => {
+    if (code) {
+      Vue.prototype.$api.getAccessToken(code).then((res) => {
         commit('SET_CREDENTIALS', res.data);
         router.push({ name: 'browse' });
+      }).catch((err) => {
+        commit('app/SET_NOTICE', {
+          action: 'add',
+          type: 'error',
+          message: `Error: ${err}`,
+        }, { root: true });
+      });
+    }
+  },
+
+  /**
+  * Call the backend api and refresh the access token.
+  */
+  REFRESH_TOKEN({ getters, commit }) {
+    const refreshToken = getters.getRefreshToken;
+
+    if (refreshToken) {
+      Vue.prototype.$api.refreshAccessToken(refreshToken).then((res) => {
+        commit('SET_CREDENTIALS', res.data);
       }).catch((err) => {
         commit('app/SET_NOTICE', {
           action: 'add',

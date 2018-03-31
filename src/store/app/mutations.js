@@ -35,16 +35,6 @@ const mutations = {
       });
     }
   },
-
-  /**
-  * Set the app's init state.
-  * @param { boolean } initialized Is the app initialized.
-  */
-  SET_INIT(state, initialized) {
-    const self = state;
-
-    if (typeof initialized === 'boolean') self.initialized = initialized;
-  },
 };
 
 export default mutations;

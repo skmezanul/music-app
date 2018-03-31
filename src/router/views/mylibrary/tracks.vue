@@ -44,7 +44,7 @@ export default {
         api = self.$api;
 
       return {
-        tracks: () => api.getMySaved('tracks'),
+        tracks: () => api.getMyProfile('tracks'),
       };
     },
 

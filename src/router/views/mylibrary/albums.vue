@@ -39,7 +39,7 @@ export default {
         api = self.$api;
 
       return {
-        albums: () => api.getMySaved('albums'),
+        albums: () => api.getMyProfile('albums'),
       };
     },
 

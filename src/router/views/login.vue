@@ -22,12 +22,7 @@ export default {
         { code } = self.$route.query,
         isToken = /^[AQ]{2}/.test(code);
 
-      if (isToken && code) {
-        self.getToken({
-          action: 'get',
-          code,
-        });
-      }
+      if (isToken) self.getToken({ code });
     },
   },
 

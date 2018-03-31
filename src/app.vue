@@ -1,5 +1,5 @@
 <template lang='pug'>
-#app(:style='{ "--accent-color" : settings.currentAccentColor, "--sidebar-margin" : `${settings.fixedSidebar ? 350 : 100}px` }')
+#app(:style='getAppStyles')
 
   // navigation
   ma-sidebar(v-if='!$mq.phone')
@@ -28,8 +28,6 @@
 
   // music video
   ma-video
-
-  // ma-device-splash
 </template>
 
 <script>
@@ -62,8 +60,17 @@ export default {
     ...mapGetters('app', {
       notices: 'getNotices',
       settings: 'getAppSettings',
-      initialized: 'getInitState',
     }),
+
+    getAppStyles() {
+      const self = this,
+        { settings } = self;
+
+      return {
+        '--accent-color': settings.currentAccentColor,
+        '--sidebar-margin': `${settings.fixedSidebar ? 350 : 100}px`,
+      };
+    },
   },
 
   components: {

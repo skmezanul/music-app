@@ -1,33 +1,23 @@
 import store from '@/store';
 import spotify from '../../providers/spotify/';
 
-let inExecution = false;
-
 // spotify api response interceptor
 spotify.interceptors.response.use(res => res, (err) => {
-  if (!inExecution) {
-    inExecution = true;
+  const { message, status } = err.response.data.error;
 
-    const { config } = err,
-      { message, status } = err.response.data.error;
-
-    if (status === 401 && message === 'The access token expired') {
-      store.dispatch('auth/GET_TOKEN', {
-        action: 'refresh',
-      }).then(() => {
-        spotify(config).then(() => {
-          inExecution = false;
-        });
-      });
-    }
-
-    // commit notice to vuex store
-    if (store.state.notices.length <= 3) {
-      store.commit('app/SET_NOTICE', {
-        action: 'add',
-        type: 'error',
-        message: `Error: ${err.message}.`,
-      });
+  // if unauthenticated
+  if (status === 401) {
+    if (message === 'The access token expired') {
+      store.dispatch('auth/REFRESH_TOKEN');
+    } else {
+      store.dispatch('auth/LOGIN_USER');
     }
   }
+
+  // commit errors to store
+  store.commit('app/SET_NOTICE', {
+    action: 'add',
+    type: 'error',
+    message: `Error: ${err.message}.`,
+  });
 });

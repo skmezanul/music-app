@@ -4,7 +4,6 @@ import mutations from './mutations';
 const app = {
   namespaced: true,
   state: {
-    initialized: false,
     notices: [],
     settings: {
       currentAccentColor: '#f3376f',
