@@ -19,7 +19,7 @@
 
                     <!-- description -->
                     <div class="c-connectMenu__itemDescription">
-                        <p class="c-connectMenu__itemTitle">{{ $t("listeningOn") }}</p>
+                        <p class="c-connectMenu__itemTitle">{{ $t('listeningOn') }}</p>
                         <p class="c-connectMenu__itemSubtitle">{{ currentPlayback.device.name }}</p>
                     </div>
 
@@ -42,7 +42,7 @@
                     </div>
 
                     <!-- arrow -->
-                    <ma-icon class="c-connectMenu__arrow">arrow_back</ma-icon>
+                    <ma-icon class="c-connectMenu__itemArrow">arrow_back</ma-icon>
 
                 </div>
 

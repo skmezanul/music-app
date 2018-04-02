@@ -10,7 +10,7 @@
         <transition-group name="slide-down-transform">
 
             <ma-notice
-            v-for="(notice, index) in notices" 
+            v-for="(notice, index) in notices"
             :key="index"
             :type="notice.type"
             :message="notice.message"
@@ -36,6 +36,8 @@
 
     <!-- music video -->
     <ma-video></ma-video>
+
+    <ma-device-splash></ma-device-splash>
 </div>
 </template>
 
