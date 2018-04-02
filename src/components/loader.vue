@@ -1,7 +1,26 @@
-<template lang='pug'>
-.loader-container.sidebar-margin
-  transition-group.loader-inner(tag='div', @enter='startLoadingAnimation', :css='false', appear)
-    span.wave-item(v-for='(n, index) in 6', :style='{ left: `${20 * index}px` }', :key='index', ref='loaderElement')
+<template>
+  <div class="c-loader u-sidebarMargin">
+
+      <transition-group
+      class="c-loader__inner"
+      tag="div"
+      @enter="startLoadingAnimation"
+      :css="false"
+      appear="appear"
+      >
+
+      <!-- animated waves -->
+      <span
+      class="c-loader__wave"
+      v-for="(n, index) in 6"
+      :style="{ left: `${20 * index}px` }"
+      :key="index"
+      ref="loaderElement"
+      ></span>
+
+    </transition-group>
+
+  </div>
 </template>
 
 <script>
@@ -26,21 +45,3 @@ export default {
 
 };
 </script>
-
-<style lang='scss'>
-.loader-container {
-    @include fixed($all: 0, $index: 997);
-    @include flex($display: flex, $justify: center, $align: center)
-    background-color: $main-bg-color;
-    .loader-inner {
-        @include relative;
-        width: 100px;
-        .wave-item {
-            @include absolute($bottom: 0);
-            size: 5px;
-            border-radius: 5px;
-            background-color: var(--accent-color);
-        }
-    }
-}
-</style>

@@ -1,49 +1,117 @@
-<template lang='pug'>
-.sidebar-container(
-	:class='{ "is-open" : isPanelOpen && !settings.fixedSidebar, "is-fixed" : settings.fixedSidebar }',
-	v-on-clickaway='closePanel')
-	aside.sidebar-inner
+<template>
+<aside class="c-sidebar" v-on-clickaway="closePanel">
+    <div class="c-sidebar__inner">
 
-		// primary navigation
-		ul.panel-select
-			li.panel-select-item(
-				v-for='(item, index) in panels',
-				:key='index',
-				:class='[ item.name, { "active" : index === activePanel && isPanelOpen } ]',
-				@click='togglePanel(index)')
-				ma-icon.panel-select-icon(:hover='true', v-if='item.icon', :class='{ "active" : index === activePanel && isPanelOpen }') {{ item.icon }}
-				// user avatar
-				.avatar-container(v-else)
-					img.avatar-image(
-						v-if='currentUser',
-						:src='currentUser.images[0].url',
-						:alt='currentUser.display_name')
+        <!-- primary navigation -->
+        <ul class="c-sidebar__panelSelect">
 
-	// sidebar panel
-	transition(name='slide-right-transform')
-		main.sidebar-panel(v-if='isPanelOpen')
+            <li
+            class="c-sidebar__selectItem"
+            v-for="(item, index) in panels"
+            :key="index"
+            :class="[`c-sidebar__selectItem--${item.name}`, { 'is-active' : index === activePanel && isPanelOpen }]"
+            @click="togglePanel(index)"
+            >
 
-			// fixed sidebar toggle
-			ma-icon.toggle-fixed-sidebar(:hover='true', @click.native='toggleFixedSidebar') {{ settings.fixedSidebar ? 'lock' : 'lock_open' }}
+                <!-- icon -->
+                <ma-icon
+                class="c-sidebar__selectItemIcon"
+                :hover="true"
+                v-if="item.icon"
+                >
 
-			transition(name='fade', mode='out-in')
-				// panel content
-				.panel-inner(
-					v-for='(panel, index) in panels',
-					v-if='activePanel === index',
-					:key='index',
-					ref='panelInner')
-					component(:is='panel.component', :key='index', @close-panel='closePanel')
-			// expanded album cover
-			transition(name='slide-up-margin')
-				router-link.cover-container(
-					tag='div',
-					:to='{ name: "artist", params: { id: currentPlayback.item.artists[0].id }}',
-					v-if='settings.largeCover')
-						ma-button(type='overlay', @click.prevent.native='setAppSettings({ largeCover: false })', icon='close')
-						img.cover-image(
-							:src='currentPlayback.item.album.images[0].url',
-							:alt='currentPlayback.item.name')
+                {{ item.icon }}
+
+                </ma-icon>
+
+                <!-- user avatar -->
+                <div class="c-sidebar__selectItemAvatar" v-else>
+
+                  <img
+                  class="c-sidebar__selectItemAvatarImage"
+                  v-if="currentUser"
+                  :src="currentUser.images[0].url"
+                  :alt="currentUser.display_name"
+                  />
+
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <!-- sidebar panel -->
+    <transition name="slide-right-transform">
+        <div
+        class="c-sidebarPanel" 
+        v-if="isPanelOpen"
+        :class="{ 'is-fixed' : settings.fixedSidebar }"
+        >
+
+            <!-- fixed sidebar toggle -->
+            <ma-icon
+            class="c-sidebarPanel__fixedToggle"
+            :hover="true"
+            @click.native="toggleFixedSidebar"
+            >
+
+            {{ settings.fixedSidebar ? 'lock' : 'lock_open' }}
+
+            </ma-icon>
+
+            <transition name="fade" mode="out-in">
+
+                <!-- panel content -->
+                <div
+                class="c-sidebarPanel__inner"
+                v-for="(panel, index) in panels"
+                v-if="activePanel === index"
+                :key="index"
+                ref="panelInner"
+                >
+
+                    <!-- component -->
+                    <component
+                    :is="panel.component"
+                    :key="index"
+                    @close-panel="closePanel"
+                    ></component>
+
+                </div>
+
+            </transition>
+
+            <!-- expanded album cover -->
+            <transition name="slide-up-margin">
+
+                <router-link
+                class="c-sidebarPanel__cover"
+                tag="div"
+                :to="{ name: 'artist', params: { id: currentPlayback.item.artists[0].id }}"
+                v-if="settings.largeCover"
+                >
+
+                    <!-- large cover close button -->
+                    <ma-button
+                    type="overlay"
+                    @click.prevent.native="setAppSettings({ largeCover: false })"
+                    icon="close"
+                    ></ma-button>
+
+                    <!-- cover image -->
+                    <img
+                    class="c-sidebarPanel__coverImage"
+                    :src="currentPlayback.item.album.images[0].url"
+                    :alt="currentPlayback.item.name"
+                    />
+
+                </router-link>
+
+            </transition>
+        </div>
+    </transition>
+</aside>
 </template>
 
 <script>
@@ -150,103 +218,3 @@ export default {
 
 };
 </script>
-
-<style lang='scss'>
-.sidebar-container {
-    @include flex($display: flex);
-    @include fixed($top: 0, $bottom: 81px, $left: 0, $index: 999);
-		transform: translateZ(0);
-		background-color: lighten($dark-blue, 2%);
-
-    &:not(.is-fixed) {
-			background-color: transparent;
-        .sidebar-panel {
-            @include absolute($top: 0, $bottom: 0, $left: 100px, $index: 1);
-            @supports (backdrop-filter: blur(25px) saturate(250%)) {
-                backdrop-filter: blur(25px) saturate(250%);
-            }
-            background-color: rgba($dark-blue, 0.8);
-        }
-    }
-
-    .sidebar-inner {
-        @include flex($display: flex, $direction: column, $justify: space-between, $align: center);
-        @include relative($index: 2);
-        padding-top: 10em;
-        width: 100px;
-        border-right: 1px solid $border-color;
-        background-color: $dark-blue;
-        .panel-select {
-            @include flex($display: flex, $direction: column);
-            height: 100%;
-            .panel-select-item {
-                margin-bottom: 1.5em;
-                &.newplaylist {
-                    margin-top: auto;
-                }
-                &.active {
-                    .avatar-container {
-                        border-color: $white !important;
-                    }
-                    .panel-select-icon {
-                        background-color: $white;
-                        color: $black !important;
-                    }
-                }
-                &.user {
-                    @include absolute($top: 3em, $left: 50%);
-                    margin: 0;
-                    transform: translateX(-50%);
-                    &:hover {
-                        cursor: pointer;
-                    }
-                    .avatar-container {
-                        overflow: hidden;
-                        width: 55px;
-                        height: 55px;
-                        border: 3px solid;
-                        border-color: transparent;
-                        border-radius: 100%;
-                        transition: border-color 0.3s;
-                    }
-                }
-                .panel-select-icon {
-                    padding: 9px;
-                    border-radius: 100%;
-                    font-size: 1.7em;
-                }
-            }
-        }
-    }
-
-    .sidebar-panel {
-        @include flex($display: flex, $direction: column);
-        padding-top: 10em;
-        width: 250px;
-        border-right: 1px solid $border-color;
-        .toggle-fixed-sidebar {
-            @include absolute($top: 20px, $right: 20px);
-            @include font($size: 1em);
-            @include item-hover;
-        }
-        .panel-inner {
-            @include flex($display: flex, $direction: column);
-            @include relative;
-            padding: 0 1.5em;
-        }
-        .cover-container {
-            @include relative;
-            margin-top: auto;
-            border-top: 1px solid $border-color;
-            .button {
-                opacity: 0;
-            }
-            &:hover {
-                .button {
-                    opacity: 1;
-                }
-            }
-        }
-    }
-}
-</style>

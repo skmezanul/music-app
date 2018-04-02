@@ -1,12 +1,18 @@
-<template lang='pug'>
-.notice-container.sidebar-margin
-  .notice-inner
-    ma-icon.notice-icon(v-if='!$mq.phone') {{ type }}
-    // message
-    p.message {{ message }}
+<template>
+  <div class="c-notice u-sidebarMargin">
+      <div class="c-notice__inner">
 
-    // remove notice manually
-    ma-icon.close-button(:hover='true', @click.native='removeNotice({ action: "remove" })') close
+          <!-- icon -->
+          <ma-icon class="c-notice__icon">{{ type }}</ma-icon>
+
+          <!-- message -->
+          <p class="c-notice__message">{{ message }}</p>
+
+          <!-- button to remove notice -->
+          <ma-icon class="c-notice__close" :hover="true" @click.native="removeNotice({ action: 'remove' })">close</ma-icon>
+
+      </div>
+  </div>
 </template>
 
 <script>
@@ -33,32 +39,3 @@ export default {
 
 };
 </script>
-
-<style lang='scss'>
-.notice-container {
-    @include fixed($top: 0, $right: 0, $left: 0, $index: 999);
-    @include view-grid-columns;
-    display: grid;
-    height: 69px;
-    background-color: var(--accent-color);
-    grid-template-areas: ". content .";
-    .notice-inner {
-        @include flex($display: flex, $justify: space-between, $align: center);
-        @include relative;
-        overflow: hidden;
-        size: 100%;
-        grid-area: content;
-        @media (min-width: $mobile-breakpoint) {
-            padding-left: 120px;
-        }
-        .message {
-            @include font($size: 1.2em);
-            margin: 0;
-        }
-        .notice-icon {
-          @include absolute($left: 0);
-          @include font($size: 7em, $color: rgba($white, 0.2));
-        }
-    }
-}
-</style>

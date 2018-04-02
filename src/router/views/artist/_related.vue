@@ -1,12 +1,12 @@
 <template lang='pug'>
-.view-content
+.o-view__content
 
 	// related artists
 	ma-section(
     :title='`${$t("relatedto")} ${parentData.artistInfo.name}`',
     :collapsible='true')
 
-		.section-items-container
+		.c-viewSection__inner
 			ma-item(
         v-for='artist in parentData.relatedArtists.artists',
         :key='artist.id',

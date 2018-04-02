@@ -1,10 +1,10 @@
 <template lang='pug'>
-.view-content
+.o-view__content
 
 	// new releases
 	ma-section(:title='$t("newreleases")')
 
-		.section-items-container
+		.c-viewSection__inner
 			ma-item(
         v-for='album in parentData.releases.albums.items',
         :key='album.id',

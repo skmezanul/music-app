@@ -1,5 +1,5 @@
 <template lang='pug'>
-api-request.view-parent(:resource='dataToFetch', v-model='response')
+api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 
   // stage
   ma-stage(
@@ -12,11 +12,11 @@ api-request.view-parent(:resource='dataToFetch', v-model='response')
     :profile='response.playlist.owner',
     :meta='response.playlist.description')
 
-  .view-content(v-if='response.playlist')
+  .o-view__content(v-if='response.playlist')
     // tracks
     ma-section
 
-      ol.list
+      ol.c-list
         ma-list(
 					v-for='(playlist, index) in response.playlist.tracks.items',
 					:key='playlist.track.id',

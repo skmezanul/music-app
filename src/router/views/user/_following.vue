@@ -1,4 +1,4 @@
 <template lang='pug'>
-.view-content
+.o-view__content
     p Coming soon...
 </template>

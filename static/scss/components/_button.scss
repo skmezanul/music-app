@@ -1,0 +1,61 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the button component.
+// -----------------------------------------------------------------------------
+
+.c-button {
+  display: inline-flex;
+  margin-right: 1em;
+  padding: 0.8em 1.3em;
+  border: 2px solid;
+  border-color: rgba($white, 0.2);
+  border-radius: 2em;
+  background-color: $white-10;
+  text-transform: uppercase;
+  font-weight: $font-weight-bold;
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: $white;
+    color: $black;
+  }
+
+  &__icon {
+    margin-right: 5px;
+    font-size: 1em;
+    line-height: inherit;
+  }
+
+  &--transparent {
+    border: 0;
+    background-color: transparent;
+
+    &:hover {
+      background-color: inherit;
+      color: $white;
+    }
+  }
+
+  &--accent {
+    border-color: $accent-color;
+    background-color: $accent-color;
+  }
+
+  &--overlay {
+    @include item-hover;
+    position: absolute 10px 10px initial initial;
+    padding: 3px;
+    border-radius: 50%;
+    background-color: $black-50;
+  }
+
+  &--icon,
+  &--overlay {
+    margin-right: 0;
+
+    .c-button__icon {
+      margin-right: 0;
+    }
+  }
+}

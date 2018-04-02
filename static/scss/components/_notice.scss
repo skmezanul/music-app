@@ -1,0 +1,36 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the notice component.
+// -----------------------------------------------------------------------------
+
+.c-notice {
+  @include view-grid-columns;
+  position: fixed 0 0 initial 0;
+  z-index: 999;
+  display: grid;
+  height: 69px;
+  background-color: $accent-color;
+  grid-template-areas: ". content .";
+
+  &__inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    padding-left: 120px;
+    size: 100%;
+    grid-area: content;
+  }
+
+  &__message {
+    margin: 0;
+    font-size: 1.2em;
+  }
+
+  &__icon {
+    position: absolute;
+    left: 0;
+    color: $white-10;
+    font-size: 7em;
+  }
+}

@@ -1,26 +1,25 @@
 <template lang='pug'>
-api-request.view-parent(:resource='dataToFetch', v-model='response')
+api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 
 	// stage
 	ma-stage(
     v-if='response.results',
     :image='response.results.tracks.items[0].album.images',
     :subtitle='$tc("search", 1)',
-    :title='`${self.$t("resultsfor")} "${self.$route.params.query}"`')
+    :title='`${$t("resultsfor")} "${$route.params.query}"`')
 
-	.view-content
+	.o-view__content
 		// tracks
 		ma-section(
-      v-if='response.results.tracks.items',
+      v-if='response.results && response.results.tracks.items',
       :title='`${$tc("track", 0)} (${response.results.tracks.items.length})`',
       :collapsible='true')
 
-			ol.list
+			ol.c-list
 				ma-list(
           v-for='(track, index) in response.results.tracks.items',
           :key='track.id',
           :trackId='track.id',
-          :type='track.type',
           :image='track.album.images',
           :title='track.name',
           :artists='track.artists',
@@ -32,11 +31,11 @@ api-request.view-parent(:resource='dataToFetch', v-model='response')
 
 		// albums
 		ma-section(
-      v-if='response.results.albums.items',
+      v-if='response.results && response.results.albums.items',
       :title='`${$tc("album", 0)} (${response.results.albums.items.length})`',
       :collapsible='true')
 
-			.section-items-container
+			.c-viewSection__inner
 				ma-item(
           v-for='album in response.results.albums.items',
           :key='album.id',
@@ -49,11 +48,11 @@ api-request.view-parent(:resource='dataToFetch', v-model='response')
 
 		// artists
 		ma-section(
-      v-if='response.results.artists.items',
+      v-if='response.results && response.results.artists.items',
       :title='`${$tc("artist", 0)} (${response.results.artists.items.length})`',
       :collapsible='true')
 
-			.section-items-container
+			.c-viewSection__inner
 				ma-item(
           v-for='artist in response.results.artists.items',
           :key='artist.id',

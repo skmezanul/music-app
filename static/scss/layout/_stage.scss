@@ -1,0 +1,226 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the stage component.
+// -----------------------------------------------------------------------------
+
+.c-stage {
+  position: relative;
+  @include view-grid-columns;
+  display: grid;
+  overflow: hidden;
+  padding-top: 69px;
+  min-height: 350px;
+  height: 350px;
+  background-color: $accent-color;
+  transition: background-color 1s;
+  grid-area: stage;
+  grid-template-areas: ". content .";
+
+  &:after {
+    position: absolute 0;
+    z-index: 1;
+    background: ease-in-out-sine-gradient(to top, $main-bg-color, rgba($main-bg-color, 0)), radial-gradient(circle, rgba($main-bg-color, 0), $main-bg-color);
+    content: "";
+  }
+
+  &--navigation {
+    .c-stage__actions {
+      margin-bottom: 20px;
+    }
+  }
+
+  &.is-large {
+    height: 550px;
+
+    &:after {
+      background: ease-in-out-sine-gradient(to top, $main-bg-color, rgba($main-bg-color, 0));
+    }
+
+    .c-stage__backgroundImage {
+      filter: none;
+    }
+
+    .c-stage__title {
+      font-size: 5.5em;
+    }
+  }
+
+  &--cover {
+    .c-stage__container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    .c-stage__navigation {
+      flex-basis: 100%;
+    }
+  }
+
+  &--image {
+    background-color: transparent;
+  }
+
+  &__background {
+    position: absolute 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__backgroundImage {
+    filter: saturate(150%) blur(40px);
+    size: 100vw 100vh;
+    object-fit: cover;
+  }
+
+  &__container {
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    grid-area: content;
+  }
+
+  &__cover {
+    overflow: hidden;
+    margin-right: 35px;
+    max-width: 250px;
+    border-radius: 10px;
+    box-shadow: $backdrop-shadow;
+    size: 250px;
+
+    &:not(.is-small) {
+      flex: 1;
+    }
+
+    &.is-small {
+      min-width: 180px;
+      size: 180px;
+    }
+  }
+
+  &__coverImage {
+    @include lazy-fadein;
+  }
+
+  &__inner {
+    display: flex;
+    flex: 4;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  &__subtitle {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+
+  &__subtitleLink {
+    color: $white-70;
+    cursor: pointer;
+    transition: color 0.3s;
+
+    &:hover {
+      color: $white;
+    }
+  }
+
+  &__popularIcon {
+    margin-left: 5px;
+    color: $white-70;
+    font-size: 1.2em;
+  }
+
+  &__title {
+    font-size: 3.5em;
+    font-family: $secondary-font-stack;
+    line-height: 1.3em;
+    transform: translateX(-3px);
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+  }
+
+  &__info {
+    display: flex;
+    margin-left: auto;
+  }
+
+  &__infoItem {
+    margin-left: 13px;
+    padding-left: 10px;
+    text-align: right;
+
+    &:not(:first-child) {
+      border-left: 1px solid rgba($white, 0.2);
+    }
+  }
+
+  &__infoItemValue {
+    font-size: 1.2em;
+  }
+
+  &__infoItemSubtitle {
+    color: $white-50;
+    text-transform: uppercase;
+    font-size: 0.8em;
+  }
+
+  &__meta {
+    margin: 10px 0;
+    max-width: 70%;
+
+    p {
+      margin: 0;
+      color: $white-70;
+      font-size: 1.2em;
+      line-height: 1.2em;
+    }
+  }
+
+  &__navigationList {
+    display: flex;
+  }
+
+  &__navigationItem {
+    margin-right: 50px;
+    padding: 15px 0;
+  }
+
+  &__navigationItemLink {
+    color: $white-50;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: $font-weight-bold;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: color 0.5s;
+
+    &:after {
+      position: relative;
+      top: 0.7em;
+      display: block;
+      margin: 0 auto;
+      background-color: transparent;
+      content: "";
+      transition: background-color 0.3s;
+      size: 3em 1px;
+    }
+
+    &.exact-active {
+      color: $white;
+
+      &:after {
+        background-color: $accent-color;
+      }
+    }
+
+    &:not(.active):hover {
+      color: $white-70;
+    }
+  }
+}

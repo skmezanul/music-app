@@ -1,5 +1,5 @@
 <template lang='pug'>
-api-request.view-parent(:resource='dataToFetch', v-model='response')
+api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 
   // stage
   ma-stage(
@@ -7,10 +7,9 @@ api-request.view-parent(:resource='dataToFetch', v-model='response')
     :image='response.history.items[0].track.album.images',
     :subtitle='$t("library")',
     :title='$t("recentlyplayed")',
-    :navigation='getNavigation',
     :buttons='getButtons')
 
-  .view-content(v-if='response.history')
+  .o-view__content(v-if='response.history')
     // tracks
     ma-section
 

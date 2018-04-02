@@ -1,37 +1,49 @@
-<template lang='pug'>
-ma-modal(
-	name='video',
-	height='100%',
-	width='100%',
-	transition='fade',
-	:adaptive='true',
-	:clickToClose='false',
-	@mouseover.native='overlay = true',
-	@mouseleave.native='overlay = false',
-	@before-open='fetchData',
-	@opened='setPlayback({state: "pause"})',
-	@closed='setPlayback({state: "play"})')
-	transition(name='fade')
-		.overlay-container(v-show='overlay')
-			.overlay-inner
-				h1.title {{ currentPlayback.item.name }}
-				.artist-container
-					router-link.artist(
-						v-for='artist in currentPlayback.item.artists',
-						:key='artist.id',
-						@click.native='closeVideo',
-						:to='{ name: "artist", params: { id: artist.id }}') {{ artist.name }}
-			ma-button(
-				type='overlay',
-				@click.native='closeVideo',
-				icon='close')
+<template>
+<ma-modal
+name="video"
+height="100%"
+width="100%"
+transition="fade"
+:adaptive="true"
+:clickToClose="false"
+@mouseover.native="overlay = true"
+@mouseleave.native="overlay = false"
+@before-open="fetchData"
+@opened="setPlayback({ state: 'pause' })"
+@closed="setPlayback({ state: 'play' })">
 
-	iframe(
-		v-if='videoId',
-		width='100%',
-		height='100%',
-		frameborder='0',
-		:src='`https://www.youtube-nocookie.com/embed/${videoId}?${options}`')
+    <transition name="fade">
+        <div class="c-videoOverlay" v-show="overlay">
+
+            <!-- video overlay -->
+            <div class="c-videoOverlay__inner">
+
+                <!-- title -->
+                <h1 class="c-videoOverlay__title">{{ currentPlayback.item.name }}</h1>
+
+                <!-- artists -->
+                <div class="c-videoOverlay__artists">
+                    <router-link v-for="artist in currentPlayback.item.artists" :key="artist.id" @click.native="closeVideo" :to="{ name: 'artist', params: { id: artist.id }}">{{ artist.name }}</router-link>
+                </div>
+
+            </div>
+
+            <!-- close button -->
+            <ma-button type="overlay" @click.native="closeVideo" icon="close"></ma-button>
+
+        </div>
+    </transition>
+
+    <!-- iframe -->
+    <iframe
+    v-if="videoId"
+    width="100%" 
+    height="100%"
+    frameborder="0"
+    :src="`https://www.youtube-nocookie.com/embed/${videoId}?${options}`"
+    ></iframe>
+
+</ma-modal>
 </template>
 
 <script>
@@ -61,7 +73,7 @@ export default {
 
   methods: {
     ...mapActions({
-      setPlayback: 'playback/setPlayback',
+      setPlayback: 'playback/SET_PLAYBACK',
     }),
 
     ...mapMutations('app', {
@@ -114,30 +126,3 @@ export default {
 
 };
 </script>
-
-<style lang='scss'>
-.v--modal-overlay {
-    background: transparent;
-    .v--modal {
-        background: $black;
-        .overlay-container {
-            @include absolute($top: 0, $right: 0, $left: 0);
-            @include flex($display: flex, $align: center);
-            padding: 0 60px;
-            height: 200px;
-            background: ease-in-out-sine-gradient(to bottom, rgba($main-bg-color, 0.7), rgba($main-bg-color, 0));
-            .overlay-inner {
-                .title {
-                    margin-bottom: 10px;
-                    @include font($size: 3em);
-                }
-                .artist-container {
-                    .artist {
-                        @include comma-separated($size: 1.2em);
-                    }
-                }
-            }
-        }
-    }
-}
-</style>

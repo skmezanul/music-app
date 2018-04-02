@@ -1,10 +1,10 @@
 <template lang='pug'>
-.view-content
+.o-view__content
 
 	// categories
 	ma-section(:title='$tc("category", 0)')
 
-		.section-items-container
+		.c-viewSection__inner
 			ma-item(
         v-for='category in parentData.categories.categories.items',
         :key='category.id',

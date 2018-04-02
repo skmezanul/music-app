@@ -1,4 +1,7 @@
-<template lang='pug'>
-.view-parent
-  p Coming Soon...
+<template>
+<div class="c-sidebarPanel__parent">
+
+    <p>Coming Soon...</p>
+
+</div>
 </template>

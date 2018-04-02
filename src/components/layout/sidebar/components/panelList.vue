@@ -1,24 +1,38 @@
-<template lang='pug'>
-transition(@enter='panelListEnter', :css='false', appear)
-  ul.panel-list
-    .active-indicator(ref='activeIndicator')
-    router-link.panel-list-item(
-      v-for='(item, index) in items',
-      :key='index',
-      tag='li',
-      ref='listItem',
-      @click.native='animateItemClick',
-      @mouseover.native='animateItemMouseEnter',
-      @mouseleave.native='animateItemMouseLeave',
-      :to='getRouteFromData(item)')
-      span.item-title {{ $tc(item.name, 0) }}
-      .meta-container
-        span {{ getMetaFromData(item) }}
+<template>
+<transition @enter="panelListEnter" :css="false" appear="appear">
+
+    <ul class="c-panelList">
+
+        <!-- active indicator -->
+        <div class="c-panelList__activeIndicator" ref="activeIndicator"></div>
+
+        <router-link
+        class="c-panelList__item"
+        v-for="(item, index) in items"
+        :key="index"
+        tag="li"
+        @click.native="onItemClick($event, index)"
+        @mouseover.native="animateItemMouseEnter"
+        @mouseleave.native="animateItemMouseLeave"
+        :to="getRouteFromData(item)"
+        >
+
+          <!-- title -->
+          <span class="c-panelList__title">{{ $tc(item.name, 0) }}</span>
+
+          <!-- meta -->
+          <div class="c-panelList__meta">
+            <span>{{ getMetaFromData(item) }}</span>
+          </div>
+
+        </router-link>
+    </ul>
+
+</transition>
 </template>
 
 <script>
 import { TweenMax } from 'gsap';
-
 import { mapGetters } from 'vuex';
 
 export default {
@@ -34,83 +48,58 @@ export default {
     },
   },
 
-  updated() {
-    this.getActiveElement();
-  },
-
-  created() {
-    this.getActiveElement();
-  },
-
   watch: {
-    // check which list item is active when route changes
     $route() {
-      this.getActiveElement();
+      this.updateActiveIndicator();
     },
   },
 
   methods: {
-    // stagger list items on enter
-    panelListEnter(el, done) {
-      TweenMax.staggerFrom('.panel-list-item', 0.5, {
-        autoAlpha: 0,
-        onComplete: done,
-        clearProps: 'all',
-      }, 0.05);
+    onItemClick(event, index) {
+      const self = this,
+        el = event.currentTarget;
+
+      self.activeItem = index;
+      self.animateItemClick(el);
     },
 
-    // check which list item is active
-    getActiveElement() {
+    // stagger list items on enter
+    panelListEnter(el, done) {
       const self = this,
-        listItems = self.$refs.listItem,
-        activeClass = 'exact-active';
+        listItems = self.$el.querySelectorAll('.c-panelList__item');
 
-      if (typeof listItems !== 'undefined') {
-        self.$nextTick(() => {
-          listItems.forEach((value, i) => {
-            const el = listItems[i].$el,
-              isActive = el.classList.contains(activeClass);
-            if (isActive) {
-              self.updateActiveIndicator(el);
-              self.activeItem = i;
-            }
-          });
-        });
+      if (listItems) {
+        TweenMax.staggerFrom(listItems, 0.5, {
+          autoAlpha: 0,
+          onComplete: done,
+          clearProps: 'all',
+        }, 0.05);
       }
     },
 
     // update active element indicator
-    updateActiveIndicator(el) {
+    updateActiveIndicator() {
       const self = this,
         { activeIndicator } = self.$refs,
         { fixedSidebar } = self.settings,
-        spaceAboveElement = el.offsetTop,
-        elementHeight = el.offsetHeight;
+        activeItem = self.$el.querySelector('.exact-active');
 
       // tween active indicator
-      TweenMax.to(activeIndicator, 0.5, {
-        height: elementHeight,
-        y: spaceAboveElement,
-        onComplete: fixedSidebar ? null : self.$emit('close-panel'),
-      });
-    },
-
-    // hide active element indicator
-    hideActiveIndicator() {
-      const self = this,
-        { activeIndicator } = self.$refs;
-
-        // tween active indicator
-      TweenMax.to(activeIndicator, 0.5, {
-        height: 0,
-        onComplete: self.activeItem = null,
-      });
+      if (activeItem) {
+        TweenMax.to(activeIndicator, 0.5, {
+          y: activeItem.offsetTop,
+          height() {
+            return activeItem ? activeItem.offsetHeight : 0;
+          },
+          onComplete() {
+            return fixedSidebar ? null : self.$emit('close-panel');
+          },
+        });
+      }
     },
 
     // tween on click
-    animateItemClick(event) {
-      const el = event.currentTarget;
-
+    animateItemClick(el) {
       TweenMax.to(el, 0.2, {
         scale: 0.95,
         pointerEvents: 'none',
@@ -182,29 +171,3 @@ export default {
 
 };
 </script>
-
-<style lang='scss'>
-.panel-list {
-    .active-indicator {
-        @include absolute($left: -1px, $index: 3);
-        width: 1px;
-        background-color: var(--accent-color);
-        will-change: transform;
-    }
-    .panel-list-item {
-        margin-bottom: 1.5em;
-        cursor: pointer;
-        .item-title {
-            display: block;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            @include font($size: 1.1em, $weight: 600);
-        }
-        .meta-container {
-            margin-top: 5px;
-            @include font($size: 0.9em, $color: rgba($white, 0.7));
-        }
-    }
-}
-</style>

@@ -16,14 +16,14 @@ const mutations = {
         break;
       case 'add':
       default:
-        self.notices.unshift({ type, message });
+        if (self.notices <= 3) self.notices.unshift({ type, message });
     }
   },
 
   /**
   * Push app settings to state.
   * @param { object } payload The function payload.
-  * @param { string } [ payload.setting = 'accentColor', 'largeCover', 'fixedSidebar' ] The state to push the data to.
+  * @param { string } [ payload.setting = 'currentAccentColor', 'largeCover', 'fixedSidebar' ] The state to push the data to.
   * @param { string } payload.value The new value to save to the targeted state.
   */
   SET_APP_SETTINGS(state, payload) {

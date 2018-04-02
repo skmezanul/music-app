@@ -1,0 +1,130 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the item component.
+// -----------------------------------------------------------------------------
+
+.c-sectionItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  height: 100%;
+  background-color: $blue;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+
+  &:hover {
+    box-shadow: $backdrop-shadow-highlight;
+  }
+
+  &__image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: lighten($blue, 2%);
+  }
+
+  &__coverImage {
+    @include lazy-fadein;
+  }
+
+  &__overlay {
+    position: absolute 0;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(to top, $accent-color 25%, rgba(80, 80, 80, 0.5) 100%);
+  }
+
+  &__overlayInner {
+    display: flex;
+    flex: 0.8;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  &__meta {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+  }
+
+  &__metaInner {
+    z-index: 2;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.4em;
+
+    span {
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  &__artists {
+    a {
+      @include comma-separated($size: 0.95em);
+    }
+  }
+
+  &--artist,
+  &--category {
+    .c-sectionItem__meta {
+      @include item-hover;
+      position: absolute 0;
+      z-index: 1;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 40px;
+      height: 100%;
+    }
+
+    .c-sectionItem__metaInner {
+      font-size: 1.3em;
+    }
+
+    .c-sectionItem__coverImage {
+      transition: transform 0.7s, filter 0.3s;
+      will-change: transform;
+    }
+
+    &:hover {
+      .c-sectionItem__coverImage {
+        transform: scale(1.07);
+      }
+    }
+  }
+
+  &--artist {
+    height: 300px;
+
+    .c-sectionItem__meta {
+      background: linear-gradient(to top, rgba($black,0.7), rgba($black,0));
+    }
+
+    .c-sectionItem__coverImage {
+      width: auto;
+      filter: brightness(70%) contrast(110%);
+    }
+
+    &:hover {
+      .c-sectionItem__coverImage {
+        filter: brightness(100%) contrast(100%);
+      }
+    }
+  }
+
+  &--category {
+    .c-sectionItem__coverImage {
+      transform: scale(1.02);
+    }
+  }
+
+  &--playlist {
+    .c-sectionItem__meta {
+      padding: 20px 15px;
+    }
+  }
+}

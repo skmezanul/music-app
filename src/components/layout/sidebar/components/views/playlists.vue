@@ -1,6 +1,12 @@
-<template lang='pug'>
-.view-parent
-  maPanelList(:items='playlists', @close-panel='$emit("close-panel")')
+<template>
+<div class="c-sidebarPanel__parent">
+
+    <maPanelList
+    :items="playlists"
+    @close-panel="$emit('close-panel')"
+    ></maPanelList>
+
+</div>
 </template>
 
 <script>

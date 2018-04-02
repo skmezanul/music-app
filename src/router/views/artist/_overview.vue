@@ -1,5 +1,5 @@
 <template lang='pug'>
-.view-content
+.o-view__content
 
 	// top tracks
 	ma-section(
@@ -7,12 +7,11 @@
     :title='$t("toptracks")',
     :collapsible='true')
 
-		ol.list
+		ol.c-list
 			ma-list(
         v-for='(track, index) in parentData.topTracks.tracks',
         :key='track.id',
         :trackId='track.id',
-        :type='track.type',
         :image='track.album.images',
         :title='track.name',
         :album='track.album',
@@ -23,11 +22,11 @@
 
 	// albums
 	ma-section(
-    v-if='parentData.albums.items',
+    v-if='parentData.albums.total',
     :title='$tc("album", 0)',
     :collapsible='true')
 
-		.section-items-container
+		.c-viewSection__inner
 			ma-item(
         v-for='album in parentData.albums.items',
         :key='album.id',
@@ -40,11 +39,11 @@
 
 	// singles
 	ma-section(
-    v-if='parentData.singles.items',
+    v-if='parentData.singles.total',
     :title='$tc("single", 0)',
     :collapsible='true')
 
-		.section-items-container
+		.c-viewSection__inner
 			ma-item(
         v-for='single in parentData.singles.items',
         :key='single.id',
@@ -57,11 +56,11 @@
 
 	// appears on
 	ma-section(
-    v-if='parentData.appearsOn.items',
+    v-if='parentData.appearsOn.total',
     :title='$t("appearson")',
     :collapsible='true')
 
-		.section-items-container
+		.c-viewSection__inner
 			ma-item(
         v-for='album in parentData.appearsOn.items',
         :key='album.id',

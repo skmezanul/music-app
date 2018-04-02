@@ -1,5 +1,5 @@
 <template lang='pug'>
-api-request.view-parent(:resource='dataToFetch', v-model='response')
+api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 
   // stage
   ma-stage(

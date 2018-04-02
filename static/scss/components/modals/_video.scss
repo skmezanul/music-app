@@ -1,0 +1,31 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the video modal component.
+// -----------------------------------------------------------------------------
+
+.v--modal-overlay {
+  background: transparent;
+
+  .v--modal {
+    background: $black;
+  }
+}
+
+.c-videoOverlay {
+  position: absolute 0 0 inherit 0;
+  display: flex;
+  align-items: center;
+  padding: 0 60px;
+  height: 200px;
+  background: ease-in-out-sine-gradient(to bottom, rgba($main-bg-color, 0.7), rgba($main-bg-color, 0));
+
+  &__title {
+    margin-bottom: 10px;
+    font-size: 3em;
+  }
+
+  &__artists {
+    a {
+      @include comma-separated($size: 1.2em);
+    }
+  }
+}

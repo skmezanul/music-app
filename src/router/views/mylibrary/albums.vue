@@ -1,5 +1,5 @@
 <template lang='pug'>
-api-request.view-parent(:resource='dataToFetch', v-model='response')
+api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 
   // stage
   ma-stage(
@@ -10,11 +10,11 @@ api-request.view-parent(:resource='dataToFetch', v-model='response')
     :info='getInfo',
     :buttons='getButtons')
 
-  .view-content(v-if='response.albums')
+  .o-view__content(v-if='response.albums')
     // albums
     ma-section
 
-      .section-items-container
+      .c-viewSection__inner
         ma-item(
           v-for='item in response.albums.items',
           :key='item.album.id',

@@ -1,5 +1,5 @@
 <template lang='pug'>
-.view-content
+.o-view__content
 
 	// discover
 	ma-section(:title='$t("discover")')

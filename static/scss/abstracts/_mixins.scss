@@ -1,0 +1,74 @@
+// -----------------------------------------------------------------------------
+// This file contains all global mixins.
+// -----------------------------------------------------------------------------
+
+@mixin larger-than($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: #{map-get($breakpoints, $breakpoint)}) {
+      @content;
+    }
+  } @else {
+    @warn 'Unfortunately, no value could be retrieved from `#{$breakpoint}`. ' + 'Please make sure it is defined in `$breakpoints` map.';
+  }
+}
+
+@mixin smaller-than($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (max-width: #{map-get($breakpoints, $breakpoint)}) {
+      @content;
+    }
+  } @else {
+    @warn 'Unfortunately, no value could be retrieved from `#{$breakpoint}`. ' + 'Please make sure it is defined in `$breakpoints` map.';
+  }
+}
+
+@mixin view-grid-columns() {
+  @include smaller-than('md') {
+    grid-template-columns: auto $small-viewport-width auto;
+  }
+  grid-template-columns: auto $large-viewport-width auto;
+}
+
+@mixin comma-separated($size: null) {
+  position: relative;
+  margin-right: 5px;
+  padding-right: 3px;
+  color: $white-70;
+  font-size: $size;
+  cursor: pointer;
+  transition: color 0.3s;
+
+  &:hover {
+    color: $white;
+  }
+
+  &:not(:last-child):after {
+    position: absolute 0 0 0 initial;
+    content: ',';
+  }
+}
+
+@mixin item-hover {
+  color: $white-70;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    color: $white;
+  }
+}
+
+@mixin lazy-fadein {
+  opacity: 0;
+  transition: all 0.3s;
+
+  &[lazy=loaded] {
+    opacity: 1;
+  }
+}
+
+@mixin ellipsis-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

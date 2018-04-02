@@ -1,14 +1,13 @@
 <template lang='pug'>
-.view-content
+.o-view__content
 
 	// charts
 	ma-section(:title='$t("charts")')
 
-		ol.list
+		ol.c-list
 			ma-list(
 				v-for='(item, index) in parentData.charts.tracks.items',
 				:key='item.track.id',
-				:type='item.track.type',
 				:image='item.track.album.images',
 				:title='item.track.name',
 				:trackId='item.track.id',

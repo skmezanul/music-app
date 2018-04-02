@@ -1,5 +1,5 @@
 <template lang='pug'>
-.view-content
+.o-view__content
 
   // about this artist
   ma-section(:title='`${$t("about")} ${parentData.artistInfo.name}`')

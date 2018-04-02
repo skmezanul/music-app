@@ -1,45 +1,120 @@
-<template lang='pug'>
-li.list-item(
-	@dblclick='setPlayback({ state: "play", trackId })',
-	:class='{ "playing" : isCurrentlyPlaying, "has-image" : image[0] }')
+<template>
+<li class="c-list__listItem" @dblclick="setPlayback({ state: 'play', trackId })" :class="{ 'is-playing' : isCurrentlyPlaying, 'c-list__listItem--image' : image[0] }">
 
-	// image
-	.image-container(v-if='image[0]')
-		ma-icon.playback-toggle(
-			@click.native='setPlayback({ state: isCurrentlyPlaying ? "pause" : "play", trackId })',
-			:class='isCurrentlyPlaying ? "pause" : "play"') {{ isCurrentlyPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
+    <!-- image -->
+    <div class="c-list__image" v-if="image[0]">
 
-		img.cover-image(
-			v-lazy='image[0].url',
-			:alt='title')
+        <!-- play icon over image -->
+        <ma-icon
+        class="c-list__playbackToggle"
+        @click.native="setPlayback({ state: isCurrentlyPlaying ? 'pause' : 'play', trackId })"
+        :class="isCurrentlyPlaying ? 'pause' : 'play'"
+        >
 
-	// index
-	ma-icon.is-playing(v-if='!$mq.phone && isCurrentlyPlaying') {{ isCurrentlyPlaying ? 'volume_up' : 'volume_down' }}
-	span.index(v-else-if='!image || !$mq.phone') {{ formatIndex(index) }}
+        {{ isCurrentlyPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
 
-	// meta
-	.meta-container
-		span.title {{ title }}
-		.artist-container(v-if='artists')
-			router-link.artist(
-				v-for='artist in artists',
-				:key='artist.id',
-				:to='{ name: artist.type, params: { id: artist.id }}') {{ artist.name }}
-	.label-container(v-if='explicit || popularity')
-		ma-icon.popular(v-if='popularity && popularity > 80', :hover='true', v-tooltip='{ content: $t("popular") }') stars
-		ma-icon.explicit(v-if='explicit', :hover='true', v-tooltip='{ content: $t("explicit") }') explicit
+        </ma-icon>
 
-	// album name
-	.album-container(v-if='album')
-		router-link.album(:to='{ name: album.type, params: { id: album.id }}') {{ album.name }}
+        <img
+        class="c-list__coverImage"
+        v-lazy="image[0].url"
+        :alt="title"
+        />
 
-	// duration
-	span.duration {{ formatTime(duration) }}
+    </div>
 
-	// actions
-	.action-container(v-if='!$mq.phone')
-		ma-icon.playlistadd(:hover='true', v-tooltip='{ content: $t("addtoplaylist") }') playlist_add
-		ma-icon.explicit(:hover='true', v-tooltip='{ content: $t("more") }') more_horiz
+    <div class="c-list__info">
+
+        <!-- playing icon -->
+        <ma-icon class="c-list__playingIcon" v-if="isCurrentlyPlaying">{{ isCurrentlyPlaying ? 'volume_up' : 'volume_down' }}</ma-icon>
+
+        <!-- index -->
+        <span class="c-list__index" v-else>{{ formatIndex(index) }}</span>
+
+    </div>
+
+    <!-- meta -->
+    <div class="c-list__meta">
+
+      <!-- title -->
+      <span class="c-list__title">{{ title }}</span>
+
+      <!-- artists -->
+      <div class="c-list__artists" v-if="artists">
+
+          <router-link
+          v-for="artist in artists"
+          :key="artist.id"
+          :to="{ name: artist.type, params: { id: artist.id }}"
+          >
+
+          {{ artist.name }}
+
+          </router-link>
+
+      </div>
+
+    </div>
+
+    <!-- labels -->
+    <div class="c-list__labels" v-if="explicit || popularity">
+
+        <!-- icon if popular -->
+        <ma-icon
+        v-if="popularity && popularity > 80"
+        :hover="true"
+        v-tooltip="{ content: $t('popular') }">
+
+        stars
+
+        </ma-icon>
+
+        <!-- icon if explicit -->
+        <ma-icon
+        v-if="explicit"
+        :hover="true"
+        v-tooltip="{ content: $t('explicit') }"
+        >
+
+        explicit
+
+        </ma-icon>
+
+    </div>
+
+    <!-- album name -->
+    <div class="c-list__album" v-if="album">
+        <router-link :to="{ name: album.type, params: { id: album.id }}">{{ album.name }}</router-link>
+    </div>
+
+    <!-- duration -->
+    <span class="c-list__duration">{{ formatTime(duration) }}</span>
+
+    <!-- actions -->
+    <div class="c-list__actions">
+
+        <!-- add to playlist -->
+        <ma-icon
+        :hover="true"
+        v-tooltip="{ content: $t('addtoplaylist') }"
+        >
+
+        playlist_add
+
+        </ma-icon>
+
+        <!-- more options -->
+        <ma-icon
+        :hover="true"
+        v-tooltip="{ content: $t('more') }"
+        >
+
+        more_horiz
+
+        </ma-icon>
+    </div>
+
+</li>
 </template>
 
 <script>
@@ -138,113 +213,3 @@ export default {
 
 };
 </script>
-
-<style lang='scss'>
-.list {
-    display: grid;
-    grid-auto-rows: 75px;
-    grid-row-gap: 2px;
-    .list-item {
-        @include font($color: rgba($white, 0.7));
-        display: grid;
-        align-items: center;
-        padding-right: 2em;
-        background-color: $blue;
-        transition: background-color 0.3s;
-        grid-template-columns: 75px minmax(auto, 1fr) minmax(auto, 60px) minmax(auto, 1fr) repeat(2, minmax(auto, 80px));
-        grid-template-areas: "index meta labels album duration actions";
-        grid-column-gap: 1em;
-        @media (max-width: $mobile-breakpoint) {
-            grid-template-columns: 75px minmax(auto, 1fr) minmax(auto, 30px);
-        }
-        &.has-image {
-            grid-template-columns: 75px 50px minmax(auto, 1fr) minmax(auto, 60px) minmax(auto, 1fr) repeat(2, minmax(auto, 80px));
-            grid-template-areas: "image index meta labels album duration actions";
-            @media (max-width: $mobile-breakpoint) {
-              grid-template-columns: 75px minmax(auto, 1fr) minmax(auto, 60px) minmax(auto, 1fr) minmax(auto, 50px);
-              grid-template-areas: "image meta labels album duration";
-            }
-        }
-        &:hover {
-            background-color: rgba($white, 0.1);
-            cursor: pointer;
-            .image-container {
-                .playback-toggle {
-                    @include font($color: $white);
-                }
-                .cover-image {
-                    filter: brightness(50%);
-                }
-            }
-        }
-
-        .index,
-        .is-playing {
-            @include font($size: 1.4em, $weight: 300, $color: $white);
-            margin: auto;
-        }
-
-        .is-playing {
-            @include font($size: 1.7em);
-        }
-
-        .image-container {
-            @include relative;
-            width: 75px;
-            grid-area: image;
-            background-color: lighten($blue, 2%);
-            .cover-image {
-               @include lazy-fadein;
-            }
-            .playback-toggle {
-                @include absolute($all: 0, $index: 1);
-                @include flex($display: flex, $justify: center, $align: center);
-                @include font($size: 2.5em, $color: rgba($white, 0));
-                transition: color 0.3s;
-            }
-        }
-
-        .meta-container {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            grid-area: meta;
-            .title {
-                @include font($size: 1.1em, $weight: 600, $color: $white);
-            }
-            .artist-container {
-                overflow: hidden;
-                margin-top: 5px;
-                text-overflow: ellipsis;
-                .artist {
-                    @include comma-separated($size: 1em);
-                }
-            }
-        }
-
-        .album-container {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            grid-area: album;
-            .album {
-                @include comma-separated($size: 1em);
-            }
-        }
-
-        .label-container {
-            grid-area: labels;
-            @include flex($display: flex, $justify: space-between, $align: center);
-        }
-
-        .duration {
-            grid-area: duration;
-        }
-
-        .action-container {
-            grid-area: actions;
-            @include flex($display: flex, $justify: space-between, $align: center);
-        }
-    }
-}
-</style>

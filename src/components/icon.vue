@@ -1,6 +1,7 @@
-<template lang='pug'>
-i.icon.material-icons(:class='{ "can-hover" : hover }')
-  slot
+<template>
+<i class="c-icon material-icons" :class="{ 'c-icon--hover' : hover }">
+  <slot></slot>
+</i>
 </template>
 
 <script>
@@ -15,11 +16,3 @@ export default {
 
 };
 </script>
-
-<style lang='scss'>
-.icon {
-    &.can-hover {
-        @include item-hover;
-    }
-}
-</style>

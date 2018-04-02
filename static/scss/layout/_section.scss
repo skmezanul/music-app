@@ -1,0 +1,67 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the section component.
+// -----------------------------------------------------------------------------
+
+.c-viewSection {
+  display: grid;
+  grid-auto-flow: auto;
+  grid-gap: 1.7em;
+
+  &:last-of-type {
+    padding-bottom: 100px;
+  }
+
+  &.is-collapsed {
+    .c-sectionItem:nth-child(n+6) {
+      display: none;
+    }
+
+    .c-list__listItem:nth-child(n+4) {
+      display: none;
+    }
+
+    p,
+    pre {
+      display: none;
+    }
+
+    &.is-collapsed {
+      .c-viewSection__collapseToggleIcon {
+        transform: scaleY(-1);
+      }
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__collapseToggle {
+    @include item-hover;
+    display: flex;
+    align-items: center;
+  }
+
+  &__collapseToggleIcon {
+    transition: transform 0.3s;
+  }
+
+  &__inner {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 1.5em;
+  }
+
+  &__biography {
+    margin: 0;
+    font-size: 1.1em;
+    line-height: 1.5em;
+  }
+
+  &__copyright {
+    color: $white-70;
+    font-size: 0.7em;
+  }
+}

@@ -1,0 +1,24 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the icon component.
+// -----------------------------------------------------------------------------
+
+.c-icon {
+  &--hover {
+    @include item-hover;
+  }
+
+  &--largeToggle,
+  &--toggle {
+    color: $white;
+    font-size: 3em;
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: scale(1.15);
+    }
+  }
+
+  &--largeToggle {
+    font-size: 4.5em;
+  }
+}

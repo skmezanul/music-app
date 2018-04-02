@@ -1,12 +1,12 @@
 <template lang='pug'>
-.view-content
+.o-view__content
 
     // featured playlists
     ma-section(
       :title='parentData.featured.message',
       :collapsible='true')
 
-      .section-items-container
+      .c-viewSection__inner
         ma-item(
           v-for='playlist in parentData.featured.playlists.items',
           :key='playlist.id',
@@ -21,7 +21,7 @@
       :title='$t("newreleases")',
       :collapsible='true')
 
-      .section-items-container
+      .c-viewSection__inner
         ma-item(
           v-for='album in parentData.releases.albums.items',
           :key='album.id',

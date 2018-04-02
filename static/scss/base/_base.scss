@@ -1,0 +1,90 @@
+// -----------------------------------------------------------------------------
+// This file contains very basic styles.
+// -----------------------------------------------------------------------------
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $main-bg-color;
+}
+
+input {
+  user-select: text;
+}
+
+img {
+  display: block;
+  size: 100% auto;
+}
+
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+figure {
+  margin: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.o-view {
+  &__parent {
+    @include view-grid-columns;
+    display: grid;
+    grid-auto-rows: auto;
+    grid-template-areas: "stage stage stage" ". content .";
+    grid-row-gap: 2em;
+  }
+
+  &__content {
+    display: grid;
+    grid-area: content;
+    grid-auto-rows: auto;
+    grid-row-gap: 3em;
+  }
+}
+
+// tooltip styling
+.c-tooltips {
+  &__single {
+    position: relative;
+    z-index: 1000;
+    display: block !important;
+    margin-bottom: 12px;
+    transition-duration: 0.3s;
+    transition-property: opacity, visibility;
+
+    &[aria-hidden='true'] {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    &[aria-hidden='false'] {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &__inner {
+    letter-spacing: 1.5px;
+    padding: 7px 10px;
+    border-radius: 3px;
+    background: $accent-color;
+    font-weight: $font-weight-bold;
+    font-family: $primary-font-stack;
+    transition: background-color 0.3s;
+
+    &:after {
+      position: absolute 100% initial initial calc(50% - 8px);
+      border: 8px solid;
+      border-color: $accent-color transparent transparent transparent;
+      content: "";
+      transition: border-color 0.3s;
+    }
+  }
+}

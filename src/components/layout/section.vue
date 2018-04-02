@@ -1,19 +1,28 @@
-<template lang='pug'>
-section.view-section(:class='{ "collapsed" : isCollapsed }')
-	// section header
-	.section-header(v-if='title')
-		h1 {{ title }}
+<template>
+<section class="c-viewSection" :class="{ 'is-collapsed' : isCollapsed }">
 
-		// show more/less
-		.section-actions(@click='toggleCollapse', v-if='isCollapsible')
-			.toggle-collapse
-				span {{ $t(collapsed ? 'showmore' : 'showless')}}
-				ma-icon(:class='{ "collapsed" : isCollapsed }') keyboard_arrow_up
+    <!-- section header -->
+    <div class="c-viewSection__header" v-if="title">
 
-	// section slot
-	slot
+        <!-- title -->
+        <h1 class="c-viewSection__title">{{ title }}</h1>
 
-	span.copyright(v-if='copyright') {{ copyright }}
+        <!-- show more/less -->
+        <div class="c-viewSection__actions" @click="toggleCollapse" v-if="collapsible">
+            <div class="c-viewSection__collapseToggle">
+                <span>{{ $t(collapsed ? 'showmore' : 'showless')}}</span>
+                <ma-icon class="c-viewSection__collapseToggleIcon">keyboard_arrow_up</ma-icon>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- section slot -->
+    <slot></slot>
+
+    <span class="c-viewSection__copyright" v-if="copyright">{{ copyright }}</span>
+
+</section>
 </template>
 
 <script>
@@ -39,20 +48,12 @@ export default {
     },
   },
 
-  created() {
-    // show toggle if element count exceeds the maximum visible
-    setTimeout(() => {
-      const self = this;
-      if (self.$route.name !== 'debug') {
-        self.isCollapsible = self.collapsible && self.$children.length > 5;
-      }
-    }, 0);
-  },
-
   methods: {
     // toggle collapse
     toggleCollapse() {
-      this.collapsed = !this.collapsed;
+      const self = this;
+
+      if (self.collapsible) self.collapsed = !self.collapsed;
     },
   },
 
@@ -68,74 +69,3 @@ export default {
 
 };
 </script>
-
-<style lang='scss'>
-.view-section {
-    display: grid;
-    grid-auto-flow: auto;
-    grid-gap: 1.7em;
-    @media (max-width: $mobile-breakpoint) {
-        padding: 1em;
-    }
-    &:last-child {
-        padding-bottom: 100px;
-        @media (max-width: $mobile-breakpoint) {
-            padding-bottom: 150px;
-        }
-    }
-
-    .section-items-container {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        grid-gap: 1.5em;
-        @media (max-width: $mobile-breakpoint) {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    &.collapsed {
-        .list-item:nth-child(n+4) {
-            display: none;
-        }
-        @media (min-width: $mobile-breakpoint) {
-            .section-item:nth-child(n+6) {
-                display: none;
-            }
-        }
-        @media (max-width: $mobile-breakpoint) {
-            .section-item:nth-child(n+5) {
-                display: none;
-            }
-        }
-        p,
-        pre {
-            display: none;
-        }
-    }
-
-    .biography {
-        margin: 0;
-        @include font($size: 1.1em, $line: 1.5em, $color: rgba($white, 0.9));
-    }
-
-    .copyright {
-        @include font($size: 0.7em, $color: rgba($white, 0.7));
-    }
-
-    .section-header {
-        @include flex($display: flex, $justify: space-between, $align: center);
-        .section-actions {
-            .toggle-collapse {
-                @include flex($display: flex, $align: center);
-                @include item-hover;
-                .icon {
-                    transition: transform 0.3s;
-                    &.collapsed {
-                        transform: scaleY(-1);
-                    }
-                }
-            }
-        }
-    }
-}
-</style>
