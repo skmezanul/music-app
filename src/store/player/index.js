@@ -10,7 +10,7 @@ const player = {
   mutations,
   getters: {
     getPlayer: state => state.player,
-    getDeviceId: state => (state.player ? state.player['_options'].id : ''),
+    getDeviceId: state => state.player['_options'].id,
   },
 };
 
