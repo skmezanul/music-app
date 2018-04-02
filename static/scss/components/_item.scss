@@ -27,6 +27,7 @@
 
   &__coverImage {
     @include lazy-fadein;
+    will-change: transform;
   }
 
   &__overlay {
@@ -85,11 +86,6 @@
       font-size: 1.3em;
     }
 
-    .c-sectionItem__coverImage {
-      transition: transform 0.7s, filter 0.3s;
-      will-change: transform;
-    }
-
     &:hover {
       .c-sectionItem__coverImage {
         transform: scale(1.07);
@@ -106,12 +102,16 @@
 
     .c-sectionItem__coverImage {
       width: auto;
-      filter: brightness(70%) contrast(110%);
+      @supports (filter: brightness(70%) contrast(110%)) {
+        filter: brightness(70%) contrast(110%);
+      }
     }
 
-    &:hover {
-      .c-sectionItem__coverImage {
-        filter: brightness(100%) contrast(100%);
+    @supports (filter: none) {
+      &:hover {
+        .c-sectionItem__coverImage {
+          filter: none;
+        }
       }
     }
   }

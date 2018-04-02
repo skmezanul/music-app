@@ -3,29 +3,24 @@
 // -----------------------------------------------------------------------------
 
 .c-stage {
+  grid-area: stage;
   position: relative;
-  @include view-grid-columns;
-  display: grid;
   overflow: hidden;
   padding-top: 69px;
   min-height: 350px;
   height: 350px;
   background-color: $accent-color;
   transition: background-color 1s;
-  grid-area: stage;
-  grid-template-areas: ". content .";
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
 
   &:after {
     position: absolute 0;
     z-index: 1;
     background: ease-in-out-sine-gradient(to top, $main-bg-color, rgba($main-bg-color, 0)), radial-gradient(circle, rgba($main-bg-color, 0), $main-bg-color);
     content: "";
-  }
-
-  &--navigation {
-    .c-stage__actions {
-      margin-bottom: 20px;
-    }
   }
 
   &.is-large {
@@ -35,8 +30,10 @@
       background: ease-in-out-sine-gradient(to top, $main-bg-color, rgba($main-bg-color, 0));
     }
 
-    .c-stage__backgroundImage {
-      filter: none;
+    @supports (filter: none) {
+      .c-stage__backgroundImage {
+        filter: none;
+      }
     }
 
     .c-stage__title {
@@ -44,20 +41,14 @@
     }
   }
 
-  &--cover {
-    .c-stage__container {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-
-    .c-stage__navigation {
-      flex-basis: 100%;
-    }
-  }
-
   &--image {
     background-color: transparent;
+  }
+
+  &--cover {
+    .c-stage__actions {
+      margin-bottom: 0;
+    }
   }
 
   &__background {
@@ -69,25 +60,30 @@
   }
 
   &__backgroundImage {
-    filter: saturate(150%) blur(40px);
-    size: 100vw 100vh;
-    object-fit: cover;
+    @supports (filter: saturate(150%) blur(40px)) {
+      filter: saturate(150%) blur(40px);
+    }
+    background-position: center;
+    size: 100%;
   }
 
-  &__container {
+  &__inner {
     z-index: 2;
     display: flex;
-    flex-direction: column;
-    grid-area: content;
+    width: $content-width-85;
   }
 
   &__cover {
     overflow: hidden;
-    margin-right: 35px;
-    max-width: 250px;
+    margin-right: 40px;
     border-radius: 10px;
     box-shadow: $backdrop-shadow;
     size: 250px;
+    min-width: 250px;
+    max-width: 250px;
+    @include smaller-than('md') {
+      display: none;
+    }
 
     &:not(.is-small) {
       flex: 1;
@@ -103,11 +99,12 @@
     @include lazy-fadein;
   }
 
-  &__inner {
+  &__content {
     display: flex;
     flex: 4;
     flex-direction: column;
     justify-content: flex-end;
+    align-self: center;
   }
 
   &__subtitle {
@@ -133,16 +130,20 @@
   }
 
   &__title {
-    font-size: 3.5em;
+    font-size: 3em;
     font-family: $secondary-font-stack;
-    line-height: 1.3em;
+    line-height: 1.2em;
     transform: translateX(-3px);
+
+    &.is-large {
+      font-size: 4.5em;
+    }
   }
 
   &__actions {
     display: flex;
     align-items: center;
-    margin-top: 15px;
+    margin: 20px 0;
   }
 
   &__info {
@@ -172,7 +173,7 @@
 
   &__meta {
     margin: 10px 0;
-    max-width: 70%;
+    max-width: 80%;
 
     p {
       margin: 0;
@@ -182,12 +183,18 @@
     }
   }
 
+  &__navigation {
+    width: $content-width-85;
+    z-index: 2;
+    margin-top: 15px;
+  }
+
   &__navigationList {
     display: flex;
   }
 
   &__navigationItem {
-    margin-right: 50px;
+    margin-right: 3em;
     padding: 15px 0;
   }
 
@@ -211,7 +218,7 @@
       size: 3em 1px;
     }
 
-    &.exact-active {
+    &.is-exact-active {
       color: $white;
 
       &:after {
@@ -219,7 +226,7 @@
       }
     }
 
-    &:not(.active):hover {
+    &:not(.is-exact-active):hover {
       color: $white-70;
     }
   }

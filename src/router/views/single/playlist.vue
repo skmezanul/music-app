@@ -21,7 +21,6 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 					v-for='(playlist, index) in response.playlist.tracks.items',
 					:key='playlist.track.id',
 					:trackId='playlist.track.id',
-					:type='playlist.track.type',
 					:image='playlist.track.album.images',
 					:title='playlist.track.name',
 					:artists='playlist.track.artists',

@@ -11,9 +11,7 @@
         v-for="(item, index) in items"
         :key="index"
         tag="li"
-        @click.native="onItemClick($event, index)"
-        @mouseover.native="animateItemMouseEnter"
-        @mouseleave.native="animateItemMouseLeave"
+        @click.native="onItemClick"
         :to="getRouteFromData(item)"
         >
 
@@ -37,10 +35,6 @@ import { mapGetters } from 'vuex';
 
 export default {
 
-  data: () => ({
-    activeItem: null,
-  }),
-
   props: {
     items: {
       type: Array,
@@ -48,21 +42,25 @@ export default {
     },
   },
 
+  created() {
+    const self = this;
+
+    self.$nextTick(() => {
+      self.updateActiveIndicator();
+    });
+  },
+
   watch: {
     $route() {
-      this.updateActiveIndicator();
+      const self = this;
+
+      self.$nextTick(() => {
+        self.updateActiveIndicator();
+      });
     },
   },
 
   methods: {
-    onItemClick(event, index) {
-      const self = this,
-        el = event.currentTarget;
-
-      self.activeItem = index;
-      self.animateItemClick(el);
-    },
-
     // stagger list items on enter
     panelListEnter(el, done) {
       const self = this,
@@ -77,52 +75,28 @@ export default {
       }
     },
 
+    // on list item click
+    onItemClick() {
+      const self = this,
+        { fixedSidebar } = self.settings;
+
+      if (!fixedSidebar) self.$emit('close-panel');
+    },
+
     // update active element indicator
     updateActiveIndicator() {
       const self = this,
         { activeIndicator } = self.$refs,
-        { fixedSidebar } = self.settings,
-        activeItem = self.$el.querySelector('.exact-active');
+        activeItem = self.$el.querySelector('.is-active');
 
       // tween active indicator
-      if (activeItem) {
-        TweenMax.to(activeIndicator, 0.5, {
-          y: activeItem.offsetTop,
-          height() {
-            return activeItem ? activeItem.offsetHeight : 0;
-          },
-          onComplete() {
-            return fixedSidebar ? null : self.$emit('close-panel');
-          },
-        });
-      }
-    },
-
-    // tween on click
-    animateItemClick(el) {
-      TweenMax.to(el, 0.2, {
-        scale: 0.95,
-        pointerEvents: 'none',
-        repeat: 1,
-        yoyo: true,
-      });
-    },
-
-    // tween on hover
-    animateItemMouseEnter(event) {
-      const el = event.currentTarget;
-
-      TweenMax.to(el, 0.5, {
-        x: 7,
-      });
-    },
-
-    // tween on mouse leave
-    animateItemMouseLeave(event) {
-      const el = event.currentTarget;
-
-      TweenMax.to(el, 0.5, {
-        x: 0,
+      TweenMax.to(activeIndicator, 0.5, {
+        y() {
+          return activeItem ? activeItem.offsetTop : 0;
+        },
+        height() {
+          return activeItem ? activeItem.offsetHeight : 0;
+        },
       });
     },
 

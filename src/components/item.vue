@@ -53,7 +53,7 @@
       </transition>
 
       <!-- image -->
-      <div class="c-sectionItem__image" v-if="image">
+      <div class="c-sectionItem__image" v-if="image[0]">
 
         <img
         class="c-sectionItem__coverImage"

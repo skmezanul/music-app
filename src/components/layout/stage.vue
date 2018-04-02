@@ -3,31 +3,31 @@
 <div class="c-stage" :class="stageClasses">
 
     <!-- background image -->
-    <transition v-if="image" name="zoom-out" appear="appear">
+    <transition v-if="image[0]" name="zoom-out" appear="appear">
 
         <div class="c-stage__background">
 
-            <img class="c-stage__backgroundImage" v-lazy="image[0].url" :alt="title" />
+            <figure
+            class="c-stage__backgroundImage"
+            :style="{ backgroundImage : `url('${image[0].url}')`}"
+            ></figure>
 
         </div>
 
     </transition>
 
-    <div class="c-stage__container">
+    <div class="c-stage__inner">
 
-        <!-- cover image -->
-        <div
-        class="c-stage__cover"
-        v-if="$route.meta.stage.cover"
-        :class="{ 'is-small' : $route.meta.stage.cover && $route.name === 'user' }"
-        >
+        <!-- cover -->
+        <div class="c-stage__cover" v-if="$route.meta.stage.cover && image[0]">
 
+            <!-- cover image -->
             <img class="c-stage__coverImage" v-lazy="image[0].url" :alt="title" />
 
         </div>
 
         <!-- content -->
-        <div class="c-stage__inner">
+        <div class="c-stage__content">
 
             <!-- subtitle -->
             <div class="c-stage__subtitle">
@@ -52,7 +52,15 @@
             </div>
 
             <!-- title -->
-            <h1 class="c-stage__title" v-if="title">{{ title }}</h1>
+            <h1
+            class="c-stage__title"
+            v-if="title"
+            :class="{ 'is-large' : titleWordCount < 4 && $route.name === 'album' }"
+            >
+
+            {{ title }}
+
+            </h1>
 
             <!-- meta -->
             <div class="c-stage__meta" v-if="meta">
@@ -108,28 +116,28 @@
             </div>
         </div>
 
-        <!-- navigation-->
-        <nav class="c-stage__navigation" v-if="navigation">
-            <ul class="c-stage__navigationList">
-
-                <li class="c-stage__navigationItem" v-for="navitem in navigation">
-
-                    <!-- item link -->
-                    <router-link
-                    class="c-stage__navigationItemLink"
-                    :to="{ name: navitem.routeName, params: { id: $route.params.id }}"
-                    >
-
-                    {{ navitem.title }}
-
-                    </router-link>
-
-                </li>
-
-            </ul>
-        </nav>
-
     </div>
+
+    <!-- navigation-->
+    <nav class="c-stage__navigation" v-if="navigation">
+        <ul class="c-stage__navigationList">
+
+            <li class="c-stage__navigationItem" v-for="navitem in navigation">
+
+                <!-- item link -->
+                <router-link
+                class="c-stage__navigationItemLink"
+                :to="{ name: navitem.routeName, params: { id: $route.params.id }}"
+                >
+
+                {{ navitem.title }}
+
+                </router-link>
+
+            </li>
+
+        </ul>
+    </nav>
 </div>
 </template>
 
@@ -183,26 +191,23 @@ export default {
     },
   },
 
-  updated() {
-    const self = this;
-    if (self.canFollow) self.checkIfFollowing();
-  },
-
   created() {
-    const self = this;
-    if (self.canFollow) self.checkIfFollowing();
+    this.checkIfFollowing();
   },
 
   methods: {
     // check if the current user is following this artist / user
     checkIfFollowing() {
       const self = this,
-        { params, name } = self.$route;
+        { params, name } = self.$route,
+        isArtist = /artist/.test(name);
 
-      self.$api.isFollowing(name, params.id)
-        .then((res) => {
-          [self.isFollowing] = res.data;
-        });
+      if (self.canFollow) {
+        self.$api.isFollowing(isArtist ? 'artist' : 'user', params.id)
+          .then((res) => {
+            [self.isFollowing] = res.data;
+          });
+      }
     },
 
     // follow or unfollow this artist or user
@@ -257,6 +262,14 @@ export default {
         isLarge = meta.stage.large;
 
       return isLarge;
+    },
+
+    // count words in title
+    titleWordCount() {
+      const self = this,
+        { title } = self;
+
+      return title.split(' ').length;
     },
 
     // check if stage has cover

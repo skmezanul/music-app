@@ -18,7 +18,6 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
         ma-list(
           v-for='(track, index) in response.album.tracks.items',
           :key='track.id',
-          :type='track.type',
           :title='track.name',
           :trackId='track.id',
           :explicit='track.explicit',

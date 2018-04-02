@@ -20,6 +20,12 @@
     height: 50px;
 
     &--left {
+      flex: 1;
+      align-items: center;
+      justify-content: flex-start;
+      transition: transform 0.3s;
+      will-change: transform;
+
       &.is-coverHidden {
         transform: translateX(-60px);
 
@@ -27,11 +33,6 @@
           opacity: 0;
         }
       }
-      flex: 1;
-      align-items: center;
-      transition: transform 0.3s;
-      justify: flex-start;
-      will-change: transform;
     }
 
     &--middle {

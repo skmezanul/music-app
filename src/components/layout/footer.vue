@@ -91,6 +91,7 @@
           <!-- playback toggle icon -->
           <ma-icon
           class="c-icon--toggle"
+          :hover="true"
           :class="isPlaying ? 'pause' : 'play'"
           @click.native="togglePlayback"
           >

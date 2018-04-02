@@ -32,12 +32,12 @@
 
     &.is-active {
       .c-sidebar__selectItemAvatar {
-        border-color: $white !important;
+        border-color: $white;
       }
 
       .c-sidebar__selectItemIcon {
         background-color: $white;
-        color: $black !important;
+        color: $black;
       }
     }
 
@@ -121,7 +121,7 @@
 .c-panelList {
   &__activeIndicator {
     position: absolute;
-    left: -1px;
+    left: 0;
     z-index: 3;
     width: 1px;
     background-color: $accent-color;
@@ -129,8 +129,12 @@
   }
 
   &__item {
+    transition: transform 0.3s;
     margin-bottom: 1.5em;
     cursor: pointer;
+    &:hover {
+      transform: translateX(7px);
+    }
   }
 
   &__title {

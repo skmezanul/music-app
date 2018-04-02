@@ -166,7 +166,6 @@ export default [{
     name: 'user',
     meta: {
       stage: {
-        cover: true,
         large: false,
       },
     },
@@ -177,7 +176,6 @@ export default [{
     name: 'userPlaylists',
     meta: {
       stage: {
-        cover: true,
         large: false,
       },
     },
@@ -188,7 +186,6 @@ export default [{
     name: 'userFollowing',
     meta: {
       stage: {
-        cover: true,
         large: false,
       },
     },

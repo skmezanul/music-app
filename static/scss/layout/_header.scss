@@ -20,7 +20,7 @@
     background-color: $dark-blue;
 
     .c-header__container {
-      width: $small-viewport-width;
+      width: $content-width-95;
     }
   }
 
@@ -29,7 +29,7 @@
     justify-content: space-between;
     transition: width 0.3s;
     will-change: width;
-    size: $large-viewport-width 42px;
+    width: $content-width-85;
   }
 
   &__inner {

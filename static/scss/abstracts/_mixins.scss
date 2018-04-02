@@ -24,28 +24,9 @@
 
 @mixin view-grid-columns() {
   @include smaller-than('md') {
-    grid-template-columns: auto $small-viewport-width auto;
+    grid-template-columns: auto $content-width-95 auto;
   }
-  grid-template-columns: auto $large-viewport-width auto;
-}
-
-@mixin comma-separated($size: null) {
-  position: relative;
-  margin-right: 5px;
-  padding-right: 3px;
-  color: $white-70;
-  font-size: $size;
-  cursor: pointer;
-  transition: color 0.3s;
-
-  &:hover {
-    color: $white;
-  }
-
-  &:not(:last-child):after {
-    position: absolute 0 0 0 initial;
-    content: ',';
-  }
+  grid-template-columns: auto $content-width-85 auto;
 }
 
 @mixin item-hover {
@@ -55,6 +36,20 @@
 
   &:hover {
     color: $white;
+  }
+}
+
+@mixin comma-separated($size: null) {
+  @include item-hover;
+  position: relative;
+  margin-right: 5px;
+  padding-right: 3px;
+  color: $white-70;
+  font-size: $size;
+
+  &:not(:last-child):after {
+    position: absolute 0 0 0 initial;
+    content: ',';
   }
 }
 
