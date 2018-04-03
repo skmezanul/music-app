@@ -9,8 +9,7 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
     :title='response.artistInfo.name',
     :navigation='getNavigation',
     :popularity='response.artistInfo.popularity',
-    :info='getInfo',
-    :buttons='getButtons')
+    :info='getInfo')
 
   // router view
   transition(name='fade', mode='out-in')
@@ -70,15 +69,6 @@ export default {
         value: followerCount.toLocaleString(),
         subtitle: self.$tc('follower', followerCount > 1 ? 0 : 1),
       }];
-    },
-
-    // get stage buttons
-    getButtons() {
-      return {
-        playall: true,
-        follow: true,
-        share: true,
-      };
     },
   },
 

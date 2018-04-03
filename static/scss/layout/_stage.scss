@@ -3,18 +3,18 @@
 // -----------------------------------------------------------------------------
 
 .c-stage {
-  grid-area: stage;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
   overflow: hidden;
   padding-top: 69px;
   min-height: 350px;
   height: 350px;
   background-color: $accent-color;
   transition: background-color 1s;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
+  grid-area: stage;
 
   &:after {
     position: absolute 0;
@@ -24,16 +24,16 @@
   }
 
   &.is-large {
-    height: 550px;
-
-    &:after {
-      background: ease-in-out-sine-gradient(to top, $main-bg-color, rgba($main-bg-color, 0));
-    }
 
     @supports (filter: none) {
       .c-stage__backgroundImage {
         filter: none;
       }
+    }
+    height: 550px;
+
+    &:after {
+      background: ease-in-out-sine-gradient(to top, $main-bg-color, rgba($main-bg-color, 0));
     }
 
     .c-stage__title {
@@ -74,16 +74,16 @@
   }
 
   &__cover {
-    overflow: hidden;
-    margin-right: 40px;
-    border-radius: 10px;
-    box-shadow: $backdrop-shadow;
-    size: 250px;
-    min-width: 250px;
-    max-width: 250px;
     @include smaller-than('md') {
       display: none;
     }
+    overflow: hidden;
+    margin-right: 40px;
+    min-width: 250px;
+    max-width: 250px;
+    border-radius: 10px;
+    box-shadow: $backdrop-shadow;
+    size: 250px;
 
     &:not(.is-small) {
       flex: 1;
@@ -103,8 +103,8 @@
     display: flex;
     flex: 4;
     flex-direction: column;
-    justify-content: flex-end;
     align-self: center;
+    justify-content: flex-end;
   }
 
   &__subtitle {
@@ -130,13 +130,14 @@
   }
 
   &__title {
+    max-width: $content-width-85;
     font-size: 3em;
     font-family: $secondary-font-stack;
     line-height: 1.2em;
     transform: translateX(-3px);
 
     &.is-large {
-      font-size: 4.5em;
+      font-size: 4em;
     }
   }
 
@@ -173,7 +174,7 @@
 
   &__meta {
     margin: 10px 0;
-    max-width: 80%;
+    max-width: $content-width-85;
 
     p {
       margin: 0;
@@ -184,9 +185,9 @@
   }
 
   &__navigation {
-    width: $content-width-85;
     z-index: 2;
     margin-top: 15px;
+    width: $content-width-85;
   }
 
   &__navigationList {

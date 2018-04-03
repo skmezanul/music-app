@@ -6,7 +6,6 @@ import backend from '../providers/backend/';
 const country = store.getters['user/getCountry'],
   locale = store.getters['user/getLocale'],
   market = store.getters['user/getMarket'],
-  deviceId = store.getters['player/getDeviceId'],
   shuffleState = store.getters['playback/getCurrentPlayback'].shuffle_state,
   refreshToken = store.getters['auth/getRefreshToken'];
 

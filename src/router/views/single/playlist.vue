@@ -8,7 +8,6 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
     :subtitle='$tc("playlist", 1)',
     :title='response.playlist.name',
     :info='getInfo',
-    :buttons='getButtons',
     :profile='response.playlist.owner',
     :meta='response.playlist.description')
 
@@ -65,14 +64,6 @@ export default {
         value: followerCount.toLocaleString(),
         subtitle: self.$tc('follower', followerCount === 1 ? 1 : 0),
       }];
-    },
-
-    // get stage buttons
-    getButtons() {
-      return {
-        playall: true,
-        save: true,
-      };
     },
   },
 

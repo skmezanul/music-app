@@ -7,8 +7,7 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
     :image='response.tracks.items[0].track.album.images',
     :subtitle='$t("library")',
     :title='$tc("track", 0)',
-    :info='getInfo',
-    :buttons='getButtons')
+    :info='getInfo')
 
   .o-view__content(v-if='response.tracks')
     // tracks
@@ -58,13 +57,6 @@ export default {
         value: trackCount,
         subtitle: self.$tc('track', trackCount === 1 ? 1 : 0),
       }];
-    },
-
-    // get stage buttons
-    getButtons() {
-      return {
-        playall: true,
-      };
     },
   },
 

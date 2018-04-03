@@ -16,11 +16,19 @@ import './providers/firebase/';
 import './spotify/interceptors/response';
 import './spotify/interceptors/request';
 
+// import endpoints
 import endpoints from './spotify/endpoints';
 
 // register axios
 Vue.use(VueAxios, axios);
 
+// register loader
+VueApiRequest.addLoader('ma-loader', loader);
+
+// add endpoints
+VueApiRequest.setAPI(endpoints);
+
+// options for api-request plugin
 const options = {
   resp: 'data',
   spinner: 'ma-loader',
@@ -34,7 +42,5 @@ const options = {
   },
 };
 
-VueApiRequest.addLoader('ma-loader', loader);
-VueApiRequest.setAPI(endpoints);
-
+// register api-request plugin
 Vue.use(VueApiRequest, options);

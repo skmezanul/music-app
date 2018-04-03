@@ -36,8 +36,6 @@
 
     <!-- music video -->
     <ma-video></ma-video>
-
-    <ma-device-splash></ma-device-splash>
 </div>
 </template>
 

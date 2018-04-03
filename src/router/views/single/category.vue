@@ -58,14 +58,6 @@ export default {
         subtitle: self.$tc('track', trackCount === 1 ? 1 : 0),
       }];
     },
-
-    // get stage buttons
-    getButtons() {
-      return {
-        playall: true,
-        save: true,
-      };
-    },
   },
 
 };

@@ -19,7 +19,7 @@
     <div class="c-stage__inner">
 
         <!-- cover -->
-        <div class="c-stage__cover" v-if="$route.meta.stage.cover && image[0]">
+        <div class="c-stage__cover" v-if="hasCover && image[0]">
 
             <!-- cover image -->
             <img class="c-stage__coverImage" v-lazy="image[0].url" :alt="title" />
@@ -55,7 +55,7 @@
             <h1
             class="c-stage__title"
             v-if="title"
-            :class="{ 'is-large' : titleWordCount < 4 && $route.name === 'album' }"
+            :class="{ 'is-large' : hasLargeTitle }"
             >
 
             {{ title }}
@@ -68,11 +68,11 @@
             </div>
 
             <!-- actions -->
-            <div class="c-stage__actions" v-if="buttons">
+            <div class="c-stage__actions" v-if="hasActions">
 
                 <!-- play all -->
                 <ma-button
-                v-if="buttons.playall"
+                v-if="canPlayAll"
                 type="accent"
                 icon="play_circle_filled"
                 title="playall"
@@ -89,7 +89,7 @@
 
                 <!-- save -->
                 <ma-button
-                v-if="buttons.save"
+                v-if="canSave"
                 icon="save"
                 title="save"
                 ></ma-button>
@@ -250,16 +250,17 @@ export default {
       return {
         'is-large': self.isLarge,
         'c-stage--cover': self.hasCover,
-        'c-stage--image': self.image,
-        'c-stage--navigation': self.navigation,
+        'c-stage--image': self.image.length,
+        'c-stage--navigation': self.navigation.length,
       };
     },
 
     // check if stage is large
     isLarge() {
       const self = this,
-        { meta } = self.$route,
-        isLarge = meta.stage.large;
+        exp = /artist|mylibraryHistory/,
+        { name } = self.$route,
+        isLarge = exp.test(name);
 
       return isLarge;
     },
@@ -272,23 +273,65 @@ export default {
       return title.split(' ').length;
     },
 
+    // check if title is large
+    hasLargeTitle() {
+      const self = this,
+        { name } = self.$route,
+        wordCount = self.titleWordCount,
+        hasLargeTitle = wordCount < 4 && name === 'album';
+
+      return hasLargeTitle;
+    },
+
     // check if stage has cover
     hasCover() {
       const self = this,
-        { meta } = self.$route,
-        hasCover = meta.stage.cover;
+        exp = /album|playlist/,
+        { name } = self.$route,
+        hasCover = exp.test(name);
 
       return hasCover;
+    },
+
+    // check if stage has any actions
+    hasActions() {
+      const self = this,
+        {
+          canFollow, canPlayAll, canSave, canEdit,
+        } = self,
+        hasActions = canFollow || canPlayAll || canSave || canEdit;
+
+      return hasActions;
     },
 
     // check if show follow button
     canFollow() {
       const self = this,
-        exp = /artist|user/,
+        exp = /artist|user|playlist/,
         { params, name } = self.$route,
         canFollow = params.id && exp.test(name);
 
       return canFollow;
+    },
+
+    // check if show play all button
+    canPlayAll() {
+      const self = this,
+        exp = /playlist|artist|album|mylibraryTracks|mylibraryAlbums|mylibraryHistory/,
+        { name } = self.$route,
+        canPlayAll = exp.test(name);
+
+      return canPlayAll;
+    },
+
+    // check if show save button
+    canSave() {
+      const self = this,
+        exp = /album/,
+        { name } = self.$route,
+        canSave = exp.test(name);
+
+      return canSave;
     },
 
     // check if show edit button

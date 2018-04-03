@@ -6,8 +6,7 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
     v-if='response.history',
     :image='response.history.items[0].track.album.images',
     :subtitle='$t("library")',
-    :title='$t("recentlyplayed")',
-    :buttons='getButtons')
+    :title='$t("recentlyplayed")')
 
   .o-view__content(v-if='response.history')
     // tracks
@@ -44,13 +43,6 @@ export default {
 
       return {
         history: () => api.getMyPlaybackHistory('track'),
-      };
-    },
-
-    // get stage buttons
-    getButtons() {
-      return {
-        playall: true,
       };
     },
   },
