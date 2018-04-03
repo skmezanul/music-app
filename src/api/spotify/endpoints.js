@@ -138,13 +138,38 @@ export default {
   }),
 
   // check if current user if following artist or user
-  isFollowing: (type, ids) => spotify({
+  isFollowingArtistOrUser: (type, ids) => spotify({
     method: 'get',
     url: '/me/following/contains',
     params: {
       type,
       ids,
     },
+  }),
+
+  // follow or unfollow an artist or user
+  followArtistOrUser: (action, type, ids) => spotify({
+    method: action === 'follow' ? 'put' : 'delete',
+    url: '/me/following',
+    params: {
+      type,
+      ids,
+    },
+  }),
+
+  // check if current user if following playlist
+  isFollowingPlaylist: (ownerId, playlistId, ids) => spotify({
+    method: 'get',
+    url: `/users/${ownerId}/playlists/${playlistId}/followers/contains`,
+    params: {
+      ids,
+    },
+  }),
+
+  // follow or unfollow a playlist
+  followPlaylist: (action, ownerId, playlistId) => spotify({
+    method: action === 'follow' ? 'put' : 'delete',
+    url: `users/${ownerId}/playlists/${playlistId}/followers`,
   }),
 
   // get results for search query

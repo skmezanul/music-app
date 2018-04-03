@@ -9,7 +9,7 @@
 			.c-colorPicker
 				.c-colorPicker__color(
 					v-for='color in settings.accentColors',
-          :class='{ "is-active" : accentColor.current === color.hex }',
+          :class='{ "is-active" : settings.currentAccentColor === color.hex }',
 					:style='{ backgroundColor : color.hex }',
 					@click='accentColor = color.hex',
 					v-tooltip='{ content: $t(color.name), offset: 5 }')

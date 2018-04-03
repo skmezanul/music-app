@@ -142,6 +142,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
 
   data: () => ({
@@ -199,35 +201,50 @@ export default {
     // check if the current user is following this artist / user
     checkIfFollowing() {
       const self = this,
-        { params, name } = self.$route,
-        isArtist = /artist/.test(name);
+        { isRoute } = self,
+        { params } = self.$route,
+        api = self.$api,
+        userId = self.currentUser.id;
 
       if (self.canFollow) {
-        self.$api.isFollowing(isArtist ? 'artist' : 'user', params.id)
-          .then((res) => {
-            [self.isFollowing] = res.data;
-          });
+        if (isRoute('artist') || isRoute('user')) {
+          const type = isRoute('artist') ? 'artist' : 'user';
+
+          api.isFollowingArtistOrUser(type, params.id)
+            .then((res) => {
+              [self.isFollowing] = res.data;
+            });
+        } else if (isRoute('playlist')) {
+          api.isFollowingPlaylist(params.owner, params.id, userId)
+            .then((res) => {
+              [self.isFollowing] = res.data;
+            });
+        }
       }
     },
 
     // follow or unfollow this artist or user
     setFollowing() {
       const self = this,
-        {
-          name,
-          params,
-        } = self.$route,
-        isArtist = /artist/.test(name);
+        { isRoute } = self,
+        { params } = self.$route,
+        api = self.$api;
 
       if (params.id && self.canFollow) {
-        self.$spotifyApi({
-          method: 'put',
-          url: '/me/following',
-          params: {
-            type: isArtist ? 'artist' : 'user',
-            ids: params.id,
-          },
-        });
+        const type = isRoute('artist') ? 'artist' : 'user',
+          action = self.isFollowing ? 'unfollow' : 'follow';
+
+        if (isRoute('artist') || isRoute('user')) {
+          api.followArtistOrUser(action, type, params.id)
+            .then(() => {
+              self.isFollowing = !self.isFollowing;
+            });
+        } else if (isRoute('playlist')) {
+          api.followPlaylist(action, params.owner, params.id)
+            .then(() => {
+              self.isFollowing = !self.isFollowing;
+            });
+        }
       }
     },
 
@@ -239,11 +256,26 @@ export default {
         hasCoverMessage = exp.test(meta);
 
       if (typeof meta === 'string' && hasCoverMessage) [meta] = meta.split(cover);
+
       return meta;
+    },
+
+    // check if route contains routeName
+    isRoute(routeName) {
+      const self = this,
+        exp = new RegExp(routeName),
+        { name } = self.$route,
+        isRoute = exp.test(name);
+
+      return isRoute;
     },
   },
 
   computed: {
+    ...mapGetters('user', {
+      currentUser: 'getCurrentUser',
+    }),
+
     // stage classes
     stageClasses() {
       const self = this;
@@ -309,7 +341,8 @@ export default {
       const self = this,
         exp = /artist|user|playlist/,
         { params, name } = self.$route,
-        canFollow = params.id && exp.test(name);
+        isOwner = params.owner === self.currentUser.id,
+        canFollow = params.id && !isOwner && exp.test(name);
 
       return canFollow;
     },

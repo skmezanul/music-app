@@ -12,7 +12,7 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
     // tracks
     ma-section
 
-      ol.list
+      ol.c-list
         ma-list(
           v-for='(history, index) in response.history.items',
           :key='index',
