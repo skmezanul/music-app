@@ -10,7 +10,7 @@ export const credentials = {
   expiryTime: getters['auth/getExpiryTime'],
 
   // spotify backend api token
-  spotifyBackendToken: '',
+  spotifyBackendToken: getters['auth/getBackendToken'],
 
   // youtube api key
   youtubeApiKey: 'AIzaSyDV-D04s-RbQDwPXxadnt2LKpuC1rPveUc',

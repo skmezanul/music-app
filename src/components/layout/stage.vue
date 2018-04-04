@@ -1,9 +1,8 @@
-<template
->
+<template>
 <div class="c-stage" :class="stageClasses">
 
     <!-- background image -->
-    <transition v-if="image[0]" name="zoom-out" appear="appear">
+    <transition v-if="image[0]" name="zoom-out" appear>
 
         <div class="c-stage__background">
 
@@ -147,7 +146,7 @@ import { mapGetters } from 'vuex';
 export default {
 
   data: () => ({
-    isFollowing: [],
+    isFollowing: false,
   }),
 
   props: {
@@ -341,7 +340,7 @@ export default {
       const self = this,
         exp = /artist|user|playlist/,
         { params, name } = self.$route,
-        isOwner = params.owner === self.currentUser.id,
+        isOwner = params.owner === self.currentUser.id || params.id === self.currentUser.id,
         canFollow = params.id && !isOwner && exp.test(name);
 
       return canFollow;

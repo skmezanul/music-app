@@ -13,7 +13,7 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
     // tracks
     ma-section(:collapsible='false')
 
-      ol.list
+      ol.c-list
         ma-list(
           v-for='(item, index) in response.tracks.items',
           :key='item.track.id',

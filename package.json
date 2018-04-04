@@ -38,7 +38,7 @@
     "query-string": "^5.0.1",
     "v-tooltip": "^2.0.0-rc.26",
     "vue": "^2.5.13",
-    "vue-api-request": "^1.1.7",
+    "vue-api-request": "git+https://git@github.com/microeinhundert/vue-api-request.git",
     "vue-axios": "^2.0.2",
     "vue-axios-plugin": "^1.2.3",
     "vue-clickaway": "^2.1.0",

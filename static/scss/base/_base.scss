@@ -48,6 +48,12 @@ figure {
     grid-auto-rows: auto;
     grid-row-gap: 3em;
   }
+
+  &__text {
+    font-size: 1.3em;
+    line-height: 1.7em;
+    margin: 0;
+  }
 }
 
 // tooltip styling

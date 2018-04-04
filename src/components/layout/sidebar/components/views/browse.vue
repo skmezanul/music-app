@@ -3,9 +3,7 @@
 class="c-sidebarPanel__parent"
 :resource="dataToFetch"
 v-model="response"
-spinner="ClipLoader"
-spinnerColor="var(--accent-color)"
-:spinner-scale="0.7"
+spinner=""
 >
 
     <maPanelList

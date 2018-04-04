@@ -3,7 +3,7 @@
 
   // about this artist
   ma-section(:title='`${$t("about")} ${parentData.artistInfo.name}`')
-    p.biography(v-html='parentData.additionalInfo.bio')
+    p.o-view__text(v-html='parentData.additionalArtistInfo.bio')
 </template>
 
 <script>

@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import router from '@/router';
 
 const actions = {
   /**
@@ -24,7 +23,7 @@ const actions = {
     if (code) {
       Vue.prototype.$api.getAccessToken(code).then((res) => {
         commit('SET_CREDENTIALS', res.data);
-        router.push({ name: 'browse' });
+        window.location.reload();
       }).catch((err) => {
         commit('app/SET_NOTICE', {
           action: 'add',

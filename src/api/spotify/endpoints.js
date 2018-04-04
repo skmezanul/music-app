@@ -1,12 +1,14 @@
 /* eslint-disable max-len */
 import store from '@/store';
 import spotify from '../providers/spotify/';
+import spotifyBackend from '../providers/spotify/backend';
 import backend from '../providers/backend/';
 
 const country = store.getters['user/getCountry'],
   locale = store.getters['user/getLocale'],
   market = store.getters['user/getMarket'],
   shuffleState = store.getters['playback/getCurrentPlayback'].shuffle_state,
+  deviceId = store.getters['player/getDeviceId'],
   refreshToken = store.getters['auth/getRefreshToken'];
 
 export default {
@@ -46,6 +48,12 @@ export default {
 
   // get artist info
   getArtistInfo: id => spotify({
+    method: 'get',
+    url: `/artists/${id}`,
+  }),
+
+  // get additional artist info
+  getAdditionalArtistInfo: id => spotifyBackend({
     method: 'get',
     url: `/artists/${id}`,
   }),
