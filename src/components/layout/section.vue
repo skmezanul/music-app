@@ -29,7 +29,7 @@
 export default {
 
   data: () => ({
-    collapsed: false,
+    collapsed: true,
   }),
 
   props: {
