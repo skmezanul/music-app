@@ -25,11 +25,11 @@
                 </ma-icon>
 
                 <!-- user avatar -->
-                <div class="c-sidebar__selectItemAvatar" v-else>
+                <div class="c-sidebar__selectItemAvatar" v-else-if="currentUser">
 
                   <img
                   class="c-sidebar__selectItemAvatarImage"
-                  v-if="currentUser"
+                  v-if="currentUser.images"
                   :src="currentUser.images[0].url"
                   :alt="currentUser.display_name"
                   />
@@ -44,7 +44,7 @@
     <!-- sidebar panel -->
     <transition name="slide-right-transform">
         <div
-        class="c-sidebarPanel" 
+        class="c-sidebarPanel"
         v-if="isPanelOpen"
         :class="{ 'is-fixed' : settings.fixedSidebar }"
         >

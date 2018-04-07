@@ -1,15 +1,14 @@
-import Vue from 'vue';
+/* eslint-disable one-var */
 import axios from 'axios';
-import { baseURL, credentials } from '../../config';
 
 // register spotify backend axios instance
 const spotifyBackend = axios.create({
-  baseURL: baseURL.spotifyBackend,
-  headers: {
-    Authorization: `Bearer ${credentials.spotifyBackendToken}`,
-  },
+  baseURL: 'https://spclient.wg.spotify.com/open-backend-2/v1/',
 });
 
-Vue.prototype.$spotifyBackendApi = spotifyBackend;
-
 export default spotifyBackend;
+
+export const getAdditionalArtistInfo = id => spotifyBackend({
+  method: 'get',
+  url: `/artists/${id}`,
+});

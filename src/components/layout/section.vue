@@ -29,8 +29,7 @@
 export default {
 
   data: () => ({
-    collapsed: true,
-    isCollapsible: true,
+    collapsed: false,
   }),
 
   props: {

@@ -64,6 +64,8 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 
 
 <script>
+import { getSearchResults } from '@/api/providers/spotify';
+
 export default {
 
   data: () => ({
@@ -74,11 +76,10 @@ export default {
     // get data to fetch from api
     dataToFetch() {
       const self = this,
-        api = self.$api,
         { query } = self.$route.params;
 
       return {
-        results: () => api.getSearchResults('album,artist,track', query),
+        results: () => getSearchResults('album,artist,track', query),
       };
     },
   },

@@ -1,16 +1,12 @@
-import Vue from 'vue';
 import axios from 'axios';
-import { baseURL, credentials } from '../../config';
 
 // register youtube axios instance
 const youtube = axios.create({
-  baseURL: baseURL.youtube,
+  baseURL: 'https://www.googleapis.com/youtube/v3/',
   params: {
     part: 'snippet',
-    key: credentials.youtubeApiKey,
+    key: 'AIzaSyDV-D04s-RbQDwPXxadnt2LKpuC1rPveUc',
   },
 });
-
-Vue.prototype.$youtubeApi = youtube;
 
 export default youtube;

@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { getAuthURL, getAccessToken, refreshAccessToken } from '@/api/providers/backend';
 
 const actions = {
   /**
@@ -7,7 +7,7 @@ const actions = {
   LOGIN_USER({ state }) {
     const { protocol, host } = window.location;
 
-    Vue.prototype.$api.getAuthURL(protocol, host).then((res) => {
+    getAuthURL(protocol, host).then((res) => {
       if (!state.accessToken) window.location.href = res.data.url;
     });
   },
@@ -21,7 +21,7 @@ const actions = {
     const { code } = payload;
 
     if (code) {
-      Vue.prototype.$api.getAccessToken(code).then((res) => {
+      getAccessToken(code).then((res) => {
         commit('SET_CREDENTIALS', res.data);
         window.location.reload();
       }).catch((err) => {
@@ -41,7 +41,7 @@ const actions = {
     const refreshToken = getters.getRefreshToken;
 
     if (refreshToken) {
-      Vue.prototype.$api.refreshAccessToken(refreshToken).then((res) => {
+      refreshAccessToken(refreshToken).then((res) => {
         commit('SET_CREDENTIALS', res.data);
       }).catch((err) => {
         commit('app/SET_NOTICE', {

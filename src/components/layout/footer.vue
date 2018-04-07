@@ -264,7 +264,6 @@ export default {
     // jump to progress
     jumpToProgress(event) {
       const self = this,
-        { currentPlayback } = self,
         { progressContainer } = self.$refs,
         progressBarWidth = progressContainer.offsetWidth,
         clickedPosition = (event.clientX / progressBarWidth) * 100,

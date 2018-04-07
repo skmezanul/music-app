@@ -23,7 +23,6 @@ const store = new Vuex.Store({
     playback,
     auth,
   },
-  plugins: [createPersistedState()],
 });
 
 export default store;

@@ -142,6 +142,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import {
+  isFollowingArtistOrUser,
+  isFollowingPlaylist,
+  followArtistOrUser,
+  followPlaylist,
+} from '@/api/providers/spotify';
 
 export default {
 
@@ -202,19 +208,18 @@ export default {
       const self = this,
         { isRoute } = self,
         { params } = self.$route,
-        api = self.$api,
         userId = self.currentUser.id;
 
       if (self.canFollow) {
         if (isRoute('artist') || isRoute('user')) {
           const type = isRoute('artist') ? 'artist' : 'user';
 
-          api.isFollowingArtistOrUser(type, params.id)
+          isFollowingArtistOrUser(type, params.id)
             .then((res) => {
               [self.isFollowing] = res.data;
             });
         } else if (isRoute('playlist')) {
-          api.isFollowingPlaylist(params.owner, params.id, userId)
+          isFollowingPlaylist(params.owner, params.id, userId)
             .then((res) => {
               [self.isFollowing] = res.data;
             });
@@ -226,20 +231,19 @@ export default {
     setFollowing() {
       const self = this,
         { isRoute } = self,
-        { params } = self.$route,
-        api = self.$api;
+        { params } = self.$route;
 
       if (params.id && self.canFollow) {
         const type = isRoute('artist') ? 'artist' : 'user',
           action = self.isFollowing ? 'unfollow' : 'follow';
 
         if (isRoute('artist') || isRoute('user')) {
-          api.followArtistOrUser(action, type, params.id)
+          followArtistOrUser(action, type, params.id)
             .then(() => {
               self.isFollowing = !self.isFollowing;
             });
         } else if (isRoute('playlist')) {
-          api.followPlaylist(action, params.owner, params.id)
+          followPlaylist(action, params.owner, params.id)
             .then(() => {
               self.isFollowing = !self.isFollowing;
             });
@@ -309,7 +313,8 @@ export default {
       const self = this,
         { name } = self.$route,
         wordCount = self.titleWordCount,
-        hasLargeTitle = wordCount < 4 && name === 'album';
+        exp = /album|playlist/,
+        hasLargeTitle = wordCount < 4 && exp.test(name);
 
       return hasLargeTitle;
     },

@@ -4,7 +4,9 @@ import mutations from './mutations';
 const playback = {
   namespaced: true,
   state: {
-    current: [],
+    current: {
+      type: Array,
+    },
   },
   actions,
   mutations,
