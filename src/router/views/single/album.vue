@@ -26,13 +26,19 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 </template>
 
 <script>
-import { getAlbum } from '@/api/providers/spotify';
+import { mapActions } from 'vuex';
 
 export default {
 
   data: () => ({
     response: {},
   }),
+
+  methods: {
+    ...mapActions('endpoints', {
+      getAlbum: 'GET_ALBUM',
+    }),
+  },
 
   computed: {
     // get data to fetch from api
@@ -41,7 +47,7 @@ export default {
         { id } = self.$route.params;
 
       return {
-        album: () => getAlbum(id),
+        album: () => self.getAlbum({ id }),
       };
     },
 

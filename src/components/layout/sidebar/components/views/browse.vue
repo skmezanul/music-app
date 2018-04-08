@@ -16,12 +16,7 @@ spinner=""
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import {
-  getFeaturedPlaylists,
-  getMyPlaybackHistory,
-  getMyProfile,
-} from '@/api/providers/spotify';
+import { mapGetters, mapActions } from 'vuex';
 
 import maPanelList from '../panelList';
 
@@ -30,6 +25,14 @@ export default {
   data: () => ({
     response: {},
   }),
+
+  methods: {
+    ...mapActions('endpoints', {
+      getFeaturedPlaylists: 'GET_FEATURED_PLAYLISTS',
+      getMyPlaybackHistory: 'GET_MY_PLAYBACK_HISTORY',
+      getMyProfile: 'GET_MY_PROFILE',
+    }),
+  },
 
   computed: {
     ...mapGetters({
@@ -69,11 +72,13 @@ export default {
 
     // get data to fetch from api
     dataToFetch() {
+      const self = this;
+
       return {
-        featured: () => getFeaturedPlaylists(),
-        history: () => getMyPlaybackHistory(),
-        tracks: () => getMyProfile('tracks'),
-        albums: () => getMyProfile('albums'),
+        featured: () => self.getFeaturedPlaylists(),
+        history: () => self.getMyPlaybackHistory(),
+        tracks: () => self.getMyProfile('tracks'),
+        albums: () => self.getMyProfile('albums'),
       };
     },
   },

@@ -1,13 +1,11 @@
-import { getAuthURL, getAccessToken, refreshAccessToken } from '@/api/providers/backend';
-
 const actions = {
   /**
   * Redirect the user to external spotify login page.
   */
-  LOGIN_USER({ state }) {
+  LOGIN_USER({ state, dispatch }) {
     const { protocol, host } = window.location;
 
-    getAuthURL(protocol, host).then((res) => {
+    dispatch('endpoints/GET_AUTH_URL', { protocol, host }).then((res) => {
       if (!state.accessToken) window.location.href = res.data.url;
     });
   },
@@ -17,11 +15,11 @@ const actions = {
   * @param { object } payload The function payload.
   * @param { string } payload.code The code returned from spotify login page.
   */
-  GET_TOKEN({ commit }, payload) {
+  GET_TOKEN({ commit, dispatch }, payload) {
     const { code } = payload;
 
     if (code) {
-      getAccessToken(code).then((res) => {
+      dispatch('endpoints/GET_ACCESS_TOKEN', { code }).then((res) => {
         commit('SET_CREDENTIALS', res.data);
         window.location.reload();
       }).catch((err) => {
@@ -37,11 +35,11 @@ const actions = {
   /**
   * Call the backend api and refresh the access token.
   */
-  REFRESH_TOKEN({ getters, commit }) {
+  REFRESH_TOKEN({ getters, commit, dispatch }) {
     const refreshToken = getters.getRefreshToken;
 
     if (refreshToken) {
-      refreshAccessToken(refreshToken).then((res) => {
+      dispatch('endpoints/REFRESH_ACCESS_TOKEN', { refreshToken }).then((res) => {
         commit('SET_CREDENTIALS', res.data);
       }).catch((err) => {
         commit('app/SET_NOTICE', {

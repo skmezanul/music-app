@@ -17,13 +17,19 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 </template>
 
 <script>
-import { getUser } from '@/api/providers/spotify';
+import { mapActions } from 'vuex';
 
 export default {
 
   data: () => ({
     response: {},
   }),
+
+  methods: {
+    ...mapActions('endpoints', {
+      getUser: 'GET_USER',
+    }),
+  },
 
   computed: {
     // get data to fetch from api
@@ -32,7 +38,7 @@ export default {
         { id } = self.$route.params;
 
       return {
-        user: () => getUser(id),
+        user: () => self.getUser({ id }),
       };
     },
 

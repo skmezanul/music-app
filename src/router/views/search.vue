@@ -64,13 +64,19 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 
 
 <script>
-import { getSearchResults } from '@/api/providers/spotify';
+import { mapActions } from 'vuex';
 
 export default {
 
   data: () => ({
     response: {},
   }),
+
+  methods: {
+    ...mapActions('endpoints', {
+      getSearchResults: 'GET_SEARCH_RESULTS',
+    }),
+  },
 
   computed: {
     // get data to fetch from api
@@ -79,7 +85,7 @@ export default {
         { query } = self.$route.params;
 
       return {
-        results: () => getSearchResults('album,artist,track', query),
+        results: () => self.getSearchResults({ type: 'album,artist,track', q: query }),
       };
     },
   },

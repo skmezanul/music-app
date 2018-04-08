@@ -18,20 +18,23 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { getAdditionalArtistInfo } from '@/api/providers/spotify/backend';
-import {
-  getArtistInfo,
-  getTopTracks,
-  getAlbums,
-  getRelatedArtists,
-} from '@/api/providers/spotify';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
 
   data: () => ({
     response: {},
   }),
+
+  methods: {
+    ...mapActions('endpoints', {
+      getArtistInfo: 'GET_ARTIST_INFO',
+      getTopTracks: 'GET_TOP_TRACKS',
+      getAlbums: 'GET_ALBUMS',
+      getRelatedArtists: 'GET_RELATED_ARTISTS',
+      getAdditionalArtistInfo: 'GET_ADDITIONAL_ARTIST_INFO',
+    }),
+  },
 
   computed: {
     ...mapGetters('auth', {
@@ -44,17 +47,17 @@ export default {
         { id } = self.$route.params;
 
       let dataToFetch = {
-        artistInfo: () => getArtistInfo(id),
-        topTracks: () => getTopTracks(id),
-        albums: () => getAlbums(id, 'album'),
-        singles: () => getAlbums(id, 'single'),
-        appearsOn: () => getAlbums(id, 'appears_on'),
-        relatedArtists: () => getRelatedArtists(id),
+        artistInfo: () => self.getArtistInfo({ id }),
+        topTracks: () => self.getTopTracks({ id }),
+        albums: () => self.getAlbums({ id, type: 'album' }),
+        singles: () => self.getAlbums({ id, type: 'single' }),
+        appearsOn: () => self.getAlbums({ id, type: 'appears_on' }),
+        relatedArtists: () => self.getRelatedArtists({ id }),
       };
 
       if (self.spotifyBackendToken) {
         dataToFetch = Object.assign({
-          additionalArtistInfo: () => getAdditionalArtistInfo(id),
+          additionalArtistInfo: () => self.getAdditionalArtistInfo({ id }),
         }, dataToFetch);
       }
 

@@ -31,13 +31,19 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 </template>
 
 <script>
-import { getPlaylist } from '@/api/providers/spotify';
+import { mapActions } from 'vuex';
 
 export default {
 
   data: () => ({
     response: {},
   }),
+
+  methods: {
+    ...mapActions('endpoints', {
+      getPlaylist: 'GET_PLAYLIST',
+    }),
+  },
 
   computed: {
     // get data to fetch from api
@@ -46,7 +52,7 @@ export default {
         { owner, id } = self.$route.params;
 
       return {
-        playlist: () => getPlaylist(owner, id),
+        playlist: () => self.getPlaylist({ owner, id }),
       };
     },
 

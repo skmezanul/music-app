@@ -1,4 +1,4 @@
-import { getMyProfile } from '@/api/providers/spotify';
+import { getMyProfile } from '@/api/providers/spotify/endpoints';
 
 const actions = {
   /**

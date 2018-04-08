@@ -1,14 +1,15 @@
 /* eslint-disable one-var */
 import Vue from 'vue';
 import Vuex from 'vuex';
-import createPersistedState from 'vuex-persistedstate';
+import { storeApiPlugin } from '@/api/providers/spotify/';
 
 // import modules
-import user from './user';
-import player from './player';
-import playback from './playback';
-import auth from './auth';
 import app from './app';
+import auth from './auth';
+import endpoints from './endpoints';
+import playback from './playback';
+import player from './player';
+import user from './user';
 
 Vue.use(Vuex);
 
@@ -18,12 +19,13 @@ const store = new Vuex.Store({
   strict: true,
   modules: {
     app,
-    user,
-    player,
-    playback,
     auth,
+    endpoints,
+    playback,
+    player,
+    user,
   },
-  plugins: [createPersistedState()],
+  plugins: [storeApiPlugin],
 });
 
 export default store;

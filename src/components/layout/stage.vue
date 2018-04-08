@@ -141,13 +141,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import {
-  isFollowingArtistOrUser,
-  isFollowingPlaylist,
-  followArtistOrUser,
-  followPlaylist,
-} from '@/api/providers/spotify';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
 
@@ -203,6 +197,13 @@ export default {
   },
 
   methods: {
+    ...mapActions('endpoints', {
+      isFollowingArtistOrUser: 'IS_FOLLOWING_ARTIST_OR_USER',
+      isFollowingPlaylist: 'IS_FOLLOWING_PLAYLIST',
+      followArtistOrUser: 'FOLLOW_ARTIST_OR_USER',
+      followPlaylist: 'FOLLOW_PLAYLIST',
+    }),
+
     // check if the current user is following this artist / user
     checkIfFollowing() {
       const self = this,
@@ -214,12 +215,12 @@ export default {
         if (isRoute('artist') || isRoute('user')) {
           const type = isRoute('artist') ? 'artist' : 'user';
 
-          isFollowingArtistOrUser(type, params.id)
+          self.isFollowingArtistOrUser(type, params.id)
             .then((res) => {
               [self.isFollowing] = res.data;
             });
         } else if (isRoute('playlist')) {
-          isFollowingPlaylist(params.owner, params.id, userId)
+          self.isFollowingPlaylist(params.owner, params.id, userId)
             .then((res) => {
               [self.isFollowing] = res.data;
             });
@@ -238,12 +239,12 @@ export default {
           action = self.isFollowing ? 'unfollow' : 'follow';
 
         if (isRoute('artist') || isRoute('user')) {
-          followArtistOrUser(action, type, params.id)
+          self.followArtistOrUser(action, type, params.id)
             .then(() => {
               self.isFollowing = !self.isFollowing;
             });
         } else if (isRoute('playlist')) {
-          followPlaylist(action, params.owner, params.id)
+          self.followPlaylist(action, params.owner, params.id)
             .then(() => {
               self.isFollowing = !self.isFollowing;
             });

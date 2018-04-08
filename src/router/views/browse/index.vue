@@ -15,19 +15,22 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import {
-  getFeaturedPlaylists,
-  getNewReleases,
-  getCharts,
-  getCategories,
-} from '@/api/providers/spotify';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
 
   data: () => ({
     response: {},
   }),
+
+  methods: {
+    ...mapActions('endpoints', {
+      getFeaturedPlaylists: 'GET_FEATURED_PLAYLISTS',
+      getNewReleases: 'GET_NEW_RELEASES',
+      getCharts: 'GET_CHARTS',
+      getCategories: 'GET_CATEGORIES',
+    }),
+  },
 
   computed: {
     ...mapGetters('user', {
@@ -36,11 +39,13 @@ export default {
 
     // get data to fetch from api
     dataToFetch() {
+      const self = this;
+
       return {
-        featured: getFeaturedPlaylists,
-        releases: getNewReleases,
-        charts: getCharts,
-        categories: getCategories,
+        featured: self.getFeaturedPlaylists,
+        releases: self.getNewReleases,
+        charts: self.getCharts,
+        categories: self.getCategories,
       };
     },
 

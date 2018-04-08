@@ -29,7 +29,7 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 </template>
 
 <script>
-import { getMyPlaybackHistory } from '@/api/providers/spotify';
+import { mapActions } from 'vuex';
 
 export default {
 
@@ -37,11 +37,17 @@ export default {
     response: {},
   }),
 
+  methods: {
+    ...mapActions('endpoints', {
+      getMyPlaybackHistory: 'GET_MY_PLAYBACK_HISTORY',
+    }),
+  },
+
   computed: {
     // get data to fetch from api
     dataToFetch() {
       return {
-        history: () => getMyPlaybackHistory('track'),
+        history: () => this.getMyPlaybackHistory({ type: 'track' }),
       };
     },
   },

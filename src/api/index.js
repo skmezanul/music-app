@@ -9,7 +9,6 @@ import store from '@/store';
 
 // import providers
 import './providers/spotify/';
-import './providers/spotify/backend';
 import './providers/backend/';
 import './providers/youtube/';
 import './providers/firebase/';
