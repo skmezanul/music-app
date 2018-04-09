@@ -1,9 +1,11 @@
+import Vue from 'vue';
+
 const actions = {
   /**
   * Get the current playback and commit it to state.
   */
-  GET_PLAYBACK({ commit, dispatch }) {
-    dispatch('endpoints/GET_PLAYBACK').then((res) => {
+  GET_PLAYBACK({ commit }) {
+    Vue.prototype.$api.getPlayback().then((res) => {
       // push current playback to store
       commit('SET_PLAYBACK', res.data);
     });
@@ -14,8 +16,8 @@ const actions = {
   * @param { object } payload The function payload.
   * @param { string } [ payload.direction = 'next', 'previous' ] The direction to skip.
   */
-  SKIP_TO({ dispatch }, { direction }) {
-    if (direction) dispatch('endpoints/SKIP_TO', { direction });
+  SKIP_TO(context, { direction }) {
+    if (direction) Vue.prototype.$api.skipTo({ direction });
   },
 
   /**
@@ -23,8 +25,8 @@ const actions = {
   * @param { object } payload The function payload.
   * @param { number } payload.position The position to seek to.
   */
-  SEEK_TO({ dispatch }, { position }) {
-    if (position) dispatch('endpoints/SKIP_TO', { position });
+  SEEK_TO(context, { position }) {
+    if (position) Vue.prototype.$api.seekTo({ position });
   },
 
   /**
@@ -33,7 +35,7 @@ const actions = {
   * @param { string } [ payload.state = 'play', 'pause' ] State to change the playback to.
   * @param { string } payload.trackId ID of the track to play.
   */
-  SET_PLAYBACK({ dispatch }, { state, trackId }) {
+  SET_PLAYBACK(context, { state, trackId }) {
     let uris;
 
     // play track if trackId in request payload and state set to 'play'
@@ -41,21 +43,21 @@ const actions = {
       uris = [`spotify:track:${trackId}`];
     }
 
-    if (state) dispatch('endpoints/SET_PLAYBACK', { state, uris });
+    if (state) Vue.prototype.$api.setPlayback({ state, uris });
   },
 
   /**
   * Toggle repeat for the current playback.
   */
-  TOGGLE_REPEAT({ dispatch }) {
-    dispatch('endpoints/TOGGLE_REPEAT');
+  TOGGLE_REPEAT() {
+    Vue.prototype.$api.toggleRepeat();
   },
 
   /**
   * Set shuffle state for the current playback.
   */
-  SET_SHUFFLE({ dispatch }) {
-    dispatch('endpoints/SET_SHUFFLE');
+  SET_SHUFFLE() {
+    Vue.prototype.$api.setShuffle();
   },
 };
 

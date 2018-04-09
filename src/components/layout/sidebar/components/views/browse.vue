@@ -16,7 +16,7 @@ spinner=""
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 import maPanelList from '../panelList';
 
@@ -25,14 +25,6 @@ export default {
   data: () => ({
     response: {},
   }),
-
-  methods: {
-    ...mapActions('endpoints', {
-      getFeaturedPlaylists: 'GET_FEATURED_PLAYLISTS',
-      getMyPlaybackHistory: 'GET_MY_PLAYBACK_HISTORY',
-      getMyProfile: 'GET_MY_PROFILE',
-    }),
-  },
 
   computed: {
     ...mapGetters({
@@ -72,13 +64,14 @@ export default {
 
     // get data to fetch from api
     dataToFetch() {
-      const self = this;
+      const self = this,
+        api = self.$api;
 
       return {
-        featured: () => self.getFeaturedPlaylists(),
-        history: () => self.getMyPlaybackHistory(),
-        tracks: () => self.getMyProfile('tracks'),
-        albums: () => self.getMyProfile('albums'),
+        featured: () => api.getFeaturedPlaylists(),
+        history: () => api.getMyPlaybackHistory({ type: 'track' }),
+        tracks: () => api.getMyProfile({ type: 'tracks' }),
+        albums: () => api.getMyProfile({ type: 'albums' }),
       };
     },
   },

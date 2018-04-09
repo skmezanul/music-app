@@ -4,12 +4,8 @@ import mutations from './mutations';
 const user = {
   namespaced: true,
   state: {
-    profile: {
-      type: Array,
-    },
-    playlists: {
-      type: Array,
-    },
+    profile: {},
+    playlists: {},
   },
   actions,
   mutations,

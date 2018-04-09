@@ -30,25 +30,20 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
 
   data: () => ({
     response: {},
   }),
 
-  methods: {
-    ...mapActions('endpoints', {
-      getMyProfile: 'GET_MY_PROFILE',
-    }),
-  },
-
   computed: {
     // get data to fetch from api
     dataToFetch() {
+      const self = this,
+        api = self.$api;
+
       return {
-        tracks: () => this.getMyProfile({ type: 'tracks' }),
+        tracks: () => api.getMyProfile({ type: 'tracks' }),
       };
     },
 

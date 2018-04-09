@@ -10,8 +10,10 @@ Vue.use(VueI18n);
 
 const locale = store.getters['user/getCountry'];
 
-// set html lang attribute to current language
-if (locale) document.documentElement.lang = locale.toLowerCase();
+if (locale) {
+  // set html lang attribute to current language
+  document.documentElement.lang = locale.toLowerCase();
+}
 
 const messages = {
   DE,

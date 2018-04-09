@@ -141,7 +141,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
 
@@ -197,30 +197,24 @@ export default {
   },
 
   methods: {
-    ...mapActions('endpoints', {
-      isFollowingArtistOrUser: 'IS_FOLLOWING_ARTIST_OR_USER',
-      isFollowingPlaylist: 'IS_FOLLOWING_PLAYLIST',
-      followArtistOrUser: 'FOLLOW_ARTIST_OR_USER',
-      followPlaylist: 'FOLLOW_PLAYLIST',
-    }),
-
     // check if the current user is following this artist / user
     checkIfFollowing() {
       const self = this,
         { isRoute } = self,
         { params } = self.$route,
+        api = self.$api,
         userId = self.currentUser.id;
 
       if (self.canFollow) {
         if (isRoute('artist') || isRoute('user')) {
           const type = isRoute('artist') ? 'artist' : 'user';
 
-          self.isFollowingArtistOrUser(type, params.id)
+          api.isFollowingArtistOrUser({ type, ids: params.id })
             .then((res) => {
               [self.isFollowing] = res.data;
             });
         } else if (isRoute('playlist')) {
-          self.isFollowingPlaylist(params.owner, params.id, userId)
+          api.isFollowingPlaylist({ ownerId: params.owner, playlistId: params.id, ids: userId })
             .then((res) => {
               [self.isFollowing] = res.data;
             });
@@ -232,19 +226,20 @@ export default {
     setFollowing() {
       const self = this,
         { isRoute } = self,
-        { params } = self.$route;
+        { params } = self.$route,
+        api = self.$api;
 
       if (params.id && self.canFollow) {
         const type = isRoute('artist') ? 'artist' : 'user',
           action = self.isFollowing ? 'unfollow' : 'follow';
 
         if (isRoute('artist') || isRoute('user')) {
-          self.followArtistOrUser(action, type, params.id)
+          api.followArtistOrUser({ action, type, ids: params.id })
             .then(() => {
               self.isFollowing = !self.isFollowing;
             });
         } else if (isRoute('playlist')) {
-          self.followPlaylist(action, params.owner, params.id)
+          api.followPlaylist({ action, ownerId: params.owner, playlistId: params.id })
             .then(() => {
               self.isFollowing = !self.isFollowing;
             });
@@ -314,8 +309,7 @@ export default {
       const self = this,
         { name } = self.$route,
         wordCount = self.titleWordCount,
-        exp = /album|playlist/,
-        hasLargeTitle = wordCount < 4 && exp.test(name);
+        hasLargeTitle = wordCount < 4 && name === 'album';
 
       return hasLargeTitle;
     },

@@ -22,7 +22,7 @@
         <ma-header></ma-header>
 
         <!-- router view -->
-        <router-view :key="$route.params.id"></router-view>
+        <router-view :key="routerKey"></router-view>
 
     </main>
 
@@ -71,6 +71,7 @@ export default {
       settings: 'getAppSettings',
     }),
 
+    // get the styles for the app element
     getAppStyles() {
       const self = this,
         { settings } = self;
@@ -79,6 +80,17 @@ export default {
         '--accent-color': settings.currentAccentColor,
         '--u-sidebar-margin': `${settings.fixedSidebar ? 350 : 100}px`,
       };
+    },
+
+    routerKey() {
+      const self = this,
+        { name, params } = self.$route;
+
+      let key = params.id;
+
+      if (name === 'search') key = params.query;
+
+      return key;
     },
   },
 

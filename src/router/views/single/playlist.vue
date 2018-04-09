@@ -31,28 +31,21 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
 
   data: () => ({
     response: {},
   }),
 
-  methods: {
-    ...mapActions('endpoints', {
-      getPlaylist: 'GET_PLAYLIST',
-    }),
-  },
-
   computed: {
     // get data to fetch from api
     dataToFetch() {
       const self = this,
+        api = self.$api,
         { owner, id } = self.$route.params;
 
       return {
-        playlist: () => self.getPlaylist({ owner, id }),
+        playlist: () => api.getPlaylist({ owner, id }),
       };
     },
 

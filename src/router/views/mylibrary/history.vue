@@ -29,25 +29,20 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
 
   data: () => ({
     response: {},
   }),
 
-  methods: {
-    ...mapActions('endpoints', {
-      getMyPlaybackHistory: 'GET_MY_PLAYBACK_HISTORY',
-    }),
-  },
-
   computed: {
     // get data to fetch from api
     dataToFetch() {
+      const self = this,
+        api = self.$api;
+
       return {
-        history: () => this.getMyPlaybackHistory({ type: 'track' }),
+        history: () => api.getMyPlaybackHistory({ type: 'track' }),
       };
     },
   },

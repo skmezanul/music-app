@@ -1,4 +1,3 @@
-/* eslint-disable one-var */
 import axios from 'axios';
 
 // register music-app backend axios instance

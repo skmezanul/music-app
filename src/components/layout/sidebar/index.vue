@@ -25,7 +25,7 @@
                 </ma-icon>
 
                 <!-- user avatar -->
-                <div class="c-sidebar__selectItemAvatar" v-else-if="currentUser">
+                <div class="c-sidebar__selectItemAvatar" v-else>
 
                   <img
                   class="c-sidebar__selectItemAvatarImage"

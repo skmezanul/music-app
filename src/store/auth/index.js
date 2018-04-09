@@ -4,18 +4,10 @@ import mutations from './mutations';
 const auth = {
   namespaced: true,
   state: {
-    accessToken: {
-      type: String,
-    },
-    refreshToken: {
-      type: String,
-    },
-    expiryTime: {
-      type: Number,
-    },
-    spotifyBackendToken: {
-      type: String,
-    },
+    accessToken: '',
+    refreshToken: '',
+    expiryTime: '',
+    spotifyBackendToken: '',
   },
   actions,
   mutations,

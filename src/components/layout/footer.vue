@@ -1,5 +1,5 @@
 <template>
-  <footer class="c-footer">
+  <footer v-if="currentPlayback" class="c-footer">
 
       <!-- current playback -->
       <div class="c-footer__inner c-footer__inner--left" :class="{ 'is-coverHidden' : settings.largeCover }">
@@ -40,7 +40,7 @@
 
               </router-link>
 
-              <div class="c-footer__playbackArtists">
+              <div v-if="currentPlayback.item.artists" class="c-footer__playbackArtists">
 
                   <!-- artists -->
                   <router-link

@@ -6,9 +6,8 @@ const mutations = {
   * @param { string } payload.message The message to show in the notice.
   * @param { string } [ payload.action = 'add', 'remove' ] Add or remove a notice.
   */
-  SET_NOTICE(state, payload) {
-    const self = state,
-      { type, message, action } = payload;
+  SET_NOTICE(state, { type, message, action }) {
+    const self = state;
 
     switch (action) {
       case 'remove':

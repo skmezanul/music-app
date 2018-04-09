@@ -23,30 +23,22 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
 
   data: () => ({
     response: {},
   }),
 
-  methods: {
-    ...mapActions('endpoints', {
-      getCategoryInfo: 'GET_CATEGORY_INFO',
-      getCategoryPlaylists: 'GET_CATEGORY_PLAYLISTS',
-    }),
-  },
-
   computed: {
     // get data to fetch from api
     dataToFetch() {
       const self = this,
+        api = self.$api,
         { id } = self.$route.params;
 
       return {
-        categoryInfo: () => self.getCategoryInfo({ id }),
-        category: () => self.getCategoryPlaylists({ id }),
+        categoryInfo: () => api.getCategoryInfo({ id }),
+        category: () => api.getCategoryPlaylists({ id }),
       };
     },
 

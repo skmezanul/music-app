@@ -64,28 +64,21 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
 
   data: () => ({
     response: {},
   }),
 
-  methods: {
-    ...mapActions('endpoints', {
-      getSearchResults: 'GET_SEARCH_RESULTS',
-    }),
-  },
-
   computed: {
     // get data to fetch from api
     dataToFetch() {
       const self = this,
+        api = self.$api,
         { query } = self.$route.params;
 
       return {
-        results: () => self.getSearchResults({ type: 'album,artist,track', q: query }),
+        results: () => api.getSearchResults({ type: 'album,artist,track', query }),
       };
     },
   },

@@ -1,13 +1,14 @@
-import { getMyProfile } from '@/api/providers/spotify/endpoints';
+import Vue from 'vue';
 
 const actions = {
   /**
   * Get the current users profile or playlists.
-  * @param { string } [ type = 'profile', 'playlists' ] Data to fetch from the api.
+  * @param { object } payload The function payload.
+  * @param { string } [ payload.type = 'profile', 'playlists' ] Data to fetch from the api.
   */
-  GET_USER({ commit }, type) {
+  GET_USER({ commit }, { type }) {
     if (type) {
-      getMyProfile(type).then((res) => {
+      Vue.prototype.$api.getMyProfile({ type }).then((res) => {
         commit('CURRENT_USER', {
           type,
           data: res.data,

@@ -26,28 +26,21 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
 
   data: () => ({
     response: {},
   }),
 
-  methods: {
-    ...mapActions('endpoints', {
-      getAlbum: 'GET_ALBUM',
-    }),
-  },
-
   computed: {
     // get data to fetch from api
     dataToFetch() {
       const self = this,
+        api = self.$api,
         { id } = self.$route.params;
 
       return {
-        album: () => self.getAlbum({ id }),
+        album: () => api.getAlbum({ id }),
       };
     },
 

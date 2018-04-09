@@ -32,7 +32,6 @@ const app = {
   getters: {
     getNotices: state => state.notices,
     getAppSettings: state => state.settings,
-    getInitState: state => state.initialized,
   },
 };
 

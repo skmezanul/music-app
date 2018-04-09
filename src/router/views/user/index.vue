@@ -17,28 +17,21 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
 
   data: () => ({
     response: {},
   }),
 
-  methods: {
-    ...mapActions('endpoints', {
-      getUser: 'GET_USER',
-    }),
-  },
-
   computed: {
     // get data to fetch from api
     dataToFetch() {
       const self = this,
+        api = self.$api,
         { id } = self.$route.params;
 
       return {
-        user: () => self.getUser({ id }),
+        user: () => api.getUser({ id }),
       };
     },
 

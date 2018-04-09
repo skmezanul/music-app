@@ -1,11 +1,13 @@
+import Vue from 'vue';
+
 const actions = {
   /**
   * Redirect the user to external spotify login page.
   */
-  LOGIN_USER({ state, dispatch }) {
+  LOGIN_USER({ state }) {
     const { protocol, host } = window.location;
 
-    dispatch('endpoints/GET_AUTH_URL', { protocol, host }).then((res) => {
+    Vue.prototype.$api.getAuthURL({ protocol, host }).then((res) => {
       if (!state.accessToken) window.location.href = res.data.url;
     });
   },
@@ -15,13 +17,12 @@ const actions = {
   * @param { object } payload The function payload.
   * @param { string } payload.code The code returned from spotify login page.
   */
-  GET_TOKEN({ commit, dispatch }, payload) {
+  GET_TOKEN({ commit }, payload) {
     const { code } = payload;
 
     if (code) {
-      dispatch('endpoints/GET_ACCESS_TOKEN', { code }).then((res) => {
+      Vue.prototype.$api.getAccessToken({ code }).then((res) => {
         commit('SET_CREDENTIALS', res.data);
-        window.location.reload();
       }).catch((err) => {
         commit('app/SET_NOTICE', {
           action: 'add',
@@ -35,11 +36,11 @@ const actions = {
   /**
   * Call the backend api and refresh the access token.
   */
-  REFRESH_TOKEN({ getters, commit, dispatch }) {
+  REFRESH_TOKEN({ getters, commit }) {
     const refreshToken = getters.getRefreshToken;
 
     if (refreshToken) {
-      dispatch('endpoints/REFRESH_ACCESS_TOKEN', { refreshToken }).then((res) => {
+      Vue.prototype.$api.refreshAccessToken({ refreshToken }).then((res) => {
         commit('SET_CREDENTIALS', res.data);
       }).catch((err) => {
         commit('app/SET_NOTICE', {

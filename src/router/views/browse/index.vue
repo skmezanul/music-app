@@ -15,22 +15,13 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
 
   data: () => ({
     response: {},
   }),
-
-  methods: {
-    ...mapActions('endpoints', {
-      getFeaturedPlaylists: 'GET_FEATURED_PLAYLISTS',
-      getNewReleases: 'GET_NEW_RELEASES',
-      getCharts: 'GET_CHARTS',
-      getCategories: 'GET_CATEGORIES',
-    }),
-  },
 
   computed: {
     ...mapGetters('user', {
@@ -39,13 +30,14 @@ export default {
 
     // get data to fetch from api
     dataToFetch() {
-      const self = this;
+      const self = this,
+        api = self.$api;
 
       return {
-        featured: self.getFeaturedPlaylists,
-        releases: self.getNewReleases,
-        charts: self.getCharts,
-        categories: self.getCategories,
+        featured: api.getFeaturedPlaylists,
+        releases: api.getNewReleases,
+        charts: api.getCharts,
+        categories: api.getCategories,
       };
     },
 

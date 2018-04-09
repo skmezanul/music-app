@@ -11,9 +11,9 @@ const actions = {
       // init Spotify Web Playback SDK
       dispatch('player/INIT_PLAYER', null, { root: true });
       // get current user's profile
-      dispatch('user/GET_USER', 'profile', { root: true });
+      dispatch('user/GET_USER', { type: 'profile' }, { root: true });
       // get current user's playlists
-      dispatch('user/GET_USER', 'playlists', { root: true });
+      dispatch('user/GET_USER', { type: 'playlists' }, { root: true });
     }
   },
 };

@@ -4,9 +4,7 @@ import mutations from './mutations';
 const player = {
   namespaced: true,
   state: {
-    player: {
-      type: Object,
-    },
+    player: {},
   },
   actions,
   mutations,
