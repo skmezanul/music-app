@@ -5,22 +5,11 @@ import VueApiRequest from 'vue-api-request';
 import loader from '@/components/loader';
 import store from '@/store';
 
-// import providers
-import './providers/spotify/';
-import './providers/backend/';
-import './providers/youtube/';
-
-// import endpoints
-import endpoints from './endpoints';
-
 // register axios
 Vue.use(VueAxios, axios);
 
 // register loader
 VueApiRequest.addLoader('ma-loader', loader);
-
-// add endpoints
-VueApiRequest.setAPI(endpoints);
 
 // options for api-request plugin
 const options = {

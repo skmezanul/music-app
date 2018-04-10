@@ -1,11 +1,18 @@
-import Vue from 'vue';
+import {
+  getPlayback,
+  skipTo,
+  seekTo,
+  setPlayback,
+  toggleRepeat,
+  setShuffle,
+} from '@/api/providers/spotify';
 
 const actions = {
   /**
   * Get the current playback and commit it to state.
   */
   GET_PLAYBACK({ commit }) {
-    Vue.prototype.$api.getPlayback().then((res) => {
+    getPlayback().then((res) => {
       // push current playback to store
       commit('SET_PLAYBACK', res.data);
     });
@@ -17,7 +24,7 @@ const actions = {
   * @param { string } [ payload.direction = 'next', 'previous' ] The direction to skip.
   */
   SKIP_TO(context, { direction }) {
-    if (direction) Vue.prototype.$api.skipTo({ direction });
+    if (direction) skipTo({ direction });
   },
 
   /**
@@ -26,7 +33,7 @@ const actions = {
   * @param { number } payload.position The position to seek to.
   */
   SEEK_TO(context, { position }) {
-    if (position) Vue.prototype.$api.seekTo({ position });
+    if (position) seekTo({ position });
   },
 
   /**
@@ -43,21 +50,21 @@ const actions = {
       uris = [`spotify:track:${trackId}`];
     }
 
-    if (state) Vue.prototype.$api.setPlayback({ state, uris });
+    if (state) setPlayback({ state, uris });
   },
 
   /**
   * Toggle repeat for the current playback.
   */
   TOGGLE_REPEAT() {
-    Vue.prototype.$api.toggleRepeat();
+    toggleRepeat();
   },
 
   /**
   * Set shuffle state for the current playback.
   */
   SET_SHUFFLE() {
-    Vue.prototype.$api.setShuffle();
+    setShuffle();
   },
 };
 

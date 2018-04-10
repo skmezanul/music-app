@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { getMyProfile } from '@/api/providers/spotify';
 
 const actions = {
   /**
@@ -8,7 +8,7 @@ const actions = {
   */
   GET_USER({ commit }, { type }) {
     if (type) {
-      Vue.prototype.$api.getMyProfile({ type }).then((res) => {
+      getMyProfile({ type }).then((res) => {
         commit('CURRENT_USER', {
           type,
           data: res.data,

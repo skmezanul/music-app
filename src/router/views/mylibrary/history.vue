@@ -29,6 +29,8 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 </template>
 
 <script>
+import { getMyPlaybackHistory } from '@/api/providers/spotify';
+
 export default {
 
   data: () => ({
@@ -38,11 +40,8 @@ export default {
   computed: {
     // get data to fetch from api
     dataToFetch() {
-      const self = this,
-        api = self.$api;
-
       return {
-        history: () => api.getMyPlaybackHistory({ type: 'track' }),
+        history: () => getMyPlaybackHistory({ type: 'track' }),
       };
     },
   },

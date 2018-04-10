@@ -23,6 +23,8 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 </template>
 
 <script>
+import { getCategoryInfo, getCategoryPlaylists } from '@/api/providers/spotify';
+
 export default {
 
   data: () => ({
@@ -33,12 +35,11 @@ export default {
     // get data to fetch from api
     dataToFetch() {
       const self = this,
-        api = self.$api,
         { id } = self.$route.params;
 
       return {
-        categoryInfo: () => api.getCategoryInfo({ id }),
-        category: () => api.getCategoryPlaylists({ id }),
+        categoryInfo: () => getCategoryInfo({ id }),
+        category: () => getCategoryPlaylists({ id }),
       };
     },
 

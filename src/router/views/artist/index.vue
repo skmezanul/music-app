@@ -19,6 +19,13 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 
 <script>
 import { mapGetters } from 'vuex';
+import {
+  getArtistInfo,
+  getTopTracks,
+  getAlbums,
+  getRelatedArtists,
+  getAdditionalArtistInfo,
+} from '@/api/providers/spotify';
 
 export default {
 
@@ -34,21 +41,20 @@ export default {
     // get data to fetch from api
     dataToFetch() {
       const self = this,
-        api = self.$api,
         { id } = self.$route.params;
 
       let dataToFetch = {
-        artistInfo: () => api.getArtistInfo({ id }),
-        topTracks: () => api.getTopTracks({ id }),
-        albums: () => api.getAlbums({ id, type: 'album' }),
-        singles: () => api.getAlbums({ id, type: 'single' }),
-        appearsOn: () => api.getAlbums({ id, type: 'appears_on' }),
-        relatedArtists: () => api.getRelatedArtists({ id }),
+        artistInfo: () => getArtistInfo({ id }),
+        topTracks: () => getTopTracks({ id }),
+        albums: () => getAlbums({ id, type: 'album' }),
+        singles: () => getAlbums({ id, type: 'single' }),
+        appearsOn: () => getAlbums({ id, type: 'appears_on' }),
+        relatedArtists: () => getRelatedArtists({ id }),
       };
 
       if (self.spotifyBackendToken) {
         dataToFetch = Object.assign({
-          additionalArtistInfo: () => api.getAdditionalArtistInfo({ id }),
+          additionalArtistInfo: () => getAdditionalArtistInfo({ id }),
         }, dataToFetch);
       }
 

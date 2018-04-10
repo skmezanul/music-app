@@ -142,6 +142,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import {
+  isFollowingArtistOrUser,
+  isFollowingPlaylist,
+  followArtistOrUser,
+  followPlaylist,
+} from '@/api/providers/spotify';
 
 export default {
 
@@ -202,19 +208,18 @@ export default {
       const self = this,
         { isRoute } = self,
         { params } = self.$route,
-        api = self.$api,
         userId = self.currentUser.id;
 
       if (self.canFollow) {
         if (isRoute('artist') || isRoute('user')) {
           const type = isRoute('artist') ? 'artist' : 'user';
 
-          api.isFollowingArtistOrUser({ type, ids: params.id })
+          isFollowingArtistOrUser({ type, ids: params.id })
             .then((res) => {
               [self.isFollowing] = res.data;
             });
         } else if (isRoute('playlist')) {
-          api.isFollowingPlaylist({ ownerId: params.owner, playlistId: params.id, ids: userId })
+          isFollowingPlaylist({ ownerId: params.owner, playlistId: params.id, ids: userId })
             .then((res) => {
               [self.isFollowing] = res.data;
             });
@@ -226,20 +231,19 @@ export default {
     setFollowing() {
       const self = this,
         { isRoute } = self,
-        { params } = self.$route,
-        api = self.$api;
+        { params } = self.$route;
 
       if (params.id && self.canFollow) {
         const type = isRoute('artist') ? 'artist' : 'user',
           action = self.isFollowing ? 'unfollow' : 'follow';
 
         if (isRoute('artist') || isRoute('user')) {
-          api.followArtistOrUser({ action, type, ids: params.id })
+          followArtistOrUser({ action, type, ids: params.id })
             .then(() => {
               self.isFollowing = !self.isFollowing;
             });
         } else if (isRoute('playlist')) {
-          api.followPlaylist({ action, ownerId: params.owner, playlistId: params.id })
+          followPlaylist({ action, ownerId: params.owner, playlistId: params.id })
             .then(() => {
               self.isFollowing = !self.isFollowing;
             });

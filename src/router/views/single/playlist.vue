@@ -31,6 +31,8 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 </template>
 
 <script>
+import { getPlaylist } from '@/api/providers/spotify';
+
 export default {
 
   data: () => ({
@@ -41,11 +43,10 @@ export default {
     // get data to fetch from api
     dataToFetch() {
       const self = this,
-        api = self.$api,
         { owner, id } = self.$route.params;
 
       return {
-        playlist: () => api.getPlaylist({ owner, id }),
+        playlist: () => getPlaylist({ owner, id }),
       };
     },
 
