@@ -17,7 +17,6 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
         ma-item(
           v-for='item in response.albums.items',
           :key='item.album.id',
-          :type='item.album.type',
           :primaryid='item.album.id',
           :image='item.album.images',
           :title='item.album.name',

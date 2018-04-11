@@ -33,15 +33,15 @@
 
                 <h4 v-if="subtitle">
 
-                    <span>{{ profile ? `${subtitle || stage.subtitle} ${$t('by')} ` : subtitle }}</span>
+                    <span>{{ getProfile ? `${subtitle || stage.subtitle} ${$t('by')} ` : subtitle }}</span>
 
                     <router-link
                     class="c-stage__subtitleLink"
                     v-if="profile"
-                    :to="{ name: profile.type, params: { id: profile.id } }"
+                    :to="{ name: getProfile.type, params: { id: getProfile.id } }"
                     >
 
-                    {{ profile.name || profile.display_name }}
+                    {{ getProfile.name || getProfile.display_name }}
 
                     </router-link>
                 </h4>
@@ -189,7 +189,7 @@ export default {
       default: () => [],
     },
     profile: {
-      type: Object,
+      type: [Object, Array],
       default: () => {},
     },
     info: {
@@ -380,6 +380,24 @@ export default {
         canEdit = exp.test(name);
 
       return canEdit;
+    },
+
+    // get the profile data from array or object
+    getProfile() {
+      const self = this,
+        { profile } = self;
+
+      let profileData;
+
+      if (profile) {
+        if (Array.isArray(profile)) {
+          [profileData] = profile;
+        } else {
+          profileData = profile;
+        }
+      }
+
+      return profileData;
     },
   },
 

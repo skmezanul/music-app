@@ -7,6 +7,7 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
     :image='response.album.images',
     :subtitle='response.album.album_type',
     :title='response.album.name',
+    :profile='response.album.artists',
     :info='getInfo')
 
   .o-view__content(v-if='response.album')

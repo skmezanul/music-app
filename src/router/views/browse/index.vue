@@ -37,8 +37,8 @@ export default {
     // get data to fetch from api
     dataToFetch() {
       return {
-        featured: () => getFeaturedPlaylists,
-        releases: () => getNewReleases,
+        featured: () => getFeaturedPlaylists(),
+        releases: () => getNewReleases(),
         charts: () => getCharts(),
         categories: () => getCategories,
       };

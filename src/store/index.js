@@ -1,11 +1,10 @@
 /* eslint-disable one-var */
 import Vue from 'vue';
 import Vuex from 'vuex';
-import createLogger from 'vuex/dist/logger';
 import createPersistedState from 'vuex-persistedstate';
 
 // import api utilities
-import spotifyApiUtils from '@/api/providers/spotify/utils';
+import spotifyApUtils from '@/api/providers/spotify/utils';
 import backendApiUtils from '@/api/providers/backend/utils';
 
 // import modules
@@ -28,7 +27,7 @@ const store = new Vuex.Store({
     playback,
     auth,
   },
-  plugins: [spotifyApiUtils, backendApiUtils, createPersistedState(), createLogger()],
+  plugins: [spotifyApUtils, backendApiUtils, createPersistedState()],
 });
 
 export default store;

@@ -16,7 +16,6 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
         ma-list(
           v-for='(history, index) in response.history.items',
           :key='index',
-          :type='history.track.type',
           :image='history.track.album.images',
           :title='history.track.name',
           :trackId='history.track.id',
