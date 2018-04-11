@@ -26,7 +26,7 @@
     <div class="c-list__info">
 
         <!-- playing icon -->
-        <ma-icon class="c-list__playingIcon" v-if="isCurrentlyPlaying">{{ isCurrentlyPlaying ? 'volume_up' : 'volume_down' }}</ma-icon>
+        <ma-icon class="c-list__playingIcon" v-if="isCurrentlyPlaying">{{ isPlaying ? 'volume_up' : 'volume_down' }}</ma-icon>
 
         <!-- index -->
         <span class="c-list__index" v-else>{{ formatIndex(index) }}</span>
