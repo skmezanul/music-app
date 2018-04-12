@@ -12,11 +12,6 @@ export const spotify = axios.create({
   baseURL: 'https://api.spotify.com/v1/',
 });
 
-// register spotify backend axios instance
-export const spotifyBackend = axios.create({
-  baseURL: 'https://spclient.wg.spotify.com/open-backend-2/v1/',
-});
-
 // get featured playlists
 export const getFeaturedPlaylists = () => spotify({
   method: 'get',
@@ -249,9 +244,4 @@ export const getPlayback = () => spotify({
   params: {
     market,
   },
-});
-
-export const getAdditionalArtistInfo = ({ id }) => spotifyBackend({
-  method: 'get',
-  url: `/artists/${id}`,
 });

@@ -5,6 +5,7 @@ import createPersistedState from 'vuex-persistedstate';
 
 // import api utilities
 import spotifyApUtils from '@/api/providers/spotify/utils';
+import backendBackendApiUtils from '@/api/providers/spotifyBackend/utils';
 import backendApiUtils from '@/api/providers/backend/utils';
 
 // import modules
@@ -27,7 +28,7 @@ const store = new Vuex.Store({
     playback,
     auth,
   },
-  plugins: [spotifyApUtils, backendApiUtils, createPersistedState()],
+  plugins: [spotifyApUtils, backendApiUtils, backendBackendApiUtils, createPersistedState()],
 });
 
 export default store;

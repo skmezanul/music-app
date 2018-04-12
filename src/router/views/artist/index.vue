@@ -19,12 +19,12 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
 
 <script>
 import { mapGetters } from 'vuex';
+import { getAdditionalArtistInfo } from '@/api/providers/spotifyBackend';
 import {
   getArtistInfo,
   getTopTracks,
   getAlbums,
   getRelatedArtists,
-  getAdditionalArtistInfo,
 } from '@/api/providers/spotify';
 
 export default {
@@ -35,7 +35,7 @@ export default {
 
   computed: {
     ...mapGetters('auth', {
-      spotifyBackendToken: 'getBackendToken',
+      spotifyBackendToken: 'getSpotifyBackendToken',
     }),
 
     // get data to fetch from api

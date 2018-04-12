@@ -118,25 +118,7 @@
     </div>
 
     <!-- navigation-->
-    <nav class="c-stage__navigation" v-if="navigation">
-        <ul class="c-stage__navigationList">
-
-            <li class="c-stage__navigationItem" v-for="navitem in navigation">
-
-                <!-- item link -->
-                <router-link
-                class="c-stage__navigationItemLink"
-                :to="{ name: navitem.routeName, params: { id: $route.params.id }}"
-                >
-
-                {{ navitem.title }}
-
-                </router-link>
-
-            </li>
-
-        </ul>
-    </nav>
+    <ma-navigation v-if="navigation.length" :items="navigation"></ma-navigation>
 </div>
 </template>
 
@@ -148,8 +130,13 @@ import {
   followArtistOrUser,
   followPlaylist,
 } from '@/api/providers/spotify';
+import maNavigation from '@/components/navigation';
 
 export default {
+
+  components: {
+    maNavigation,
+  },
 
   data: () => ({
     isFollowing: false,

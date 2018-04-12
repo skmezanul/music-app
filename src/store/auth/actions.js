@@ -1,4 +1,4 @@
-import { getAuthURL, getAccessToken, refreshAccessToken } from '@/api/providers/backend';
+import { getAuthURL, getAccessToken, refreshAccessToken, getSpotifyBackendToken } from '@/api/providers/backend';
 
 const actions = {
   /**
@@ -17,9 +17,7 @@ const actions = {
   * @param { object } payload The function payload.
   * @param { string } payload.code The code returned from spotify login page.
   */
-  GET_TOKEN({ commit }, payload) {
-    const { code } = payload;
-
+  GET_TOKEN({ commit }, { code }) {
     if (code) {
       getAccessToken({ code }).then((res) => {
         commit('SET_CREDENTIALS', res.data);
@@ -50,6 +48,23 @@ const actions = {
         }, { root: true });
       });
     }
+  },
+
+  /**
+  * Get the access token for spotify's backend api with additional artist info.
+  */
+  GET_BACKEND_TOKEN({ commit }) {
+    getSpotifyBackendToken().then((res) => {
+      commit('SET_CREDENTIALS', {
+        spotifyBackendToken: res.data.accessToken,
+      });
+    }).catch((err) => {
+      commit('app/SET_NOTICE', {
+        action: 'add',
+        type: 'error',
+        message: `Error: ${err}`,
+      }, { root: true });
+    });
   },
 };
 

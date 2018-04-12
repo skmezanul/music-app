@@ -34,3 +34,9 @@ export const refreshAccessToken = () => backend({
     token: refreshToken,
   },
 });
+
+// get spotify backend token
+export const getSpotifyBackendToken = () => backend({
+  method: 'get',
+  url: '/getBackendToken',
+});

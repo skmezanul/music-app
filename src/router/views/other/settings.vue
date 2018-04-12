@@ -14,8 +14,9 @@
           @click='accentColor = color.hex',
           v-tooltip='{ content: $t(color.name), offset: 5 }')
 
-    ma-section(title='Backend Token')
-      input(type='text', v-model='backendToken')
+    ma-section(title='Data & Content')
+      input(type='checkbox', id='additionalArtistInfo', v-model='getAdditionalArtistInfo')
+      label(for='additionalArtistInfo') Get additional artist info
 </template>
 
 <script>
@@ -25,18 +26,19 @@ import {
 } from 'vuex';
 
 export default {
+  data: () => ({
+    getAdditionalArtistInfo: true,
+  }),
 
   methods: {
     ...mapMutations({
       setAppSettings: 'app/SET_APP_SETTINGS',
-      setCredentials: 'auth/SET_CREDENTIALS',
     }),
   },
 
   computed: {
     ...mapGetters({
       settings: 'app/getAppSettings',
-      spotifyBackendToken: 'auth/getBackendToken',
     }),
 
     accentColor: {
@@ -45,15 +47,6 @@ export default {
       },
       set(value) {
         this.setAppSettings({ currentAccentColor: value });
-      },
-    },
-
-    backendToken: {
-      get() {
-        return this.spotifyBackendToken;
-      },
-      set(value) {
-        this.setCredentials({ spotifyBackendToken: value });
       },
     },
   },
