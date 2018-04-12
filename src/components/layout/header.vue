@@ -83,7 +83,7 @@ export default {
       const self = this,
         query = self.searchQuery;
 
-      if (query.length > 0) {
+      if (query) {
         self.$router.push({
           name: 'search',
           params: {

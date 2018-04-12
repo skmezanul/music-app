@@ -62,4 +62,5 @@ export default {
   continuetospotify: 'Continuar a spotify',
   user: 'Usuario | Usuarios',
   follower: 'Seguidor | Seguidores',
+  monthlylisteners: 'Escucha mensual | Escuchas mensuales',
 };

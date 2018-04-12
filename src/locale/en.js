@@ -62,6 +62,7 @@ export default {
   continuetospotify: 'Continue to Spotify',
   user: 'User | Users',
   follower: 'Follower | Followers',
+  monthlylisteners: 'Monthly Listener | Monthly Listeners',
   listeningOn: 'You are listening on:',
   splash: {
     listeningOnAnotherDevice: 'You are currently listening on another device. Please select {deviceName} in your Spotify Connect menu or close Spotify and reload this page.',

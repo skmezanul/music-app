@@ -81,7 +81,7 @@
                 <ma-button
                 v-if="canFollow"
                 @click.native="setFollowing"
-                v-tooltip="{ content: isFollowing ? $t('unfollow') : null }"
+                v-tooltip="{ content: isFollowing ? $t('unfollow') : null, offset: 5 }"
                 :icon="isFollowing ? 'check' : 'add_circle'"
                 :title="isFollowing ? 'following' : 'follow'"
                 ></ma-button>

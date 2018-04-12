@@ -86,8 +86,9 @@ export default {
     // update active element indicator
     updateActiveIndicator() {
       const self = this,
+        el = self.$el,
         { activeIndicator } = self.$refs,
-        activeItem = self.$el.querySelector('.is-active');
+        activeItem = el.querySelector('.is-active');
 
       // tween active indicator
       TweenMax.to(activeIndicator, 0.5, {

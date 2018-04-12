@@ -38,7 +38,7 @@ export default {
     const self = this;
 
     self.$nextTick(() => {
-      self.updateActiveIndicator();
+      self.updateActiveIndicator(0);
     });
   },
 
@@ -47,20 +47,21 @@ export default {
       const self = this;
 
       self.$nextTick(() => {
-        self.updateActiveIndicator();
+        self.updateActiveIndicator(0.5);
       });
     },
   },
 
   methods: {
     // update active element indicator
-    updateActiveIndicator() {
+    updateActiveIndicator(duration) {
       const self = this,
+        el = self.$el,
         { activeIndicator } = self.$refs,
-        activeItem = self.$el.querySelector('.is-exact-active');
+        activeItem = el.querySelector('.is-exact-active');
 
       // tween active indicator
-      TweenMax.to(activeIndicator, 0.5, {
+      TweenMax.to(activeIndicator, duration, {
         x() {
           return activeItem ? activeItem.offsetLeft : 0;
         },

@@ -99,13 +99,23 @@ export default {
     // get stage info
     getInfo() {
       const self = this,
-        { artistInfo } = self.response,
-        followerCount = artistInfo.followers.total;
+        { artistInfo, additionalArtistInfo } = self.response,
+        followerCount = artistInfo.followers.total,
+        info = [{
+          value: followerCount.toLocaleString(),
+          subtitle: self.$tc('follower', followerCount > 1 ? 0 : 1),
+        }];
 
-      return [{
-        value: followerCount.toLocaleString(),
-        subtitle: self.$tc('follower', followerCount > 1 ? 0 : 1),
-      }];
+      if (self.spotifyBackendToken) {
+        const listenerCount = additionalArtistInfo.artistInsights.monthly_listeners;
+
+        info.unshift({
+          value: listenerCount.toLocaleString(),
+          subtitle: self.$tc('monthlylisteners', 0),
+        });
+      }
+
+      return info;
     },
   },
 
