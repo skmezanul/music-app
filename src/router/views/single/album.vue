@@ -14,16 +14,16 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
     // tracks
     ma-section(:copyright='response.album.copyrights[0].text')
 
-      ol.c-list
-        ma-list(
-          v-for='(track, index) in response.album.tracks.items',
-          :key='track.id',
-          :title='track.name',
-          :trackId='track.id',
-          :explicit='track.explicit',
-          :popularity='track.popularity',
-          :duration='track.duration_ms',
-          :index='index')
+      ma-list(
+        slot='list'
+        v-for='(track, index) in response.album.tracks.items',
+        :key='track.id',
+        :title='track.name',
+        :trackId='track.id',
+        :explicit='track.explicit',
+        :popularity='track.popularity',
+        :duration='track.duration_ms',
+        :index='index')
 </template>
 
 <script>

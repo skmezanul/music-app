@@ -13,14 +13,13 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
     // albums
     ma-section
 
-      .c-viewSection__inner
-        ma-item(
-          v-for='item in response.albums.items',
-          :key='item.album.id',
-          :primaryid='item.album.id',
-          :image='item.album.images',
-          :title='item.album.name',
-          :artists='item.album.artists')
+      ma-box(
+        v-for='item in response.albums.items',
+        :key='item.album.id',
+        :primaryid='item.album.id',
+        :image='item.album.images',
+        :title='item.album.name',
+        :artists='item.album.artists')
 </template>
 
 <script>

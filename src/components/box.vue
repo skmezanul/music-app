@@ -1,6 +1,6 @@
 <template>
   <router-link
-  class="c-sectionItem"
+  class="c-box"
   tag="div"
   :class="itemClass"
   @mouseover.native="overlay = true"
@@ -11,16 +11,16 @@
       <!-- overlay -->
       <transition name="fade" @beforeEnter="getColorFromAlbumCover">
           <div
-          class="c-sectionItem__overlay"
+          class="c-box__overlay"
           v-show="hasOverlay && overlay"
           :style="{ background: `linear-gradient(to top, rgba(${color}, 1) 30%, rgba(80, 80, 80, 0.5) 100%)` }"
           >
 
-              <div class="c-sectionItem__overlayInner">
+              <div class="c-box__overlayInner">
 
                   <!-- favorite -->
                   <ma-icon
-                  class="c-sectionItem__overlayIcon"
+                  class="c-box__overlayIcon"
                   :hover="true"
                   >
 
@@ -30,7 +30,7 @@
 
                   <!-- playback toggle -->
                   <ma-icon
-                  class="c-sectionItem__overlayIcon c-icon--largeToggle"
+                  class="c-box__overlayIcon c-icon--largeToggle"
                   @click.prevent.native="togglePlaying"
                   :class="playing ? 'pause' : 'play'">
 
@@ -40,7 +40,7 @@
 
                   <!-- more options -->
                   <ma-icon
-                  class="c-sectionItem__overlayIcon"
+                  class="c-box__overlayIcon"
                   :hover="true">
 
                   more_horiz
@@ -53,10 +53,10 @@
       </transition>
 
       <!-- image -->
-      <div class="c-sectionItem__image" v-if="image[0]">
+      <div class="c-box__image" v-if="image[0]">
 
         <img
-        class="c-sectionItem__coverImage"
+        class="c-box__coverImage"
         v-lazy="image[0].url"
         :alt="title"
         />
@@ -64,14 +64,14 @@
       </div>
 
       <!-- meta -->
-      <div class="c-sectionItem__meta">
-          <div class="c-sectionItem__metaInner">
+      <div class="c-box__meta">
+          <div class="c-box__metaInner">
 
             <!-- title -->
             <span>{{ title }}</span>
 
             <!-- artists -->
-            <div class="c-sectionItem__artists" v-if="artists">
+            <div class="c-box__artists" v-if="artists">
 
                 <router-link
                 v-for="artist in artists"
@@ -162,7 +162,7 @@ export default {
       const self = this,
         { type } = self;
 
-      return type ? `c-sectionItem--${type}` : null;
+      return type ? `c-box--${type}` : null;
     },
   },
 

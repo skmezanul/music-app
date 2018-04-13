@@ -9,7 +9,7 @@
             <ma-icon
             class="c-header__navigation c-header__navigation--back"
             :hover="true"
-            @click.native="$router.go(-1)"
+            @click.native="$router.back()"
             >
 
             keyboard_arrow_left
@@ -20,7 +20,7 @@
             <ma-icon
             class="c-header__navigation c-header__navigation--forward"
             :hover="true"
-            @click.native="$router.go(1)"
+            @click.native="$router.forward()"
             >
 
             keyboard_arrow_right

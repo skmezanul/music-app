@@ -2,7 +2,7 @@
 // This file contains all styles related to the item component.
 // -----------------------------------------------------------------------------
 
-.c-sectionItem {
+.c-box {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -12,6 +12,8 @@
   background-color: $blue;
   cursor: pointer;
   transition: box-shadow 0.3s;
+  width: 270px;
+  margin: 10px;
 
   &:hover {
     box-shadow: $backdrop-shadow-highlight;
@@ -72,7 +74,7 @@
 
   &--artist,
   &--category {
-    .c-sectionItem__meta {
+    .c-box__meta {
       @include item-hover;
       position: absolute 0;
       z-index: 1;
@@ -82,12 +84,12 @@
       height: 100%;
     }
 
-    .c-sectionItem__metaInner {
+    .c-box__metaInner {
       font-size: 1.3em;
     }
 
     &:hover {
-      .c-sectionItem__coverImage {
+      .c-box__coverImage {
         transform: scale(1.07);
       }
     }
@@ -96,11 +98,11 @@
   &--artist {
     height: 300px;
 
-    .c-sectionItem__meta {
+    .c-box__meta {
       background: linear-gradient(to top, rgba($black,0.7), rgba($black,0));
     }
 
-    .c-sectionItem__coverImage {
+    .c-box__coverImage {
       width: auto;
       @supports (filter: brightness(70%) contrast(110%)) {
         filter: brightness(70%) contrast(110%);
@@ -109,7 +111,7 @@
 
     @supports (filter: none) {
       &:hover {
-        .c-sectionItem__coverImage {
+        .c-box__coverImage {
           filter: none;
         }
       }
@@ -117,13 +119,13 @@
   }
 
   &--category {
-    .c-sectionItem__coverImage {
+    .c-box__coverImage {
       transform: scale(1.02);
     }
   }
 
   &--playlist {
-    .c-sectionItem__meta {
+    .c-box__meta {
       padding: 20px 15px;
     }
   }

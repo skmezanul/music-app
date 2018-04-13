@@ -3,30 +3,26 @@
 // -----------------------------------------------------------------------------
 
 .c-list {
-  display: grid;
-  grid-auto-rows: 75px;
-  grid-row-gap: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+  padding-right: 2em;
+  width: 100%;
+  background-color: $blue;
+  color: $white-70;
+  cursor: pointer;
+  transition: background-color 0.3s;
 
-  &__item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-right: 2em;
-    background-color: $blue;
-    color: $white-70;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  &:hover {
+    background-color: $white-10;
 
-    &:hover {
-      background-color: $white-10;
+    .c-list__playbackToggle {
+      color: $white;
+    }
 
-      .c-list__playbackToggle {
-        color: $white;
-      }
-
-      .c-list__coverImage {
-        filter: brightness(50%);
-      }
+    .c-list__coverImage {
+      filter: brightness(50%);
     }
   }
 
@@ -99,8 +95,8 @@
     }
   }
 
-  &__labels,
-  &__actions {
+  &__actions,
+  &__labels {
     display: flex;
     align-items: center;
     justify-content: space-between;

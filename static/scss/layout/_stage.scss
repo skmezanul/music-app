@@ -60,11 +60,15 @@
   }
 
   &__backgroundImage {
+    background-position: center;
+    size: 100%;
     @supports (filter: saturate(150%) blur(40px)) {
       filter: saturate(150%) blur(40px);
     }
-    background-position: center;
-    size: 100%;
+
+    &[lazy=loaded] {
+      animation: zoomOut 1s both;
+    }
   }
 
   &__inner {
@@ -182,5 +186,20 @@
       font-size: 1.2em;
       line-height: 1.2em;
     }
+  }
+}
+
+@keyframes zoomOut {
+  0% {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
   }
 }

@@ -1,19 +1,17 @@
 <template lang='pug'>
 .o-view__content
 
-	// related artists
-	ma-section(
-    :title='`${$t("relatedto")} ${parentData.artistInfo.name}`',
-    :collapsible='true')
+  // related artists
+  ma-section(
+    :title='`${$t("relatedto")} ${parentData.artistInfo.name}`')
 
-		.c-viewSection__inner
-			ma-item(
-        v-for='artist in parentData.relatedArtists.artists',
-        :key='artist.id',
-        :type='artist.type',
-        :image='artist.images',
-        :title='artist.name',
-        :primaryid='artist.id')
+    ma-box(
+      v-for='artist in parentData.relatedArtists.artists',
+      :key='artist.id',
+      :type='artist.type',
+      :image='artist.images',
+      :title='artist.name',
+      :primaryid='artist.id')
 </template>
 
 <script>

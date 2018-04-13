@@ -1,22 +1,22 @@
 <template lang='pug'>
 .o-view__content
 
-	// charts
-	ma-section(:title='$t("charts")')
+  // charts
+  ma-section(:title='$t("charts")')
 
-		ol.c-list
-			ma-list(
-				v-for='(item, index) in parentData.charts.tracks.items',
-				:key='item.track.id',
-				:image='item.track.album.images',
-				:title='item.track.name',
-				:trackId='item.track.id',
-				:artists='item.track.artists',
-				:album='item.track.album',
-				:explicit='item.track.explicit',
-				:popularity='item.track.popularity',
-				:duration='item.track.duration_ms',
-				:index='index')
+    ma-list(
+      slot='list'
+      v-for='(item, index) in parentData.charts.tracks.items',
+      :key='item.track.id',
+      :image='item.track.album.images',
+      :title='item.track.name',
+      :trackId='item.track.id',
+      :artists='item.track.artists',
+      :album='item.track.album',
+      :explicit='item.track.explicit',
+      :popularity='item.track.popularity',
+      :duration='item.track.duration_ms',
+      :index='index')
 </template>
 
 <script>

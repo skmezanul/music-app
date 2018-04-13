@@ -11,15 +11,14 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
     // tracks
     ma-section
 
-      .c-viewSection__inner
-        ma-item(
-          v-for='playlist in response.category.playlists.items',
-          :key='playlist.id',
-          :type='playlist.type',
-          :primaryid='playlist.id',
-          :secondaryid='playlist.owner.id',
-          :image='playlist.images',
-          :title='playlist.name')
+      ma-box(
+        v-for='playlist in response.category.playlists.items',
+        :key='playlist.id',
+        :type='playlist.type',
+        :primaryid='playlist.id',
+        :secondaryid='playlist.owner.id',
+        :image='playlist.images',
+        :title='playlist.name')
 </template>
 
 <script>

@@ -175,14 +175,14 @@ export const followPlaylist = ({ action, ownerId, playlistId }) => spotify({
 });
 
 // get results for search query
-export const getSearchResults = ({ type, q }) => spotify({
+export const getSearchResults = ({ type, query }) => spotify({
   method: 'get',
   url: '/search',
   params: {
     type,
     market,
     limit: 12,
-    q,
+    q: query,
   },
 });
 

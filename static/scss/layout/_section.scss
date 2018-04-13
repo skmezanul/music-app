@@ -12,23 +12,33 @@
   }
 
   &.is-collapsed {
-    .c-sectionItem:nth-child(n+6) {
+    p {
       display: none;
     }
 
-    .c-list__item:nth-child(n+4) {
-      display: none;
+    .c-viewSection__collapseToggleIcon {
+      transform: scaleY(-1);
+    }
+  }
+
+  &__carouselWrapper {
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__overflowGradient {
+    pointer-events: none;
+    z-index: 1;
+    width: 150px;
+
+    &--left {
+      position: absolute 0 initial 0 0;
+      background: ease-in-out-sine-gradient(to left, rgba($main-bg-color, 0), $main-bg-color);
     }
 
-    p,
-    pre {
-      display: none;
-    }
-
-    &.is-collapsed {
-      .c-viewSection__collapseToggleIcon {
-        transform: scaleY(-1);
-      }
+    &--right {
+      position: absolute 0 0 0 initial;
+      background: ease-in-out-sine-gradient(to right, rgba($main-bg-color, 0), $main-bg-color);
     }
   }
 
@@ -48,10 +58,20 @@
     transition: transform 0.3s;
   }
 
+  &__carouselControlsIcon {
+    @include item-hover;
+  }
+
   &__inner {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-gap: 1.5em;
+    display: flex;
+
+    &--gutter {
+      margin: -10px;
+    }
+
+    &--wrap {
+      flex-wrap: wrap;
+    }
   }
 
   &__biography {

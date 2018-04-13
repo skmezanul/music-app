@@ -1,5 +1,5 @@
 <template>
-<li class="c-list__item" @dblclick="setPlayback({ state: 'play', trackId })" :class="{ 'is-playing' : isCurrentlyPlaying, 'c-list__item--image' : image[0] }">
+<li class="c-list" @dblclick="setPlayback({ state: 'play', trackId })" :class="{ 'is-playing' : isCurrentlyPlaying, 'c-list--image' : image[0] }">
 
     <!-- image -->
     <div class="c-list__image" v-if="image[0]">

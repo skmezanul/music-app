@@ -13,19 +13,19 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
     // tracks
     ma-section(:collapsible='false')
 
-      ol.c-list
-        ma-list(
-          v-for='(item, index) in response.tracks.items',
-          :key='item.track.id',
-          :image='item.track.album.images',
-          :title='item.track.name',
-          :trackId='item.track.id',
-          :artists='item.track.artists',
-          :album='item.track.album',
-          :explicit='item.track.explicit',
-          :popularity='item.track.popularity',
-          :duration='item.track.duration_ms',
-          :index='index')
+      ma-list(
+        slot='list'
+        v-for='(item, index) in response.tracks.items',
+        :key='item.track.id',
+        :image='item.track.album.images',
+        :title='item.track.name',
+        :trackId='item.track.id',
+        :artists='item.track.artists',
+        :album='item.track.album',
+        :explicit='item.track.explicit',
+        :popularity='item.track.popularity',
+        :duration='item.track.duration_ms',
+        :index='index')
 </template>
 
 <script>

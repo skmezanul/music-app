@@ -2,23 +2,19 @@
 <div class="c-stage" :class="stageClasses">
 
     <!-- background image -->
-    <transition v-if="image[0]" name="zoom-out" appear>
+    <div v-if="image[0]" class="c-stage__background">
 
-        <div class="c-stage__background">
+        <figure
+        class="c-stage__backgroundImage"
+        v-lazy:background-image="image[0].url"
+        ></figure>
 
-            <figure
-            class="c-stage__backgroundImage"
-            :style="{ backgroundImage : `url('${image[0].url}')`}"
-            ></figure>
-
-        </div>
-
-    </transition>
+    </div>
 
     <div class="c-stage__inner">
 
         <!-- cover -->
-        <div class="c-stage__cover" v-if="hasCover && image[0]">
+        <div class="c-stage__cover" v-if="hasCover">
 
             <!-- cover image -->
             <img class="c-stage__coverImage" v-lazy="image[0].url" :alt="title" />
@@ -310,7 +306,7 @@ export default {
       const self = this,
         exp = /album|playlist/,
         { name } = self.$route,
-        hasCover = exp.test(name);
+        hasCover = exp.test(name) && self.image[0];
 
       return hasCover;
     },

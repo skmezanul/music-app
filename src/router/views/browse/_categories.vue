@@ -1,17 +1,16 @@
 <template lang='pug'>
 .o-view__content
 
-	// categories
-	ma-section(:title='$tc("category", 0)')
+  // categories
+  ma-section(:title='$tc("category", 0)')
 
-		.c-viewSection__inner
-			ma-item(
-        v-for='category in parentData.categories.categories.items',
-        :key='category.id',
-        type='category',
-        :primaryid='category.id',
-        :image='category.icons',
-        :title='category.name')
+    ma-box(
+      v-for='category in parentData.categories.categories.items',
+      :key='category.id',
+      type='category',
+      :primaryid='category.id',
+      :image='category.icons',
+      :title='category.name')
 </template>
 
 <script>

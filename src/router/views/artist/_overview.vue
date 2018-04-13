@@ -1,75 +1,68 @@
 <template lang='pug'>
 .o-view__content
 
-	// top tracks
-	ma-section(
+  // top tracks
+  ma-section(
     v-if='parentData.topTracks.tracks',
-    :title='$t("toptracks")',
-    :collapsible='true')
+    :title='$t("toptracks")')
 
-		ol.c-list
-			ma-list(
-        v-for='(track, index) in parentData.topTracks.tracks',
-        :key='track.id',
-        :trackId='track.id',
-        :image='track.album.images',
-        :title='track.name',
-        :album='track.album',
-        :explicit='track.explicit',
-        :popularity='track.popularity',
-        :duration='track.duration_ms',
-        :index='index')
+    ma-list(
+      slot='list'
+      v-for='(track, index) in parentData.topTracks.tracks',
+      :key='track.id',
+      :trackId='track.id',
+      :image='track.album.images',
+      :title='track.name',
+      :album='track.album',
+      :explicit='track.explicit',
+      :popularity='track.popularity',
+      :duration='track.duration_ms',
+      :index='index')
 
-	// albums
-	ma-section(
+  // albums
+  ma-section(
     v-if='parentData.albums.total',
-    :title='$tc("album", 0)',
-    :collapsible='true')
+    :title='$tc("album", 0)')
 
-		.c-viewSection__inner
-			ma-item(
-        v-for='album in parentData.albums.items',
-        :key='album.id',
-        :type='album.type',
-        :primaryid='album.id',
-        :secondaryid='album.artists[0].id',
-        :image='album.images',
-        :title='album.name',
-        :artists='album.artists')
+    ma-box(
+      v-for='album in parentData.albums.items',
+      :key='album.id',
+      :type='album.type',
+      :primaryid='album.id',
+      :secondaryid='album.artists[0].id',
+      :image='album.images',
+      :title='album.name',
+      :artists='album.artists')
 
-	// singles
-	ma-section(
+  // singles
+  ma-section(
     v-if='parentData.singles.total',
-    :title='$tc("single", 0)',
-    :collapsible='true')
+    :title='$tc("single", 0)')
 
-		.c-viewSection__inner
-			ma-item(
-        v-for='single in parentData.singles.items',
-        :key='single.id',
-        :type='single.type',
-        :primaryid='single.id',
-        :secondaryid='single.artists[0].id',
-        :image='single.images',
-        :title='single.name',
-        :artists='single.artists')
+    ma-box(
+      v-for='single in parentData.singles.items',
+      :key='single.id',
+      :type='single.type',
+      :primaryid='single.id',
+      :secondaryid='single.artists[0].id',
+      :image='single.images',
+      :title='single.name',
+      :artists='single.artists')
 
-	// appears on
-	ma-section(
+  // appears on
+  ma-section(
     v-if='parentData.appearsOn.total',
-    :title='$t("appearson")',
-    :collapsible='true')
+    :title='$t("appearson")')
 
-		.c-viewSection__inner
-			ma-item(
-        v-for='album in parentData.appearsOn.items',
-        :key='album.id',
-        :type='album.type',
-        :primaryid='album.id',
-        :secondaryid='album.artists[0].id',
-        :image='album.images',
-        :title='album.name',
-        :artists='album.artists')
+    ma-box(
+      v-for='album in parentData.appearsOn.items',
+      :key='album.id',
+      :type='album.type',
+      :primaryid='album.id',
+      :secondaryid='album.artists[0].id',
+      :image='album.images',
+      :title='album.name',
+      :artists='album.artists')
 </template>
 
 
