@@ -19,33 +19,31 @@
               <div class="c-box__overlayInner">
 
                   <!-- favorite -->
-                  <ma-icon
-                  class="c-box__overlayIcon"
-                  :hover="true"
-                  >
+                  <a class="c-box__overlayIcon">
+                    <ma-icon :hover="true">
 
-                  favorite
+                    favorite
 
-                  </ma-icon>
+                    </ma-icon>
+                  </a>
 
                   <!-- playback toggle -->
-                  <ma-icon
-                  class="c-box__overlayIcon c-icon--largeToggle"
-                  @click.prevent.native="togglePlaying"
-                  :class="playing ? 'pause' : 'play'">
+                  <a @click.prevent="togglePlaying" class="c-box__overlayIcon">
+                    <ma-icon type="toggle">
 
-                  {{ playing ? 'pause_circle_filled' : 'play_circle_filled' }}
+                    {{ isPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
 
-                  </ma-icon>
+                    </ma-icon>
+                  </a>
 
                   <!-- more options -->
-                  <ma-icon
-                  class="c-box__overlayIcon"
-                  :hover="true">
+                  <a class="c-box__overlayIcon">
+                    <ma-icon :hover="true">
 
-                  more_horiz
+                    more_horiz
 
-                  </ma-icon>
+                    </ma-icon>
+                  </a>
 
               </div>
 
@@ -96,7 +94,7 @@ import * as Vibrant from 'node-vibrant';
 export default {
 
   data: () => ({
-    playing: false,
+    isPlaying: false,
     overlay: false,
     color: '',
   }),
@@ -131,7 +129,7 @@ export default {
   methods: {
     // toggle playing state
     togglePlaying() {
-      this.playing = !this.playing;
+      this.isPlaying = !this.isPlaying;
     },
 
     // get overlay color from album cover

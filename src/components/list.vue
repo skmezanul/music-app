@@ -5,15 +5,13 @@
     <div class="c-list__image" v-if="image[0]">
 
         <!-- play icon over image -->
-        <ma-icon
-        class="c-list__playbackToggle"
-        @click.native="setPlayback({ state: isCurrentlyPlaying ? 'pause' : 'play', trackId })"
-        :class="isCurrentlyPlaying ? 'pause' : 'play'"
-        >
+        <a class="c-list__playbackToggle" @click="setPlayback({ state: isCurrentlyPlaying ? 'pause' : 'play', trackId })">
+            <ma-icon type="small">
 
-        {{ isCurrentlyPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
+            {{ isCurrentlyPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
 
-        </ma-icon>
+            </ma-icon>
+        </a>
 
         <img
         class="c-list__coverImage"
@@ -26,7 +24,9 @@
     <div class="c-list__info">
 
         <!-- playing icon -->
-        <ma-icon class="c-list__playingIcon" v-if="isCurrentlyPlaying">{{ isPlaying ? 'volume_up' : 'volume_down' }}</ma-icon>
+        <span class="c-list__playingIcon" v-if="isCurrentlyPlaying">
+          <ma-icon type="small">{{ isPlaying ? 'volume_up' : 'volume_down' }}</ma-icon>
+        </span>
 
         <!-- index -->
         <span class="c-list__index" v-else>{{ formatIndex(index) }}</span>
@@ -60,25 +60,22 @@
     <div class="c-list__labels" v-if="explicit || popularity">
 
         <!-- icon if popular -->
-        <ma-icon
-        v-if="popularity && popularity > 80"
-        :hover="true"
-        v-tooltip="{ content: $t('popular') }">
+        <span v-if="popularity && popularity > 80" v-tooltip="{ content: $t('popular') }">
+            <ma-icon :hover="true">
 
-        stars
+            stars
 
-        </ma-icon>
+            </ma-icon>
+        </span>
 
         <!-- icon if explicit -->
-        <ma-icon
-        v-if="explicit"
-        :hover="true"
-        v-tooltip="{ content: $t('explicit') }"
-        >
+        <span v-if="explicit" v-tooltip="{ content: $t('explicit') }">
+            <ma-icon :hover="true">
 
-        explicit
+            explicit
 
-        </ma-icon>
+            </ma-icon>
+        </span>
 
     </div>
 
@@ -94,24 +91,22 @@
     <div class="c-list__actions">
 
         <!-- add to playlist -->
-        <ma-icon
-        :hover="true"
-        v-tooltip="{ content: $t('addtoplaylist') }"
-        >
+        <a v-tooltip="{ content: $t('addtoplaylist') }">
+            <ma-icon :hover="true">
 
-        playlist_add
+            playlist_add
 
-        </ma-icon>
+            </ma-icon>
+        </a>
 
         <!-- more options -->
-        <ma-icon
-        :hover="true"
-        v-tooltip="{ content: $t('more') }"
-        >
+        <a v-tooltip="{ content: $t('more') }">
+            <ma-icon :hover="true">
 
-        more_horiz
+            more_horiz
 
-        </ma-icon>
+            </ma-icon>
+        </a>
     </div>
 
 </li>

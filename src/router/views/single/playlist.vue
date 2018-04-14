@@ -16,6 +16,7 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
     ma-section
 
       ma-list(
+        slot='list'
         v-for='(playlist, index) in response.playlist.tracks.items',
         :key='playlist.track.id',
         :trackId='playlist.track.id',

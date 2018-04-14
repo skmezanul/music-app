@@ -4,12 +4,11 @@
 
 .c-button {
   display: inline-flex;
+  align-items: center;
   margin-right: 1em;
   padding: 0.8em 1.3em;
   border: 2px solid;
-  border-color: rgba($white, 0.2);
   border-radius: 2em;
-  background-color: $white-10;
   text-transform: uppercase;
   font-weight: $font-weight-bold;
   font-size: 0.9em;
@@ -19,20 +18,26 @@
   &:hover {
     background-color: $white;
     color: $black;
+    .c-icon {
+      color: $black;
+    }
   }
 
-  &__icon {
-    margin-right: 5px;
-    font-size: 1em;
-    line-height: inherit;
+  &.has-icon {
+    .c-button__title {
+      margin-left: 7px;
+    }
+  }
+
+  &--default {
+    background-color: $white-10;
+    border-color: rgba($white, 0.2);
   }
 
   &--transparent {
     border: 0;
-    background-color: transparent;
 
     &:hover {
-      background-color: inherit;
       color: $white;
     }
   }

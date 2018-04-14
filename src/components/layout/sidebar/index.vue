@@ -14,15 +14,13 @@
             >
 
                 <!-- icon -->
-                <ma-icon
-                class="c-sidebar__selectItemIcon"
-                :hover="true"
-                v-if="item.icon"
-                >
+                <a v-if="item.icon" class="c-sidebar__selectItemIcon">
+                    <ma-icon :hover="true">
 
-                {{ item.icon }}
+                    {{ item.icon }}
 
-                </ma-icon>
+                    </ma-icon>
+                </a>
 
                 <!-- user avatar -->
                 <div class="c-sidebar__selectItemAvatar" v-else>
@@ -50,15 +48,16 @@
         >
 
             <!-- fixed sidebar toggle -->
-            <ma-icon
-            class="c-sidebarPanel__fixedToggle"
-            :hover="true"
-            @click.native="toggleFixedSidebar"
-            >
+            <a class="c-sidebarPanel__fixedToggle" @click="toggleFixedSidebar">
+                <ma-icon
+                type="small"
+                :hover="true"
+                >
 
-            {{ settings.fixedSidebar ? 'lock' : 'lock_open' }}
+                {{ settings.fixedSidebar ? 'lock' : 'lock_open' }}
 
-            </ma-icon>
+                </ma-icon>
+            </a>
 
             <transition name="fade" mode="out-in">
 
@@ -93,11 +92,12 @@
                 >
 
                     <!-- large cover close button -->
-                    <ma-button
-                    type="overlay"
-                    @click.prevent.native="setAppSettings({ largeCover: false })"
-                    icon="close"
-                    ></ma-button>
+                    <a @click.prevent="setAppSettings({ largeCover: false })">
+                      <ma-button
+                      type="overlay"
+                      icon="close"
+                      ></ma-button>
+                    </a>
 
                     <!-- cover image -->
                     <img

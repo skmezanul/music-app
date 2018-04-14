@@ -12,25 +12,28 @@
 
           <div class="c-viewSection__carouselControls" v-if="$slots.default">
 
-              <ma-icon
-              class="c-viewSection__carouselControlsIcon"
-              :class="{ 'is-disabled' : isScrolledToStart }"
-              @click.native="scrollToLeft"
-              >
+              <a class="c-viewSection__carouselControlsIcon c-viewSection__carouselControlsIcon--left" @click="scrollToLeft">
+                <ma-icon
+                :class="{ 'is-disabled' : isScrolledToStart }"
+                type="large"
+                :hover="true"
+                >
 
-              keyboard_arrow_left
+                keyboard_arrow_left
 
-              </ma-icon>
+                </ma-icon>
+              </a>
 
-              <ma-icon
-              class="c-viewSection__carouselControlsIcon"
-              :class="{ 'is-disabled' : isScrolledToEnd }"
-              @click.native="scrollToRight"
-              >
+              <a class="c-viewSection__carouselControlsIcon c-viewSection__carouselControlsIcon--right" @click="scrollToRight">
+                <ma-icon
+                type="large"
+                :hover="true"
+                >
 
-              keyboard_arrow_right
+                keyboard_arrow_right
 
-              </ma-icon>
+                </ma-icon>
+              </a>
 
           </div>
 
@@ -55,7 +58,7 @@
         ></div>
       </transition>
 
-      <div ref="sectionInner" class="c-viewSection__inner c-viewSection__inner--gutter">
+      <div ref="sectionInner" class="c-viewSection__inner c-viewSection__inner--grid">
         <slot></slot>
       </div>
 
@@ -115,14 +118,14 @@ export default {
     scrollToLeft() {
       const self = this;
 
-      if (self.isScrolledToStart) self.scrollCarousel(-1);
+      if (!self.isScrolledToStart) self.scrollCarousel(-1);
     },
 
     // scroll the carousel to the right
     scrollToRight() {
       const self = this;
 
-      if (self.isScrolledToEnd) self.scrollCarousel(1);
+      if (!self.isScrolledToEnd) self.scrollCarousel(1);
     },
 
     // scroll the inner section container
@@ -130,15 +133,15 @@ export default {
       const self = this,
         el = self.$el,
         { sectionInner } = self.$refs,
-        box = el.querySelector('.c-box'),
-        boxWidth = 270;
+        boxes = el.querySelectorAll('.c-box'),
+        scrollWidth = self.innerSectionWidth / (boxes.length / 2);
 
       TweenMax.to(sectionInner, 0.3, {
         x() {
-          if (direction < 0) self.carouselPosition += boxWidth;
-          else self.carouselPosition -= boxWidth;
+          if (direction < 0) self.carouselPosition -= scrollWidth;
+          else self.carouselPosition += scrollWidth;
 
-          return self.carouselPosition;
+          return (self.carouselPosition * -1);
         },
       });
     },
@@ -155,10 +158,19 @@ export default {
       };
     },
 
+    // get inner section width
+    innerSectionWidth() {
+      const self = this,
+        { sectionInner } = self.$refs,
+        innerSectionWidth = sectionInner ? sectionInner.offsetWidth : 1500;
+
+      return innerSectionWidth;
+    },
+
     // check if the carousel is scrolled to the start
     isScrolledToStart() {
       const self = this,
-        isScrolledToStart = self.carouselPosition < 0;
+        isScrolledToStart = self.carouselPosition === 0;
 
       return isScrolledToStart;
     },
@@ -166,9 +178,7 @@ export default {
     // check if the carousel is scrolled to the end
     isScrolledToEnd() {
       const self = this,
-        { sectionInner } = self.$refs,
-        innerWidth = 1280,
-        isScrolledToEnd = self.carouselPosition > (innerWidth * -1);
+        isScrolledToEnd = self.carouselPosition >= self.innerSectionWidth;
 
       return isScrolledToEnd;
     },
@@ -177,7 +187,7 @@ export default {
     listElementsInside() {
       const self = this,
         children = self.$children,
-        listElementsInside = children.filter(child => child.$options.name === 'ma-list');
+        listElementsInside = children.filter(({ $options }) => $options.name === 'ma-list');
 
       return listElementsInside;
     },
@@ -186,7 +196,7 @@ export default {
     boxElementsInside() {
       const self = this,
         children = self.$children,
-        boxElementsInside = children.filter(child => child.$options.name === 'ma-box');
+        boxElementsInside = children.filter(({ $options }) => $options.name === 'ma-box');
 
       return boxElementsInside;
     },

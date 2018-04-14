@@ -28,26 +28,36 @@
   }
 
   &__selectItem {
+    overflow: hidden;
     margin-bottom: 2em;
+    size: 45px;
+    border-radius: 100%;
 
     &.is-active {
-      .c-sidebar__selectItemAvatar {
-        border-color: $white;
-      }
-
       .c-sidebar__selectItemIcon {
         background-color: $white;
-        color: $black;
+
+        i {
+          color: $black;
+        }
       }
     }
 
     &--user {
       position: absolute 3em initial initial 50%;
       margin: 0;
+      size: 55px;
+      border: 3px solid;
+      border-color: transparent;
+      transition: border-color 0.3s;
       transform: translateX(-50%);
 
       &:hover {
         cursor: pointer;
+      }
+
+      &.is-active {
+        border-color: $white;
       }
     }
 
@@ -56,20 +66,11 @@
     }
   }
 
-  &__selectItemAvatar {
-    overflow: hidden;
-    width: 55px;
-    height: 55px;
-    border: 3px solid;
-    border-color: transparent;
-    border-radius: 100%;
-    transition: border-color 0.3s;
-  }
-
   &__selectItemIcon {
-    padding: 9px;
-    border-radius: 100%;
-    font-size: 1.7em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    size: 100%;
   }
 }
 
@@ -129,9 +130,9 @@
   }
 
   &__item {
-    transition: transform 0.3s;
     margin-bottom: 1.5em;
     cursor: pointer;
+    transition: transform 0.3s;
     &:hover {
       transform: translateX(7px);
     }

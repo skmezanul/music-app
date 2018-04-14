@@ -2,7 +2,7 @@
 <a class="c-button" :class="buttonClass">
 
     <!-- icon -->
-    <ma-icon class="c-button__icon" v-if="icon">{{ icon }}</ma-icon>
+    <ma-icon type="small" :hover="true" v-if="icon">{{ icon }}</ma-icon>
 
     <!-- title -->
     <span class="c-button__title">{{ $t(title) }}</span>
@@ -16,7 +16,7 @@ export default {
   props: {
     type: {
       type: String,
-      default: '',
+      default: 'default',
     },
     icon: {
       type: String,
@@ -34,7 +34,7 @@ export default {
       const self = this,
         { type } = self;
 
-      return type ? `c-button--${type}` : null;
+      return [`c-button--${type}`, { 'has-icon': self.icon }];
     },
   },
 

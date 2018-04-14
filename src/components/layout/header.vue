@@ -5,27 +5,37 @@
         <!-- navigation -->
         <div class="c-header__inner c-header__inner--left">
 
-            <!-- left arrow -->
-            <ma-icon
-            class="c-header__navigation c-header__navigation--back"
-            :hover="true"
-            @click.native="$router.back()"
-            >
+            <div class="c-header__navigation">
 
-            keyboard_arrow_left
+              <!-- left arrow -->
+              <a class="c-header__navigationIcon c-header__navigationIcon--back" @click="$router.back()">
 
-            </ma-icon>
+                <ma-icon
+                type="large"
+                :hover="true"
+                >
 
-            <!-- right arrow -->
-            <ma-icon
-            class="c-header__navigation c-header__navigation--forward"
-            :hover="true"
-            @click.native="$router.forward()"
-            >
+                keyboard_arrow_left
 
-            keyboard_arrow_right
+                </ma-icon>
 
-            </ma-icon>
+              </a>
+
+              <!-- right arrow -->
+              <a class="c-header__navigationIcon c-header__navigationIcon--forward" @click="$router.forward()">
+
+                <ma-icon
+                type="large"
+                :hover="true"
+                >
+
+                keyboard_arrow_right
+
+                </ma-icon>
+
+              </a>
+
+            </div>
 
         </div>
 
@@ -34,7 +44,9 @@
             <div class="c-header__search">
 
                 <!-- search icon -->
-                <ma-icon class="c-header__searchIcon">search</ma-icon>
+                <div class="c-header__searchIcon">
+                  <ma-icon>search</ma-icon>
+                </div>
 
                 <!-- search field -->
                 <input
@@ -52,7 +64,6 @@
 
             <!-- github button -->
             <ma-button
-            class="c-header__githubLink"
             title="Visit on GitHub"
             href="https://github.com/microeinhundert/music-app"
             target="_blank"

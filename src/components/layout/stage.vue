@@ -43,7 +43,9 @@
                 </h4>
 
                 <!-- icon if popular -->
-                <ma-icon class="c-stage__popularIcon" v-if="popularity && popularity > 80">stars</ma-icon>
+                <span class="c-stage__popularIcon">
+                    <ma-icon v-if="popularity && popularity > 80" type="small">stars</ma-icon>
+                </span>
             </div>
 
             <!-- title -->

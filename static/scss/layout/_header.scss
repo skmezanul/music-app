@@ -27,9 +27,9 @@
   &__container {
     display: flex;
     justify-content: space-between;
+    width: $content-width-85;
     transition: width 0.3s;
     will-change: width;
-    width: $content-width-85;
   }
 
   &__inner {
@@ -54,7 +54,11 @@
   }
 
   &__navigation {
-    font-size: 2.2em;
+    display: flex;
+  }
+
+  &__navigationIcon {
+    transition: transform 0.3s;
 
     &--back {
       &:hover {
@@ -82,14 +86,14 @@
     outline: 0;
     border: none;
     border-radius: 5px;
-    background-color: rgba($white,0.1);
+    background-color: $white-10;
     color: $white;
     letter-spacing: 1.3px;
     transition-duration: 0.3s;
     transition-property: background-color, box-shadow;
 
     &:focus {
-      background-color: rgba($white,0.2);
+      background-color: $white-20;
       box-shadow: $backdrop-shadow;
     }
 
@@ -102,13 +106,5 @@
     position: absolute 9px initial initial 17px;
     z-index: 2;
     color: $white-50;
-  }
-
-  &__githubLink {
-    color: $white-70;
-
-    &:hover {
-      color: $black;
-    }
   }
 }

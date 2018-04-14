@@ -12,11 +12,12 @@
           >
 
               <!-- large cover button -->
-              <ma-button
-              type="overlay"
-              @click.prevent.native="setAppSettings({ largeCover: true })"
-              icon="keyboard_arrow_up"
-              ></ma-button>
+              <a @click.prevent="setAppSettings({ largeCover: true })">
+                <ma-button
+                type="overlay"
+                icon="keyboard_arrow_up"
+                ></ma-button>
+              </a>
 
               <!-- cover image -->
               <img
@@ -64,94 +65,76 @@
       <!-- playback controls -->
       <div class="c-footer__inner c-footer__inner--middle">
 
-          <!-- shuffle icon -->
-          <ma-icon
-          class="c-icon--shuffle"
-          :hover="true"
-          @click.native="setShuffle"
-          :class="{ 'active': currentPlayback.shuffle_state }"
-          v-tooltip="{ content: $t('shuffle') }"
-          >
+          <div class="c-footer__playbackControls">
 
-          shuffle
+            <!-- shuffle icon -->
+            <a class="c-footer__controlsShuffle" @click="setShuffle" v-tooltip="{ content: $t('shuffle') }">
+              <ma-icon
+              :hover="true"
+              :class="{ 'active': currentPlayback.shuffle_state }"
+              >
 
-          </ma-icon>
+              shuffle
 
-          <!-- skip icon -->
-          <ma-icon
-          class="c-icon--skip"
-          :hover="true"
-          @click.native="skipTo({ direction: 'previous' })"
-          >
+              </ma-icon>
+            </a>
 
-          skip_previous
+            <!-- skip icon -->
+            <a class="c-footer__controlsSkip" @click="skipTo({ direction: 'previous' })">
+              <ma-icon :hover="true">
 
-          </ma-icon>
+              skip_previous
 
-          <!-- playback toggle icon -->
-          <ma-icon
-          class="c-icon--toggle"
-          :hover="true"
-          :class="isPlaying ? 'pause' : 'play'"
-          @click.native="togglePlayback"
-          >
+              </ma-icon>
+            </a>
 
-          {{ isPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
+            <!-- playback toggle icon -->
+            <a class="c-footer__controlsToggle" @click="togglePlayback">
+              <ma-icon
+              type="toggle"
+              :hover="true"
+              >
 
-          </ma-icon>
+              {{ isPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
 
-          <!-- skip icon -->
-          <ma-icon
-          class="c-icon--skip"
-          :hover="true"
-          @click.native="skipTo({ direction: 'next' })"
-          >
+              </ma-icon>
+            </a>
 
-          skip_next
+            <!-- skip icon -->
+            <a class="c-footer__controlsSkip" @click="skipTo({ direction: 'next' })">
+              <ma-icon :hover="true">
 
-          </ma-icon>
+              skip_next
 
-          <!-- repeat icon -->
-          <ma-icon
-          class="c-icon--repeat"
-          :hover="true"
-          v-if="currentPlayback.repeat_state != 'track'"
-          @click.native="toggleRepeat"
-          :class="{ 'active': currentPlayback.repeat_state == 'context' }"
-          v-tooltip="{ content: $t('repeat') }"
-          >
+              </ma-icon>
+            </a>
 
-          repeat
+            <!-- repeat icon -->
+            <a class="c-footer__controlsRepeat" @click="toggleRepeat" v-tooltip="{ content: $t('repeat') }">
+              <ma-icon
+              :hover="true"
+              :class="{ 'active': currentPlayback.repeat_state == 'context' }"
+              >
 
-          </ma-icon>
+              repeat
 
-          <!-- repeat icon -->
-          <ma-icon
-          class="c-icon--repeat"
-          :hover="true"
-          v-if="currentPlayback.repeat_state == 'track'"
-          @click.native="toggleRepeat"
-          v-tooltip="{ content: $t('repeat') }"
-          >
+              </ma-icon>
+            </a>
 
-          repeat_one
-
-          </ma-icon>
+          </div>
       </div>
 
       <!-- other controls -->
       <div class="c-footer__inner c-footer__inner--right">
 
           <!-- video icon -->
-          <ma-icon
-          :hover="true"
-          @click.native="$modal.show('video')"
-          v-tooltip="{ content: $t('watchvideo') }"
-          >
+          <a @click="$modal.show('video')" v-tooltip="{ content: $t('watchvideo') }">
+            <ma-icon :hover="true">
 
-          music_video
+            music_video
 
-          </ma-icon>
+            </ma-icon>
+          </a>
 
           <!-- playback time -->
           <div class="c-footer__playbackTime">

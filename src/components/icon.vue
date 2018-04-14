@@ -1,7 +1,9 @@
 <template>
-<i class="c-icon material-icons" :class="{ 'c-icon--hover' : hover }">
-  <slot></slot>
-</i>
+<span class="c-icon" :class="[{ 'c-icon--hover' : hover,  }, `c-icon--${type}` ]">
+  <i class="material-icons">
+    <slot></slot>
+  </i>
+</span>
 </template>
 
 <script>
@@ -11,6 +13,10 @@ export default {
     hover: {
       type: Boolean,
       default: false,
+    },
+    type: {
+      type: String,
+      default: 'normal',
     },
   },
 
