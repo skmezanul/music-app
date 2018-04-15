@@ -47,11 +47,7 @@
     transition: transform 0.3s;
 
     &.is-collapsed {
-
-      .c-viewSection__collapseToggleIcon {
-        transform: scaleY(-1);
-      }
-
+      transform: scaleY(-1);
     }
   }
 
@@ -66,9 +62,14 @@
   &__inner {
     display: grid;
 
-    &--grid {
+    &--carousel {
       grid-template-columns: repeat(100, 270px);
       grid-template-rows: 1fr;
+      grid-gap: 15px;
+    }
+
+    &--grid {
+      grid-template-columns: repeat(5, 1fr);
       grid-gap: 15px;
     }
 

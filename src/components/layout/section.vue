@@ -29,7 +29,7 @@
 
           </div>
 
-          <a class="c-viewSection__collapseToggle" v-else-if="isCollapsibleList" @click="toggleCollapse">
+          <a class="c-viewSection__collapseToggle" v-else-if="isCollapsibleList" @click="toggleCollapsedList">
 
               <span>{{ $t(isCollapsed ? 'showmore' : 'showless')}}</span>
 
@@ -60,7 +60,7 @@
 
       <div
       ref="sectionInner"
-      class="c-viewSection__inner c-viewSection__inner--grid"
+      class="c-viewSection__inner"
       :class="`c-viewSection__inner--${isBoxCarousel ? 'carousel' : 'grid'}`"
       >
 
@@ -95,6 +95,9 @@ export default {
   data: () => ({
     isCollapsed: true,
     carouselPosition: 0,
+    innerSectionWidth: 0,
+    boxChildren: 0,
+    listChildren: 0,
   }),
 
   props: {
@@ -116,64 +119,59 @@ export default {
     const self = this;
 
     self.$nextTick(() => {
-      if (self.actions) self.toggleVisibleElementCount(3);
+      if (self.actions) self.toggleVisibleElementCount({ count: 3 });
+      if (self.isBoxCarousel) self.innerSectionWidth = self.$refs.sectionInner.offsetWidth;
     });
+  },
+
+  mounted() {
+    const self = this;
+
+    self.listChildren = self.filterChildElements({ componentName: 'ma-list' });
+    self.boxChildren = self.filterChildElements({ componentName: 'ma-box' });
   },
 
   watch: {
     isCollapsed() {
-      const self = this;
-
-      if (self.actions) self.toggleVisibleElementCount(3);
+      this.toggleVisibleElementCount({ count: 3 });
     },
   },
 
   methods: {
     // get elements inside the section
-    elementsInside(name) {
+    filterChildElements({ componentName }) {
       const self = this,
         children = self.$children,
-        elementsInside = children.filter(({ $options }) => $options.name === name);
-
-      console.log(elementsInside);
+        elementsInside = children.filter(({ $options }) => $options.name === componentName);
 
       return elementsInside;
-    },
-
-    // toggle collapse
-    toggleCollapse() {
-      const self = this;
-
-      self.isCollapsed = !self.isCollapsed;
     },
 
     // scroll the carousel to the left
     scrollToLeft() {
       const self = this;
 
-      if (!self.isScrolledToStart) self.scrollInnerSection(-1);
+      if (!self.isScrolledToStart) self.scrollInnerSection({ direction: 'previous' });
     },
 
     // scroll the carousel to the right
     scrollToRight() {
       const self = this;
 
-      if (!self.isScrolledToEnd) self.scrollInnerSection(1);
+      if (!self.isScrolledToEnd) self.scrollInnerSection({ direction: 'next' });
     },
 
     // scroll the inner section container
-    scrollInnerSection(direction) {
+    scrollInnerSection({ direction }) {
       const self = this,
-        el = self.$el,
         { sectionInner } = self.$refs,
-        boxes = el.querySelectorAll('.c-box'),
-        scrollWidth = self.innerSectionWidth / (boxes.length / 2);
+        scrollWidth = self.innerSectionWidth / (self.boxChildren.length / 2);
 
       if (sectionInner) {
         TweenLite.to(sectionInner, 0.3, {
           x() {
-            if (direction < 0) self.carouselPosition -= scrollWidth;
-            else self.carouselPosition += scrollWidth;
+            if (direction === 'next') self.carouselPosition += scrollWidth;
+            else self.carouselPosition -= scrollWidth;
 
             return (self.carouselPosition * -1);
           },
@@ -181,18 +179,21 @@ export default {
       }
     },
 
+    // toggle collapse
+    toggleCollapsedList() {
+      const self = this;
+
+      self.isCollapsed = !self.isCollapsed;
+    },
+
     // toggle the count of visible box or list elements
-    toggleVisibleElementCount(count) {
+    toggleVisibleElementCount({ count }) {
       const self = this,
-        elements = self.elementsInside('ma-list') || self.elementsInside('ma-box');
+        elementsToHide = self.listChildren.filter((item, index) => index > (count - 1));
 
-      if (elements) {
-        const elementsToHide = elements.filter((item, index) => index > (count - 1));
-
-        elementsToHide.forEach(({ $el }) => {
-          TweenLite.set($el, self.isCollapsed ? { display: 'none' } : { clearProps: 'display' });
-        });
-      }
+      elementsToHide.forEach(({ $el }) => {
+        TweenLite.set($el, self.isCollapsed ? { display: 'none' } : { clearProps: 'display' });
+      });
     },
   },
 
@@ -200,28 +201,17 @@ export default {
     // check if the list inside is collapsible
     isCollapsibleList() {
       const self = this,
-        elementCount = self.elementsInside('ma-list').length,
-        isCollapsible = self.actions && elementCount > 2;
+        isCollapsibleList = self.actions && self.listChildren.length > 2;
 
-      return isCollapsible;
+      return isCollapsibleList;
     },
 
     // check if is a box carousel
     isBoxCarousel() {
       const self = this,
-        elementCount = self.elementsInside('ma-box').length,
-        isCarousel = self.actions && elementCount > 4;
+        isCarousel = self.actions && self.boxChildren.length > 4;
 
       return isCarousel;
-    },
-
-    // get inner section width
-    innerSectionWidth() {
-      const self = this,
-        { sectionInner } = self.$refs,
-        innerSectionWidth = sectionInner ? sectionInner.offsetWidth : 1500;
-
-      return innerSectionWidth;
     },
 
     // check if the carousel is scrolled to the start

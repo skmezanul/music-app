@@ -128,8 +128,8 @@ export default {
 
       if (!overlayColor && albumCover) {
         Vibrant.from(albumCover).getPalette()
-          .then((palette) => {
-            self.color = palette.Muted.getRgb();
+          .then(({ Muted }) => {
+            self.color = Muted.getRgb();
           });
       }
     },
