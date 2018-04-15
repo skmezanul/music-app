@@ -1,5 +1,5 @@
 <template>
-<li class="c-list" @dblclick="setPlayback({ state: 'play', trackId })" :class="{ 'is-playing' : isCurrentlyPlaying, 'c-list--image' : image[0] }">
+<li class="c-list" @dblclick="setPlayback({ state: 'play', trackId })" :class="{ 'is-playing' : isCurrentlyPlaying }">
 
     <!-- image -->
     <div class="c-list__image" v-if="image[0]">
@@ -61,20 +61,12 @@
 
         <!-- icon if popular -->
         <span v-if="popularity && popularity > 80" v-tooltip="{ content: $t('popular') }">
-            <ma-icon :hover="true">
-
-            stars
-
-            </ma-icon>
+            <ma-icon :hover="true">stars</ma-icon>
         </span>
 
         <!-- icon if explicit -->
         <span v-if="explicit" v-tooltip="{ content: $t('explicit') }">
-            <ma-icon :hover="true">
-
-            explicit
-
-            </ma-icon>
+            <ma-icon :hover="true">explicit</ma-icon>
         </span>
 
     </div>
@@ -92,20 +84,12 @@
 
         <!-- add to playlist -->
         <a v-tooltip="{ content: $t('addtoplaylist') }">
-            <ma-icon :hover="true">
-
-            playlist_add
-
-            </ma-icon>
+            <ma-icon :hover="true">playlist_add</ma-icon>
         </a>
 
         <!-- more options -->
         <a v-tooltip="{ content: $t('more') }">
-            <ma-icon :hover="true">
-
-            more_horiz
-
-            </ma-icon>
+            <ma-icon :hover="true">more_horiz</ma-icon>
         </a>
     </div>
 

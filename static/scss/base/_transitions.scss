@@ -29,7 +29,7 @@
 }
 
 
-// slide right transition with transform (sidebar panel)
+// slide right transition with transform
 .slide-right-transform-enter-active,
 .slide-right-transform-leave-active {
   transition: transform 0.3s;
@@ -41,6 +41,20 @@
 
 .slide-right-transform-leave-to {
   transform: translateX(-100%);
+}
+
+// slide left transition with transform
+.slide-left-transform-enter-active,
+.slide-left-transform-leave-active {
+  transition: transform 0.3s;
+}
+
+.slide-left-transform-enter {
+  transform: translateX(100%);
+}
+
+.slide-left-transform-leave-to {
+  transform: translateX(100%);
 }
 
 

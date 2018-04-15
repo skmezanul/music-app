@@ -13,11 +13,7 @@
                 <ma-icon
                 type="large"
                 :hover="true"
-                >
-
-                keyboard_arrow_left
-
-                </ma-icon>
+                >keyboard_arrow_left</ma-icon>
 
               </a>
 
@@ -27,11 +23,7 @@
                 <ma-icon
                 type="large"
                 :hover="true"
-                >
-
-                keyboard_arrow_right
-
-                </ma-icon>
+                >keyboard_arrow_right</ma-icon>
 
               </a>
 

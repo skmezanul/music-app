@@ -22,9 +22,11 @@
   // albums
   ma-section(
     v-if='parentData.albums.total',
-    :title='$tc("album", 0)')
+    :title='$tc("album", 0)',
+    :actions='false')
 
     ma-box(
+      slot='boxes'
       v-for='album in parentData.albums.items',
       :key='album.id',
       :type='album.type',
@@ -40,6 +42,7 @@
     :title='$tc("single", 0)')
 
     ma-box(
+      slot='boxes'
       v-for='single in parentData.singles.items',
       :key='single.id',
       :type='single.type',
@@ -55,6 +58,7 @@
     :title='$t("appearson")')
 
     ma-box(
+      slot='boxes'
       v-for='album in parentData.appearsOn.items',
       :key='album.id',
       :type='album.type',

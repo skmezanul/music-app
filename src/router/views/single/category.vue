@@ -12,6 +12,7 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
     ma-section
 
       ma-box(
+        slot='boxes'
         v-for='playlist in response.category.playlists.items',
         :key='playlist.id',
         :type='playlist.type',

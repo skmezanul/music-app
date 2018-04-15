@@ -6,6 +6,7 @@
     :title='`${$t("relatedto")} ${parentData.artistInfo.name}`')
 
     ma-box(
+      slot='boxes'
       v-for='artist in parentData.relatedArtists.artists',
       :key='artist.id',
       :type='artist.type',

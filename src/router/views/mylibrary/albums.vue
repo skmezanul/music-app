@@ -14,6 +14,7 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
     ma-section
 
       ma-box(
+        slot='boxes'
         v-for='item in response.albums.items',
         :key='item.album.id',
         :primaryid='item.album.id',

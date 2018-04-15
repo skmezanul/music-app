@@ -5,6 +5,7 @@
   ma-section(:title='$t("newreleases")')
 
     ma-box(
+      slot='boxes'
       v-for='album in parentData.releases.albums.items',
       :key='album.id',
       :type='album.type',

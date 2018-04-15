@@ -1,5 +1,5 @@
 <template>
-<a class="c-button" :class="buttonClass">
+<a class="c-button" :class="buttonClasses">
 
     <!-- icon -->
     <ma-icon type="small" :hover="true" v-if="icon">{{ icon }}</ma-icon>
@@ -30,11 +30,10 @@ export default {
 
   computed: {
     // button modifier class
-    buttonClass() {
-      const self = this,
-        { type } = self;
+    buttonClasses() {
+      const self = this;
 
-      return [`c-button--${type}`, { 'has-icon': self.icon }];
+      return [`c-button--${self.type}`, { 'has-icon': self.icon }];
     },
   },
 

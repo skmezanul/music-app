@@ -4,21 +4,10 @@
 
 .c-viewSection {
   display: grid;
-  grid-auto-flow: auto;
   grid-gap: 1.7em;
 
   &:last-of-type {
     padding-bottom: 100px;
-  }
-
-  &.is-collapsed {
-    p {
-      display: none;
-    }
-
-    .c-viewSection__collapseToggleIcon {
-      transform: scaleY(-1);
-    }
   }
 
   &__carouselWrapper {
@@ -56,6 +45,14 @@
 
   &__collapseToggleIcon {
     transition: transform 0.3s;
+
+    &.is-collapsed {
+
+      .c-viewSection__collapseToggleIcon {
+        transform: scaleY(-1);
+      }
+
+    }
   }
 
   &__carouselControls {
@@ -67,17 +64,17 @@
   }
 
   &__inner {
-    display: flex;
+    display: grid;
 
     &--grid {
-      display: grid;
       grid-template-columns: repeat(100, 270px);
       grid-template-rows: 1fr;
       grid-gap: 15px;
     }
 
-    &--wrap {
-      flex-wrap: wrap;
+    &--list {
+      grid-auto-rows: 75px;
+      grid-row-gap: 2px;
     }
   }
 

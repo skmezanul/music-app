@@ -6,6 +6,7 @@
     :title='parentData.featured.message')
 
     ma-box(
+      slot='boxes'
       v-for='playlist in parentData.featured.playlists.items',
       :key='playlist.id',
       :type='playlist.type',
@@ -19,6 +20,7 @@
     :title='$t("newreleases")')
 
     ma-box(
+      slot='boxes'
       v-for='album in parentData.releases.albums.items',
       :key='album.id',
       :type='album.type',

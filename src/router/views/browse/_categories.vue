@@ -5,6 +5,7 @@
   ma-section(:title='$tc("category", 0)')
 
     ma-box(
+      slot='boxes'
       v-for='category in parentData.categories.categories.items',
       :key='category.id',
       type='category',

@@ -20,29 +20,17 @@
 
                   <!-- favorite -->
                   <a class="c-box__overlayIcon">
-                    <ma-icon :hover="true">
-
-                    favorite
-
-                    </ma-icon>
+                    <ma-icon :hover="true">favorite</ma-icon>
                   </a>
 
                   <!-- playback toggle -->
                   <a @click.prevent="togglePlaying" class="c-box__overlayIcon">
-                    <ma-icon type="toggle">
-
-                    {{ isPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}
-
-                    </ma-icon>
+                    <ma-icon type="toggle">{{ isPlaying ? 'pause_circle_filled' : 'play_circle_filled' }}</ma-icon>
                   </a>
 
                   <!-- more options -->
                   <a class="c-box__overlayIcon">
-                    <ma-icon :hover="true">
-
-                    more_horiz
-
-                    </ma-icon>
+                    <ma-icon :hover="true">more_horiz</ma-icon>
                   </a>
 
               </div>

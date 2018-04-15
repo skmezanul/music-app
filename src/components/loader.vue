@@ -9,16 +9,16 @@
       appear="appear"
       >
 
-      <!-- animated waves -->
-      <span
-      class="c-loader__wave"
-      v-for="(n, index) in 6"
-      :style="{ left: `${20 * index}px` }"
-      :key="index"
-      ref="loaderElement"
-      ></span>
+          <!-- animated waves -->
+          <span
+          class="c-loader__wave"
+          v-for="(n, index) in 6"
+          :style="{ left: `${20 * index}px` }"
+          :key="index"
+          ref="loaderElement"
+          ></span>
 
-    </transition-group>
+      </transition-group>
 
   </div>
 </template>

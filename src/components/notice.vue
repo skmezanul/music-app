@@ -9,7 +9,9 @@
           <p class="c-notice__message">{{ message }}</p>
 
           <!-- button to remove notice -->
-          <ma-icon class="c-notice__close" :hover="true" @click.native="removeNotice({ action: 'remove' })">close</ma-icon>
+          <a class="c-notice__close" @click="removeNotice({ action: 'remove' })">
+              <ma-icon :hover="true">close</ma-icon>
+          </a>
 
       </div>
   </div>

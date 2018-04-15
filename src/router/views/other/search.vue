@@ -36,6 +36,7 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
       :collapsible='true')
 
       ma-box(
+        slot='boxes'
         v-for='album in response.results.albums.items',
         :key='album.id',
         :type='album.type',
@@ -52,6 +53,7 @@ api-request.o-view__parent(:resource='dataToFetch', v-model='response')
       :collapsible='true')
 
       ma-box(
+        slot='boxes'
         v-for='artist in response.results.artists.items',
         :key='artist.id',
         :type='artist.type',
