@@ -68,7 +68,7 @@ export default {
 
       let headerImage;
 
-      if (additionalArtistInfo) headerImage = additionalArtistInfo.headerImages;
+      if (additionalArtistInfo.headerImages) headerImage = additionalArtistInfo.headerImages;
       else if (artistInfo) headerImage = artistInfo.images;
 
       return headerImage;

@@ -120,12 +120,13 @@ export default {
 
     self.$nextTick(() => {
       if (self.actions) self.toggleVisibleElementCount({ count: 3 });
-      if (self.isBoxCarousel) self.innerSectionWidth = self.$refs.sectionInner.offsetWidth;
     });
   },
 
   mounted() {
     const self = this;
+
+    self.getInnerSectionWidth();
 
     self.listChildren = self.filterChildElements({ componentName: 'ma-list' });
     self.boxChildren = self.filterChildElements({ componentName: 'ma-box' });
@@ -161,17 +162,28 @@ export default {
       if (!self.isScrolledToEnd) self.scrollInnerSection({ direction: 'next' });
     },
 
+    getInnerSectionWidth() {
+      const self = this,
+        el = self.$el,
+        boxes = el.querySelectorAll('.c-box'),
+        spacing = boxes.length * 15,
+        innerSectionWidth = boxes[0].offsetWidth * ((boxes.length + 1) + spacing);
+
+      self.innerSectionWidth = innerSectionWidth;
+    },
+
     // scroll the inner section container
     scrollInnerSection({ direction }) {
       const self = this,
         { sectionInner } = self.$refs,
-        scrollWidth = self.innerSectionWidth / (self.boxChildren.length / 2);
+        scrollWidth = self.innerSectionWidth / (self.boxChildren.length + 1),
+        roundedScrollWidth = Math.round(scrollWidth, 0);
 
       if (sectionInner) {
         TweenLite.to(sectionInner, 0.3, {
           x() {
-            if (direction === 'next') self.carouselPosition += scrollWidth;
-            else self.carouselPosition -= scrollWidth;
+            if (direction === 'next') self.carouselPosition += 270;
+            else self.carouselPosition -= 270;
 
             return (self.carouselPosition * -1);
           },
