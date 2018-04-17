@@ -214,7 +214,7 @@ export default {
   methods: {
     ...mapActions({
       skipTo: 'playback/SKIP_TO',
-      seekTo: 'playback/SEEK_TO',
+      seekTo: 'player/SEEK_TO',
       toggleRepeat: 'playback/TOGGLE_REPEAT',
       setShuffle: 'playback/SET_SHUFFLE',
       togglePlayback: 'player/TOGGLE_PLAYBACK',
@@ -252,7 +252,7 @@ export default {
         clickedPosition = (event.clientX / progressBarWidth) * 100,
         position = Math.round((self.duration / 100) * clickedPosition);
 
-      if (progressContainer && position) {
+      if (position) {
         self.seekTo({
           position,
         }).then(() => {

@@ -63,12 +63,30 @@ const actions = {
     });
   },
 
+  /**
+  * Toggle the playback.
+  */
   TOGGLE_PLAYBACK({ state }) {
     const { player } = state;
 
     player.togglePlay().catch((err) => {
       commit('app/SET_NOTICE', { action: 'add', type: 'error', message: err }, { root: true });
     });
+  },
+
+  /**
+  * Seek to position in track,
+  * @param { object } payload The function payload.
+  * @param { number } payload.position The position to seek to.
+  */
+  SEEK_TO({ state, commit }, { position }) {
+    const { player } = state;
+
+    if (position) {
+      player.seek(position).catch((err) => {
+        commit('app/SET_NOTICE', { action: 'add', type: 'error', message: err }, { root: true });
+      });
+    }
   },
 };
 

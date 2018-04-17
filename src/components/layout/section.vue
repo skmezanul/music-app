@@ -182,8 +182,8 @@ export default {
       if (sectionInner) {
         TweenLite.to(sectionInner, 0.3, {
           x() {
-            if (direction === 'next') self.carouselPosition += 270;
-            else self.carouselPosition -= 270;
+            if (direction === 'next') self.carouselPosition += roundedScrollWidth;
+            else self.carouselPosition -= roundedScrollWidth;
 
             return (self.carouselPosition * -1);
           },
