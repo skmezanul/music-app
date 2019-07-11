@@ -35,7 +35,7 @@
     "node-vibrant": "^3.0.0",
     "normalize.css": "^7.0.0",
     "query-string": "^5.0.1",
-    "v-tooltip": "^2.0.0-rc.25",
+    "v-tooltip": "^2.0.0",
     "vue": "^2.5.10",
     "vue-axios": "^2.0.2",
     "vue-clickaway": "^2.1.0",
