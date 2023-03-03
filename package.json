@@ -8,7 +8,9 @@
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "prepare": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -46,7 +48,8 @@
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
     "vuex-pathify": "^1.0.1",
-    "vuex-persistedstate": "^2.5.2"
+    "vuex-persistedstate": "^2.5.2",
+    "@snyk/protect": "latest"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-beta.9",
@@ -66,5 +69,6 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "snyk": true
 }
