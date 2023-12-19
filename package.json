@@ -28,10 +28,10 @@
     "spotify"
   ],
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "gsap": "^1.20.4",
     "material-design-icons": "^3.0.1",
-    "node-vibrant": "^3.0.0",
+    "node-vibrant": "^3.1.0",
     "normalize.css": "^8.0.0",
     "query-string": "^6.0.0",
     "rellax": "^1.6.2",
